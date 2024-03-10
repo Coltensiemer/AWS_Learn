@@ -1,25 +1,16 @@
-"use client"
-import { EasyQA } from "@/Data"
-import { useParams } from "next/navigation"
+'use client';
+import { EasyQA } from '@/Data';
+import { useParams } from 'next/navigation';
+import { Quiz } from '@/useClient/Quiz';
 
+/// This could be a static rendering GETSTATICPROPS once data is in a server. 
+/// Data will be cached at build time and cach to a CDN
 export default function Page({ params }: { params: { slug: string } }) {
+  const { index } = useParams();
 
-	const {index} = useParams(); 
-	
-	const questionIndex = parseInt(params.slug + 1);
+  const questionIndex = parseInt(params.slug + 1);
 
-
-	return ( 
-		<div>
-			{EasyQA[questionIndex] && (
-				<div key={questionIndex}>
-					<h2>{EasyQA[questionIndex].question}</h2>
-					{EasyQA[questionIndex].options.map((option, index) => {
-						return <p key={index}>{option}</p>;
-					})}
-				</div>
-			)}
-		</div>
-	)
-
-  }
+  return (
+<Quiz questions={EasyQA} questionIndex={questionIndex} />
+  );
+}
