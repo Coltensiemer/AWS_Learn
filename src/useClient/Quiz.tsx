@@ -13,6 +13,8 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
+import SuccessfulToast from './toasts';
+import { Toaster } from '@/components/ui/toaster';
 
 interface QuestionType {
   question: string;
@@ -25,22 +27,30 @@ interface QuizProps {
 }
 
 const FormSchema = z.object({
-  type: z.enum(['A', 'B', 'C', 'D'], {
-    required_error: 'The Answer selected is invalid. Please select a valid answer.',
-  }),
+  type: z.enum(['A', 'B', 'C', 'D'],),
 });
 
 // This is the Quiz component that is exported to the page.
 export function Quiz({ questions, questionIndex }: QuizProps) {
+  const [currentQuestion, setCurrentQuestion] = React.useState<boolean>(false);
+  const toast = Toaster();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
+  function compareAnswer(answer: string, correctAnswer: string) {
+    return answer === correctAnswer;
+  }
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     const formData = form.getValues();
-    console.log("hello world", formData);
+    const correctAnswer = questions[questionIndex].correct_answer;
+    const isCorrect = compareAnswer(formData.type, correctAnswer);
+    console.log(isCorrect);
   }
+
+
 
   return (
     <Form {...form}>
@@ -52,8 +62,10 @@ export function Quiz({ questions, questionIndex }: QuizProps) {
             <FormItem className='space-y-3'>
               <FormLabel>{questions[questionIndex].question}</FormLabel>
               <FormControl>
-                <RadioGroup defaultValue={field.value}
-                onValueChange={field.onChange}>
+                <RadioGroup
+                  defaultValue={field.value}
+                  onValueChange={field.onChange}
+                >
                   {questions[questionIndex].options.map((option, index) => {
                     return (
                       <div key={index} className='flex items-center space-x-2'>
@@ -76,4 +88,3 @@ export function Quiz({ questions, questionIndex }: QuizProps) {
     </Form>
   );
 }
-
