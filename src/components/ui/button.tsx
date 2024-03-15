@@ -37,6 +37,8 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
+  label: string
+  backgroundColor?: string
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
