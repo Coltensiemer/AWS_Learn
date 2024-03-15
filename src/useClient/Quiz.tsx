@@ -13,33 +13,36 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
-import SuccessfulToast from './toasts';
-import { Toaster } from '@/components/ui/toaster';
+import { useRouter, useParams, usePathname } from 'next/navigation';
 
+// This is the type definition for the questions that are passed to the Quiz component.
 interface QuestionType {
   question: string;
   options: string[];
   correct_answer: string;
 }
+// This is the type definition for the props that are passed to the Quiz component.
 interface QuizProps {
   questions: QuestionType[];
   questionIndex: number;
 }
 
+// This is the schema that is used to validate the form data for the quiz. 
 const FormSchema = z.object({
-  type: z.enum(['A', 'B', 'C', 'D'],),
+  type: z.enum(['A', 'B', 'C', 'D']),
 });
 
 // This is the Quiz component that is exported to the page.
 export function Quiz({ questions, questionIndex }: QuizProps) {
-  const [currentQuestion, setCurrentQuestion] = React.useState<boolean>(false);
-  const toast = Toaster();
+  const router = useRouter();
+  const params = useParams<{ slug: string }>();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
   function compareAnswer(answer: string, correctAnswer: string) {
+    //return true if the answer is correct
     return answer === correctAnswer;
   }
 
@@ -47,10 +50,14 @@ export function Quiz({ questions, questionIndex }: QuizProps) {
     const formData = form.getValues();
     const correctAnswer = questions[questionIndex].correct_answer;
     const isCorrect = compareAnswer(formData.type, correctAnswer);
-    console.log(isCorrect);
+    if (isCorrect) {
+      //if the answer is correct, increment the slug number and navigate to the next question
+      const currentSlugNumber = parseInt(params.slug);
+      const nextSlug = currentSlugNumber + 1;
+      const nextSlugString = nextSlug.toString();
+      router.push(nextSlugString);
+    }
   }
-
-
 
   return (
     <Form {...form}>
