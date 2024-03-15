@@ -1,6 +1,6 @@
 import React from 'react';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '../components/ui/radio-group';
+import { Label} from "../components/ui/label";
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -11,8 +11,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Button } from '@/components/ui/button';
+} from '../components/ui/form';
+import { Button } from '../components/ui/button';
 import { useRouter, useParams, usePathname } from 'next/navigation';
 
 // This is the type definition for the questions that are passed to the Quiz component.
