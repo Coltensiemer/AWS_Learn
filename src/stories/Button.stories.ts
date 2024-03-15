@@ -28,7 +28,7 @@ export const Primary: Story = {
   args: {
     children:"Enter text here",
     label: 'Button',
-    backgroundColor: 'red',
+    backgroundColor: 'black',
     size: 'default',
   },
 };

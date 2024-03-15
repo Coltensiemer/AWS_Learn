@@ -90,7 +90,7 @@ export function Quiz({ questions, questionIndex }: QuizProps) {
             </FormItem>
           )}
         />
-        <Button type='submit'>Submit</Button>
+        <Button size="sm" type='submit'>Submit</Button>
       </form>
     </Form>
   );
