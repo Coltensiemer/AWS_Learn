@@ -41,3 +41,11 @@ const meta = {
 	  questionIndex: 0, 
 	},
   };
+
+  Primary.parameters = { 
+	button: { 
+		size: 'default',
+		variant: 'default',
+	} 
+
+  } 
