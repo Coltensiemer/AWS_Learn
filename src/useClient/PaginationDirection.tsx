@@ -11,6 +11,9 @@ import {
 } from '../components/ui/pagination';
 import { useParams, usePathname } from 'next/navigation';
 
+
+// maybe pass quiz info down via props. 
+
 export function PaginationDirection() {
   const PathName = usePathname();
   //Find the index of the last occurrence of '/' character in the pathname.
