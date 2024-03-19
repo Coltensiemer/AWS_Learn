@@ -13,7 +13,8 @@ import {
   FormMessage,
 } from '../components/ui/form';
 import { Button } from '../components/ui/button';
-import { useRouter, useParams, usePathname } from 'next/navigation';
+import { useRouter, useParams, } from 'next/navigation';
+import { PaginationDirection } from './PaginationDirection';
 
 // This is the type definition for the questions that are passed to the Quiz component.
 interface QuestionType {
@@ -60,6 +61,7 @@ export function Quiz({ questions, questionIndex }: QuizProps) {
   }
 
   return (
+    <>
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='w-2/3 space-y-6'>
         <FormField
@@ -93,5 +95,7 @@ export function Quiz({ questions, questionIndex }: QuizProps) {
         <Button size="sm" type='submit'>Submit</Button>
       </form>
     </Form>
+<PaginationDirection /> 
+  </>
   );
 }

@@ -1,4 +1,4 @@
-import { EasyQA } from '@/Data';
+import { EasyQA } from '../../Data';
 import Link from 'next/link';
 
 export default function EasyQuestions() {
