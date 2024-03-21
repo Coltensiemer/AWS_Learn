@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Certainly! Here's the updated README.md file outline with all sections in one sheet:
 
-## Getting Started
+```markdown
+# Project Name
 
-First, run the development server:
+## Description
+Brief description of the project, including its purpose and key features.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Credits](#credits)
+- [Contact](#contact)
+
+## Installation
+1. Install Node.js and npm if not already installed.
+2. Clone the repository:
+`
+   git clone <repository_url>`
+3. Install dependencies:
+`
+   npm install
+
+## Usage
+1. To start the development server, run:
+`
+   npm run dev
+2. To build the project, run:
+`
+   npm run build
+
+3. To start the production server, run:
+`
+   npm run start
+
+4. Additional scripts:
+   - `lint`: Run ESLint for linting.
+   - `storybook`: Start Storybook development server.
+   - `build-storybook`: Build Storybook static files.
+
+## Contributing
+If you'd like to contribute to the project, please follow these steps:
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and ensure tests pass.
+4. Commit your changes and push your branch to GitHub.
+5. Open a pull request with a clear title and description.
+
+## License
+
+## Credits
+Acknowledgements for any third-party libraries, resources, or individuals who contributed to the project.
+- [@hookform/resolvers](https://www.npmjs.com/package/@hookform/resolvers)
+- [@radix-ui/react-label](https://www.npmjs.com/package/@radix-ui/react-label)
+- [@radix-ui/react-radio-group](https://www.npmjs.com/package/@radix-ui/react-radio-group)
+- [@radix-ui/react-slot](https://www.npmjs.com/package/@radix-ui/react-slot)
+- [@radix-ui/react-toast](https://www.npmjs.com/package/@radix-ui/react-toast)
+- [class-variance-authority](https://www.npmjs.com/package/class-variance-authority)
+- [clsx](https://www.npmjs.com/package/clsx)
+- [lucide-react](https://www.npmjs.com/package/lucide-react)
+- [next](https://www.npmjs.com/package/next)
+- [react](https://www.npmjs.com/package/react)
+- [react-dom](https://www.npmjs.com/package/react-dom)
+- [react-hook-form](https://www.npmjs.com/package/react-hook-form)
+- [tailwind-merge](https://www.npmjs.com/package/tailwind-merge)
+- [tailwindcss-animate](https://www.npmjs.com/package/tailwindcss-animate)
+- [zod](https://www.npmjs.com/package/zod)
+
+
+## Contact
+For questions or inquiries, please contact Colten Siemer at colten50@hotmail.com.
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
