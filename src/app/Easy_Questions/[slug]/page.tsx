@@ -2,6 +2,7 @@
 import { EasyQA } from '../../../Data';
 import { Quiz } from '../../../useClient/Quiz';
 
+
 /// This could be a static rendering GETSTATICPROPS once data is in a server.
 /// Data will be cached at build time and cach to a CDN
 export default function Page({ params }: { params: { slug: string } }) {
@@ -11,7 +12,7 @@ export default function Page({ params }: { params: { slug: string } }) {
 
   return (
     <div className='flex flex-col'>
-      <Quiz questions={EasyQA} questionIndex={questionIndex} />
+    <Quiz questions={EasyQA} questionIndex={questionIndex} />
     </div>
   );
 }

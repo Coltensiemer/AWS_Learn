@@ -16,6 +16,7 @@ import { Button } from '../components/ui/button';
 import { useRouter, useParams } from 'next/navigation';
 import { PaginationDirection } from './PaginationDirection';
 
+
 // This is the type definition for the questions that are passed to the Quiz component.
 interface QuestionType {
   question: string;
@@ -57,6 +58,9 @@ export function Quiz({ questions, questionIndex }: QuizProps) {
       const nextSlug = currentSlugNumber + 1;
       const nextSlugString = nextSlug.toString();
       router.push(nextSlugString);
+    }
+    else { 
+
     }
   }
 
