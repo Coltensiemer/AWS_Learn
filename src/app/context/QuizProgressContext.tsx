@@ -1,11 +1,11 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 
-interface QuizProgressContextType { 
+export interface QuizProgressContextType { 
   correctAnswers: number;
   incorrectAnswers: number;
   totalQuestions: number;
-  currentQuestion: number;
+  currentQuestion: number 
   incrementCorrectAnswers: () => void;
   incrementIncorrectAnswers: () => void;
   incrementCurrentQuestion: () => void;
@@ -36,6 +36,7 @@ export const QuizProgressProvider = ({ children }: QuizProgressProviderProps ) =
 
   const incrementCurrentQuestion = () => {
     setCurrentQuestion(prevCount => prevCount + 1);
+    console.log("incrementing current question")
   }
 
   return (

@@ -1,25 +1,32 @@
-"use client"
+'use client';
 import Link from 'next/link';
-import { QuizProgressProvider, QuizProgressContext } from '../context/QuizProgressContext';
+import {
+  QuizProgressContext,
+} from '../context/QuizProgressContext';
 import { useContext } from 'react';
+import { Button } from '../../components/ui/button';
 
 export default function EasyQuestions() {
-  const  incrementCurrentQuestion  = useContext(QuizProgressContext);
+  const QuizContext = useContext(QuizProgressContext);
 
-
-  const StartQuiz = () => { 
-    incrementCurrentQuestion
-  }   
+  /// this will start the quiz and increment the current question
+  const StartQuiz = () => {
+    QuizContext?.incrementCurrentQuestion();
+  };
 
   return (
     <>
-      <QuizProgressProvider>
+      
         <div>
           <h1>Easy Mode</h1>
-          <Link href='Easy_Questions/1' onClick={StartQuiz}>Start Quiz</Link>
+          <Button onClick={StartQuiz}>
+          <Link href='Easy_Questions/1'>
+            Start Quiz
+          </Link>
+          </Button>
           <p>Options</p>
         </div>
-      </QuizProgressProvider>
+      
     </>
   );
 }
