@@ -2,7 +2,7 @@
 import { EasyQA } from '../../../Data';
 import { Quiz } from '../../../useClient/Quiz';
 import QuizTracker from '../../../useClient/QuizTracker';
-import { QuizProgressContext, QuizProgressProvider } from '../.././context/QuizProgressContext';
+import { QuizProgressContext, QuizProgressProvider } from '../../useContext/QuizProgressContext';
 import { useContext } from 'react';
 
 /// This could be a static rendering GETSTATICPROPS once data is in a server.

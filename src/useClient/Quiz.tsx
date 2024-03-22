@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { RadioGroup, RadioGroupItem } from '../components/ui/radio-group';
 import { Label } from '../components/ui/label';
 import { z } from 'zod';
@@ -15,7 +15,7 @@ import {
 import { Button } from '../components/ui/button';
 import { useRouter, useParams } from 'next/navigation';
 import { PaginationDirection } from './PaginationDirection';
-
+import { QuizProgressContext } from '../app/useContext/QuizProgressContext'
 
 // This is the type definition for the questions that are passed to the Quiz component.
 interface QuestionType {
@@ -36,6 +36,7 @@ const FormSchema = z.object({
 
 // This is the Quiz component that is exported to the page.
 export function Quiz({ questions, questionIndex }: QuizProps) {
+  const QuizContext = useContext(QuizProgressContext);
   const router = useRouter();
   const params = useParams<{ slug: string }>();
 
@@ -53,6 +54,7 @@ export function Quiz({ questions, questionIndex }: QuizProps) {
     const correctAnswer = questions[questionIndex].correct_answer;
     const isCorrect = compareAnswer(formData.type, correctAnswer);
     if (isCorrect) {
+      QuizContext?.incrementCorrectAnswers();
       //if the answer is correct, increment the slug number and navigate to the next question
       const currentSlugNumber = parseInt(params.slug);
       const nextSlug = currentSlugNumber + 1;
@@ -60,7 +62,12 @@ export function Quiz({ questions, questionIndex }: QuizProps) {
       router.push(nextSlugString);
     }
     else { 
-
+      QuizContext?.incrementIncorrectAnswers();
+      //if the answer is incorrect, increment the slug number and navigate to the next question
+      const currentSlugNumber = parseInt(params.slug);
+      const nextSlug = currentSlugNumber + 1;
+      const nextSlugString = nextSlug.toString();
+      router.push(nextSlugString);
     }
   }
 
@@ -111,7 +118,7 @@ export function Quiz({ questions, questionIndex }: QuizProps) {
           </form>
         </Form>
       </div>
-      <PaginationDirection />
+      <PaginationDirection currentQuestion={QuizContext?.currentQuestion} />
     </>
   );
 }

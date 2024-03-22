@@ -1,10 +1,8 @@
 
-
 interface QuizTrackerProps {
 	currentQuestion: number | undefined
   }
   
-
 export default function QuizTracker({ currentQuestion }: QuizTrackerProps){
 	
 

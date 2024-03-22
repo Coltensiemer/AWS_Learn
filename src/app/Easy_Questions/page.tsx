@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import {
   QuizProgressContext,
-} from '../context/QuizProgressContext';
+} from '../useContext/QuizProgressContext';
 import { useContext } from 'react';
 import { Button } from '../../components/ui/button';
 
@@ -10,16 +10,14 @@ export default function EasyQuestions() {
   const QuizContext = useContext(QuizProgressContext);
 
   /// this will start the quiz and increment the current question
-  const StartQuiz = () => {
-    QuizContext?.incrementCurrentQuestion();
-  };
+  
 
   return (
     <>
       
         <div>
           <h1>Easy Mode</h1>
-          <Button onClick={StartQuiz}>
+          <Button >
           <Link href='Easy_Questions/1'>
             Start Quiz
           </Link>
