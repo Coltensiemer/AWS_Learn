@@ -1,3 +1,5 @@
+"use client"
+
 import React, {useContext} from 'react';
 import { RadioGroup, RadioGroupItem } from '../components/ui/radio-group';
 import { Label } from '../components/ui/label';
@@ -20,13 +22,14 @@ import { QuizProgressContext } from '../app/useContext/QuizProgressContext'
 // This is the type definition for the questions that are passed to the Quiz component.
 interface QuestionType {
   question: string;
+  id: string;
   options: string[];
   correct_answer: string;
 }
 // This is the type definition for the props that are passed to the Quiz component.
 interface QuizProps {
   questions: QuestionType[];
-  questionIndex: number;
+  questionID: string;
 }
 
 // This is the schema that is used to validate the form data for the quiz.
@@ -35,7 +38,7 @@ const FormSchema = z.object({
 });
 
 // This is the Quiz component that is exported to the page.
-export function Quiz({ questions, questionIndex }: QuizProps) {
+export function Quiz({ questions, questionID }: QuizProps) {
   const QuizContext = useContext(QuizProgressContext);
   const router = useRouter();
   const params = useParams<{ slug: string }>();
@@ -51,7 +54,9 @@ export function Quiz({ questions, questionIndex }: QuizProps) {
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     const formData = form.getValues();
-    const correctAnswer = questions[questionIndex].correct_answer;
+    const question = questions.find((q) => q.id === questionID);
+    if (!question) { console.error('Question not found'); return; }
+    const correctAnswer = question.correct_answer;
     const isCorrect = compareAnswer(formData.type, correctAnswer);
     if (isCorrect) {
       QuizContext?.incrementCorrectAnswers();
@@ -85,14 +90,14 @@ export function Quiz({ questions, questionIndex }: QuizProps) {
               render={({ field }) => (
                 <FormItem className='space-y-3'>
                   <FormLabel className='text-lg'>
-                    {questions[questionIndex].question}
+                    {questionID && questions.find((q) => q.id === questionID)?.question}
                   </FormLabel>
                   <FormControl>
                     <RadioGroup
                       defaultValue={field.value}
                       onValueChange={field.onChange}
                     >
-                      {questions[questionIndex].options.map((option, index) => {
+                      {questionID && questions.find(q => q.id === questionID)?.options.map((option, index) => {
                         return (
                           <div
                             key={index}
@@ -118,7 +123,7 @@ export function Quiz({ questions, questionIndex }: QuizProps) {
           </form>
         </Form>
       </div>
-      <PaginationDirection currentQuestion={QuizContext?.currentQuestion} />
+      <PaginationDirection  />
     </>
   );
 }

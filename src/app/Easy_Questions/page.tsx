@@ -1,16 +1,23 @@
-'use client';
+
 import Link from 'next/link';
-import {
-  QuizProgressContext,
-} from '../useContext/QuizProgressContext';
+import { QuizProgressContext } from '../useContext/QuizProgressContext';
 import { useContext } from 'react';
 import { Button } from '../../components/ui/button';
+import { EasyQA } from '../../Data';
 
-export default function EasyQuestions() {
-  const QuizContext = useContext(QuizProgressContext);
 
-  /// this will start the quiz and increment the current question
-  
+export async function generateStaticParams() {
+  return EasyQA.map((question) => ({
+    params: {
+      QuestionID: question.id.toString(),
+    }, 
+  }
+  ));
+}
+
+
+export default function EasyQuestions(params: { QuestionID: string }) {
+
 
   return (
     <>
@@ -18,13 +25,13 @@ export default function EasyQuestions() {
         <div>
           <h1>Easy Mode</h1>
           <Button >
-          <Link href='Easy_Questions/1'>
+            /// start off with first question in the array
+          <Link href={`Easy_Questions/`}>
             Start Quiz
           </Link>
           </Button>
           <p>Options</p>
-        </div>
-      
+        </div> 
     </>
   );
 }

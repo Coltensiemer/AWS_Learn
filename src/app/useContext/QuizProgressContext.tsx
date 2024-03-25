@@ -1,3 +1,5 @@
+'use client';
+
 import React, {
   createContext,
   useContext,
@@ -37,19 +39,6 @@ export const QuizProgressProvider = ({
 
   const[state, dispatch] = useReducer(QuizReducer, QuizinitialState);
 
-
-  // const [totalQuestions, setTotalQuestions] = useState(0);
-  // const [currentQuestion, setCurrentQuestion] = useState(() => {
-  //   if (typeof window !== 'undefined') {
-  //     const storedQuestion = localStorage.getItem('currentQuestion');
-  //     return storedQuestion ? parseInt(storedQuestion) : 0;
-  //   } else {
-  //     return 0; // Default value
-  //   }
-  // });
-  // const [correctAnswers, setCorrectAnswers] = useState(0);
-  // const [incorrectAnswers, setIncorrectAnswers] = useState(0);
-
   const incrementCorrectAnswers = () => {
     dispatch({type: ActionType.INCREMENT_CORRECT_ANSWERS});
   };
@@ -65,11 +54,21 @@ dispatch({type: ActionType.INCREMENT_CURRENT_QUESTION});
 
 
   useEffect(() => {
-    //This is to set the currentquestion in local storage
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('currentQuestion', state.currentQuestion.toString());
-    }
+    // Set the current question in local storage
+    localStorage.setItem('currentQuestion', state.currentQuestion.toString());
   }, [state.currentQuestion]);
+
+  useEffect(() => {
+    // Set the correct question in local storage
+    localStorage.setItem('correctQuestion', state.correctAnswers.toString());
+  }, [state.correctAnswers]);
+
+  useEffect(() => {
+    // Set the incorrect question in local storage
+    localStorage.setItem('incorrectQuestion', state.incorrectAnswers.toString());
+  }, [state.incorrectAnswers]);
+
+  
 
 
   const contextValue = useMemo(
