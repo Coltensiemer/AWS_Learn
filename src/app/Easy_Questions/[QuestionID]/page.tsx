@@ -22,7 +22,7 @@ export async function generateStaticParams() {
 /// Data will be cached at build time and cach to a CDN
 export default function Page({ params }: { params: { QuestionID: string } }) {
   const questionID = params.QuestionID;
-console.log(params.QuestionID, 'params')
+
   return (
     <div className='flex flex-col'>
       {/* <QuizTracker /> */}
