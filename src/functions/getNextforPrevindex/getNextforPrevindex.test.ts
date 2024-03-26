@@ -1,12 +1,30 @@
-import { QuizIndexTrackerProps, getNextorPrevIndex } from "./getNextorPrevIndex";
-
-
-
-
+import {
+  QuizIndexTrackerProps,
+  getNextorPrevIndex,
+} from './getNextorPrevIndex';
 
 describe('getNextorPrevIndex function', () => {
-const quizList: string[] = ["132, 59, 69, 10000, 1, 2, 367, 44, 5, 556, 887, 8, 9, 10"];
+  const quizList: string[] = [
+    '132',
+    '59',
+    '69',
+    '10000',
+    '1',
+    '2',
+    '367',
+    '44',
+  ];
 
+  it('Should throw an error if currentQuestion is not found in the quizList', () => {
+    const props: QuizIndexTrackerProps = {
+      currentQuestion: 5,
+      quizList,
+      direction: 'next',
+    };
+    expect(() => getNextorPrevIndex(props)).toThrow(
+      'Index out of bounds in quizList'
+    );
+  });
 
   it('should return the next index when direction is "next"', () => {
     const props: QuizIndexTrackerProps = {
@@ -14,7 +32,7 @@ const quizList: string[] = ["132, 59, 69, 10000, 1, 2, 367, 44, 5, 556, 887, 8, 
       quizList,
       direction: 'next',
     };
-    expect(getNextorPrevIndex(props)).toBe("69");
+    expect(getNextorPrevIndex(props)).toBe('69');
   });
 
   it('should return the previous index when direction is "prev"', () => {
@@ -26,39 +44,32 @@ const quizList: string[] = ["132, 59, 69, 10000, 1, 2, 367, 44, 5, 556, 887, 8, 
     expect(getNextorPrevIndex(props)).toBe('132');
   });
 
-//   it('should throw an error when direction is neither "next" nor "prev"', () => {
-//     const props: QuizIndexTrackerProps = {
-//       currentQuestionIndex: 0,
-//       quizList,
-//       direction: 'invalid',
-//     };
-//     expect(() => getNextorPrevIndex(props)).toThrow('Error with next or prev index');
-//   });
+  // it('should throw an error when the next index is out of bounds', () => {
+  //   const props: QuizIndexTrackerProps = {
+  //     currentQuestion: 44,
+  //     quizList,
+  //     direction: 'next',
+  //   };
+  //   expect(() => getNextorPrevIndex(props)).toBe('44');
+  // });
 
-// //   it('should throw an error when currentQuestionIndex is null', () => {
-// //     const props: QuizIndexTrackerProps = {
-// //       currentQuestionIndex: ,
-// //       quizList,
-// //       direction: 'next',
-// //     };
-// //     expect(() => getNextorPrevIndex(props)).toThrow('Current Index is undefined');
-// //   });
+  // it('should throw an error when the prev index is out of bounds', () => {
+  //   const props: QuizIndexTrackerProps = {
+  //     currentQuestion: 132,
+  //     quizList,
+  //     direction: 'prev',
+  //   };
+  //   expect(() => getNextorPrevIndex(props)).toBe('132');
+  // });
 
-//   it('should throw an error when currentQuestionIndex is out of bounds for "next"', () => {
-//     const props: QuizIndexTrackerProps = {
-//       currentQuestionIndex: 2,
-//       quizList,
-//       direction: 'next',
-//     };
-//     expect(() => getNextorPrevIndex(props)).toThrow('Index out of bounds');
-//   });
-
-//   it('should throw an error when currentQuestionIndex is out of bounds for "prev"', () => {
-//     const props: QuizIndexTrackerProps = {
-//       currentQuestionIndex: 0,
-//       quizList,
-//       direction: 'prev',
-//     };
-//     expect(() => getNextorPrevIndex(props)).toThrow('Index out of bounds');
-//   });
+  it('should throw an error when direction is neither "next" nor "prev"', () => {
+    const props: QuizIndexTrackerProps = {
+      currentQuestion: 2,
+      quizList,
+      direction: 'invalid',
+    };
+    expect(() => getNextorPrevIndex(props)).toThrow(
+      'Error with next or prev index'
+    );
+  });
 });
