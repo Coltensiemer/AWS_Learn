@@ -17,6 +17,7 @@ export default function EasyQuestions(params: { QuestionID: string }) {
   ///Creating a quiz list of IDs to be used in the QuizTracker component
   //Once Quize are in Database, this will be used to fetch the questions base off of settings
   const QuizListIDs = EasyQA.map((question) => question.id.toString());
+ 
 
 useEffect(() => {
   QuizContext?.SET_QUIZ_LIST(QuizListIDs);

@@ -74,7 +74,7 @@ export const QuizProgressProvider = ({
 
   useEffect(() => { 
     if (state.QuizList !== null && state.QuizList !== undefined) {
-      /// This is being set as a string of the array... NEED TO FIX
+      /// This is being set as a string of the array... NEED TO FIX 
     localStorage.setItem('QuizListIDS', state.QuizList);
     } 
   },[state.QuizList])

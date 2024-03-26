@@ -99,7 +99,7 @@ export function Quiz({ questions, questionID }: QuizProps) {
 
     /// for getNextorPrevIndex
     /// Error with currentQuestionIndex
-    const currentQuestionIndex = QuizContext?.QuizList.findIndex(item => item.id === questionID);
+    const currentQuestionIndex = QuizContext?.QuizList.findIndex(item => item.id === question);
     const quizList = QuizContext?.QuizList; 
 
     
@@ -108,7 +108,7 @@ export function Quiz({ questions, questionID }: QuizProps) {
 
     if (isCorrect) {
 
-      router.push(getNextorPrevIndex({ currentQuestionIndex: currentQuestionIndex, quizList:quizList, direction: 'next' }));
+      // router.push(getNextorPrevIndex({ currentQuestionIndex: currentQuestionIndex, quizList:quizList, direction: 'next' }));
 
     } else {
       console.log('to go next');
