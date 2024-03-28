@@ -26,14 +26,12 @@ export const QuizinitialState = {
 // Define the reducer function
 export const QuizReducer = (state: typeof QuizinitialState, action: Action) => {
   switch (action.type) {
-	case ActionType.SET_CURRENT_QUESTION:
-		return { ...state, currentQuestion: state.correctAnswers };
     case ActionType.INCREMENT_CORRECT_ANSWERS:
       return { ...state, correctAnswers: state.correctAnswers + 1 };
     case ActionType.INCREMENT_INCORRECT_ANSWERS:
       return { ...state, incorrectAnswers: state.incorrectAnswers + 1 };
-    case ActionType.INCREMENT_CURRENT_QUESTION:
-      return { ...state, currentQuestion: state.currentQuestion + 1 };
+    case ActionType.SET_CURRENT_QUESTION:
+      return { ...state, currentQuestion: action.payload};
       case ActionType.SET_QUIZ_LIST:
           return { ...state, QuizList: action.payload}
         

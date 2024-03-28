@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useContext } from 'react';
+import React, { use, useContext } from 'react';
 import { RadioGroup, RadioGroupItem } from '../components/ui/radio-group';
 import { Label } from '../components/ui/label';
 import { z } from 'zod';
@@ -18,19 +18,18 @@ import { Button } from '../components/ui/button';
 
 import { PaginationDirection } from './PaginationDirection';
 import { QuizProgressContext } from '../app/useContext/QuizProgressContext';
-import { getNextorPrevIndex } from '../functions/getNextforPrevindex/getNextorPrevIndex'; 
+import { getNextorPrevIndex } from '../functions/getNextforPrevindex/getNextorPrevIndex';
 
 // This is the type definition for the questions that are passed to the Quiz component.
 interface QuestionType {
   question: string;
-  id: number; 
+  id: number;
   options: string[];
-  correct_answer: string ;
+  correct_answer: string;
 }
 // This is the type definition for the props that are passed to the Quiz component.
 interface QuizProps {
   questions: QuestionType[];
-  questionID: number;
 }
 
 // This is the schema that is used to validate the form data for the quiz.
@@ -38,49 +37,63 @@ const FormSchema = z.object({
   type: z.enum(['A', 'B', 'C', 'D']),
 });
 
-
-
 /// used to compare the answer to the correct answer
 function compareAnswer(answer: string, correctAnswer: string) {
   //return true if the answer is correct
   return answer === correctAnswer;
 }
 
-// const nextQuestion = (questionID: number, questions: QuestionType[]) => {
-//   return getNextorPrevIndex(questionID: questionID, questions, 'next');
-
-// }
+const nextQuestion = (questionID: number, questions: QuestionType[]) => {
+  const currentIndex = questions.findIndex((q) => q.id === questionID);
+  if (currentIndex === -1) {
+    return currentIndex; // if the question is not found return the current index
+  } else {
+    console.log(questions[currentIndex + 1].id, 'next question');
+    return questions[currentIndex + 1].id;
+  }
+};
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // This is the Quiz component that is exported to the page.
-export function Quiz({ questions, questionID }: QuizProps) {
-
+export function Quiz({ questions }: QuizProps) {
   const QuizContext = useContext(QuizProgressContext);
 
-  
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
+  if (!QuizContext) return null;
+  // Defaults to the first question in the array until the QuizContext is available for currentQuestion
+  const questionID =
+    QuizContext?.QuizList[QuizContext.currentQuestion] ||
+    QuizContext?.currentQuestion;
 
+  // To identify the last question in the array and change the button text to 'Submit'
+  const currentIndex = questions.findIndex((q) => q.id === questionID);
+  const Submitbutton =
+    currentIndex === QuizContext?.QuizList.length - 1 ? 'Submit' : 'Next';
+
+  // This function is called when the form is submitted.
   function onSubmit(data: z.infer<typeof FormSchema>) {
     const formData = form.getValues();
-  
     if (!questions) {
       console.error('Question not found');
       return;
     }
-
-    const correctAnswer: string   = questions.find((q) => q.id === questionID)?.correct_answer as string;
-  
+    const correctAnswer: string = questions.find((q) => q.id === questionID)
+      ?.correct_answer as string;
     const isCorrect = compareAnswer(formData.type, correctAnswer);
-  
-    if (isCorrect) {
-           console.log('Correct Answer')
-    } else {
-      console.log('Incorrect Answer')
 
+    if (isCorrect) {
+    } else {
+      console.log('Incorrect Answer');
     }
+    const nextId = nextQuestion(questionID, questions);
+    QuizContext?.SET_CURRENT_QUESTION(nextId);
+
+    //Create a function that routes pages to a Dashboard with the results
+    // information from context will need to be pushed to a server
+
   }
 
   return (
@@ -97,28 +110,29 @@ export function Quiz({ questions, questionID }: QuizProps) {
               render={({ field }) => (
                 <FormItem className='space-y-3'>
                   <FormLabel className='text-lg'>
-                    {questions.find(q => q.id === questionID)?.question}
+                    {questions.find((q) => q.id === questionID)?.question}
                   </FormLabel>
                   <FormControl>
                     <RadioGroup
                       defaultValue={field.value}
                       onValueChange={field.onChange}
                     >
-                      {
-                      questions.find(q => q.id === questionID)?.options.map((option, index) => {
-                            return (
-                              <div
-                                key={index}
-                                className='flex items-center space-x-2'
-                              >
-                                <RadioGroupItem
-                                  value={option.charAt(0).toUpperCase()}
-                                  id={`r${index}`}
-                                />
-                                <Label htmlFor={`r${index}`}>{option}</Label>
-                              </div>
-                            );
-                          })}
+                      {questions
+                        .find((q) => q.id === questionID)
+                        ?.options.map((option, index) => {
+                          return (
+                            <div
+                              key={index}
+                              className='flex items-center space-x-2'
+                            >
+                              <RadioGroupItem
+                                value={option.charAt(0).toUpperCase()}
+                                id={`r${index}`}
+                              />
+                              <Label htmlFor={`r${index}`}>{option}</Label>
+                            </div>
+                          );
+                        })}
                     </RadioGroup>
                   </FormControl>
                   <FormMessage />
@@ -126,12 +140,11 @@ export function Quiz({ questions, questionID }: QuizProps) {
               )}
             />
             <Button size='sm' type='submit'>
-              Submit
+              {Submitbutton}
             </Button>
           </form>
         </Form>
       </div>
-     
     </>
   );
 }

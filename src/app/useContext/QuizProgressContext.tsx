@@ -23,7 +23,7 @@ export interface QuizProgressContextType {
   QuizList: [];
   incrementCorrectAnswers: () => void;
   incrementIncorrectAnswers: () => void;
-  incrementCurrentQuestion: () => void;
+  SET_CURRENT_QUESTION: (payload: any) => void;
   SET_QUIZ_LIST: (payload: any) => void;
 }
 
@@ -37,9 +37,7 @@ interface QuizProgressProviderProps {
   children: ReactNode;
 }
 
-
-
-///QuizProgressProvider 
+///QuizProgressProvider
 export const QuizProgressProvider = ({
   children,
 }: QuizProgressProviderProps) => {
@@ -49,44 +47,20 @@ export const QuizProgressProvider = ({
     dispatch({ type: ActionType.SET_QUIZ_LIST, payload });
   };
 
+  //male sure state updates
   const incrementCorrectAnswers = () => {
     dispatch({ type: ActionType.INCREMENT_CORRECT_ANSWERS });
   };
 
+  //make sure state updates
   const incrementIncorrectAnswers = () => {
     dispatch({ type: ActionType.INCREMENT_INCORRECT_ANSWERS });
   };
 
   // When this function is called, the useEffect hook will be triggered and the current question will be incremented
-  const incrementCurrentQuestion = () => {
-    dispatch({ type: ActionType.INCREMENT_CURRENT_QUESTION });
+  const SET_CURRENT_QUESTION = (payload: number) => {
+    dispatch({ type: ActionType.SET_CURRENT_QUESTION, payload });
   };
-
-  useEffect(() => {
-    // Set the current question in local storage    
-      // Ensure state.currentQuestion is not null before converting to string
-      if (state.currentQuestion !== null) {
-        // Set the current question in local storage
-        localStorage.setItem('currentQuestion', state.currentQuestion.toString());
-      }
-    
-  }, [state.currentQuestion]);
-
-  useEffect(() => { 
-    if (state.QuizList !== null && state.QuizList !== undefined) {
-      /// This is being set as a string of the array... NEED TO FIX 
-    localStorage.setItem('QuizListIDS', state.QuizList);
-    } 
-  },[state.QuizList])
-
-  // when is this acivated, the localstorage is set to null
-  // useEffect(() => {
-  //   if (state.QuizList === null || state.QuizList === undefined) {
-  //   const list =localStorage.getItem('QuizListIDS');
-  //   if (list) {
-  //     SET_QUIZ_LIST(list);
-  //   }} 
-  // },[])
 
   const contextValue = useMemo(
     () => ({
@@ -96,7 +70,7 @@ export const QuizProgressProvider = ({
       currentQuestion: state.currentQuestion,
       incrementCorrectAnswers,
       incrementIncorrectAnswers,
-      incrementCurrentQuestion,
+      SET_CURRENT_QUESTION,
       SET_QUIZ_LIST,
     }),
     [
