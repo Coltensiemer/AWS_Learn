@@ -9,22 +9,19 @@ import { PaginationDirection } from '../../../useClient/PaginationDirection';
 
 
 export default function Page() {
-
-const QuizContext = useContext(QuizProgressContext);
-
-
-useEffect(() => {
-  if(QuizContext) 
-  // SET_QUIZ_LIST is a function that takes an array of question IDs
-QuizContext.SET_QUIZ_LIST(EasyQA.map((question) => question.id));
-// if (QuizContext)
-// QuizContext.SET_CURRENT_QUESTION(EasyQA[0].id);
+  
+  const QuizContext = useContext(QuizProgressContext);
+  useEffect(() => {
+    if(QuizContext) 
+    // SET_QUIZ_LIST is a function that takes an array of question IDs
+  QuizContext.SET_QUIZ_LIST(EasyQA.map((question) => question.id));
 },[])
 
-//Progam needs a questionID to display the question
-//it can default to first item  in Quiz data array
-// if(!QuizContext) return null;
-// const questionID = QuizContext?.QuizList[QuizContext.currentQuestion];
+if (!QuizContext) return null;
+const TotalQuestions = QuizContext?.QuizList.length  || EasyQA.length;
+const currentIndex = QuizContext?.QuizList.findIndex((id: number) => id === QuizContext.currentQuestion);
+const CurrentQuestion = currentIndex + 1 || 1;
+
 
 
 
@@ -32,7 +29,7 @@ QuizContext.SET_QUIZ_LIST(EasyQA.map((question) => question.id));
 
   return (
     <div className='flex flex-col'>
-      {/* <QuizTracker /> */}
+      <QuizTracker CurrentQuestion={CurrentQuestion} TotalQuestions={TotalQuestions}/>
       <Quiz questions={EasyQA} />
       {/* <PaginationDirection /> */}
     </div>
