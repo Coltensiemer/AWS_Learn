@@ -1,6 +1,6 @@
 export const EasyQA = [
 	{
-	  id: "1324",
+	  id: 1324,
 	  tag: "AWS",
 	  question: "What is AWS?",
 	  options: [
@@ -13,7 +13,7 @@ export const EasyQA = [
 	},
 	// Add five more questions here
 	{
-	  id: "2123",
+	  id: 2123,
 	  tag: "AWS",
 	  question: "What does S3 stand for in AWS?",
 	  options: [
@@ -25,7 +25,7 @@ export const EasyQA = [
 	  correct_answer: "A"
 	},
 	{
-	  id: "3432",
+	  id: 3432,
 	  tag: "AWS",
 	  question: "What AWS service provides computing capacity in the cloud?",
 	  options: [
@@ -37,7 +37,7 @@ export const EasyQA = [
 	  correct_answer: "B"
 	},
 	{
-	  id: "443",
+	  id: 443,
 	  tag: "AWS",
 	  question: "Which AWS service is used to deliver content with low latency and high data transfer speeds?",
 	  options: [
@@ -49,7 +49,7 @@ export const EasyQA = [
 	  correct_answer: "B"
 	},
 	{
-	  id: "61543",
+	  id: 61543,
 	  tag: "AWS",
 	  question: "What does IAM stand for in AWS?",
 	  options: [

@@ -2,9 +2,9 @@
 
 // Define the action types
 export enum ActionType {
-  SET_CURRENT_QUEstion,
-  INCREMENT_CURRENT_QUESTION,
+  SET_CURRENT_QUESTION,
   SET_QUIZ_LIST,
+  INCREMENT_CURRENT_QUESTION,
   INCREMENT_CORRECT_ANSWERS,
   INCREMENT_INCORRECT_ANSWERS,
 }
@@ -17,19 +17,16 @@ interface Action {
 
 // Create the initial state
 export const QuizinitialState = {
-  QuizList: typeof window !== 'undefined' ? localStorage.getItem('QuizListIDS') : [],
+  QuizList: [],
   correctAnswers: 0,
   incorrectAnswers: 0,
-  currentQuestion:
-    typeof window !== 'undefined'
-      ? parseInt(localStorage.getItem('currentQuestion') || '0')
-      : 0,
+  currentQuestion: 0,
 };
 
 // Define the reducer function
 export const QuizReducer = (state: typeof QuizinitialState, action: Action) => {
   switch (action.type) {
-	case ActionType.SET_CURRENT_QUEstion:
+	case ActionType.SET_CURRENT_QUESTION:
 		return { ...state, currentQuestion: state.correctAnswers };
     case ActionType.INCREMENT_CORRECT_ANSWERS:
       return { ...state, correctAnswers: state.correctAnswers + 1 };

@@ -15,21 +15,22 @@ import {
   FormMessage,
 } from '../components/ui/form';
 import { Button } from '../components/ui/button';
-import { useRouter, useParams } from 'next/navigation';
+
 import { PaginationDirection } from './PaginationDirection';
 import { QuizProgressContext } from '../app/useContext/QuizProgressContext';
+import { getNextorPrevIndex } from '../functions/getNextforPrevindex/getNextorPrevIndex'; 
 
 // This is the type definition for the questions that are passed to the Quiz component.
 interface QuestionType {
   question: string;
-  id: string;
+  id: number; 
   options: string[];
-  correct_answer: string;
+  correct_answer: string ;
 }
 // This is the type definition for the props that are passed to the Quiz component.
 interface QuizProps {
   questions: QuestionType[];
-  questionID: string;
+  questionID: number;
 }
 
 // This is the schema that is used to validate the form data for the quiz.
@@ -45,43 +46,18 @@ function compareAnswer(answer: string, correctAnswer: string) {
   return answer === correctAnswer;
 }
 
-interface QuizIndexTrackerProps {
-  currentQuestionIndex: number;
-  quizList: string[];
-  direction: string;
-}
+// const nextQuestion = (questionID: number, questions: QuestionType[]) => {
+//   return getNextorPrevIndex(questionID: questionID, questions, 'next');
 
-// Function to get the next or previous index based on the current index and the length of the quiz list.
-function getNextorPrevIndex({
-  currentQuestionIndex,
-  quizList,
-  direction,
-}: QuizIndexTrackerProps) {
-  
-  if (currentQuestionIndex === null) {
-    console.error('Current Index is undefined');
-  }
-
-  if (direction === 'next') {
-    //Needs to take the current index and find the next index in the array
-    const nextIndex = currentQuestionIndex + 1;
-    const nextQuestion = quizList[nextIndex].toString();
-    console.log(currentQuestionIndex, 'current index');
-    console.log(nextIndex, 'next index');
-    console.log(nextQuestion, 'next question');
-  } else if (direction === 'prev') {
-    //To go back
-  } else {
-    console.error('Error with next or prev index');
-  }
-}
+// }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // This is the Quiz component that is exported to the page.
 export function Quiz({ questions, questionID }: QuizProps) {
+
   const QuizContext = useContext(QuizProgressContext);
-  const router = useRouter();
-  const params = useParams<{ slug: string }>();
+
+  
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
@@ -89,29 +65,21 @@ export function Quiz({ questions, questionID }: QuizProps) {
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     const formData = form.getValues();
-    const question = questions.find((q) => q.id === questionID);
-    if (!question) {
+  
+    if (!questions) {
       console.error('Question not found');
       return;
     }
 
-    const correctAnswer = question.correct_answer;
-
-    /// for getNextorPrevIndex
-    /// Error with currentQuestionIndex
-    const currentQuestionIndex = QuizContext?.QuizList.findIndex(item => item.id === question);
-    const quizList = QuizContext?.QuizList; 
-
-    
-
+    const correctAnswer: string   = questions.find((q) => q.id === questionID)?.correct_answer as string;
+  
     const isCorrect = compareAnswer(formData.type, correctAnswer);
-
+  
     if (isCorrect) {
-
-      // router.push(getNextorPrevIndex({ currentQuestionIndex: currentQuestionIndex, quizList:quizList, direction: 'next' }));
-
+           console.log('Correct Answer')
     } else {
-      console.log('to go next');
+      console.log('Incorrect Answer')
+
     }
   }
 
@@ -129,18 +97,15 @@ export function Quiz({ questions, questionID }: QuizProps) {
               render={({ field }) => (
                 <FormItem className='space-y-3'>
                   <FormLabel className='text-lg'>
-                    {questionID &&
-                      questions.find((q) => q.id === questionID)?.question}
+                    {questions.find(q => q.id === questionID)?.question}
                   </FormLabel>
                   <FormControl>
                     <RadioGroup
                       defaultValue={field.value}
                       onValueChange={field.onChange}
                     >
-                      {questionID &&
-                        questions
-                          .find((q) => q.id === questionID)
-                          ?.options.map((option, index) => {
+                      {
+                      questions.find(q => q.id === questionID)?.options.map((option, index) => {
                             return (
                               <div
                                 key={index}
@@ -166,7 +131,7 @@ export function Quiz({ questions, questionID }: QuizProps) {
           </form>
         </Form>
       </div>
-      <PaginationDirection />
+     
     </>
   );
 }

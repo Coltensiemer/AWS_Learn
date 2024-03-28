@@ -5,25 +5,14 @@ import { QuizProgressContext } from '../useContext/QuizProgressContext';
 import { useContext, useEffect } from 'react';
 import { Button } from '../../components/ui/button';
 import { EasyQA } from '../../Data';
+import { Quiz } from '../../useClient/Quiz';
 
 
 
 
 
-export default function EasyQuestions(params: { QuestionID: string }) {
+export default function EasyQuestions() {
 
-  const  QuizContext  = useContext(QuizProgressContext);
-
-  ///Creating a quiz list of IDs to be used in the QuizTracker component
-  //Once Quize are in Database, this will be used to fetch the questions base off of settings
-  const QuizListIDs = EasyQA.map((question) => question.id.toString());
- 
-
-useEffect(() => {
-  QuizContext?.SET_QUIZ_LIST(QuizListIDs);
-}, []);
-
-  
 
   return (
     <>
@@ -32,7 +21,7 @@ useEffect(() => {
           <h1>Easy Mode</h1>
           <Button >
             {/* /// start off with first question in the array */}
-          <Link href={`Easy_Questions/${QuizListIDs[0]}`}>
+          <Link href={`Easy_Questions/Quiz`}>
             Start Quiz
           </Link>
           </Button>

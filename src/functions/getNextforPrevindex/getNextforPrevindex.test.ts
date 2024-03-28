@@ -17,7 +17,7 @@ describe('getNextorPrevIndex function', () => {
 
   it('Should throw an error if currentQuestion is not found in the quizList', () => {
     const props: QuizIndexTrackerProps = {
-      currentQuestion: 5,
+      currentQuestion: "5",
       quizList,
       direction: 'next',
     };
@@ -28,7 +28,7 @@ describe('getNextorPrevIndex function', () => {
 
   it('should return the next index when direction is "next"', () => {
     const props: QuizIndexTrackerProps = {
-      currentQuestion: 59,
+      currentQuestion: "59",
       quizList,
       direction: 'next',
     };
@@ -37,7 +37,7 @@ describe('getNextorPrevIndex function', () => {
 
   it('should return the previous index when direction is "prev"', () => {
     const props: QuizIndexTrackerProps = {
-      currentQuestion: 59,
+      currentQuestion: "59",
       quizList,
       direction: 'prev',
     };
@@ -64,7 +64,7 @@ describe('getNextorPrevIndex function', () => {
 
   it('should throw an error when direction is neither "next" nor "prev"', () => {
     const props: QuizIndexTrackerProps = {
-      currentQuestion: 2,
+      currentQuestion: "2",
       quizList,
       direction: 'invalid',
     };
