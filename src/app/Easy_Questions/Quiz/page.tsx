@@ -31,7 +31,7 @@ const CurrentQuestion = currentIndex + 1 || 1;
     <div className='flex flex-col'>
       <QuizTracker CurrentQuestion={CurrentQuestion} TotalQuestions={TotalQuestions}/>
       <Quiz questions={EasyQA} />
-      {/* <PaginationDirection /> */}
+      <PaginationDirection currentIndex={CurrentQuestion}/>
     </div>
   );
 }
