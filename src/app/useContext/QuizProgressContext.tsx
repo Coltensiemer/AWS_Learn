@@ -2,11 +2,8 @@
 
 import React, {
   createContext,
-  useContext,
-  useState,
   ReactNode,
   useMemo,
-  useEffect,
   useReducer,
 } from 'react';
 
@@ -17,13 +14,17 @@ import {
 } from '../useReducer/QuizProgressReducer';
 
 export interface QuizProgressContextType {
-  correctAnswers: number;
-  incorrectAnswers: number;
+  correctAnswersSum: number;
+  incorrectAnswersSum: number;
   currentQuestion: number;
   QuizList: [];
+  Correct_Answered: [];
+  Incorrect_Answered: [];
   incrementCorrectAnswers: () => void;
   incrementIncorrectAnswers: () => void;
   SET_CURRENT_QUESTION: (payload: any) => void;
+  SET_CORRECT_ANSWERED: (payload: any) => void;
+  SET_INCORRECT_ANSWERED: (payload: any) => void;
   SET_QUIZ_LIST: (payload: any) => void;
 }
 
@@ -62,21 +63,36 @@ export const QuizProgressProvider = ({
     dispatch({ type: ActionType.SET_CURRENT_QUESTION, payload });
   };
 
+  const SET_CORRECT_ANSWERED = (payload: any) => {
+  dispatch({ type: ActionType.SET_CORRECT_ANSWERED, payload });
+  }  
+
+  const SET_INCORRECT_ANSWERED = (payload: any) => {
+    dispatch({ type: ActionType.SET_INCORRECT_ANSWERED, payload });
+  }
+
+
   const contextValue = useMemo(
     () => ({
       QuizList: state.QuizList,
-      correctAnswers: state.correctAnswers,
-      incorrectAnswers: state.incorrectAnswers,
+      Correct_Answered: state.Correct_Answered,
+      Incorrect_Answered: state.Incorrect_Answered,
+      correctAnswersSum: state.correctAnswersSum,
+      incorrectAnswersSum: state.incorrectAnswersSum,
       currentQuestion: state.currentQuestion,
       incrementCorrectAnswers,
       incrementIncorrectAnswers,
-      SET_CURRENT_QUESTION,
+      SET_CURRENT_QUESTION, 
+      SET_CORRECT_ANSWERED,
+      SET_INCORRECT_ANSWERED,
       SET_QUIZ_LIST,
     }),
     [
+      state.Correct_Answered,
+      state.Incorrect_Answered,
       state.QuizList,
-      state.correctAnswers,
-      state.incorrectAnswers,
+      state.correctAnswersSum,
+      state.incorrectAnswersSum,
       state.currentQuestion,
     ]
   );
