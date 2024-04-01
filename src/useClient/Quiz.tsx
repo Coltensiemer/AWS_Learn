@@ -3,7 +3,7 @@
 import React, { use, useContext } from 'react';
 import { RadioGroup, RadioGroupItem } from '../components/ui/radio-group';
 import { Label } from '../components/ui/label';
-import { array, z } from 'zod';
+import { array, set, z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import {
@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from '../components/ui/form';
 import { Button } from '../components/ui/button';
-
+import { setCorrectorIncorrectQs } from '../functions/setCorrectorIncorrectQs/setCorrectorIncorrectQs';
 import { PaginationDirection } from './PaginationDirection';
 import { QuizProgressContext } from '../app/useContext/QuizProgressContext';
 import { getNextorPrevIndex } from '../functions/getNextforPrevindex/getNextorPrevIndex';
@@ -83,25 +83,16 @@ export function Quiz({ questions }: QuizProps) {
     }
     const correctAnswer: string = questions.find((q) => q.id === questionID)
       ?.correct_answer as string;
+
     const isCorrect = compareAnswer(formData.type, correctAnswer);
+   
+  setCorrectorIncorrectQs(QuizContext, questionID, isCorrect);
 
-
-    // Can you change your answer? No Need update to allow for changing answers
-    // If so, how do you want to handle that?
-    if (isCorrect && 
-      !QuizContext?.Correct_Answered.includes(questionID)
-      ) {
-      QuizContext?.Correct_Answered.push(questionID);
-    }  
-    else if (!isCorrect && !QuizContext?.Incorrect_Answered.includes(questionID)){
-      QuizContext?.Incorrect_Answered.push(questionID);
-    }
     const nextId = nextQuestion(questionID, questions);
     QuizContext?.SET_CURRENT_QUESTION(nextId);
 
     //Create a function that routes pages to a Dashboard with the results
     // information from context will need to be pushed to a server
-
   }
 
   return (

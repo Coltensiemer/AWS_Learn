@@ -35,9 +35,9 @@ export const QuizReducer = (state: typeof QuizinitialState, action: Action) => {
     case ActionType.INCREMENT_INCORRECT_ANSWERS:
       return { ...state, incorrectAnswers: state.incorrectAnswersSum + 1 };
     case ActionType.SET_CORRECT_ANSWERED:
-      return { ...state, Correct_Answered: action.payload };    
+      return { ...state, Correct_Answered: [...state.Correct_Answered, action.payload]};    
       case ActionType.SET_INCORRECT_ANSWERED:
-        return { ...state, Incorrect_Answered: action.payload };
+        return { ...state, Incorrect_Answered: [...state.Incorrect_Answered, action.payload] };
     case ActionType.SET_CURRENT_QUESTION:
       return { ...state, currentQuestion: action.payload};
       case ActionType.SET_QUIZ_LIST:
