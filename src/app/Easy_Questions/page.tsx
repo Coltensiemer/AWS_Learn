@@ -1,7 +1,7 @@
 "use client"; 
 
 import Link from 'next/link';
-import { QuizProgressContext } from '../useContext/QuizProgressContext';
+import { QuizProgressContext } from '../../useContext/QuizProgressContext';
 import { useContext, useEffect } from 'react';
 import { Button } from '../../components/ui/button';
 import { EasyQA } from '../../Data';

@@ -17,7 +17,7 @@ import {
 import { Button } from '../components/ui/button';
 import { setCorrectorIncorrectQs } from '../functions/setCorrectorIncorrectQs/setCorrectorIncorrectQs';
 import { PaginationDirection } from './PaginationDirection';
-import { QuizProgressContext } from '../app/useContext/QuizProgressContext';
+import { QuizProgressContext } from '../useContext/QuizProgressContext';
 import { getNextorPrevIndex } from '../functions/getNextforPrevindex/getNextorPrevIndex';
 
 // This is the type definition for the questions that are passed to the Quiz component.

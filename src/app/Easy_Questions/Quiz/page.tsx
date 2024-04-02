@@ -1,7 +1,7 @@
 
 "use client";
 import react, { useEffect, useContext } from 'react';
-import { QuizProgressContext } from '../../useContext/QuizProgressContext'
+import { QuizProgressContext } from '../../../useContext/QuizProgressContext'
 import { EasyQA } from '../../../Data';
 import { Quiz } from '../../../useClient/Quiz';
 import QuizTracker from '../../../useClient/QuizTracker';

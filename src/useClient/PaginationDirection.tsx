@@ -10,7 +10,7 @@ import {
   PaginationPrevious,
 } from '../components/ui/pagination';
 import {  useContext } from 'react';
-import { QuizProgressContext } from '../app/useContext/QuizProgressContext';
+import { QuizProgressContext } from '../useContext/QuizProgressContext';
 import { getNextorPrevIndex } from '../functions/getNextforPrevindex/getNextorPrevIndex';
 
 export function PaginationDirection({currentIndex}: {currentIndex: number }) {

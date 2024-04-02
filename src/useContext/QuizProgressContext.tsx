@@ -1,14 +1,10 @@
 'use client';
 
-import React, {
-  createContext,
-  ReactNode,
-  useMemo,
-  useReducer,
-} from 'react';
+import React, { createContext, ReactNode, useMemo, useReducer } from 'react';
 
-import {
-  QuizinitialState,
+
+import { 
+ QuizinitialState,
   QuizReducer,
   ActionType,
 } from '../useReducer/QuizProgressReducer';
@@ -64,13 +60,12 @@ export const QuizProgressProvider = ({
   };
 
   const SET_CORRECT_ANSWERED = (payload: any) => {
-  dispatch({ type: ActionType.SET_CORRECT_ANSWERED, payload });
-  }  
+    dispatch({ type: ActionType.SET_CORRECT_ANSWERED, payload });
+  };
 
   const SET_INCORRECT_ANSWERED = (payload: any) => {
     dispatch({ type: ActionType.SET_INCORRECT_ANSWERED, payload });
-  }
-
+  };
 
   const contextValue = useMemo(
     () => ({
@@ -82,7 +77,7 @@ export const QuizProgressProvider = ({
       currentQuestion: state.currentQuestion,
       incrementCorrectAnswers,
       incrementIncorrectAnswers,
-      SET_CURRENT_QUESTION, 
+      SET_CURRENT_QUESTION,
       SET_CORRECT_ANSWERED,
       SET_INCORRECT_ANSWERED,
       SET_QUIZ_LIST,
