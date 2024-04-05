@@ -46,9 +46,12 @@ export function Quiz({ questions }: QuizProps) {
   const QuizContext = useContext(QuizProgressContext);
 
   useEffect(() => {
+    //Sets the QuizList in the context to the list of questions
     if (QuizContext && questions) {
       QuizContext.SET_QUIZ_LIST(questions.map((q) => q.id));
     }
+
+    //sets the session ID in local storage
     const storedSessionId = localStorage.getItem('sessionId');
     if (storedSessionId) {
       setSessionId(storedSessionId);
@@ -58,7 +61,6 @@ export function Quiz({ questions }: QuizProps) {
       setSessionId(newSessionId);
       localStorage.setItem('sessionId', newSessionId);
     }
-
   }, []);
   // console.log(QuizContext);
 

@@ -1,6 +1,8 @@
 import Link from 'next/link';
 
 import { Button } from '../../components/ui/button';
+import { Quiz } from '../../useClient/Quiz';
+import QuizTags from '../../useClient/Quiz_Tags';
 
 export default function EasyQuestions() {
   return (
@@ -9,9 +11,10 @@ export default function EasyQuestions() {
         <h1>Easy Mode</h1>
         <Button>
           {/* /// start off with first question in the array */}
-          <Link href={`Easy_Questions/Quiz`}>Start Quiz</Link>
+          <Link href={`Questions/Quiz`}>Start Quiz</Link>
         </Button>
         <p>Options</p>
+        <QuizTags />
       </div>
     </>
   );

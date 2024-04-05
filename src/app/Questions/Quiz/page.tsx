@@ -4,17 +4,20 @@ import { QuizProgressContext } from '../../../useContext/QuizProgressContext';
 import { Quiz } from '../../../useClient/Quiz';
 import QuizTracker from '../../../useClient/QuizTracker';
 import { PaginationDirection } from '../../../useClient/PaginationDirection';
-import {GET} from '../../../app/api/get-quiz/route';
-import {QuizProps, QuestionType} from '../../../.././prisma/dataTypes';
+import {GET} from '../../api/get-quiz/route';
+import {QuizProps, QuestionType} from '../../../../prisma/dataTypes';
 import { PrismaClient } from '@prisma/client';
 
 
 async function GETQuiz() {
   const prisma = new PrismaClient();
   const data: QuestionType[] = await prisma.quiz.findMany({
-	where: {
-	  tag: 'AWS',
-	},
+    where: {
+      OR: [
+        { tag: 'EC2' },
+        { tag: 'Lambda' }
+      ],
+    },
 	include: {
 	  options: true,
 	},
