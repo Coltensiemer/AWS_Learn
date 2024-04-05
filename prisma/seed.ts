@@ -26,6 +26,7 @@ async function main() {
     },
   }) 
 
+  await prisma.option.deleteMany();
   await prisma.quiz.deleteMany();
 
   const jsonData = fs.readFileSync('src/Data.ts', 'utf8');
@@ -36,11 +37,11 @@ async function main() {
       data: {
         tag: item.tag,
         question: item.question,
-        correctAnswer: item.correct_answer,
+        correct_answer: item.correct_answer,
         options: {
           create: item.options.map((option: any) => ({
-            value: option,
-            isCorrect: option === item.correct_answer // Set isCorrect based on the correct_answer value
+            value: option.value,
+            isCorrect: option.isCorrect // Set isCorrect based on the value field of each option
           }))
         }
       }

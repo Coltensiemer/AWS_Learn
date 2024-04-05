@@ -1,38 +1,50 @@
-'use client';
+
 import react, { useEffect, useContext, useState } from 'react';
 import { QuizProgressContext } from '../../../useContext/QuizProgressContext';
 import { Quiz } from '../../../useClient/Quiz';
 import QuizTracker from '../../../useClient/QuizTracker';
 import { PaginationDirection } from '../../../useClient/PaginationDirection';
-import {GET_QUIZ} from '../../../app/api/get-quiz/route';
+import {GET} from '../../../app/api/get-quiz/route';
 import {QuizProps, QuestionType} from '../../../.././prisma/dataTypes';
+import { PrismaClient } from '@prisma/client';
+
+
+async function GETQuiz() {
+  const prisma = new PrismaClient();
+
+	console.log('running')
+  const data: QuestionType[] = await prisma.quiz.findMany({
+	where: {
+	  tag: 'AWS',
+	},
+	include: {
+	  options: true,
+	},
+  });
+ return data;
+}
 
 
 
+export default async function Page() {
+  // const QuizContext = useContext(QuizProgressContext);
 
 
-export default  function Page() {
-  const QuizContext = useContext(QuizProgressContext);
-  const [data, setData] = useState<QuestionType[] | null>(null); 
+const data = await GETQuiz();
+console.log(data, 'data')
 
-  // const data = await GET_QUIZ()
 
-  if (!QuizContext) return null;
-  const TotalQuestions = QuizContext?.QuizList.length || 0;
-  const currentIndex = QuizContext?.QuizList.findIndex(
-    (id: number) => id === QuizContext.currentQuestion
-  );
-  const CurrentQuestion = currentIndex + 1 || 1;
+  
+
+
   
   return (
     <div className='flex flex-col'>
       <QuizTracker
-        CurrentQuestion={CurrentQuestion}
-        TotalQuestions={TotalQuestions}
       />
 
       <Quiz questions={data} /> 
-      <PaginationDirection currentIndex={CurrentQuestion} />
+      {/* <PaginationDirection currentIndex={CurrentQuestion} /> */}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { use, useContext } from 'react';
+import React, { use, useContext, useEffect } from 'react';
 import { RadioGroup, RadioGroupItem } from '../components/ui/radio-group';
 import { Label } from '../components/ui/label';
 import { array, set, z } from 'zod';
@@ -45,6 +45,12 @@ const nextQuestion = (questionID: number, questions: QuestionType[]) => {
 // This is the Quiz component that is exported to the page.
 export function Quiz({ questions }: QuizProps) {
   const QuizContext = useContext(QuizProgressContext);
+
+  useEffect(() => {
+    if (QuizContext && questions) {
+      QuizContext.SET_QUIZ_LIST(questions.map((q) => q.id));
+    }
+  }, []);
   console.log(QuizContext);
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -71,7 +77,8 @@ export function Quiz({ questions }: QuizProps) {
       return;
     }
     const correctAnswer: string = questions.find((q) => q.id === questionID)
-      ?.correctAnswer as string;
+      ?.correct_answer as string;
+      console.log(correctAnswer, 'correct answer');
 
     const isCorrect = compareAnswer(formData.type, correctAnswer);
    

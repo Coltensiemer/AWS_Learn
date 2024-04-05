@@ -13,7 +13,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
@@ -23,20 +22,18 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
-
 model Quiz {
-  id            Int      @id @default(autoincrement())
-  tag           String
-  question      String
-  correctAnswer String
-  options       Option[]
+  id             Int      @id @default(autoincrement())
+  tag            String
+  question       String
+  correct_answer String
+  options        Option[]
 }
 
 model Option {
-  id       Int    @id @default(autoincrement())
-  value    String
+  id        Int     @id @default(autoincrement())
+  value     String
   isCorrect Boolean
-  quiz     Quiz   @relation(fields: [quizId], references: [id])
-  quizId   Int
+  quiz      Quiz    @relation(fields: [quizId], references: [id])
+  quizId    Int
 }
-

@@ -10,7 +10,7 @@ interface OptionType {
 	id: number;
 	tag: string;
 	question: string;
-	correctAnswer: string;
+	correct_answer: string;
 	options: OptionType[];
   }
   
