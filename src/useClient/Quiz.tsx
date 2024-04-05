@@ -17,8 +17,8 @@ import {
 import { Button } from '../components/ui/button';
 import { setCorrectorIncorrectQs } from '../functions/setCorrectorIncorrectQs/setCorrectorIncorrectQs';
 import { QuizProgressContext } from '../useContext/QuizProgressContext';
-import {QuizProps, QuestionType} from '../../prisma/dataTypes';
-
+import { QuizProps, QuestionType } from '../../prisma/dataTypes';
+import QuizTracker from './QuizTracker';
 
 // This is the schema that is used to validate the form data for the quiz.
 const FormSchema = z.object({
@@ -26,9 +26,9 @@ const FormSchema = z.object({
 });
 
 /// used to compare the answer to the correct answer
-function compareAnswer(answer: string, correctAnswer: string) {
+function compareAnswer(answer: string, correct_answer: string) {
   //return true if the answer is correct
-  return answer === correctAnswer;
+  return answer === correct_answer;
 }
 
 const nextQuestion = (questionID: number, questions: QuestionType[]) => {
@@ -51,7 +51,7 @@ export function Quiz({ questions }: QuizProps) {
       QuizContext.SET_QUIZ_LIST(questions.map((q) => q.id));
     }
   }, []);
-  console.log(QuizContext);
+  // console.log(QuizContext);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -73,17 +73,15 @@ export function Quiz({ questions }: QuizProps) {
   function onSubmit(data: z.infer<typeof FormSchema>) {
     const formData = form.getValues();
     if (!questions) {
-      console.error('Question not found');
       return;
     }
-    const correctAnswer: string = questions.find((q) => q.id === questionID)
+
+    ///Checkes to see if the answer is correct
+    const correct_answer: string = questions.find((q) => q.id === questionID)
       ?.correct_answer as string;
-      console.log(correctAnswer, 'correct answer');
 
-    const isCorrect = compareAnswer(formData.type, correctAnswer);
-   
-  setCorrectorIncorrectQs(QuizContext, questionID, isCorrect);
-
+    const isCorrect = compareAnswer(formData.type, correct_answer);
+    setCorrectorIncorrectQs(QuizContext, questionID, isCorrect);
     const nextId = nextQuestion(questionID, questions);
     QuizContext?.SET_CURRENT_QUESTION(nextId);
 
@@ -92,6 +90,8 @@ export function Quiz({ questions }: QuizProps) {
   }
 
   return (
+    <>
+    <QuizTracker currentIndex={currentIndex} /> 
     <>
       <div className='flex flex-col justify-center items-center  mb-10 '>
         <Form {...form}>
@@ -121,10 +121,12 @@ export function Quiz({ questions }: QuizProps) {
                               className='flex items-center space-x-2'
                             >
                               <RadioGroupItem
-                                value={option.value} 
+                                value={option.value[0]}
                                 id={`r${index}`}
                               />
-                              <Label htmlFor={`r${index}`}>{option.value}</Label>
+                              <Label htmlFor={`r${index}`}>
+                                {option.value}
+                              </Label>
                             </div>
                           );
                         })}
@@ -140,6 +142,7 @@ export function Quiz({ questions }: QuizProps) {
           </form>
         </Form>
       </div>
+    </>
     </>
   );
 }

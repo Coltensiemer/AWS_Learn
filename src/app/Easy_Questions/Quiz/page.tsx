@@ -11,8 +11,6 @@ import { PrismaClient } from '@prisma/client';
 
 async function GETQuiz() {
   const prisma = new PrismaClient();
-
-	console.log('running')
   const data: QuestionType[] = await prisma.quiz.findMany({
 	where: {
 	  tag: 'AWS',
@@ -27,22 +25,12 @@ async function GETQuiz() {
 
 
 export default async function Page() {
-  // const QuizContext = useContext(QuizProgressContext);
 
 
-const data = await GETQuiz();
-console.log(data, 'data')
 
-
-  
-
-
-  
+const data = await GETQuiz();  
   return (
     <div className='flex flex-col'>
-      <QuizTracker
-      />
-
       <Quiz questions={data} /> 
       {/* <PaginationDirection currentIndex={CurrentQuestion} /> */}
     </div>
