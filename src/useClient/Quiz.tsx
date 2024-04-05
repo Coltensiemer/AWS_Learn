@@ -1,6 +1,6 @@
 'use client';
 
-import React, { use, useContext, useEffect } from 'react';
+import React, { use, useContext, useEffect, useState } from 'react';
 import { RadioGroup, RadioGroupItem } from '../components/ui/radio-group';
 import { Label } from '../components/ui/label';
 import { array, set, z } from 'zod';
@@ -20,17 +20,14 @@ import { QuizProgressContext } from '../useContext/QuizProgressContext';
 import { QuizProps, QuestionType } from '../../prisma/dataTypes';
 import QuizTracker from './QuizTracker';
 import { PaginationDirection } from './PaginationDirection';
+import { compareAnswer } from '../functions/compareAnswers/compareAnswers';
+import { generateSessionId } from '../functions/generateSessionID/generateSessionID';
 
 // This is the schema that is used to validate the form data for the quiz.
 const FormSchema = z.object({
   type: z.enum(['A', 'B', 'C', 'D']),
 });
 
-/// used to compare the answer to the correct answer
-function compareAnswer(answer: string, correct_answer: string) {
-  //return true if the answer is correct
-  return answer === correct_answer;
-}
 
 const nextQuestion = (questionID: number, questions: QuestionType[]) => {
   const currentIndex = questions.findIndex((q) => q.id === questionID);
@@ -45,12 +42,23 @@ const nextQuestion = (questionID: number, questions: QuestionType[]) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // This is the Quiz component that is exported to the page.
 export function Quiz({ questions }: QuizProps) {
+  const [sessionId, setSessionId] = useState(''); 
   const QuizContext = useContext(QuizProgressContext);
 
   useEffect(() => {
     if (QuizContext && questions) {
       QuizContext.SET_QUIZ_LIST(questions.map((q) => q.id));
     }
+    const storedSessionId = localStorage.getItem('sessionId');
+    if (storedSessionId) {
+      setSessionId(storedSessionId);
+    } else {
+      // If session ID doesn't exist, generate a new one and store it
+      const newSessionId = generateSessionId();
+      setSessionId(newSessionId);
+      localStorage.setItem('sessionId', newSessionId);
+    }
+
   }, []);
   // console.log(QuizContext);
 
