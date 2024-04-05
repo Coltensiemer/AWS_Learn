@@ -16,21 +16,9 @@ import {
 } from '../components/ui/form';
 import { Button } from '../components/ui/button';
 import { setCorrectorIncorrectQs } from '../functions/setCorrectorIncorrectQs/setCorrectorIncorrectQs';
-import { PaginationDirection } from './PaginationDirection';
 import { QuizProgressContext } from '../useContext/QuizProgressContext';
-import { getNextorPrevIndex } from '../functions/getNextforPrevindex/getNextorPrevIndex';
+import {QuizProps, QuestionType} from '../../prisma/dataTypes';
 
-// This is the type definition for the questions that are passed to the Quiz component.
-interface QuestionType {
-  question: string;
-  id: number;
-  options: string[];
-  correct_answer: string;
-}
-// This is the type definition for the props that are passed to the Quiz component.
-interface QuizProps {
-  questions: QuestionType[];
-}
 
 // This is the schema that is used to validate the form data for the quiz.
 const FormSchema = z.object({
@@ -64,6 +52,7 @@ export function Quiz({ questions }: QuizProps) {
   });
 
   if (!QuizContext) return null;
+  if (!questions) return null;
   // Defaults to the first question in the array until the QuizContext is available for currentQuestion
   const questionID =
     QuizContext?.QuizList[QuizContext.currentQuestion] ||
@@ -82,7 +71,7 @@ export function Quiz({ questions }: QuizProps) {
       return;
     }
     const correctAnswer: string = questions.find((q) => q.id === questionID)
-      ?.correct_answer as string;
+      ?.correctAnswer as string;
 
     const isCorrect = compareAnswer(formData.type, correctAnswer);
    
@@ -125,10 +114,10 @@ export function Quiz({ questions }: QuizProps) {
                               className='flex items-center space-x-2'
                             >
                               <RadioGroupItem
-                                value={option.charAt(0).toUpperCase()}
+                                value={option.value} 
                                 id={`r${index}`}
                               />
-                              <Label htmlFor={`r${index}`}>{option}</Label>
+                              <Label htmlFor={`r${index}`}>{option.value}</Label>
                             </div>
                           );
                         })}

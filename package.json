@@ -1,7 +1,6 @@
 {
   "name": "awslearn",
   "version": "0.1.0",
-  "type": "module",
   "private": true,
   "prisma": {
     "seed": "tsx prisma/seed.ts"
