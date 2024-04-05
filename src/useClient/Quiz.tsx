@@ -19,6 +19,7 @@ import { setCorrectorIncorrectQs } from '../functions/setCorrectorIncorrectQs/se
 import { QuizProgressContext } from '../useContext/QuizProgressContext';
 import { QuizProps, QuestionType } from '../../prisma/dataTypes';
 import QuizTracker from './QuizTracker';
+import { PaginationDirection } from './PaginationDirection';
 
 // This is the schema that is used to validate the form data for the quiz.
 const FormSchema = z.object({
@@ -143,6 +144,8 @@ export function Quiz({ questions }: QuizProps) {
         </Form>
       </div>
     </>
+    <PaginationDirection currentIndex={currentIndex + 1} /> 
     </>
   );
 }
+
