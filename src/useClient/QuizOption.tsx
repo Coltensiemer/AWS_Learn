@@ -33,8 +33,6 @@ const tagsList = [
   // Add more tags here
 ];
 
-
-
 function DifficultyToggle() {
   const difficultyList = ['Easy', 'Medium', 'Hard']; // Assuming this is your list of difficulty options
   const [selectedDifficulty, setSelectedDifficulty] = useState([]);
@@ -50,14 +48,11 @@ function DifficultyToggle() {
   return (
     <div>
       {difficultyList.map((difficulty) => (
-        <Toggle variant='outline'>
-          {difficulty}
-        </Toggle>
+        <Toggle variant='outline'>{difficulty}</Toggle>
       ))}
     </div>
   );
 }
-
 
 // Quiz Length
 // quiz tags
@@ -90,37 +85,35 @@ export default function QuizOption() {
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>Select Options</DrawerTitle>
-          <DrawerDescription>
+          <DrawerDescription className='flex justify-evenly'>
             <Tabs defaultValue='Options'>
               <TabsList>
                 <TabsTrigger value='Options'>Quiz Options</TabsTrigger>
                 <TabsTrigger value='Tags'>Quiz Tags</TabsTrigger>
               </TabsList>
-              <TabsContent value='Options' className='flex flex-row'>
-                  <div className='flex justify-evenly'>
-                   <DifficultyToggle />
-{/*                 
-                <div className='flex items-center p-2'>
-                  <Switch id='QuizTimer'></Switch>
-                  <Label className='p-2' htmlFor='QuizTimer'>
-                    Quiz Timer
-                  </Label>
-                </div> */}
+              <TabsContent
+                value='Options'
+                className='flex flex-row justify-around'
+              >
+                <div className='flex justify-around'>
+                  <DifficultyToggle />
+
+                  <div className='flex items-center p-2'>
+                    <Switch id='QuizTimer'></Switch>
+                    <Label className='p-2' htmlFor='QuizTimer'>
+                      Quiz Timer
+                    </Label>
+                  </div>
                 </div>
               </TabsContent>
 
               {/* Render checkboxes for each tag  */}
               <TabsContent value='Tags'>
                 {tagsList.map((tag) => (
-                  <div key={tag}>
-                    <input
-                      type='checkbox'
-                      id={tag}
-                      checked={Tags.includes(tag)}
-                      onChange={() => handleTagChange(tag)}
-                    />
+                  <Toggle key={tag}  variant='outline' pressed={Tags.includes(tag)} onPressedChange={() => handleTagChange(tag)}>
+                      {/* checked={Tags.includes(tag)}/ */}
                     <label htmlFor={tag}>{tag}</label>
-                  </div>
+                  </Toggle>
                 ))}
               </TabsContent>
             </Tabs>
