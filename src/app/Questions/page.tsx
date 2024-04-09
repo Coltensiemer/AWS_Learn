@@ -2,8 +2,6 @@
 
 import Link from 'next/link';
 import { Button } from '../../components/ui/button';
-import { Quiz } from '../../useClient/Quiz';
-import QuizTags from '../../useClient/Quiz_Tags';
 import QuizOption from '../../useClient/QuizOption';
 import { useContext } from 'react';
 import { QuizProgressContext } from '../../useContext/QuizProgressContext';
