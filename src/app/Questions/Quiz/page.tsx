@@ -1,22 +1,19 @@
 
-import react, { useEffect, useContext, useState } from 'react';
+import react, { useEffect, useContext, useState, cache } from 'react';
 import { QuizProgressContext } from '../../../useContext/QuizProgressContext';
 import { Quiz } from '../../../useClient/Quiz';
-import QuizTracker from '../../../useClient/QuizTracker';
-import { PaginationDirection } from '../../../useClient/PaginationDirection';
-import {GET} from '../../api/get-quiz/route';
+// import {GET} from '../../api/get-quiz/route';
 import {QuizProps, QuestionType} from '../../../../prisma/dataTypes';
 import { PrismaClient } from '@prisma/client';
 
 
-async function GETQuiz() {
+async function GETQuiz(tags: string[]) {
+  console.log(tags, 'tags')
   const prisma = new PrismaClient();
   const data: QuestionType[] = await prisma.quiz.findMany({
     where: {
-      OR: [
-        { tag: 'EC2' },
-        { tag: 'Lambda' }
-      ],
+      /// edit the tags to filter the questions
+      OR: tags.map(tag => ({ tag })),
     },
 	include: {
 	  options: true,
@@ -25,17 +22,23 @@ async function GETQuiz() {
  return data;
 }
 
+//Caching GetQuiz to reduce request to the server
+const QuizCache = cache(GETQuiz);
 
+export default async function Page({ searchParams }: { searchParams: { tags: string[] } }) {
+  console.log(searchParams.tags, 'searchParams.tags')
 
-export default async function Page() {
+const response = await QuizCache(searchParams.tags) // Extract the actual data from the response object
 
-
-
-const data = await GETQuiz();  
   return (
     <div className='flex flex-col'>
-      <Quiz questions={data} /> 
-      {/* <PaginationDirection currentIndex={CurrentQuestion} /> */}
+         {/* {searchParams.tags.map((post) => (
+        <li key={post}>
+          <p>{post}</p>
+        </li>
+      ))} */}
+        
+       <Quiz questions={response} />
     </div>
   );
 }
