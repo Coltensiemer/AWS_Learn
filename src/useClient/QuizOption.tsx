@@ -13,6 +13,15 @@ import {
 import { Button } from '../components/ui/button';
 import React, { useState, useContext } from 'react';
 import { QuizProgressContext } from '../useContext/QuizProgressContext';
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '../components/ui/tabs';
+import { Switch } from '../components/ui/switch';
+import { Label } from '../components/ui/label';
+import { Toggle } from '../components/ui/toggle';
 
 const tagsList = [
   'AWS Default',
@@ -24,9 +33,37 @@ const tagsList = [
   // Add more tags here
 ];
 
-// Create a new tag list and import into the QuizOption component
-// Add the new tag to the tagsList array in the QuizTags component
-//Edit UI to display the new tag in the QuizTags component
+
+
+function DifficultyToggle() {
+  const difficultyList = ['Easy', 'Medium', 'Hard']; // Assuming this is your list of difficulty options
+  const [selectedDifficulty, setSelectedDifficulty] = useState([]);
+
+  // const handleToggle = (difficulty: string[]) => {
+  //   if (selectedDifficulty.includes(difficulty)) {
+  //     setSelectedDifficulty(selectedDifficulty.filter((d) => d !== difficulty));
+  //   } else {
+  //     setSelectedDifficulty([...selectedDifficulty, difficulty]);
+  //   }
+  // };
+
+  return (
+    <div>
+      {difficultyList.map((difficulty) => (
+        <Toggle variant='outline'>
+          {difficulty}
+        </Toggle>
+      ))}
+    </div>
+  );
+}
+
+
+// Quiz Length
+// quiz tags
+// quiz difficulty
+// Quiz timer
+// See if answer is correct or wrong
 
 export default function QuizOption() {
   const QuizContext = useContext(QuizProgressContext);
@@ -52,22 +89,41 @@ export default function QuizOption() {
       <DrawerTrigger>Open</DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
-          <DrawerTitle>
-            Select tags to determind the question types.
-          </DrawerTitle>
+          <DrawerTitle>Select Options</DrawerTitle>
           <DrawerDescription>
-            {/* Render checkboxes for each tag */}
-            {tagsList.map((tag) => (
-              <div key={tag}>
-                <input
-                  type='checkbox'
-                  id={tag}
-                  checked={Tags.includes(tag)}
-                  onChange={() => handleTagChange(tag)}
-                />
-                <label htmlFor={tag}>{tag}</label>
-              </div>
-            ))}
+            <Tabs defaultValue='Options'>
+              <TabsList>
+                <TabsTrigger value='Options'>Quiz Options</TabsTrigger>
+                <TabsTrigger value='Tags'>Quiz Tags</TabsTrigger>
+              </TabsList>
+              <TabsContent value='Options' className='flex flex-row'>
+                  <div className='flex justify-evenly'>
+                   <DifficultyToggle />
+{/*                 
+                <div className='flex items-center p-2'>
+                  <Switch id='QuizTimer'></Switch>
+                  <Label className='p-2' htmlFor='QuizTimer'>
+                    Quiz Timer
+                  </Label>
+                </div> */}
+                </div>
+              </TabsContent>
+
+              {/* Render checkboxes for each tag  */}
+              <TabsContent value='Tags'>
+                {tagsList.map((tag) => (
+                  <div key={tag}>
+                    <input
+                      type='checkbox'
+                      id={tag}
+                      checked={Tags.includes(tag)}
+                      onChange={() => handleTagChange(tag)}
+                    />
+                    <label htmlFor={tag}>{tag}</label>
+                  </div>
+                ))}
+              </TabsContent>
+            </Tabs>
           </DrawerDescription>
         </DrawerHeader>
         <DrawerFooter>
