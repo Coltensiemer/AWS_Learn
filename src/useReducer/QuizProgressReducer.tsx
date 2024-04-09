@@ -1,11 +1,14 @@
 "use client";
 
+import { any } from "zod";
+
 // Define the action types
 export enum ActionType {
   SET_CURRENT_QUESTION,
   SET_QUIZ_LIST,
   SET_CORRECT_ANSWERED,
   SET_INCORRECT_ANSWERED,
+  SET_TAGS,
   INCREMENT_CURRENT_QUESTION,
   INCREMENT_CORRECT_ANSWERS,
   INCREMENT_INCORRECT_ANSWERS,
@@ -22,6 +25,7 @@ export const QuizinitialState = {
   QuizList: [],
   Correct_Answered: [],
   Incorrect_Answered: [],
+  Tags: [],
   correctAnswersSum: 0,
   incorrectAnswersSum: 0,
   currentQuestion: 0,
@@ -42,7 +46,8 @@ export const QuizReducer = (state: typeof QuizinitialState, action: Action) => {
       return { ...state, currentQuestion: action.payload};
       case ActionType.SET_QUIZ_LIST:
           return { ...state, QuizList: action.payload}
-        
+    case ActionType.SET_TAGS:
+      return { ...state, Tags: action.payload };
     default:
       return state;
   }

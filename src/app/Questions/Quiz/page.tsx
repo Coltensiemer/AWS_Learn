@@ -8,7 +8,6 @@ import { PrismaClient } from '@prisma/client';
 
 
 async function GETQuiz(tags: string[]) {
-  console.log(tags, 'tags')
   const prisma = new PrismaClient();
   const data: QuestionType[] = await prisma.quiz.findMany({
     where: {
@@ -26,18 +25,11 @@ async function GETQuiz(tags: string[]) {
 const QuizCache = cache(GETQuiz);
 
 export default async function Page({ searchParams }: { searchParams: { tags: string[] } }) {
-  console.log(searchParams.tags, 'searchParams.tags')
 
 const response = await QuizCache(searchParams.tags) // Extract the actual data from the response object
 
   return (
-    <div className='flex flex-col'>
-         {/* {searchParams.tags.map((post) => (
-        <li key={post}>
-          <p>{post}</p>
-        </li>
-      ))} */}
-        
+    <div className='flex flex-col'>        
        <Quiz questions={response} />
     </div>
   );
