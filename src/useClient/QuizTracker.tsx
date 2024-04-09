@@ -19,7 +19,7 @@ const TotalQuestions = quizContext?.QuizList.length
 
     return (
 		<div>
-			<h1>Question {currentIndex + 1} blank of {TotalQuestions} </h1>
+			<p>{currentIndex + 1}/{TotalQuestions} </p>
 		</div>
 	)
 }

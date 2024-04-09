@@ -9,6 +9,17 @@ import { PrismaClient } from '@prisma/client';
 
 async function GETQuiz(tags: string[]) {
   const prisma = new PrismaClient();
+
+//When no tags are selected, return all questions
+  if (!tags) {
+    const data: QuestionType[] = await prisma.quiz.findMany({
+      include: {
+        options: true,
+      },
+    });
+    return data;
+  }
+
   const data: QuestionType[] = await prisma.quiz.findMany({
     where: {
       /// edit the tags to filter the questions

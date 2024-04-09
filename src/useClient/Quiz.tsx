@@ -28,7 +28,6 @@ const FormSchema = z.object({
   type: z.enum(['A', 'B', 'C', 'D']),
 });
 
-
 const nextQuestion = (questionID: number, questions: QuestionType[]) => {
   const currentIndex = questions.findIndex((q) => q.id === questionID);
   if (currentIndex === -1) {
@@ -42,7 +41,7 @@ const nextQuestion = (questionID: number, questions: QuestionType[]) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // This is the Quiz component that is exported to the page.
 export function Quiz({ questions }: QuizProps) {
-  const [sessionId, setSessionId] = useState(''); 
+  const [sessionId, setSessionId] = useState('');
   const QuizContext = useContext(QuizProgressContext);
 
   useEffect(() => {
@@ -101,61 +100,62 @@ export function Quiz({ questions }: QuizProps) {
   }
 
   return (
-    <>
-    <QuizTracker currentIndex={currentIndex} /> 
-    <>
-      <div className='flex flex-col justify-center items-center  mb-10 '>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className='w-full space-y-6'
-          >
-            <FormField
-              control={form.control}
-              name='type'
-              render={({ field }) => (
-                <FormItem className='space-y-3'>
-                  <FormLabel className='text-lg'>
-                    {questions.find((q) => q.id === questionID)?.question}
-                  </FormLabel>
-                  <FormControl>
-                    <RadioGroup
-                      defaultValue={field.value}
-                      onValueChange={field.onChange}
-                    >
-                      {questions
-                        .find((q) => q.id === questionID)
-                        ?.options.map((option, index) => {
-                          return (
-                            <div
-                              key={index}
-                              className='flex items-center space-x-2'
-                            >
-                              <RadioGroupItem
-                                value={option.value[0]}
-                                id={`r${index}`}
-                              />
-                              <Label htmlFor={`r${index}`}>
-                                {option.value}
-                              </Label>
-                            </div>
-                          );
-                        })}
-                    </RadioGroup>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button size='sm' type='submit'>
-              {Submitbutton}
-            </Button>
-          </form>
-        </Form>
+    <div>
+      <div className='max-w-sm w-full overflow-auto border-red-300 border'>
+        <div className='flex flex-col justify-center items-center mb-10 border-green-300 border'>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className='w-full space-y-6'
+            >
+              <FormField
+                control={form.control}
+                name='type'
+                render={({ field }) => (
+                  <FormItem className='space-y-3'>
+                    <FormLabel className='text-lg'>
+                      {questions.find((q) => q.id === questionID)?.question}
+                    </FormLabel>
+                    <FormControl>
+                      <RadioGroup
+                        defaultValue={field.value}
+                        onValueChange={field.onChange}
+                      >
+                        {questions
+                          .find((q) => q.id === questionID)
+                          ?.options.map((option, index) => {
+                            return (
+                              <div
+                                key={index}
+                                className='flex items-center space-x-2'
+                              >
+                                <RadioGroupItem
+                                  value={option.value[0]}
+                                  id={`r${index}`}
+                                />
+                                <Label htmlFor={`r${index}`}>
+                                  {option.value}
+                                </Label>
+                              </div>
+                            );
+                          })}
+                      </RadioGroup>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button size='sm' type='submit'>
+                {Submitbutton}
+              </Button>
+            </form>
+          </Form>
+        </div>
       </div>
-    </>
-    <PaginationDirection currentIndex={currentIndex + 1} /> 
-    </>
+      <div className='flex flex-row justify-center items-center'>
+        <PaginationDirection currentIndex={currentIndex + 1} />
+        <QuizTracker currentIndex={currentIndex} />
+      </div>
+    </div>
   );
 }
-

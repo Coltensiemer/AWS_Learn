@@ -13,24 +13,25 @@ export default function EasyQuestions() {
       'QuizProgressContext must be used within a QuizProgressProvider'
     );
   }
-  const { Tags } = QuizContext;
 
-
+const { Tags } = QuizContext;
 
   return (
     <>
       <div>
         <h1>Easy Mode</h1>
         <Button>
-          <Link href={{ pathname: '/Questions/Quiz', query: { tags: Tags } }}>Start Quiz</Link>
+          <Link href={{ pathname: '/Questions/Quiz', query: { tags: Tags } }}>
+            Start Quiz
+          </Link>
         </Button>
         <p>Options</p>
-      <QuizOption />
-      {Tags.map((tag) => (
-        <ul>
-          <li key={tag}>{tag}</li>
-        </ul>
-))}
+        <QuizOption />
+        {Tags.map((tag) => (
+          <ul>
+            <li key={tag}>{tag}</li>
+          </ul>
+        ))}
       </div>
     </>
   );
