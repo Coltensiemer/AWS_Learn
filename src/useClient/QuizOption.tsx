@@ -14,13 +14,11 @@ import { Label } from '../components/ui/label';
 import { Toggle } from '../components/ui/toggle';
 import {
   Card,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '../components/ui/card';
-import { TimeInput } from '../components/ui/stopwatch';
+import { TimeInput } from '../components/ui/inputTimer';
 
 const tagsList = [
   'AWS Default',
@@ -160,8 +158,9 @@ const [timer, setTimer] = useState(0);
     {/* Showing quiz options */}
       <Card>
         <CardHeader>
-          <CardTitle>Selected Tags</CardTitle>
+          <CardTitle></CardTitle>
         </CardHeader>
+        {!Tags.length && <p>No tags selected.</p>}
         <div>
           {Tags.map((tag) => (
             <ul className='grid grid-cols-2 grid-rows-1'>

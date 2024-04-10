@@ -2,7 +2,7 @@
 
 import { useContext } from "react"
 import { QuizProgressContext } from "../useContext/QuizProgressContext"
-import { QuestionType } from "../../prisma/dataTypes"  
+
 
 interface QuizTrackerProps {
 	currentIndex: number;
