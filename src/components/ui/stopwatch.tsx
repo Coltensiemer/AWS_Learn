@@ -1,14 +1,14 @@
 import * as React from "react";
 import { cn } from "../../lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
-import {Control, useForm} from "react-hook-form";
+
 
 const inputVariants = cva(
   "border border-gray-300 rounded-md p-2",
   {
     variants: {
       inputSize: {
-        default: "w-28",
+        default: "w-32",
         sm: "w-24",
         md: "w-36",
         lg: "w-48",
@@ -32,7 +32,8 @@ export interface TimeInputProps
 		({ className, inputSize = "default", ...props }, ref) => {
 		  return (
 			<div className={cn(inputVariants({ inputSize, className }))} ref={ref}>
-			  <input type="text" placeholder="Mintues" maxLength={2} className="w-24" />
+        <label htmlFor="time"></label>
+			  <input id="time" value={props.value} onChange={props.onChange} type="text" placeholder="Mintues" maxLength={3} className='w-24' />
 			</div>
 		  );
 		}

@@ -46,21 +46,21 @@ function DifficultyToggle() {
   return (
     <div>
       {difficultyList.map((difficulty) => (
-        <Toggle variant='outline'>{difficulty}</Toggle>
+        <Toggle key={difficulty} variant='outline'>
+          {difficulty}
+        </Toggle>
       ))}
     </div>
   );
 }
 
-
-
-// const handleHourChange = (e: React.ChangeEvent<HTMLInputElement>) => { 
+// const handleHourChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 //   const value = e.target.value;
 //   if (value > 24) {
 //     // Do something
 //   }
 
-// } 
+// }
 // Quiz Length
 // quiz tags
 // quiz difficulty
@@ -69,14 +69,14 @@ function DifficultyToggle() {
 
 export default function QuizOption() {
   const [QuizTimer, setQuizTimer] = useState(false);
-  const [timer, setTimer] = useState(0);
+const [timer, setTimer] = useState(0);
   const QuizContext = useContext(QuizProgressContext);
   if (!QuizContext) {
     throw new Error(
       'QuizProgressContext must be used within a QuizProgressProvider'
     );
   }
-  const { SET_TAGS, Tags } = QuizContext;
+  const { SET_TAGS, Tags, SET_QUIZ_TIME, QuizTime } = QuizContext;
 
   // Function to handle tag selection/deselection
   const handleTagChange = (tag: string) => {
@@ -88,8 +88,20 @@ export default function QuizOption() {
       SET_TAGS([...Tags, tag]);
     }
   };
+
+  const handleTimerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const re = /^[0-9\b]+$/;
+    const value = e.target.value;
+    if ( re.test(value)) {
+    SET_QUIZ_TIME(parseInt(value));
+    }
+  };
+
+  const change = (e: React.ChangeEvent<HTMLInputElement>) => {
+    alert(e.target.value);
+  };
   return (
-    <Card>
+    <Card className='flex flex-row'>
       <CardHeader>
         <CardTitle>Quiz Options</CardTitle>
         <CardDescription>Customize your quiz</CardDescription>
@@ -133,21 +145,36 @@ export default function QuizOption() {
                 Quiz CountDown Timer
               </Label>
             </div>
-            {QuizTimer == true && 
-            <TimeInput />}
+            {QuizTimer == true && (
+              <TimeInput
+                onChange={(e) => {
+                  handleTimerChange(e);
+                }}
+              />
+            )}
             {/* For quiz timer: npm install react-countdown --save */}
           </div>
         </TabsContent>
       </Tabs>
+
+    {/* Showing quiz options */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Selected Tags</CardTitle>
+        </CardHeader>
+        <div>
+          {Tags.map((tag) => (
+            <ul className='grid grid-cols-2 grid-rows-1'>
+              <li key={tag}>{tag}</li>
+            </ul>
+          ))}
+        </div>
+        <div>
+          {!QuizTime && <p>Timer is not set.</p>}
+          {QuizTime && <p>Timer is set for {QuizTime} minutes.</p>}
+        </div>
+      </Card>
     </Card>
   );
 }
 
-{
-  /* <div className='border border-black p-10'>
-{Tags.map((tag) => (
-  <ul>
-    <li key={tag}>{tag}</li>
-  </ul>
-))} */
-}

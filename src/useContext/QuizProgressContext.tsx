@@ -8,6 +8,7 @@ import {
   QuizReducer,
   ActionType,
 } from '../useReducer/QuizProgressReducer';
+import { Quiz } from '../useClient/Quiz';
 
 export interface QuizProgressContextType {
   correctAnswersSum: number;
@@ -17,6 +18,7 @@ export interface QuizProgressContextType {
   Correct_Answered: [];
   Incorrect_Answered: [];
   Tags: string[];
+  QuizTime: number; 
   incrementCorrectAnswers: () => void;
   incrementIncorrectAnswers: () => void;
   SET_CURRENT_QUESTION: (payload: any) => void;
@@ -24,6 +26,7 @@ export interface QuizProgressContextType {
   SET_INCORRECT_ANSWERED: (payload: any) => void;
   SET_QUIZ_LIST: (payload: any) => void;
   SET_TAGS: (payload: any) => void;
+  SET_QUIZ_TIME: (payload: any) => void;
 }
 
 //Create a context to store the quiz progress data
@@ -73,6 +76,10 @@ export const QuizProgressProvider = ({
     dispatch({ type: ActionType.SET_TAGS, payload });
   }
 
+  const SET_QUIZ_TIME = (payload: any) => {
+    dispatch({ type: ActionType.SET_QUIZ_TIME, payload });
+  };
+
   const contextValue = useMemo(
     () => ({
       QuizList: state.QuizList,
@@ -82,13 +89,15 @@ export const QuizProgressProvider = ({
       incorrectAnswersSum: state.incorrectAnswersSum,
       currentQuestion: state.currentQuestion,
       Tags: state.Tags,
+      QuizTime: state.QuizTime,
       incrementCorrectAnswers,
       incrementIncorrectAnswers,
       SET_CURRENT_QUESTION,
       SET_CORRECT_ANSWERED,
       SET_INCORRECT_ANSWERED,
       SET_QUIZ_LIST,
-      SET_TAGS
+      SET_TAGS,
+      SET_QUIZ_TIME
     }),
     [
       state.Correct_Answered,
@@ -98,6 +107,7 @@ export const QuizProgressProvider = ({
       state.incorrectAnswersSum,
       state.currentQuestion,
       state.Tags,
+      state.QuizTime,
     ]
   );
 
