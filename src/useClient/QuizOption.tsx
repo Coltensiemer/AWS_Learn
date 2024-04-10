@@ -1,15 +1,5 @@
 'use client';
 
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from '../components/ui/drawer';
 import { Button } from '../components/ui/button';
 import React, { useState, useContext } from 'react';
 import { QuizProgressContext } from '../useContext/QuizProgressContext';
@@ -22,6 +12,15 @@ import {
 import { Switch } from '../components/ui/switch';
 import { Label } from '../components/ui/label';
 import { Toggle } from '../components/ui/toggle';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '../components/ui/card';
+import { TimeInput } from '../components/ui/stopwatch';
 
 const tagsList = [
   'AWS Default',
@@ -44,7 +43,6 @@ function DifficultyToggle() {
   //     setSelectedDifficulty([...selectedDifficulty, difficulty]);
   //   }
   // };
-
   return (
     <div>
       {difficultyList.map((difficulty) => (
@@ -54,6 +52,15 @@ function DifficultyToggle() {
   );
 }
 
+
+
+// const handleHourChange = (e: React.ChangeEvent<HTMLInputElement>) => { 
+//   const value = e.target.value;
+//   if (value > 24) {
+//     // Do something
+//   }
+
+// } 
 // Quiz Length
 // quiz tags
 // quiz difficulty
@@ -61,6 +68,8 @@ function DifficultyToggle() {
 // See if answer is correct or wrong
 
 export default function QuizOption() {
+  const [QuizTimer, setQuizTimer] = useState(false);
+  const [timer, setTimer] = useState(0);
   const QuizContext = useContext(QuizProgressContext);
   if (!QuizContext) {
     throw new Error(
@@ -80,52 +89,65 @@ export default function QuizOption() {
     }
   };
   return (
-    <Drawer>
-      <DrawerTrigger>Open</DrawerTrigger>
-      <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle>Select Options</DrawerTitle>
-          <DrawerDescription className='flex justify-evenly'>
-            <Tabs defaultValue='Options'>
-              <TabsList>
-                <TabsTrigger value='Options'>Quiz Options</TabsTrigger>
-                <TabsTrigger value='Tags'>Quiz Tags</TabsTrigger>
-              </TabsList>
-              <TabsContent
-                value='Options'
-                className='flex flex-row justify-around'
-              >
-                <div className='flex justify-around'>
-                  <DifficultyToggle />
+    <Card>
+      <CardHeader>
+        <CardTitle>Quiz Options</CardTitle>
+        <CardDescription>Customize your quiz</CardDescription>
+      </CardHeader>
+      <Tabs defaultValue='Options'>
+        <TabsList>
+          <TabsTrigger value='Options'>Quiz Options</TabsTrigger>
+          <TabsTrigger value='Tags'>Quiz Tags</TabsTrigger>
+          <TabsTrigger value='Timer'>Timer</TabsTrigger>
+        </TabsList>
+        <TabsContent value='Options' className='flex flex-row justify-around'>
+          <div className='flex justify-around'>
+            <DifficultyToggle />
+          </div>
+        </TabsContent>
 
-                  <div className='flex items-center p-2'>
-                    <Switch id='QuizTimer'></Switch>
-                    <Label className='p-2' htmlFor='QuizTimer'>
-                      Quiz Timer
-                    </Label>
-                  </div>
-                </div>
-              </TabsContent>
+        {/* Render checkboxes for each tag  */}
+        <TabsContent value='Tags'>
+          {tagsList.map((tag) => (
+            <Toggle
+              key={tag}
+              variant='outline'
+              pressed={Tags.includes(tag)}
+              onPressedChange={() => handleTagChange(tag)}
+            >
+              {/* checked={Tags.includes(tag)}/ */}
+              <label htmlFor={tag}>{tag}</label>
+            </Toggle>
+          ))}
+        </TabsContent>
 
-              {/* Render checkboxes for each tag  */}
-              <TabsContent value='Tags'>
-                {tagsList.map((tag) => (
-                  <Toggle key={tag}  variant='outline' pressed={Tags.includes(tag)} onPressedChange={() => handleTagChange(tag)}>
-                      {/* checked={Tags.includes(tag)}/ */}
-                    <label htmlFor={tag}>{tag}</label>
-                  </Toggle>
-                ))}
-              </TabsContent>
-            </Tabs>
-          </DrawerDescription>
-        </DrawerHeader>
-        <DrawerFooter>
-          <Button>Submit</Button>
-          <DrawerClose>
-            <Button variant='outline'>Cancel</Button>
-          </DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
+        {/* //Quiz Timer */}
+        <TabsContent value='Timer'>
+          <div className='flex items-center p-2'>
+            <div>
+              <Switch
+                id='QuizTimer'
+                onCheckedChange={() => setQuizTimer(!QuizTimer)}
+              ></Switch>
+              <Label className='p-2' htmlFor='QuizTimer'>
+                Quiz CountDown Timer
+              </Label>
+            </div>
+            {QuizTimer == true && 
+            <TimeInput />}
+            {/* For quiz timer: npm install react-countdown --save */}
+          </div>
+        </TabsContent>
+      </Tabs>
+    </Card>
   );
+}
+
+{
+  /* <div className='border border-black p-10'>
+{Tags.map((tag) => (
+  <ul>
+    <li key={tag}>{tag}</li>
+  </ul>
+))} */
 }
