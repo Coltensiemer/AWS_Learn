@@ -95,18 +95,15 @@ const [timer, setTimer] = useState(0);
     }
   };
 
-  const change = (e: React.ChangeEvent<HTMLInputElement>) => {
-    alert(e.target.value);
-  };
   return (
-    <Card className='flex flex-row'>
+    <Card className='flex flex-col lg:flex-row'>
       <CardHeader>
         <CardTitle>Quiz Options</CardTitle>
         <CardDescription>Customize your quiz</CardDescription>
       </CardHeader>
-      <Tabs defaultValue='Options'>
-        <TabsList>
-          <TabsTrigger value='Options'>Quiz Options</TabsTrigger>
+      <Tabs defaultValue='Options' >
+        <TabsList className='flex overflow-scroll'>
+          <TabsTrigger  value='Options'>Quiz Options</TabsTrigger>
           <TabsTrigger value='Tags'>Quiz Tags</TabsTrigger>
           <TabsTrigger value='Timer'>Timer</TabsTrigger>
         </TabsList>
