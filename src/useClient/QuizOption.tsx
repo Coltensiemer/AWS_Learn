@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '../components/ui/button';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { QuizProgressContext } from '../useContext/QuizProgressContext';
 import {
   Tabs,
@@ -19,6 +19,7 @@ import {
   CardTitle,
 } from '../components/ui/card';
 import { TimeInput } from '../components/ui/inputTimer';
+import { convertToTotalSeconds } from '../functions/convertToTotalSeconds/convertToTotalSeconds';
 
 const tagsList = [
   'AWS Default',
@@ -66,8 +67,9 @@ function DifficultyToggle() {
 // See if answer is correct or wrong
 
 export default function QuizOption() {
+  const [TimeMinutes, setTimeMinutes] = useState<any>(50);
+  const [TimeSeconds, setTimeSeconds] = useState<any>(0);
   const [QuizTimer, setQuizTimer] = useState(false);
-const [timer, setTimer] = useState(0);
   const QuizContext = useContext(QuizProgressContext);
   if (!QuizContext) {
     throw new Error(
@@ -87,13 +89,10 @@ const [timer, setTimer] = useState(0);
     }
   };
 
-  const handleTimerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const re = /^[0-9\b]+$/;
-    const value = e.target.value;
-    if ( re.test(value)) {
-    SET_QUIZ_TIME(parseInt(value));
-    }
-  };
+  useEffect(() => {
+    const totalSeconds = convertToTotalSeconds(TimeMinutes, TimeSeconds);
+    SET_QUIZ_TIME(totalSeconds);
+  }, [TimeMinutes, TimeSeconds]);
 
   return (
     <Card className='flex flex-col lg:flex-row'>
@@ -101,9 +100,9 @@ const [timer, setTimer] = useState(0);
         <CardTitle>Quiz Options</CardTitle>
         <CardDescription>Customize your quiz</CardDescription>
       </CardHeader>
-      <Tabs defaultValue='Options' >
+      <Tabs defaultValue='Options'>
         <TabsList className='flex overflow-scroll'>
-          <TabsTrigger  value='Options'>Quiz Options</TabsTrigger>
+          <TabsTrigger value='Options'>Quiz Options</TabsTrigger>
           <TabsTrigger value='Tags'>Quiz Tags</TabsTrigger>
           <TabsTrigger value='Timer'>Timer</TabsTrigger>
         </TabsList>
@@ -141,18 +140,17 @@ const [timer, setTimer] = useState(0);
               </Label>
             </div>
             {QuizTimer == true && (
-              <TimeInput
-                onChange={(e) => {
-                  handleTimerChange(e);
-                }}
-              />
+              <div className='flex justify-center items-center'>
+                <TimeInput inputSize={'sm'} identifier='min' onChange={(e) => {setTimeMinutes(e)}}/>
+                <span className='p-2'>:</span>
+                <TimeInput inputSize={'sm'} identifier='sec' onChange={(e) => {setTimeSeconds(e)}}/>
+              </div>
             )}
-            {/* For quiz timer: npm install react-countdown --save */}
           </div>
         </TabsContent>
       </Tabs>
 
-    {/* Showing quiz options */}
+      {/* Showing quiz options */}
       <Card>
         <CardHeader>
           <CardTitle></CardTitle>
@@ -173,4 +171,3 @@ const [timer, setTimer] = useState(0);
     </Card>
   );
 }
-

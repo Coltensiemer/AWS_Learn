@@ -2,6 +2,10 @@ import * as React from "react";
 import { cn } from "../../lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
+import { isValid } from "zod";
+
+
+
 
 const inputVariants = cva(
   "border border-gray-300 rounded-md p-2",
@@ -17,33 +21,52 @@ const inputVariants = cva(
     defaultVariants: {
       inputSize: "default",
     },
-  }
+  }, 
 );
 
-
+/// Add placeholder varient to inputVariants
 
 
 
 export interface TimeInputProps
-  extends React.InputHTMLAttributes<HTMLInputElement>,
-    VariantProps<typeof inputVariants> {}
-	
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+identifier: string;
+inputSize?: VariantProps<typeof inputVariants>["inputSize"];
+  }
+
 	const TimeInput = React.forwardRef<HTMLDivElement, TimeInputProps>(
-		({ className, inputSize = "default", ...props }, ref) => {
-		  return (
-			<div className={cn(inputVariants({ inputSize, className }))} ref={ref}>
-        <label htmlFor="time"></label>
-			  <input id="time" value={props.value} onChange={props.onChange} type="text" placeholder="Mintues" maxLength={3} className='w-24' />
-			</div>
-		  );
-		}
-	  );
-	  TimeInput.displayName = "TimeInput";
+		({ className, identifier, inputSize = "default", ...props }, ref) => {
 
+      const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.currentTarget.value;
+        console.log(value, 'value in time input', identifier)
+        const isValidInput = /^\d*$/.test(value); // Check if value contains only digits
+        const inputClassName = `w-10 text-xs ${isValidInput ? '' : ' border border-red-500'}`;
+        e.target.className = inputClassName; 
+        if (/^\d*$/.test(value) && value != undefined) { // Check if value contains only digits
+          //@ts-ignore
+          // This works because the parent component is passing the onChange prop
+            props.onChange && props.onChange(value);
+        }
+      }
 
-TimeInput.displayName = "TimeInput";
-
-
+      return (
+        <div className={className} ref={ref}>
+          <label htmlFor={identifier}></label>
+          <input
+            id={identifier}
+            value={props.value}
+            onChange={handleChange}
+            type="text"
+            placeholder={identifier === 'min' ? 'Min' : 'Sec'}
+            maxLength={identifier === 'min' ? 2 : 3}
+            className='w-10 text-xs '
+          />
+        </div>
+      );
+    }
+  );
+  
 
 
 
