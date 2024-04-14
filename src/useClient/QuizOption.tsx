@@ -66,8 +66,20 @@ function DifficultyToggle() {
 // Quiz timer
 // See if answer is correct or wrong
 
+const renderTime = (value: number, unit: string): string => {
+  return value == 1 ? `${value} ${unit}` : `${value} ${unit}s`;
+};
+
+const renderMinutesText = (minutes: number): string => {
+  return renderTime(minutes, 'minute');
+};
+
+const renderSecondsText = (seconds: number): string => {
+  return renderTime(seconds, 'second');
+};
+
 export default function QuizOption() {
-  const [TimeMinutes, setTimeMinutes] = useState<any>(50);
+  const [TimeMinutes, setTimeMinutes] = useState<any>(0);
   const [TimeSeconds, setTimeSeconds] = useState<any>(0);
   const [QuizTimer, setQuizTimer] = useState(false);
   const QuizContext = useContext(QuizProgressContext);
@@ -141,9 +153,21 @@ export default function QuizOption() {
             </div>
             {QuizTimer == true && (
               <div className='flex justify-center items-center'>
-                <TimeInput inputSize={'sm'} identifier='min' onChange={(e) => {setTimeMinutes(e)}}/>
+                <TimeInput
+                  inputSize={'sm'}
+                  identifier='min'
+                  onChange={(e) => {
+                    setTimeMinutes(e);
+                  }}
+                />
                 <span className='p-2'>:</span>
-                <TimeInput inputSize={'sm'} identifier='sec' onChange={(e) => {setTimeSeconds(e)}}/>
+                <TimeInput
+                  inputSize={'sm'}
+                  identifier='sec'
+                  onChange={(e) => {
+                    setTimeSeconds(e);
+                  }}
+                />
               </div>
             )}
           </div>
@@ -165,7 +189,19 @@ export default function QuizOption() {
         </div>
         <div>
           {!QuizTime && <p>Timer is not set.</p>}
-          {QuizTime && <p>Timer is set for {QuizTime} minutes.</p>}
+          {QuizTime && QuizTime > 1 && (
+            <p>
+              Timer is set for{' '}
+              {TimeMinutes && TimeMinutes > 0
+                ? renderMinutesText(TimeMinutes)
+                : null}
+              {TimeMinutes > 0 && TimeSeconds > 0 ? ' and ' : null}
+              {TimeSeconds && TimeSeconds > 0
+                ? renderSecondsText(TimeSeconds)
+                : null}
+              .
+            </p>
+          )}
         </div>
       </Card>
     </Card>

@@ -39,7 +39,6 @@ inputSize?: VariantProps<typeof inputVariants>["inputSize"];
 
       const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.currentTarget.value;
-        console.log(value, 'value in time input', identifier)
         const isValidInput = /^\d*$/.test(value); // Check if value contains only digits
         const inputClassName = `w-10 text-xs ${isValidInput ? '' : ' border border-red-500'}`;
         e.target.className = inputClassName; 
@@ -59,7 +58,7 @@ inputSize?: VariantProps<typeof inputVariants>["inputSize"];
             onChange={handleChange}
             type="text"
             placeholder={identifier === 'min' ? 'Min' : 'Sec'}
-            maxLength={identifier === 'min' ? 2 : 3}
+            maxLength={identifier === 'min' ? 3 : 2}
             className='w-10 text-xs '
           />
         </div>

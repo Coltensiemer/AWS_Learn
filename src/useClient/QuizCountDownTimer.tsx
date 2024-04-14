@@ -10,7 +10,10 @@ const renderTime = ({ remainingTime }: { remainingTime: number }) => {
   }
 
   if (remainingTime > 60) {
-    return <div className='flex flex-col justify-center items-center'></div>;
+    return <div className='flex flex-col justify-center items-center'>
+      <div>{Math.floor(remainingTime) / 60}</div>
+      <div>Min</div>
+    </div>;
   }
 
   if (remainingTime <= 60) {
@@ -34,9 +37,6 @@ export default function QuizCountDownTimer() {
 );
 const { QuizTime } = QuizContext;
 const theSize = QuizTime <= 60 ? sizeforSeconds : sizeforMintues;
-
-  //if there is no quiz time, return null -- no timer will show
-  //   if (!QuizTime) return null;
 
   return (
     <div>
