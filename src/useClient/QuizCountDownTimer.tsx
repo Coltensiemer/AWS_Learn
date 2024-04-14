@@ -11,8 +11,8 @@ const renderTime = ({ remainingTime }: { remainingTime: number }) => {
 
   if (remainingTime > 60) {
     return <div className='flex flex-col justify-center items-center'>
-      <div>{Math.floor(remainingTime) / 60}</div>
-      <div>Min</div>
+      <p>{Math.floor(remainingTime / 60)}</p>
+      <p className='text-xs'>Minutes</p>
     </div>;
   }
 

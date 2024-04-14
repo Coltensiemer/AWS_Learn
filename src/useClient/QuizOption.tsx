@@ -66,14 +66,17 @@ function DifficultyToggle() {
 // Quiz timer
 // See if answer is correct or wrong
 
+// Function to render time in minutes and seconds
 const renderTime = (value: number, unit: string): string => {
   return value == 1 ? `${value} ${unit}` : `${value} ${unit}s`;
 };
 
+// Function to render minutes text
 const renderMinutesText = (minutes: number): string => {
   return renderTime(minutes, 'minute');
 };
 
+// Function to render seconds text
 const renderSecondsText = (seconds: number): string => {
   return renderTime(seconds, 'second');
 };
