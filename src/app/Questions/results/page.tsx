@@ -1,8 +1,8 @@
-'use client'; 
+'use client'
+import Results from '../../../useClient/Results';
 
 
-
-export default function EasyQuestions() {
+export default  function Page() {
 
 
 	return (
@@ -10,7 +10,7 @@ export default function EasyQuestions() {
 		
 		  <div>
 			<h1>Results</h1>
-
+			<Results />
 		  </div> 
 	  </>
 	);
