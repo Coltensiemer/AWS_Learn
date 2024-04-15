@@ -35,7 +35,14 @@ Brief description of the project, including its purpose and key features.
 `
    npm run start
 
-4. Additional scripts:
+4. Create a .env 
+   `DATABASE_URL="postgresql://{username}:{password}@localhost:{port}/{dbName}?schema=SCHEMA"`
+
+5. How to seed developement DB run: 
+`
+   npx prisma db seed
+
+6. Additional scripts:
    - `lint`: Run ESLint for linting.
    - `storybook`: Start Storybook development server.
    - `build-storybook`: Build Storybook static files.
