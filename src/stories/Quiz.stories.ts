@@ -27,18 +27,31 @@ const meta = {
 	args: {
 	  questions: [
 		{
-		  question: "What is the capital of France?",
-		  options: ["Paris", "London", "Berlin", "Rome"],
-		  correct_answer: "Paris",
-		},
-		{
-		  question: "Who wrote 'Romeo and Juliet'?",
-		  options: ["William Shakespeare", "Charles Dickens", "Jane Austen", "Mark Twain"],
-		  correct_answer: "William Shakespeare",
-		},
+			"id": 1,
+			"tag": "EC2",
+			"question": "What is AWS EC2 primarily used for?",
+			"options": [
+			  { "id": 1, "quizId": 1, "value": "A. Storing data", "isCorrect": false },
+			  { "id": 1, "quizId": 1, "value": "B. Running virtual servers in the cloud", "isCorrect": true },
+			  {"id": 1, "quizId": 1,  "value": "C. Managing DNS records", "isCorrect": false },
+			  { "id": 1, "quizId": 1, "value": "D. Distributing content globally", "isCorrect": false }
+			],
+			"correct_answer": "B"
+		  },
+		  {
+			"id": 2,
+			"tag": "EC2",
+			"question": "Which of the following instance types provides the highest level of compute power in AWS EC2?",
+			"options": [
+			  {"id": 1, "quizId": 1, "value": "A. T2", "isCorrect": false },
+			  { "id": 1, "quizId": 1, "value": "B. M5", "isCorrect": true },
+			  {"id": 1, "quizId": 1,  "value": "C. C4", "isCorrect": false },
+			  {"id": 1, "quizId": 1,  "value": "D. R3", "isCorrect": false }
+			],
+			"correct_answer": "B"
+		  },
 
 	  ],
-	  questionIndex: 0, 
 	},
   };
 

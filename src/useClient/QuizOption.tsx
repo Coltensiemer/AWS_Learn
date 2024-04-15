@@ -185,8 +185,8 @@ export default function QuizOption() {
         {!Tags.length && <p>No tags selected.</p>}
         <div>
           {Tags.map((tag, index) => (
-            <ul className='grid grid-cols-2 grid-rows-1'>
-              <li key={index}>{tag}</li>
+            <ul key={index} className='grid grid-cols-2 grid-rows-1'>
+              <li >{tag}</li>
             </ul>
           ))}
         </div>
