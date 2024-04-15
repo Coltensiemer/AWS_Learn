@@ -51,15 +51,15 @@ export function Quiz({ questions }: QuizProps) {
     }
 
     //sets the session ID in local storage
-    const storedSessionId = localStorage.getItem('sessionId');
-    if (storedSessionId) {
-      setSessionId(storedSessionId);
-    } else {
-      // If session ID doesn't exist, generate a new one and store it
-      const newSessionId = generateSessionId();
-      setSessionId(newSessionId);
-      localStorage.setItem('sessionId', newSessionId);
-    }
+    // const storedSessionId = localStorage.getItem('sessionId');
+    // if (storedSessionId) {
+    //   setSessionId(storedSessionId);
+    // } else {
+    //   // If session ID doesn't exist, generate a new one and store it
+    //   const newSessionId = generateSessionId();
+    //   setSessionId(newSessionId);
+    //   localStorage.setItem('sessionId', newSessionId);
+    // }
   }, []);
   // console.log(QuizContext);
 

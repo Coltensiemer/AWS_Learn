@@ -184,9 +184,9 @@ export default function QuizOption() {
         </CardHeader>
         {!Tags.length && <p>No tags selected.</p>}
         <div>
-          {Tags.map((tag) => (
+          {Tags.map((tag, index) => (
             <ul className='grid grid-cols-2 grid-rows-1'>
-              <li key={tag}>{tag}</li>
+              <li key={index}>{tag}</li>
             </ul>
           ))}
         </div>

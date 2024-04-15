@@ -67,6 +67,6 @@ inputSize?: VariantProps<typeof inputVariants>["inputSize"];
   );
   
 
-
+TimeInput.displayName = 'TimeInput'; 
 
 export { TimeInput, inputVariants };
