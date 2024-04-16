@@ -28,19 +28,3 @@ export async function GET() {
     }
 }
 
-
-// async function GET() {
-//   const prisma = new PrismaClient();
-//   const data: QuestionType[] = await prisma.quiz.findMany({
-//     where: {
-//       OR: [
-//         { tag: 'EC2' },
-//         { tag: 'Lambda' }
-//       ],
-//     },
-// 	include: {
-// 	  options: true,
-// 	},
-//   });
-//  return data;
-// }
