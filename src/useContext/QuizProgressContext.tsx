@@ -4,7 +4,8 @@ import React, { createContext, ReactNode, useMemo, useReducer } from 'react';
 
 
 import { 
- QuizinitialState,
+  initialQuizState, 
+  QuizinitialState,
   QuizReducer,
   ActionType,
 } from '../useReducer/QuizProgressReducer';
@@ -14,9 +15,9 @@ export interface QuizProgressContextType {
   correctAnswersSum: number;
   incorrectAnswersSum: number;
   currentQuestion: number;
-  QuizList: [];
-  Correct_Answered: [];
-  Incorrect_Answered: [];
+  QuizList: any[];
+  Correct_Answered: any[];
+  Incorrect_Answered: any[];
   Tags: string[];
   QuizTime: number; 
   incrementCorrectAnswers: () => void;
@@ -43,7 +44,7 @@ interface QuizProgressProviderProps {
 export const QuizProgressProvider = ({
   children,
 }: QuizProgressProviderProps) => {
-  const [state, dispatch] = useReducer(QuizReducer, QuizinitialState);
+  const [state, dispatch] = useReducer(QuizReducer, initialQuizState);
 
   const SET_QUIZ_LIST = (payload: any) => {
     dispatch({ type: ActionType.SET_QUIZ_LIST, payload });

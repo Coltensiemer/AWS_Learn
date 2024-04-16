@@ -1,7 +1,8 @@
 "use client";
 
-import { any } from "zod";
+import { any, number } from "zod";
 import { Quiz } from "../useClient/Quiz";
+import { Reducer } from "react";
 
 // Define the action types
 export enum ActionType {
@@ -22,20 +23,32 @@ interface Action {
   payload?: any;
 }
 
-// Create the initial state
-export const QuizinitialState = {
+// Define the initial state type
+export type QuizinitialState = {
+  QuizList: any[];
+  Correct_Answered: any[];
+  Incorrect_Answered: any[];
+  Tags: any[];
+  QuizTime: number;
+  correctAnswersSum: number;
+  incorrectAnswersSum: number;
+  currentQuestion: number;
+};
+
+// Create the initial state object
+export const initialQuizState: QuizinitialState = {
   QuizList: [],
   Correct_Answered: [],
   Incorrect_Answered: [],
   Tags: [],
-  QuizTime: null,
+  QuizTime: 0,
   correctAnswersSum: 0,
   incorrectAnswersSum: 0,
   currentQuestion: 0,
 };
 
 // Define the reducer function
-export const QuizReducer = (state: typeof QuizinitialState, action: Action) => {
+export const QuizReducer: Reducer<QuizinitialState, Action> = (state, action) => {
   switch (action.type) {
     case ActionType.INCREMENT_CORRECT_ANSWERS:
       return { ...state, correctAnswers: state.correctAnswersSum + 1 };
