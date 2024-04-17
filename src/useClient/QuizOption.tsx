@@ -124,10 +124,10 @@ export default function QuizOption() {
 
         {/* Render checkboxes for each tag  */}
         <TabsContent value='Tags' className='w-96'>
-          {QuestionTags.map((tag) => (
-            <ScrollArea className='grid'>
+          {QuestionTags.map((tag, index) => (
+          
+            <ScrollArea className='grid' key={index}>
               <Toggle
-                key={tag}
                 variant='outline'
                 pressed={Tags.includes(tag)}
                 onPressedChange={() => handleTagChange(tag)}
@@ -135,9 +135,9 @@ export default function QuizOption() {
                 {/* checked={Tags.includes(tag)}/ */}
                 <label htmlFor={tag}>{tag}</label>
               </Toggle>
-            </ScrollArea>
+          </ScrollArea>
           ))}
-        </TabsContent>
+          </TabsContent>
 
         {/* //Quiz Timer */}
         <TabsContent value='Timer' className='w-96'>
