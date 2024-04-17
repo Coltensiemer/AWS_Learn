@@ -1,4 +1,4 @@
-'use client'
+
 import Results from '../../../useClient/Results';
 
 

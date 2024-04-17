@@ -22,6 +22,7 @@ import QuizTracker from './QuizTracker';
 import { PaginationDirection } from './PaginationDirection';
 import { compareAnswer } from '../functions/compareAnswers/compareAnswers';
 import { generateSessionId } from '../functions/generateSessionID/generateSessionID';
+import {useRouter} from 'next/navigation';
 
 // This is the schema that is used to validate the form data for the quiz.
 const FormSchema = z.object({
@@ -33,7 +34,6 @@ const nextQuestion = (questionID: number, questions: QuestionType[]) => {
   if (currentIndex === -1) {
     return currentIndex; // if the question is not found return the current index
   } else {
-    console.log(questions[currentIndex + 1].id, 'next question');
     return questions[currentIndex + 1].id;
   }
 };
@@ -43,6 +43,7 @@ const nextQuestion = (questionID: number, questions: QuestionType[]) => {
 export function Quiz({ questions }: QuizProps) {
   const [sessionId, setSessionId] = useState('');
   const QuizContext = useContext(QuizProgressContext);
+  const router = useRouter(); 
 
   useEffect(() => {
     //Sets the QuizList in the context to the list of questions
@@ -92,11 +93,19 @@ export function Quiz({ questions }: QuizProps) {
 
     const isCorrect = compareAnswer(formData.type, correct_answer);
     setCorrectorIncorrectQs(QuizContext, questionID, isCorrect);
-    const nextId = nextQuestion(questionID, questions);
-    QuizContext?.SET_CURRENT_QUESTION(nextId);
+    
+    if (QuizContext != undefined && currentIndex === QuizContext?.QuizList.length - 1) {
+      router.push('/Questions/Results');
+    }
+    else { 
+      const nextId = nextQuestion(questionID, questions);
+      QuizContext?.SET_CURRENT_QUESTION(nextId);
+
+    } 
 
     //Create a function that routes pages to a Dashboard with the results
     // information from context will need to be pushed to a server
+    
   }
 
   return (
