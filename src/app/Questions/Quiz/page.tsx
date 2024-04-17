@@ -1,8 +1,6 @@
 
-import react, { useEffect, useContext, useState, cache } from 'react';
-import { QuizProgressContext } from '../../../useContext/QuizProgressContext';
+import react, { cache } from 'react';
 import { Quiz } from '../../../useClient/Quiz';
-// import {GET} from '../../api/get-quiz/route';
 import {QuizProps, QuestionType} from '../../../../prisma/dataTypes';
 import { PrismaClient } from '@prisma/client';
 

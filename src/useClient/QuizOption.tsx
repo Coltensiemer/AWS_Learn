@@ -20,16 +20,8 @@ import {
 } from '../components/ui/card';
 import { TimeInput } from '../components/ui/inputTimer';
 import { convertToTotalSeconds } from '../functions/convertToTotalSeconds/convertToTotalSeconds';
+import { QuestionTags } from '../QuestionTags';
 
-const tagsList = [
-  'AWS Default',
-  'Security',
-  'VPC',
-  'IAM',
-  'S3',
-  'EC2',
-  // Add more tags here
-];
 
 function DifficultyToggle() {
   const difficultyList = ['Easy', 'Medium', 'Hard']; // Assuming this is your list of difficulty options
@@ -129,7 +121,7 @@ export default function QuizOption() {
 
         {/* Render checkboxes for each tag  */}
         <TabsContent value='Tags'>
-          {tagsList.map((tag) => (
+          {QuestionTags.map((tag) => (
             <Toggle
               key={tag}
               variant='outline'

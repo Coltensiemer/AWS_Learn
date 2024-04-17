@@ -1,13 +1,7 @@
 import { PrismaClient } from '@prisma/client'
-const prisma = new PrismaClient()
 import fs from 'fs'; // File system module
 
-
-
-
-
-
-
+const prisma = new PrismaClient()
 
 /// This creates a user with the email for seed data
 async function main() {

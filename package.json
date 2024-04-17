@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "prisma": {
-    "seed": "dotenv tsx prisma/seed.ts"
+    "seed": " tsx prisma/seed.ts"
   },
   "scripts": {
     "dev": "next dev",
