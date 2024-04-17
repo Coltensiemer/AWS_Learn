@@ -142,5 +142,113 @@
 			{ "value": "D. A storage class for storing infrequently accessed data", "isCorrect": false }
 		  ],
 		  "correct_answer": "B"
-		}
+		},
+    {
+      "id": 17,
+      "tag": "EKS",
+      "question": "What is EKS in AWS?",
+      "options": [
+        { "value": "A. Elastic Kubernetes Service", "isCorrect": true },
+        { "value": "B. Elastic Kafka Service", "isCorrect": false },
+        { "value": "C. Elastic Kinesis Service", "isCorrect": false },
+        { "value": "D. Elastic Kafka Streams", "isCorrect": false }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": 18,
+      "tag": "EKS",
+      "question": "What is the primary use of AWS EKS?",
+      "options": [
+        { "value": "A. Processing data streams", "isCorrect": false },
+        { "value": "B. Running Kubernetes clusters", "isCorrect": true },
+        { "value": "C. Managing serverless functions", "isCorrect": false },
+        { "value": "D. Storing and retrieving files", "isCorrect": false }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": 19,
+      "tag": "KMS",
+      "question": "What does KMS stand for in AWS?",
+      "options": [
+        { "value": "A. Key Management Service", "isCorrect": true },
+        { "value": "B. Kubernetes Management Service", "isCorrect": false },
+        { "value": "C. Kafka Messaging Service", "isCorrect": false },
+        { "value": "D. Keyless Management Service", "isCorrect": false }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": 20,
+      "tag": "KMS",
+      "question": "What is the primary purpose of AWS KMS?",
+      "options": [
+        { "value": "A. Container orchestration", "isCorrect": false },
+        { "value": "B. Managing encryption keys", "isCorrect": true },
+        { "value": "C. Data warehousing", "isCorrect": false },
+        { "value": "D. Real-time data processing", "isCorrect": false }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": 21,
+      "tag": "RDS",
+      "question": "What does RDS stand for in AWS?",
+      "options": [
+        { "value": "A. Relational Database Service", "isCorrect": true },
+        { "value": "B. Remote Data Storage", "isCorrect": false },
+        { "value": "C. Real-time Data Streaming", "isCorrect": false },
+        { "value": "D. Remote Database Sync", "isCorrect": false }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": 22,
+      "tag": "RDS",
+      "question": "Which database engines are supported by Amazon RDS?",
+      "options": [
+        { "value": "A. MySQL, PostgreSQL, Oracle", "isCorrect": true },
+        { "value": "B. MySQL, MongoDB, SQL Server", "isCorrect": false },
+        { "value": "C. PostgreSQL, SQL Server, MariaDB", "isCorrect": false },
+        { "value": "D. DynamoDB, Oracle, Cassandra", "isCorrect": false }
+      ],
+      "correct_answer": "A"
+    },
+    {
+      "id": 23,
+      "tag": "DynamoDB",
+      "question": "What is DynamoDB in AWS?",
+      "options": [
+        { "value": "A. Document database service", "isCorrect": false },
+        { "value": "B. Key-value and document database service", "isCorrect": true },
+        { "value": "C. Relational database service", "isCorrect": false },
+        { "value": "D. Time-series database service", "isCorrect": false }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": 24,
+      "tag": "DynamoDB",
+      "question": "What type of database is DynamoDB?",
+      "options": [
+        { "value": "A. Relational database", "isCorrect": false },
+        { "value": "B. NoSQL database", "isCorrect": true },
+        { "value": "C. Graph database", "isCorrect": false },
+        { "value": "D. Columnar database", "isCorrect": false }
+      ],
+      "correct_answer": "B"
+    },
+    {
+      "id": 25,
+      "tag": "Glue",
+      "question": "What is AWS Glue?",
+      "options": [
+        { "value": "A. A data warehousing solution", "isCorrect": false },
+        { "value": "B. An ETL (Extract, Transform, Load) service", "isCorrect": true },
+        { "value": "C. A message queuing service", "isCorrect": false },
+        { "value": "D. A serverless computing service", "isCorrect": false }
+      ],
+      "correct_answer": "B"
+    }
 	  ]

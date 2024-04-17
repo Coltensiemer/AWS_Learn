@@ -21,7 +21,7 @@ import {
 import { TimeInput } from '../components/ui/inputTimer';
 import { convertToTotalSeconds } from '../functions/convertToTotalSeconds/convertToTotalSeconds';
 import { QuestionTags } from '../QuestionTags';
-
+import { ScrollArea } from '@radix-ui/react-scroll-area';
 
 function DifficultyToggle() {
   const difficultyList = ['Easy', 'Medium', 'Hard']; // Assuming this is your list of difficulty options
@@ -102,7 +102,7 @@ export default function QuizOption() {
   }, [TimeMinutes, TimeSeconds]);
 
   return (
-    <Card className='flex flex-col lg:flex-row'>
+    <Card className='flex flex-col lg:flex-row h-96 overflow-scroll'>
       <CardHeader>
         <CardTitle>Quiz Options</CardTitle>
         <CardDescription>Customize your quiz</CardDescription>
@@ -113,31 +113,36 @@ export default function QuizOption() {
           <TabsTrigger value='Tags'>Quiz Tags</TabsTrigger>
           <TabsTrigger value='Timer'>Timer</TabsTrigger>
         </TabsList>
-        <TabsContent value='Options' className='flex flex-row justify-around'>
+        <TabsContent
+          value='Options'
+          className='flex flex-row justify-around w-96'
+        >
           <div className='flex justify-around'>
             <DifficultyToggle />
           </div>
         </TabsContent>
 
         {/* Render checkboxes for each tag  */}
-        <TabsContent value='Tags'>
+        <TabsContent value='Tags' className='w-96'>
           {QuestionTags.map((tag) => (
-            <Toggle
-              key={tag}
-              variant='outline'
-              pressed={Tags.includes(tag)}
-              onPressedChange={() => handleTagChange(tag)}
-            >
-              {/* checked={Tags.includes(tag)}/ */}
-              <label htmlFor={tag}>{tag}</label>
-            </Toggle>
+            <ScrollArea className='grid'>
+              <Toggle
+                key={tag}
+                variant='outline'
+                pressed={Tags.includes(tag)}
+                onPressedChange={() => handleTagChange(tag)}
+              >
+                {/* checked={Tags.includes(tag)}/ */}
+                <label htmlFor={tag}>{tag}</label>
+              </Toggle>
+            </ScrollArea>
           ))}
         </TabsContent>
 
         {/* //Quiz Timer */}
-        <TabsContent value='Timer'>
-          <div className='flex items-center p-2'>
-            <div>
+        <TabsContent value='Timer' className='w-96'>
+          <div className='flex flex-col items-center p-2'>
+            <div className='justify-center flex items-center'>
               <Switch
                 id='QuizTimer'
                 onCheckedChange={() => setQuizTimer(!QuizTimer)}
@@ -170,23 +175,15 @@ export default function QuizOption() {
       </Tabs>
 
       {/* Showing quiz options */}
-      <Card>
+      <Card className='w-96 h-32 lg:h-full overflow-scroll fixed bottom-20 lg:static lg:border-l-2 border-gray-500'>
         <CardHeader>
-          <CardTitle></CardTitle>
         </CardHeader>
-        {!Tags.length && <p>No tags selected.</p>}
         <div>
-          {Tags.map((tag, index) => (
-            <ul key={index} className='grid grid-cols-2 grid-rows-1'>
-              <li >{tag}</li>
-            </ul>
-          ))}
-        </div>
-        <div>
-          {!QuizTime && <p>Timer is not set.</p>}
-          {QuizTime && QuizTime > 1 && (
+          {!QuizTime  && <p>Timer is not set.</p>}
+          {QuizTime && QuizTime > 2 ? 
             <p>
-              Timer is set for{' '}
+            
+              Timer is set for {' '}
               {TimeMinutes && TimeMinutes > 0
                 ? renderMinutesText(TimeMinutes)
                 : null}
@@ -195,8 +192,17 @@ export default function QuizOption() {
                 ? renderSecondsText(TimeSeconds)
                 : null}
               .
-            </p>
-          )}
+            </p> : 
+            null
+          }
+        {!Tags.length && <p>No tags selected.</p>}
+        <div className='flex flex-wrap justify-center'>
+          {Tags.map((tag, index) => (
+            <ul key={index}>
+              <li className='p-2'>{tag}</li>
+            </ul>
+          ))}
+        </div>
         </div>
       </Card>
     </Card>

@@ -18,7 +18,7 @@ const { Tags } = QuizContext;
 
   return (
     <>
-      <div className='flex flex-col w-1/2'>
+      <div className='flex flex-col lg:w-1/2'>
         <Button>
           <Link href={{ pathname: '/Questions/Quiz', query: { tags: Tags } }}>
             Start Quiz
