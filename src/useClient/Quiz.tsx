@@ -109,9 +109,9 @@ export function Quiz({ questions }: QuizProps) {
   }
 
   return (
-    <div>
-      <div className='max-w-sm w-full overflow-auto border-red-300 border'>
-        <div className='flex flex-col justify-center items-center mb-10 border-green-300 border'>
+    <div className='w-full h-3/4 p-10 border border-black-900'>
+      <div className='h-full border-red-300 border'>
+        <div className='h-full flex flex-col justify-center items-center mb-10 border-green-300 border'>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
@@ -154,7 +154,7 @@ export function Quiz({ questions }: QuizProps) {
                   </FormItem>
                 )}
               />
-              <Button size='sm' type='submit'>
+              <Button  size='sm' type='submit'>
                 {Submitbutton}
               </Button>
             </form>
