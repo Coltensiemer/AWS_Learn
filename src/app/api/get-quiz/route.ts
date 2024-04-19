@@ -5,7 +5,6 @@ import { NextResponse, NextRequest } from 'next/server';
 
 export async function GET(request: Request, {params}: {params: {tags: string[]}}) {
 
-    console.log('test', params.tags)
     if (!params || !params.tags) {
         const data: QuestionType[] = await prisma.quiz.findMany({
             include: {

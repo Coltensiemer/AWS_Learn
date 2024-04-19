@@ -2,11 +2,11 @@
 import react, { cache } from 'react';
 import { Quiz } from '../../../useClient/Quiz';
 import {QuizProps, QuestionType} from '../../../../prisma/dataTypes';
-import { PrismaClient } from '@prisma/client';
-import {GET} from '../../api/get-quiz/route'; 
+import prisma from '../../../lib/prisma';
+
 
 async function GETQuiz(tags: string[]) {
-  const prisma = new PrismaClient();
+  
 
 //When no tags are selected, return all questions
   if (!tags) {
@@ -31,24 +31,7 @@ async function GETQuiz(tags: string[]) {
 }
 
 
-/// Get this to use get-quiz
-// const GETQuiz = async (tags: string[]) => {
-//   try {
-//     // Construct the query string with the 'tags' parameter
-    
-//     const response = await fetch(`/api/get-quiz/${queryString}`); // Include the query string in the URL
 
-//     if (response.ok) {
-//       const data: QuestionType[] = await response.json();
-//       return data;
-//     } else {
-//       throw new Error('Failed to fetch data');
-//     }
-//   } catch (error) {
-//     console.error('Error fetching data:', error);
-//     throw error;
-//   }
-// };
 
 
 
