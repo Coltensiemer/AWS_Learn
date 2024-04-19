@@ -1,30 +1,33 @@
-// import { PrismaClient } from '@prisma/client';
-// import { QuestionType } from '../../../../prisma/dataTypes';
-// import { NextResponse } from 'next/server';
+import prisma from '../../../lib/prisma'
+import { QuestionType } from '../../../../prisma/dataTypes';
+import { NextResponse, NextRequest } from 'next/server';
 
-// export async function GET() {
-//     const prisma = new PrismaClient();
 
-//     try {
-//         const data: QuestionType[] = await prisma.quiz.findMany({
-//             where: {
-//                 OR: [
-//                     { tag: 'EC2' },
-//                     { tag: 'Lambda' }
-//                 ],
-//             },
-//             include: {
-//                 options: true,
-//             },
-//         });
+export async function GET(request: Request, {params}: {params: {tags: string[]}}) {
 
-//         prisma.$disconnect();
+    console.log('test', params.tags)
+    if (!params || !params.tags) {
+        const data: QuestionType[] = await prisma.quiz.findMany({
+            include: {
+              options: true,
+            },
+          });
+          return NextResponse.json({questions: data});
+    }            
+      
+        const data: QuestionType[] = await prisma.quiz.findMany({
+            where: {
+                OR: params.tags.map(tag => ({ tag })),
+            },
+            include: {
+                options: true,
+            },
+        });
         
-        
-//         return NextResponse.json({qustions: data}); 
-//     } catch (error) {
-//         console.error('Error fetching data:', error);
-//         return NextResponse.error();
-//     }
-// }
+                prisma.$disconnect();
 
+        return NextResponse.json({questions: data});
+    }
+    
+    
+    

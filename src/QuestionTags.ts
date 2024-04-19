@@ -1,4 +1,6 @@
 export const QuestionTags =[
+	"EC2",
+	"Lamba",
 	"Cloud Concepts",
 	"AWS Infrastructure",
 	"Core Services",
