@@ -44,6 +44,14 @@ export function Quiz({ questions }: QuizProps) {
   const [sessionId, setSessionId] = useState('');
   const QuizContext = useContext(QuizProgressContext);
   const router = useRouter(); 
+  const [selectedOptions, setSelectedOptions] = useState<{ [key: string]: string }>({});
+
+  const handleOptionChange = (quizId: string, optionValue: string) => {
+    setSelectedOptions(prevState => ({
+      ...prevState,
+      [quizId]: optionValue,
+    }));
+  };
 
   useEffect(() => {
     //Sets the QuizList in the context to the list of questions
@@ -107,27 +115,28 @@ export function Quiz({ questions }: QuizProps) {
     // information from context will need to be pushed to a server
     
   }
+console.log(QuizContext, 'quizcontext')
 
   return (
-    <div className='w-full h-3/4 p-10 border border-black-900'>
-      <div className='h-full border-red-300 border'>
-        <div className='h-full flex flex-col justify-center items-center mb-10 border-green-300 border'>
+    <div className='h-{500} min-w-60 max-w-96 p-10 border border-black-900 overflow-auto'>
+        <div className='flex h-72 flex-col justify-start items-center mb-10 border-green-300 border'>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className='w-full space-y-6'
+              className='space-y-6'
             >
               <FormField
                 control={form.control}
                 name='type'
                 render={({ field }) => (
                   <FormItem className='space-y-3'>
-                    <FormLabel className='text-lg'>
+                    <FormLabel className='text-lg whitespace-normal break-normal'>
                       {questions.find((q) => q.id === questionID)?.question}
                     </FormLabel>
                     <FormControl>
                       <RadioGroup
-                        defaultValue={field.value}
+                        value={field.value}
+                        name='type'
                         onValueChange={field.onChange}
                       >
                         {questions
@@ -136,11 +145,12 @@ export function Quiz({ questions }: QuizProps) {
                             return (
                               <div
                                 key={index}
-                                className='flex items-center space-x-2'
+                                className='flex items-start space-x-2'
                               >
                                 <RadioGroupItem
                                   value={option.value[0]}
                                   id={`r${index}`}
+                                  
                                 />
                                 <Label htmlFor={`r${index}`}>
                                   {option.value}
@@ -160,7 +170,6 @@ export function Quiz({ questions }: QuizProps) {
             </form>
           </Form>
         </div>
-      </div>
       <div className='flex flex-row justify-center items-center'>
         <PaginationDirection currentIndex={currentIndex + 1} />
         <QuizTracker currentIndex={currentIndex} />
