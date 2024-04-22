@@ -3,17 +3,24 @@
 import React, { useContext, useState } from 'react';
 import { QuizProgressContext } from '../useContext/QuizProgressContext';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import { Quiz } from './Quiz';
 
 const renderTime = ({ remainingTime }: { remainingTime: number }) => {
   if (remainingTime === 0 || remainingTime < 0) {
     return <div>End of Quiz</div>;
   }
 
-  if (remainingTime > 60) {
-    return <div className='flex flex-col justify-center items-center'>
-      <p>{Math.floor(remainingTime / 60)}</p>
-      <p className='text-xs'>Minutes</p>
-    </div>;
+  if (remainingTime >= 60) {
+    const minutes = Math.floor(remainingTime / 60);
+    const seconds = remainingTime % 60;
+    return (
+      <div className='flex flex-col text-xs justify-center items-center'>
+        <p>{minutes}</p>
+        <p className='text-xs'>Minutes</p>
+        <p>{seconds}</p>
+        <p className='text-xs'>Seconds</p>
+      </div>
+    )
   }
 
   if (remainingTime <= 60) {
@@ -26,7 +33,7 @@ const renderTime = ({ remainingTime }: { remainingTime: number }) => {
 };
 
 export default function QuizCountDownTimer() {
-  const sizeforMintues = 80;
+  const sizeforMintues = 120;
   const sizeforSeconds = 120;
 
   
@@ -37,9 +44,9 @@ export default function QuizCountDownTimer() {
 );
 const { QuizTime } = QuizContext;
 const theSize = QuizTime <= 60 ? sizeforSeconds : sizeforMintues;
-
-  return (
-    <div>
+return (
+  <div>
+    {QuizTime ? (
       <CountdownCircleTimer
         size={theSize}
         isPlaying
@@ -50,6 +57,7 @@ const theSize = QuizTime <= 60 ? sizeforSeconds : sizeforMintues;
       >
         {renderTime}
       </CountdownCircleTimer>
-    </div>
-  );
+    ) : null}
+  </div>
+);
 }
