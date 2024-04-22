@@ -118,26 +118,29 @@ export function Quiz({ questions }: QuizProps) {
 console.log(QuizContext, 'quizcontext')
 
   return (
-    <div className='h-{500} min-w-60 max-w-96 p-10 border border-black-900 overflow-auto'>
-        <div className='flex h-72 flex-col justify-start items-center mb-10 border-green-300 border'>
+    <div className='h-{500} min-w-60 max-w-96 m-10 p-10 border border-black-900 overflow-auto'>
+        <div className='flex h-72 m-2'>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className='space-y-6'
+              className='border border-black-900 flex'
             >
               <FormField
                 control={form.control}
                 name='type'
                 render={({ field }) => (
-                  <FormItem className='space-y-3'>
+                  <FormItem className='flex justify-around flex-col overflow-scroll mr-2'>
+                    <div>
                     <FormLabel className='text-lg whitespace-normal break-normal'>
                       {questions.find((q) => q.id === questionID)?.question}
                     </FormLabel>
+                    </div>
                     <FormControl>
                       <RadioGroup
                         value={field.value}
                         name='type'
                         onValueChange={field.onChange}
+                        className='space-y-2'
                       >
                         {questions
                           .find((q) => q.id === questionID)
@@ -164,13 +167,17 @@ console.log(QuizContext, 'quizcontext')
                   </FormItem>
                 )}
               />
-              <Button  size='sm' type='submit'>
+              <div className='w-10'>
+              <Button  size='sm' type='submit' className='w-full h-full text-xs'>
                 {Submitbutton}
               </Button>
+              </div>
+        
             </form>
+        
           </Form>
         </div>
-      <div className='flex flex-row justify-center items-center'>
+      <div className='flex flex-col justify-center items-center'>
         <PaginationDirection currentIndex={currentIndex + 1} />
         <QuizTracker currentIndex={currentIndex} />
       </div>
