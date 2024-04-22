@@ -23,33 +23,8 @@ import { convertToTotalSeconds } from '../functions/convertToTotalSeconds/conver
 import { QuestionTags } from '../QuestionTags';
 import { ScrollArea } from '@radix-ui/react-scroll-area';
 
-function DifficultyToggle() {
-  const difficultyList = ['Easy', 'Medium', 'Hard']; // Assuming this is your list of difficulty options
-  const [selectedDifficulty, setSelectedDifficulty] = useState([]);
 
-  // const handleToggle = (difficulty: string[]) => {
-  //   if (selectedDifficulty.includes(difficulty)) {
-  //     setSelectedDifficulty(selectedDifficulty.filter((d) => d !== difficulty));
-  //   } else {
-  //     setSelectedDifficulty([...selectedDifficulty, difficulty]);
-  //   }
-  // };
-  return (
-    <div>
-      {difficultyList.map((difficulty) => (
-        <Toggle key={difficulty} variant='outline'>
-          {difficulty}
-        </Toggle>
-      ))}
-    </div>
-  );
-}
 
-// const handleHourChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//   const value = e.target.value;
-//   if (value > 24) {
-//     // Do something
-//   }
 
 // }
 // Quiz Length
@@ -109,7 +84,6 @@ export default function QuizOption() {
       </CardHeader>
       <Tabs defaultValue='Options'>
         <TabsList className='flex overflow-scroll'>
-          <TabsTrigger value='Options'>Quiz Options</TabsTrigger>
           <TabsTrigger value='Tags'>Quiz Tags</TabsTrigger>
           <TabsTrigger value='Timer'>Timer</TabsTrigger>
         </TabsList>
@@ -117,9 +91,6 @@ export default function QuizOption() {
           value='Options'
           className='flex flex-row justify-around w-96'
         >
-          <div className='flex justify-around'>
-            <DifficultyToggle />
-          </div>
         </TabsContent>
 
         {/* Render checkboxes for each tag  */}
@@ -128,11 +99,10 @@ export default function QuizOption() {
           
             <ScrollArea className='grid' key={index}>
               <Toggle
-                variant='outline'
+                variant='solid'
                 pressed={Tags.includes(tag)}
                 onPressedChange={() => handleTagChange(tag)}
               >
-                {/* checked={Tags.includes(tag)}/ */}
                 <label htmlFor={tag}>{tag}</label>
               </Toggle>
           </ScrollArea>
@@ -198,9 +168,14 @@ export default function QuizOption() {
         {!Tags.length && <p>No tags selected.</p>}
         <div className='flex flex-wrap justify-center'>
           {Tags.map((tag, index) => (
-            <ul key={index}>
-              <li className='p-2'>{tag}</li>
-            </ul>
+            <Toggle
+            className='m-1'
+            variant='outline'
+            pressed={Tags.includes(tag)}
+            onPressedChange={() => handleTagChange(tag)}
+          >
+            <label htmlFor={tag}>{tag}</label>
+          </Toggle>
           ))}
         </div>
         </div>
