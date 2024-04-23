@@ -19,6 +19,8 @@ model User {
   email     String   @unique
   name      String?
   password  String
+  CompletedQuiz CompletedQuiz[]
+  QuizProgress QuizProgress[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -37,4 +39,38 @@ model Option {
   isCorrect Boolean
   quiz      Quiz    @relation(fields: [quizId], references: [id])
   quizId    Int
+}
+
+
+// model for completed quiz
+model CompletedQuiz {
+  id        Int        @id @default(autoincrement())
+  quizIDUsed   Int[]
+  user      User?      @relation(fields: [userId], references: [id])
+  userId    String? 
+  correctAnswers Int[]
+  incorrectAnswers Int[]
+  tags      String[]
+  score     Int
+  startTimer Int?
+  finishedAt Int
+  quizDate  DateTime?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+//Model for user's progress when quiz is in progress
+model QuizProgress {
+  id        Int        @id @default(autoincrement())
+  quizIDUsed   Int[]
+  user      User?      @relation(fields: [userId], references: [id])
+  userId    String? 
+  correctAnswers Int[]
+  incorrectAnswers Int[] 
+  tags     String[]
+  currentQuestion Int
+  currentTimer Int? 
+  quiztimer Int?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
