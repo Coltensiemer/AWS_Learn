@@ -1,6 +1,6 @@
 'use client';
 
-//This is the main branch 
+
 
 
 import React, { use, useContext, useEffect, useState } from 'react';
@@ -181,7 +181,7 @@ console.log(QuizContext, 'quizcontext')
           </Form>
         </div>
       <div className='flex flex-col justify-center items-center'>
-        <PaginationDirection currentIndex={currentIndex + 1} />
+        <PaginationDirection currentIndex={currentIndex + 1} handleFormSubmit={Submitbutton} />
         <QuizTracker currentIndex={currentIndex} />
       </div>
     </div>
