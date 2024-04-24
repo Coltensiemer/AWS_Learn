@@ -49,29 +49,13 @@ export function Quiz({ questions }: QuizProps) {
   const router = useRouter(); 
   const [selectedOptions, setSelectedOptions] = useState<{ [key: string]: string }>({});
 
-  const handleOptionChange = (quizId: string, optionValue: string) => {
-    setSelectedOptions(prevState => ({
-      ...prevState,
-      [quizId]: optionValue,
-    }));
-  };
+
 
   useEffect(() => {
     //Sets the QuizList in the context to the list of questions
     if (QuizContext && questions) {
       QuizContext.SET_QUIZ_LIST(questions.map((q) => q.id));
     }
-
-    //sets the session ID in local storage
-    // const storedSessionId = localStorage.getItem('sessionId');
-    // if (storedSessionId) {
-    //   setSessionId(storedSessionId);
-    // } else {
-    //   // If session ID doesn't exist, generate a new one and store it
-    //   const newSessionId = generateSessionId();
-    //   setSessionId(newSessionId);
-    //   localStorage.setItem('sessionId', newSessionId);
-    // }
   }, []);
   // console.log(QuizContext);
 
@@ -88,8 +72,7 @@ export function Quiz({ questions }: QuizProps) {
 
   // To identify the last question in the array and change the button text to 'Submit'
   const currentIndex = questions.findIndex((q) => q.id === questionID);
-  const Submitbutton =
-    currentIndex === QuizContext?.QuizList.length - 1 ? 'Submit' : 'Next';
+
 
   // This function is called when the form is submitted.
   function onSubmit(data: z.infer<typeof FormSchema>) {
@@ -168,7 +151,14 @@ console.log(QuizContext, 'quizcontext')
                   </FormItem>
                 )}
               />
-     
+      {currentIndex === QuizContext?.QuizList.length - 1 ? (
+              // Render the "Submit" button when at the last question
+              <Button className='flex self-end' type='submit'>
+                Submit Quiz
+              </Button>
+            ) : (
+              null
+            )}
             </form>
         
           </Form>

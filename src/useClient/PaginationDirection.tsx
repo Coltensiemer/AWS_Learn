@@ -1,8 +1,5 @@
 'use client';
 
-
-
-
 import {
   Pagination,
   PaginationContent,
@@ -22,17 +19,21 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '../components/ui/drawer';
-import { Toggle } from '../components/ui/toggle';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '../components/ui/tooltip';
+
 import { Button } from '../components/ui/button';
 import { useContext, useState } from 'react';
 import { QuizProgressContext } from '../useContext/QuizProgressContext';
 import { getNextorPrevIndex } from '../functions/getNextforPrevindex/getNextorPrevIndex';
 
-
-
-
 export function PaginationDirection({
-  currentIndex, handleFormSubmit
+  currentIndex,
+  handleFormSubmit,
 }: {
   currentIndex: number;
   handleFormSubmit: (data: any) => void;
@@ -50,6 +51,7 @@ export function PaginationDirection({
   });
   const nextQuestion = () => QuizContext?.SET_CURRENT_QUESTION(nextQuestionID);
 
+  // Function to get the previous question for pagination
   const prevQuestionID = getNextorPrevIndex({
     currentQuestion: currentQuestion,
     quizList: QuizContext?.QuizList,
@@ -57,9 +59,7 @@ export function PaginationDirection({
   });
   const prevQuestion = () => QuizContext?.SET_CURRENT_QUESTION(prevQuestionID);
 
-
-
-// Drawer Functions
+  // Drawer Functions
   const openDrawer = () => {
     setIsDrawerOpen(true);
   };
@@ -67,14 +67,12 @@ export function PaginationDirection({
     setIsDrawerOpen(false);
   };
 
-
-// Function to go to selected question
-  function goToSelectedQuestion(index: number) { 
+  // Function to go to selected question
+  function goToSelectedQuestion(index: number) {
     if (QuizContext === undefined) return null;
-    const quizId = QuizContext.QuizList[index]
+    const quizId = QuizContext.QuizList[index];
     QuizContext.SET_CURRENT_QUESTION(quizId);
   }
-
 
   return (
     <div>
@@ -92,10 +90,9 @@ export function PaginationDirection({
               {currentIndex}
             </PaginationLink>
           </PaginationItem>
-          {currentIndex !== undefined &&
-            currentIndex < QuizContext.QuizList.length && (
-              <>
-                <PaginationItem></PaginationItem>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
                 <PaginationItem>
                   <Drawer>
                     <DrawerTrigger>
@@ -103,8 +100,18 @@ export function PaginationDirection({
                     </DrawerTrigger>
                   </Drawer>
                 </PaginationItem>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className='text-xs'>See Quiz Progression</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          {currentIndex !== undefined &&
+            currentIndex < QuizContext.QuizList.length && (
+              <>
+                <PaginationItem></PaginationItem>
                 <PaginationItem>
-                 <PaginationNext onClick={handleFormSubmit} /> 
+                  <PaginationNext onClick={handleFormSubmit} />
                 </PaginationItem>
               </>
             )}
@@ -118,11 +125,16 @@ export function PaginationDirection({
             <DrawerTitle>Select Question</DrawerTitle>
           </DrawerHeader>
           <DrawerDescription>
-            
-              {QuizContext.QuizList.map((quizItem, index) => (
-                <Button onClick={() => goToSelectedQuestion(index - 1)} className='m-1' variant='default' key={index}>Question {index + 1}</Button>
-              ))}
-            
+            {QuizContext.QuizList.map((quizItem, index) => (
+              <Button
+                onClick={() => goToSelectedQuestion(index - 1)}
+                className='m-1'
+                variant='default'
+                key={index}
+              >
+                Question {index + 1}
+              </Button>
+            ))}
           </DrawerDescription>
           <DrawerFooter>
             <DrawerClose asChild>
