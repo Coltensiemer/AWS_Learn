@@ -53,10 +53,12 @@ export function PaginationDirection({
   });
   const prevQuestion = () => QuizContext?.SET_CURRENT_QUESTION(prevQuestionID);
 
+
+
+// Drawer Functions
   const openDrawer = () => {
     setIsDrawerOpen(true);
   };
-
   const closeDrawer = () => {
     setIsDrawerOpen(false);
   };
@@ -114,7 +116,7 @@ export function PaginationDirection({
           <DrawerDescription>
             
               {QuizContext.QuizList.map((quizItem, index) => (
-                <Button onClick={() => goToSelectedQuestion(index)} className='m-1' variant='default' key={index}>Question {index + 1}</Button>
+                <Button onClick={() => goToSelectedQuestion(index - 1)} className='m-1' variant='default' key={index}>Question {index + 1}</Button>
               ))}
             
           </DrawerDescription>
