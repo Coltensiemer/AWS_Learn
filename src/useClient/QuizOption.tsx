@@ -169,6 +169,7 @@ export default function QuizOption() {
         <div className='flex flex-wrap justify-center'>
           {Tags.map((tag, index) => (
             <Toggle
+            key={index}
             className='m-1'
             variant='outline'
             pressed={Tags.includes(tag)}
