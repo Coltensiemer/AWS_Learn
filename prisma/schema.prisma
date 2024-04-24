@@ -44,14 +44,14 @@ model Option {
 
 // model for completed quiz
 model CompletedQuiz {
-  id        Int        @id @default(autoincrement())
+  id        String   @id @default(cuid())
   quizIDUsed   Int[]
   user      User?      @relation(fields: [userId], references: [id])
   userId    String? 
   correctAnswers Int[]
   incorrectAnswers Int[]
   tags      String[]
-  score     Int
+  score     Int?
   startTimer Int?
   finishedAt Int
   quizDate  DateTime?
@@ -61,7 +61,7 @@ model CompletedQuiz {
 
 //Model for user's progress when quiz is in progress
 model QuizProgress {
-  id        Int        @id @default(autoincrement())
+  id        String   @id @default(cuid())
   quizIDUsed   Int[]
   user      User?      @relation(fields: [userId], references: [id])
   userId    String? 
