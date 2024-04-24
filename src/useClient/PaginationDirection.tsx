@@ -1,5 +1,8 @@
 'use client';
 
+
+
+
 import {
   Pagination,
   PaginationContent,
@@ -29,9 +32,10 @@ import { getNextorPrevIndex } from '../functions/getNextforPrevindex/getNextorPr
 
 
 export function PaginationDirection({
-  currentIndex,
+  currentIndex, handleFormSubmit
 }: {
   currentIndex: number;
+  handleFormSubmit: () => void;
 }) {
   const QuizContext = useContext(QuizProgressContext);
   const { currentQuestion } = QuizContext!;
