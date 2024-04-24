@@ -28,7 +28,7 @@ import { generateSessionId } from '../functions/generateSessionID/generateSessio
 import {useRouter} from 'next/navigation';
 
 // This is the schema that is used to validate the form data for the quiz.
-const FormSchema = z.object({
+export const FormSchema = z.object({
   type: z.enum(['A', 'B', 'C', 'D']),
 });
 
@@ -37,7 +37,7 @@ const nextQuestion = (questionID: number, questions: QuestionType[]) => {
   if (currentIndex === -1) {
     return currentIndex; // if the question is not found return the current index
   } else {
-    return questions[currentIndex + 1].id;
+    return questions[currentIndex].id;
   }
 };
 
@@ -97,36 +97,34 @@ export function Quiz({ questions }: QuizProps) {
     if (!questions) {
       return;
     }
-
+  
     ///Checkes to see if the answer is correct
     const correct_answer: string = questions.find((q) => q.id === questionID)
       ?.correct_answer as string;
-
+  
     const isCorrect = compareAnswer(formData.type, correct_answer);
     setCorrectorIncorrectQs(QuizContext, questionID, isCorrect);
     
-    if (QuizContext != undefined && currentIndex === QuizContext?.QuizList.length - 1) {
+    // Get the next question ID
+    const nextId = nextQuestion(questionID, questions);
+    console.log(nextId, 'nextId')
+    // Update current question ID in QuizContext
+    QuizContext?.SET_CURRENT_QUESTION(nextId);
+  
+    // Check if it's the last question
+    if (nextId === undefined || nextId === null) {
       router.push('/Questions/Results');
     }
-    else { 
-      const nextId = nextQuestion(questionID, questions);
-      QuizContext?.SET_CURRENT_QUESTION(nextId);
-
-    } 
-
-    //Create a function that routes pages to a Dashboard with the results
-    // information from context will need to be pushed to a server
-    
   }
 console.log(QuizContext, 'quizcontext')
 
   return (
-    <div className='h-{500} min-w-60 max-w-96 m-10 p-10 border border-black-900 overflow-auto'>
+    <div className='h-{500} min-w-60 max-w-96 m-10 p-10  overflow-auto'>
         <div className='flex h-72 m-2'>
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className='border border-black-900 flex'
+              className='flex'
             >
               <FormField
                 control={form.control}
@@ -170,18 +168,13 @@ console.log(QuizContext, 'quizcontext')
                   </FormItem>
                 )}
               />
-              <div className='w-10'>
-              <Button  size='sm' type='submit' className='w-full h-full text-xs'>
-                {Submitbutton}
-              </Button>
-              </div>
-        
+     
             </form>
         
           </Form>
         </div>
       <div className='flex flex-col justify-center items-center'>
-        <PaginationDirection currentIndex={currentIndex + 1} handleFormSubmit={Submitbutton} />
+        <PaginationDirection  currentIndex={currentIndex + 1} handleFormSubmit={onSubmit} />
         <QuizTracker currentIndex={currentIndex} />
       </div>
     </div>

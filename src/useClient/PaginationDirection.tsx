@@ -35,7 +35,7 @@ export function PaginationDirection({
   currentIndex, handleFormSubmit
 }: {
   currentIndex: number;
-  handleFormSubmit: () => void;
+  handleFormSubmit: (data: any) => void;
 }) {
   const QuizContext = useContext(QuizProgressContext);
   const { currentQuestion } = QuizContext!;
@@ -104,7 +104,7 @@ export function PaginationDirection({
                   </Drawer>
                 </PaginationItem>
                 <PaginationItem>
-                  <PaginationNext onClick={nextQuestion} />
+                 <PaginationNext onClick={handleFormSubmit} /> 
                 </PaginationItem>
               </>
             )}
