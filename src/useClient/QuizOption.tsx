@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '../components/ui/button';
+import { Button } from '../components/shadcn/button/button';
 import React, { useState, useContext, useEffect } from 'react';
 import { QuizProgressContext } from '../useContext/QuizProgressContext';
 import {
@@ -8,17 +8,17 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from '../components/ui/tabs';
-import { Switch } from '../components/ui/switch';
-import { Label } from '../components/ui/label';
-import { Toggle } from '../components/ui/toggle';
+} from '../components/shadcn/tabs';
+import { Switch } from '../components/shadcn/switch';
+import { Label } from '../components/shadcn/label';
+import { Toggle } from '../components/shadcn/toggle';
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '../components/ui/card';
-import { TimeInput } from '../components/ui/inputTimer';
+} from '../components/shadcn/card/card';
+import { TimeInput } from '../components/shadcn/inputTimer';
 import { convertToTotalSeconds } from '../functions/convertToTotalSeconds/convertToTotalSeconds';
 import { QuestionTags } from '../QuestionTags';
 import { ScrollArea } from '@radix-ui/react-scroll-area';

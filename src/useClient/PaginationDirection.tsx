@@ -8,7 +8,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from '../components/ui/pagination';
+} from '../components/shadcn/pagination';
 import {
   Drawer,
   DrawerClose,
@@ -18,15 +18,15 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from '../components/ui/drawer';
+} from '../components/shadcn/drawer/drawer';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '../components/ui/tooltip';
+} from '../components/shadcn/tooltip';
 
-import { Button } from '../components/ui/button';
+import { Button } from '../components/shadcn/button/button';
 import { useContext, useState } from 'react';
 import { QuizProgressContext } from '../useContext/QuizProgressContext';
 import { getNextorPrevIndex } from '../functions/getNextforPrevindex/getNextorPrevIndex';

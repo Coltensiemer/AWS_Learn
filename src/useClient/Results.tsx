@@ -2,7 +2,7 @@
 
 import React, {useContext} from 'react';
 import { QuizProgressContext } from '../useContext/QuizProgressContext';
-import { Card, CardContent, CardDescription, CardHeader } from '../components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader } from '../components/shadcn/card/card';
 
 
 /// Need to localscope the QuizContext to get the Correct_Answered, Incorrect_Answered, and QuizList on results page 

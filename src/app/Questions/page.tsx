@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Button } from '../../components/ui/button';
+import { Button } from '../../components/shadcn/button/button';
 import QuizOption from '../../useClient/QuizOption';
 import { useContext } from 'react';
 import { QuizProgressContext } from '../../useContext/QuizProgressContext';

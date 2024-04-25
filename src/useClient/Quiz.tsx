@@ -4,8 +4,8 @@
 
 
 import React, { use, useContext, useEffect, useState } from 'react';
-import { RadioGroup, RadioGroupItem } from '../components/ui/radio-group';
-import { Label } from '../components/ui/label';
+import { RadioGroup, RadioGroupItem } from '../components/shadcn/radio-group';
+import { Label } from '../components/shadcn/label';
 import { array, set, z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -16,8 +16,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../components/ui/form';
-import { Button } from '../components/ui/button';
+} from '../components/shadcn/form';
+import { Button } from '../components/shadcn/button/button';
 import { setCorrectorIncorrectQs } from '../functions/setCorrectorIncorrectQs/setCorrectorIncorrectQs';
 import { QuizProgressContext } from '../useContext/QuizProgressContext';
 import { QuizProps, QuestionType } from '../../prisma/dataTypes';

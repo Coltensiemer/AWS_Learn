@@ -1,5 +1,5 @@
 import QuizCountDownTimer from "../../../useClient/QuizCountDownTimer"
-import {Button} from "../../../components/ui/button"; 
+import {Button} from "../../../components/shadcn/button/button"; 
 import Link from "next/link";
 
 export default function QuizQuestionLayout({
