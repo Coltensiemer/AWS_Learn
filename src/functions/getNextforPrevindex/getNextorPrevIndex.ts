@@ -1,3 +1,5 @@
+import { collectGenerateParams } from "next/dist/build/utils";
+
 export interface QuizIndexTrackerProps {
   currentQuestion: number;
   quizList: number[];
@@ -11,12 +13,15 @@ export function getNextorPrevIndex({
 }: QuizIndexTrackerProps) {
 
   if (currentQuestion === 0) {
-    const nextQuestion = quizList[1]
+    const nextQuestion = quizList[0]
     return nextQuestion;
   }
+
+  console.log(currentQuestion, 'currentQuestion')
+  
   ///params number will enter, needs to find the index of the number in the array
   const quizListIndex = quizList.indexOf(currentQuestion);
-
+console.log(quizListIndex, 'quizListIndex')
   // If quizListIndex is not found
   if (quizListIndex === -1) {
     throw 'Index out of bounds in quizList';

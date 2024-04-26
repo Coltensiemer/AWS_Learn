@@ -68,11 +68,31 @@ export function PaginationDirection({
   };
 
   // Function to go to selected question
+  /// Unable to get back to the FIRST QuESITON ' index is out of bounds' error***** 
   function goToSelectedQuestion(index: number) {
     if (QuizContext === undefined) return null;
     const quizId = QuizContext.QuizList[index];
     QuizContext.SET_CURRENT_QUESTION(quizId);
   }
+
+  const questionColor = (index: number) => {
+    // Check if the index is in the 'incorrect' array
+    if (QuizContext.Correct_Answered.includes(index)) {
+      return 'bg-green-500 m-1';
+    }
+    
+    // Check if the index is in the 'correct' array
+    if (QuizContext.Incorrect_Answered.includes(index)) {
+      return 'bg-red-500 m-1';
+    }
+  
+    // If the index is not found in either array, return an empty string
+    return 'm-1';
+  }
+
+  
+
+  
 
   return (
     <div>
@@ -128,7 +148,7 @@ export function PaginationDirection({
             {QuizContext.QuizList.map((quizItem, index) => (
               <Button
                 onClick={() => goToSelectedQuestion(index - 1)}
-                className='m-1'
+                className = {questionColor(index + 1)}
                 variant='default'
                 key={index}
               >
