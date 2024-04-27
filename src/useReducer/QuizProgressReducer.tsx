@@ -12,6 +12,7 @@ export enum ActionType {
   SET_INCORRECT_ANSWERED,
   SET_TAGS,
   SET_QUIZ_TIME,
+  SET_QUIZ_DIRECTION,
   INCREMENT_CURRENT_QUESTION,
   INCREMENT_CORRECT_ANSWERS,
   INCREMENT_INCORRECT_ANSWERS,
@@ -33,6 +34,7 @@ export type QuizinitialState = {
   correctAnswersSum: number;
   incorrectAnswersSum: number;
   currentQuestion: number;
+  Direction: string;
 };
 
 // Create the initial state object
@@ -45,6 +47,7 @@ export const initialQuizState: QuizinitialState = {
   correctAnswersSum: 0,
   incorrectAnswersSum: 0,
   currentQuestion: 0,
+  Direction: "next",
 };
 
 // Define the reducer function
@@ -66,6 +69,8 @@ export const QuizReducer: Reducer<QuizinitialState, Action> = (state, action) =>
       return { ...state, Tags: action.payload };
       case ActionType.SET_QUIZ_TIME:
         return { ...state, QuizTime: action.payload };
+    case ActionType.SET_QUIZ_DIRECTION:
+      return { ...state, Direction: action.payload };
     default:
       return state;
   }

@@ -27,9 +27,9 @@ import {
 } from '../components/shadcn/tooltip';
 
 import { Button } from '../components/shadcn/button/button';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { QuizProgressContext } from '../useContext/QuizProgressContext';
-import { getNextorPrevIndex } from '../functions/getNextforPrevindex/getNextorPrevIndex';
+
 
 export function PaginationDirection({
   currentIndex,
@@ -39,26 +39,10 @@ export function PaginationDirection({
   handleFormSubmit: (data: any) => void;
 }) {
   const QuizContext = useContext(QuizProgressContext);
-  const { currentQuestion } = QuizContext!;
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  /// if the context is undefined return null, else get the next question id and the previous question id
   if (QuizContext === undefined) return null;
-  const nextQuestionID = getNextorPrevIndex({
-    currentQuestion: currentQuestion,
-    quizList: QuizContext?.QuizList,
-    direction: 'next',
-  });
-  const nextQuestion = () => QuizContext?.SET_CURRENT_QUESTION(nextQuestionID);
-
-  // Function to get the previous question for pagination
-  const prevQuestionID = getNextorPrevIndex({
-    currentQuestion: currentQuestion,
-    quizList: QuizContext?.QuizList,
-    direction: 'prev',
-  });
-  const prevQuestion = () => QuizContext?.SET_CURRENT_QUESTION(prevQuestionID);
-
+ 
   // Drawer Functions
   const openDrawer = () => {
     setIsDrawerOpen(true);
@@ -75,15 +59,30 @@ export function PaginationDirection({
     QuizContext.SET_CURRENT_QUESTION(quizId);
   }
 
+
+  // is the function to handle the next question
+  // CURRENT BUG, HandleFORMSumbit does not update in time to get the correct index
+  const handleNextQuestion = (direction: string) => {
+    console.log(direction, 'direction in pagination')
+    handleFormSubmit(direction)
+    QuizContext.SET_QUIZ_DIRECTION(direction);
+  } 
+
+  
+
   const questionColor = (index: number) => {
+
+    if (QuizContext.currentQuestion === index) {
+      return 'bg-white-500 m-1 border b-4 border-blue-500';
+    }
     // Check if the index is in the 'incorrect' array
     if (QuizContext.Correct_Answered.includes(index)) {
-      return 'bg-green-500 m-1';
+      return 'border b-4 border-green-500 m-1';
     }
     
     // Check if the index is in the 'correct' array
     if (QuizContext.Incorrect_Answered.includes(index)) {
-      return 'bg-red-500 m-1';
+      return ' border b-4 border-red-500 m-1';
     }
   
     // If the index is not found in either array, return an empty string
@@ -101,7 +100,7 @@ export function PaginationDirection({
           {currentIndex !== undefined && currentIndex > 1 && (
             <>
               <PaginationItem>
-                <PaginationPrevious onClick={prevQuestion} />
+                <PaginationPrevious onClick={() => handleNextQuestion('prev')} />
               </PaginationItem>
             </>
           )}
@@ -131,7 +130,7 @@ export function PaginationDirection({
               <>
                 <PaginationItem></PaginationItem>
                 <PaginationItem>
-                  <PaginationNext onClick={handleFormSubmit} />
+                <PaginationNext onClick={() => handleNextQuestion('next')} />
                 </PaginationItem>
               </>
             )}
@@ -148,7 +147,7 @@ export function PaginationDirection({
             {QuizContext.QuizList.map((quizItem, index) => (
               <Button
                 onClick={() => goToSelectedQuestion(index - 1)}
-                className = {questionColor(index + 1)}
+                className = {questionColor(index)}
                 variant='default'
                 key={index}
               >

@@ -23,6 +23,8 @@ import { PaginationDirection } from './PaginationDirection';
 import { compareAnswer } from '../functions/compareAnswers/compareAnswers';
 import { generateSessionId } from '../functions/generateSessionID/generateSessionID';
 import { useRouter } from 'next/navigation';
+import { nextQuestion } from '../functions/nextQuestion/nextQuestion';
+import { collectGenerateParams } from 'next/dist/build/utils';
 
 // This is the schema that is used to validate the form data for the quiz.
 export const FormSchema = z.object({
@@ -30,14 +32,7 @@ export const FormSchema = z.object({
 });
 type OptionValue = z.infer<typeof FormSchema>['type'];
 
-const nextQuestion = (questionID: number, questions: QuestionType[]) => {
-  const currentIndex = questions.findIndex((q) => q.id === questionID);
-  if (currentIndex === -1) {
-    return currentIndex; // if the question is not found return the current index
-  } else {
-    return questions[currentIndex].id;
-  }
-};
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // This is the Quiz component that is exported to the page.
@@ -70,13 +65,14 @@ export function Quiz({ questions }: QuizProps) {
   if (!QuizContext) return null;
   if (!questions) return null;
   // Defaults to the first question in the array until the QuizContext is available for currentQuestion
-  const questionID =
-    QuizContext?.QuizList[QuizContext.currentQuestion] ||
-    QuizContext?.currentQuestion;
+  
+/// Get's the ID of the current question
+  const currentQuestionID =
+    QuizContext?.QuizList[QuizContext.currentQuestion]
 
   // To identify the last question in the array and change the button text to 'Submit'
-  const currentIndex = questions.findIndex((q) => q.id === questionID);
-
+  const currentIndex = QuizContext?.currentQuestion as number;
+  
   // This function is called when the form is submitted.
   function onSubmit(data: z.infer<typeof FormSchema>) {
     const formData = form.getValues();
@@ -89,28 +85,39 @@ export function Quiz({ questions }: QuizProps) {
       form.reset();
     }
 
-    ///Checkes to see if the answer is correct
-    const correct_answer: string = questions.find((q) => q.id === questionID)
+///Checkes to see if the answer is correct, 
+    const correct_answer: string = questions.find((q) => q.id === currentQuestionID)
       ?.correct_answer as string;
-
-    const isCorrect = compareAnswer(formData.type, correct_answer);
-
-    /// If it goes into incorrect first, it will not go into correct ************ 
-    setCorrectorIncorrectQs(QuizContext, questionID, isCorrect);
+//Compares and returns boolen value
+      const isCorrect = compareAnswer(formData.type, correct_answer);
+/// If it goes into incorrect first, it will not go into correct ************ 
+    setCorrectorIncorrectQs(QuizContext, currentQuestionID, isCorrect);
 
     form.reset();
     
-    // Get the next question ID
-    const nextId = nextQuestion(questionID, questions);
-    // Update current question ID in QuizContext
-    QuizContext?.SET_CURRENT_QUESTION(nextId);
+  // Determine the next or previous question ID based on the direction
+  let nextId;
+  let direction = QuizContext?.Direction;
+  console.log(direction, 'direction first Quiz.tsx')
+  if (direction === 'next') {
+    nextId = nextQuestion(currentIndex, questions, 'next');
+
+  } else if (direction === 'prev') {
+    nextId = nextQuestion(currentIndex, questions, 'prev');
+  }
+console.log(direction, 'direction second Quiz.tsx')
+
+
+
+  // Update current question ID in QuizContext
+  QuizContext?.SET_CURRENT_QUESTION(nextId);
+
 
     // Check if it's the last question
     if (nextId === undefined || nextId === null) {
       router.push('/Questions/Results');
     }
   }
-  console.log(QuizContext, 'quizcontext');
 
   return (
     <div className='h-{500} min-w-60 max-w-96 m-10 p-10  overflow-auto'>
@@ -124,23 +131,23 @@ export function Quiz({ questions }: QuizProps) {
                 <FormItem className='flex justify-around flex-col overflow-scroll mr-2'>
                   <div>
                     <FormLabel className='text-lg whitespace-normal break-normal'>
-                      {questions.find((q) => q.id === questionID)?.question}
+                      {questions.find((q) => q.id === currentQuestionID)?.question}
                     </FormLabel>
                   </div>
                   <FormControl>
                     <RadioGroup
-                      value={selectedOptions[questionID] || ''}
+                      value={selectedOptions[currentQuestionID] || ''}
                       name='type'
                       onValueChange={(value) => {
                         const selectedValue = value || ""; // If value is undefined or null, use an empty string
-                        handleOptionChange(questionID, selectedValue as OptionValue);
+                        handleOptionChange(currentQuestionID, selectedValue as OptionValue);
                         /// 
                         field.onChange(selectedValue);
                       }}
                       className='space-y-2'
                     >
                       {questions
-                        .find((q) => q.id === questionID)
+                        .find((q) => q.id === currentQuestionID)
                         ?.options.map((option, index) => {
                           return (
                             <div

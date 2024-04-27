@@ -20,6 +20,7 @@ export interface QuizProgressContextType {
   Incorrect_Answered: any[];
   Tags: string[];
   QuizTime: number; 
+  Direction: string
   incrementCorrectAnswers: () => void;
   incrementIncorrectAnswers: () => void;
   SET_CURRENT_QUESTION: (payload: any) => void;
@@ -28,6 +29,7 @@ export interface QuizProgressContextType {
   SET_QUIZ_LIST: (payload: any) => void;
   SET_TAGS: (payload: any) => void;
   SET_QUIZ_TIME: (payload: any) => void;
+  SET_QUIZ_DIRECTION: (payload: any) => void;
 }
 
 //Create a context to store the quiz progress data
@@ -81,6 +83,10 @@ export const QuizProgressProvider = ({
     dispatch({ type: ActionType.SET_QUIZ_TIME, payload });
   };
 
+  const SET_QUIZ_DIRECTION = (payload: string) => {
+    dispatch({ type: ActionType.SET_QUIZ_DIRECTION, payload });
+  }
+
   const contextValue = useMemo(
     () => ({
       QuizList: state.QuizList,
@@ -91,6 +97,7 @@ export const QuizProgressProvider = ({
       currentQuestion: state.currentQuestion,
       Tags: state.Tags,
       QuizTime: state.QuizTime,
+      Direction: state.Direction,
       incrementCorrectAnswers,
       incrementIncorrectAnswers,
       SET_CURRENT_QUESTION,
@@ -98,7 +105,8 @@ export const QuizProgressProvider = ({
       SET_INCORRECT_ANSWERED,
       SET_QUIZ_LIST,
       SET_TAGS,
-      SET_QUIZ_TIME
+      SET_QUIZ_TIME,
+      SET_QUIZ_DIRECTION
     }),
     [
       state.Correct_Answered,
@@ -109,6 +117,7 @@ export const QuizProgressProvider = ({
       state.currentQuestion,
       state.Tags,
       state.QuizTime,
+      state.Direction
     ]
   );
 
