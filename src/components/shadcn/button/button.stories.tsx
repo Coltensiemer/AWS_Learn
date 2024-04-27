@@ -14,7 +14,12 @@ const meta = {
   tags: ['autodocs'],
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {
-  
+    children: { control: 'text' },
+    label: { control: 'text' },
+    backgroundColor: { control: 'color' },
+    size: { control: { type: 'select', options: ['default', 'sm', 'lg', 'icon'] } },
+    variant: { control: { type: 'select', options: ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'] } },
+    AnswerType: { control: { type: 'select', options: ['correct', 'incorrect', 'neutral'] } },
   },
   // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
   args: { onClick: fn() },
@@ -39,8 +44,16 @@ export const Secondary: Story = {
     children:"Enter text here",
     label: 'Button',
     backgroundColor: 'black',
-    size: 'lg',
+    size: 'default',
     variant: 'secondary',
   },
-};
+}; 
 
+export const AnswerType: Story = { 
+  args: {
+    children:"Enter text here",
+    label: 'Button',
+    size: 'default',
+    AnswerType: 'current',
+} 
+} 

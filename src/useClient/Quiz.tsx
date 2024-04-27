@@ -13,7 +13,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../components/shadcn/form';
+} from '../components/shadcn/form/form';
 import { Button } from '../components/shadcn/button/button';
 import { setCorrectorIncorrectQs } from '../functions/setCorrectorIncorrectQs/setCorrectorIncorrectQs';
 import { QuizProgressContext } from '../useContext/QuizProgressContext';

@@ -73,20 +73,20 @@ export function PaginationDirection({
   const questionColor = (index: number) => {
 
     if (QuizContext.currentQuestion === index) {
-      return 'bg-white-500 m-1 border b-4 border-blue-500';
+      return 'current'
     }
     // Check if the index is in the 'incorrect' array
     if (QuizContext.Correct_Answered.includes(index)) {
-      return 'border b-4 border-green-500 m-1';
+      return 'correct';
     }
     
     // Check if the index is in the 'correct' array
     if (QuizContext.Incorrect_Answered.includes(index)) {
-      return ' border b-4 border-red-500 m-1';
+      return 'incorrect';
     }
   
     // If the index is not found in either array, return an empty string
-    return 'm-1';
+    return 'neutral';
   }
 
   
@@ -147,8 +147,8 @@ export function PaginationDirection({
             {QuizContext.QuizList.map((quizItem, index) => (
               <Button
                 onClick={() => goToSelectedQuestion(index - 1)}
-                className = {questionColor(index)}
                 variant='default'
+                AnswerType={questionColor(index)}
                 key={index}
               >
                 Question {index + 1}
