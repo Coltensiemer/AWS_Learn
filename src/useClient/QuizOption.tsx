@@ -95,18 +95,24 @@ export default function QuizOption() {
 
         {/* Render checkboxes for each tag  */}
         <TabsContent value='Tags' className='w-96'>
-          {QuestionTags.map((tag, index) => (
-          
-            <ScrollArea className='grid' key={index}>
-              <Toggle
-                variant='solid'
-                pressed={Tags.includes(tag)}
-                onPressedChange={() => handleTagChange(tag)}
-              >
-                <label htmlFor={tag}>{tag}</label>
-              </Toggle>
-          </ScrollArea>
-          ))}
+        {QuestionTags.map(([mainTag, ...subTags], index) => (
+        <div className='tag-section' key={index}>
+          <h3>{mainTag}</h3>
+          <div className='sub-tags'>
+            {subTags.map((subTag, subIndex) => (
+              <ScrollArea className='grid' key={subIndex}>
+                <Toggle
+                  variant='solid'
+                  pressed={Tags.includes(subTag)}
+                  onPressedChange={() => handleTagChange(subTag)}
+                >
+                  <label htmlFor={subTag}>{subTag}</label>r
+                </Toggle>
+              </ScrollArea>
+            ))}
+          </div>
+        </div>
+      ))}
           </TabsContent>
 
         {/* //Quiz Timer */}
