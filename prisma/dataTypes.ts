@@ -9,6 +9,7 @@ interface OptionType {
  export interface QuestionType {
 	id: number;
 	tag: string;
+	sub_tag: string;
 	question: string;
 	correct_answer: string;
 	options: OptionType[];

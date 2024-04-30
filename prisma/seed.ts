@@ -54,6 +54,7 @@ async function main() {
       await prisma.quiz.create({
         data: {
           tag: item.tag,
+          sub_tag: item.sub_tag,
           question: item.question,
           correct_answer: item.correct_answer,
           options: {

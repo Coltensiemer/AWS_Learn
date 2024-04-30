@@ -23,9 +23,6 @@ import { convertToTotalSeconds } from '../functions/convertToTotalSeconds/conver
 import { QuestionTags } from '../QuestionTags';
 import { ScrollArea } from '@radix-ui/react-scroll-area';
 
-
-
-
 // }
 // Quiz Length
 // quiz tags
@@ -77,46 +74,31 @@ export default function QuizOption() {
   }, [TimeMinutes, TimeSeconds]);
 
   return (
-    <Card className='flex flex-col lg:flex-row h-96 overflow-scroll'>
+    <Card className='flex flex-col lg:flex-row h-96'>
       <CardHeader>
         <CardTitle>Quiz Options</CardTitle>
         <CardDescription>Customize your quiz</CardDescription>
       </CardHeader>
-      <Tabs defaultValue='Options'>
+      <Tabs defaultValue='Options' className='overflow-scroll'>
         <TabsList className='flex overflow-scroll'>
           <TabsTrigger value='Tags'>Quiz Tags</TabsTrigger>
-          <TabsTrigger value='Timer'>Timer</TabsTrigger>
+          <TabsTrigger value='Options'>Options</TabsTrigger>
         </TabsList>
-        <TabsContent
-          value='Options'
-          className='flex flex-row justify-around w-96'
+        <TabsContent value='Tags' className='w-96 flex flex-col'>
+        {QuestionTags.map((tag, tagIndex) => (
+        <Toggle
+          variant='solid'
+          pressed={Tags.includes(tag[0])}
+          onPressedChange={() => handleTagChange(tag[0])}
+          key={tagIndex}
         >
+          <label htmlFor={tag[0]}>{tag[0]}</label>
+        </Toggle>
+                ))}
         </TabsContent>
 
-        {/* Render checkboxes for each tag  */}
-        <TabsContent value='Tags' className='w-96'>
-        {QuestionTags.map(([mainTag, ...subTags], index) => (
-        <div className='tag-section' key={index}>
-          <h3>{mainTag}</h3>
-          <div className='sub-tags'>
-            {subTags.map((subTag, subIndex) => (
-              <ScrollArea className='grid' key={subIndex}>
-                <Toggle
-                  variant='solid'
-                  pressed={Tags.includes(subTag)}
-                  onPressedChange={() => handleTagChange(subTag)}
-                >
-                  <label htmlFor={subTag}>{subTag}</label>r
-                </Toggle>
-              </ScrollArea>
-            ))}
-          </div>
-        </div>
-      ))}
-          </TabsContent>
-
         {/* //Quiz Timer */}
-        <TabsContent value='Timer' className='w-96'>
+        <TabsContent value='Options' className='w-96'>
           <div className='flex flex-col items-center p-2'>
             <div className='justify-center flex items-center'>
               <Switch
@@ -151,15 +133,13 @@ export default function QuizOption() {
       </Tabs>
 
       {/* Showing quiz options */}
-      <Card className='w-96 h-32 lg:h-full overflow-scroll fixed bottom-20 lg:static lg:border-l-2 border-gray-500'>
-        <CardHeader>
-        </CardHeader>
+      <Card className='w-96 sticky h-32 lg:h-full overflow-scroll  bottom-20 lg:static lg:border-l-2 border-gray-500'>
+        <CardHeader></CardHeader>
         <div>
-          {!QuizTime  && <p>Timer is not set.</p>}
-          {QuizTime && QuizTime > 2 ? 
+          {!QuizTime && <p>Timer is not set.</p>}
+          {QuizTime && QuizTime > 2 ? (
             <p>
-            
-              Timer is set for {' '}
+              Timer is set for{' '}
               {TimeMinutes && TimeMinutes > 0
                 ? renderMinutesText(TimeMinutes)
                 : null}
@@ -168,23 +148,22 @@ export default function QuizOption() {
                 ? renderSecondsText(TimeSeconds)
                 : null}
               .
-            </p> : 
-            null
-          }
-        {!Tags.length && <p>No tags selected.</p>}
-        <div className='flex flex-wrap justify-center'>
-          {Tags.map((tag, index) => (
-            <Toggle
-            key={index}
-            className='m-1'
-            variant='outline'
-            pressed={Tags.includes(tag)}
-            onPressedChange={() => handleTagChange(tag)}
-          >
-            <label htmlFor={tag}>{tag}</label>
-          </Toggle>
-          ))}
-        </div>
+            </p>
+          ) : null}
+          {!Tags.length && <p>No tags selected.</p>}
+          <div className='flex flex-wrap justify-center'>
+            {Tags.map((tag, index) => (
+              <Toggle
+                key={index}
+                className='m-1'
+                variant='outline'
+                pressed={Tags.includes(tag)}
+                onPressedChange={() => handleTagChange(tag)}
+              >
+                <label htmlFor={tag}>{tag}</label>
+              </Toggle>
+            ))}
+          </div>
         </div>
       </Card>
     </Card>
