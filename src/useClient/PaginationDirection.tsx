@@ -55,15 +55,15 @@ export function PaginationDirection({
   /// Unable to get back to the FIRST QuESITON ' index is out of bounds' error***** 
   function goToSelectedQuestion(index: number) {
     if (QuizContext === undefined) return null;
-    const quizId = QuizContext.QuizList[index];
-    QuizContext.SET_CURRENT_QUESTION(quizId);
+    const quizId = QuizContext.QuizList[index + 1 ];
+    const nextIndex = QuizContext?.QuizList.indexOf(quizId);
+    QuizContext.SET_CURRENT_QUESTION(nextIndex) ;
   }
 
 
   // is the function to handle the next question
   // CURRENT BUG, HandleFORMSumbit does not update in time to get the correct index
   const handleNextQuestion = (direction: string) => {
-    console.log(direction, 'direction in pagination')
     handleFormSubmit(direction)
     QuizContext.SET_QUIZ_DIRECTION(direction);
   } 
@@ -71,17 +71,17 @@ export function PaginationDirection({
   
 
   const questionColor = (index: number) => {
-
+    const quizId = QuizContext.QuizList[index + 1 ];
     if (QuizContext.currentQuestion === index) {
       return 'current'
     }
     // Check if the index is in the 'incorrect' array
-    if (QuizContext.Correct_Answered.includes(index)) {
+    if (QuizContext.Correct_Answered.includes(quizId)) {
       return 'correct';
     }
     
     // Check if the index is in the 'correct' array
-    if (QuizContext.Incorrect_Answered.includes(index)) {
+    if (QuizContext.Incorrect_Answered.includes(quizId)) {
       return 'incorrect';
     }
   
@@ -109,14 +109,13 @@ export function PaginationDirection({
               {currentIndex}
             </PaginationLink>
           </PaginationItem>
-          <TooltipProvider>
+          {/* // This is the drawer component that is not working */}
+           <TooltipProvider> 
             <Tooltip>
               <TooltipTrigger>
                 <PaginationItem>
                   <Drawer>
-                    <DrawerTrigger>
                       <PaginationEllipsis onClick={openDrawer} />{' '}
-                    </DrawerTrigger>
                   </Drawer>
                 </PaginationItem>
               </TooltipTrigger>
@@ -124,7 +123,9 @@ export function PaginationDirection({
                 <p className='text-xs'>See Quiz Progression</p>
               </TooltipContent>
             </Tooltip>
-          </TooltipProvider>
+          </TooltipProvider> 
+
+          {/* // This is the drawer component that is not working */}
           {currentIndex !== undefined &&
             currentIndex < QuizContext.QuizList.length && (
               <>
@@ -147,8 +148,7 @@ export function PaginationDirection({
             {QuizContext.QuizList.map((quizItem, index) => (
               <Button
                 onClick={() => goToSelectedQuestion(index - 1)}
-                variant='default'
-                AnswerType={questionColor(index)}
+                AnswerType={questionColor(index)}            
                 key={index}
               >
                 Question {index + 1}
@@ -163,7 +163,7 @@ export function PaginationDirection({
             </DrawerClose>
           </DrawerFooter>
         </DrawerContent>
-      </Drawer>
-    </div>
+          </Drawer>
+    </div> 
   );
 }

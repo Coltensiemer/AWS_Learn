@@ -7,7 +7,7 @@ export const nextQuestion = (questionIndex: number, questions: QuestionType[], d
     return questionIndex; // if the question is not found return the current index
   } else {
     if (direction === 'next') {
-      const nextQuestion = questions[questionIndex]
+      const nextQuestion = questions[questionIndex+ 1]
       //Returns a number of next Question 
       return nextQuestion.id
     } else if (direction === 'prev'){

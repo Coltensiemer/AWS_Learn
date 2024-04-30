@@ -80,6 +80,7 @@ export function Quiz({ questions }: QuizProps) {
       return;
     }
 
+    console.log(formData, 'formData')
     // FormData.type is undefined, so the if statement is always true
     if (formData.type === undefined || formData.type === "") {
       form.reset();
@@ -88,6 +89,7 @@ export function Quiz({ questions }: QuizProps) {
 ///Checkes to see if the answer is correct, 
     const correct_answer: string = questions.find((q) => q.id === currentQuestionID)
       ?.correct_answer as string;
+      console.log(correct_answer, 'correct_answer')
 //Compares and returns boolen value
       const isCorrect = compareAnswer(formData.type, correct_answer);
 /// If it goes into incorrect first, it will not go into correct ************ 
@@ -101,16 +103,12 @@ export function Quiz({ questions }: QuizProps) {
   console.log(direction, 'direction first Quiz.tsx')
   if (direction === 'next') {
     nextId = nextQuestion(currentIndex, questions, 'next');
-
   } else if (direction === 'prev') {
     nextId = nextQuestion(currentIndex, questions, 'prev');
   }
-console.log(direction, 'direction second Quiz.tsx')
-
-
-
+const nextIndex = QuizContext?.QuizList.indexOf(nextId);
   // Update current question ID in QuizContext
-  QuizContext?.SET_CURRENT_QUESTION(nextId);
+  QuizContext?.SET_CURRENT_QUESTION(nextIndex as number);
 
 
     // Check if it's the last question
@@ -119,6 +117,8 @@ console.log(direction, 'direction second Quiz.tsx')
     }
   }
 
+  console.log(QuizContext, 'QuizContext')
+  
   return (
     <div className='h-{500} min-w-60 max-w-96 m-10 p-10  overflow-auto'>
       <div className='flex h-72 m-2'>
@@ -172,9 +172,11 @@ console.log(direction, 'direction second Quiz.tsx')
             />
             {currentIndex === QuizContext?.QuizList.length - 1 ? (
               // Render the "Submit" button when at the last question
-              <Button className='flex self-end' type='submit'>
+              <div className='flex self-end'>
+              <Button  type='submit'>
                 Submit Quiz
               </Button>
+              </div>
             ) : null}
           </form>
         </Form>
