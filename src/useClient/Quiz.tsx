@@ -170,14 +170,6 @@ const nextIndex = QuizContext?.QuizList.indexOf(nextId);
                 </FormItem>
               )}
             />
-            {currentIndex === QuizContext?.QuizList.length - 1 ? (
-              // Render the "Submit" button when at the last question
-              <div className='flex self-end'>
-              <Button  type='submit'>
-                Submit Quiz
-              </Button>
-              </div>
-            ) : null}
           </form>
         </Form>
       </div>
@@ -185,9 +177,17 @@ const nextIndex = QuizContext?.QuizList.indexOf(nextId);
         <PaginationDirection
           currentIndex={currentIndex + 1}
           handleFormSubmit={onSubmit}
-        />
+          />
         <QuizTracker currentIndex={currentIndex} />
       </div>
+          {currentIndex === QuizContext?.QuizList.length - 1 ? (
+            // Render the "Submit" button when at the last question
+            <div className='flex'>
+            <Button  type='submit'>
+              Submit Quiz
+            </Button>
+            </div>
+          ) : null}
     </div>
   );
 }

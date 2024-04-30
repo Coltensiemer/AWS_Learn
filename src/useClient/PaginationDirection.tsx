@@ -25,10 +25,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '../components/shadcn/tooltip';
-
 import { Button } from '../components/shadcn/button/button';
 import { useContext, useEffect, useState } from 'react';
 import { QuizProgressContext } from '../useContext/QuizProgressContext';
+
 
 
 export function PaginationDirection({
@@ -64,6 +64,7 @@ export function PaginationDirection({
   // is the function to handle the next question
   // CURRENT BUG, HandleFORMSumbit does not update in time to get the correct index
   const handleNextQuestion = (direction: string) => {
+    console.log(direction, 'direction')
     handleFormSubmit(direction)
     QuizContext.SET_QUIZ_DIRECTION(direction);
   } 
@@ -71,15 +72,18 @@ export function PaginationDirection({
   
 
   const questionColor = (index: number) => {
+
     const quizId = QuizContext.QuizList[index + 1 ];
     if (QuizContext.currentQuestion === index) {
       return 'current'
     }
+    // if QUIZCONTEXT OPTION === SHOW ANSWERS RETURN BELOW
     // Check if the index is in the 'incorrect' array
     if (QuizContext.Correct_Answered.includes(quizId)) {
       return 'correct';
     }
     
+    // if QUIZCONTEXT OPTION === SHOW ANSWERS RETURN BELOW
     // Check if the index is in the 'correct' array
     if (QuizContext.Incorrect_Answered.includes(quizId)) {
       return 'incorrect';
