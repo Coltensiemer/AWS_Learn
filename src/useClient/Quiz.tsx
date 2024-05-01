@@ -36,7 +36,7 @@ type OptionValue = z.infer<typeof FormSchema>['type'];
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // This is the Quiz component that is exported to the page.
-export function Quiz({ questions, serverAction }: { questions: QuizProps; serverAction: () => void }) {
+export function Quiz({ questions }: QuizProps) {
   const [sessionId, setSessionId] = useState('');
   const QuizContext = useContext(QuizProgressContext);
   const router = useRouter();
