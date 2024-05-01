@@ -5,11 +5,9 @@ import React, { createContext, ReactNode, useMemo, useReducer } from 'react';
 
 import { 
   initialQuizState, 
-  QuizinitialState,
   QuizReducer,
   ActionType,
 } from '../useReducer/QuizProgressReducer';
-import { Quiz } from '../useClient/Quiz';
 
 export interface QuizProgressContextType {
   correctAnswersSum: number;
@@ -20,7 +18,8 @@ export interface QuizProgressContextType {
   Incorrect_Answered: any[];
   Tags: string[];
   QuizTime: number; 
-  Direction: string
+  Direction: string;
+  questionLimit: number;
   incrementCorrectAnswers: () => void;
   incrementIncorrectAnswers: () => void;
   SET_CURRENT_QUESTION: (payload: any) => void;
@@ -30,6 +29,8 @@ export interface QuizProgressContextType {
   SET_TAGS: (payload: any) => void;
   SET_QUIZ_TIME: (payload: any) => void;
   SET_QUIZ_DIRECTION: (payload: any) => void;
+  SET_SHOW_ANSWER: (payload: any) => void;
+  SET_QUESTION_LIMIT: (payload: any) => void;
 }
 
 //Create a context to store the quiz progress data
@@ -87,6 +88,13 @@ export const QuizProgressProvider = ({
     dispatch({ type: ActionType.SET_QUIZ_DIRECTION, payload });
   }
 
+  const SET_SHOW_ANSWER = (payload: boolean) => {
+    dispatch({ type: ActionType.SET_SHOW_ANSWER, payload });
+  } 
+  const SET_QUESTION_LIMIT = (payload: number) => {
+    dispatch({ type: ActionType.SET_QUESTION_LIMIT, payload });
+   }
+
   const contextValue = useMemo(
     () => ({
       QuizList: state.QuizList,
@@ -98,6 +106,8 @@ export const QuizProgressProvider = ({
       Tags: state.Tags,
       QuizTime: state.QuizTime,
       Direction: state.Direction,
+      showAnwer: state.showAnswer,
+      questionLimit: state.questionLimit,
       incrementCorrectAnswers,
       incrementIncorrectAnswers,
       SET_CURRENT_QUESTION,
@@ -106,7 +116,9 @@ export const QuizProgressProvider = ({
       SET_QUIZ_LIST,
       SET_TAGS,
       SET_QUIZ_TIME,
-      SET_QUIZ_DIRECTION
+      SET_QUIZ_DIRECTION,
+      SET_SHOW_ANSWER,
+      SET_QUESTION_LIMIT
     }),
     [
       state.Correct_Answered,
@@ -117,7 +129,9 @@ export const QuizProgressProvider = ({
       state.currentQuestion,
       state.Tags,
       state.QuizTime,
-      state.Direction
+      state.Direction,
+      state.showAnswer,
+      state.questionLimit
     ]
   );
 

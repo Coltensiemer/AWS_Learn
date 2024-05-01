@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { any, number } from "zod";
-import { Quiz } from "../useClient/Quiz";
-import { Reducer } from "react";
+import { any, number } from 'zod';
+import { Quiz } from '../useClient/Quiz';
+import { Reducer } from 'react';
 
 // Define the action types
 export enum ActionType {
@@ -13,6 +13,8 @@ export enum ActionType {
   SET_TAGS,
   SET_QUIZ_TIME,
   SET_QUIZ_DIRECTION,
+  SET_SHOW_ANSWER,
+  SET_QUESTION_LIMIT,
   INCREMENT_CURRENT_QUESTION,
   INCREMENT_CORRECT_ANSWERS,
   INCREMENT_INCORRECT_ANSWERS,
@@ -35,6 +37,8 @@ export type QuizinitialState = {
   incorrectAnswersSum: number;
   currentQuestion: number;
   Direction: string;
+  showAnswer: boolean;
+  questionLimit: number;
 };
 
 // Create the initial state object
@@ -47,30 +51,45 @@ export const initialQuizState: QuizinitialState = {
   correctAnswersSum: 0,
   incorrectAnswersSum: 0,
   currentQuestion: 0,
-  Direction: "next",
+  Direction: 'next',
+  showAnswer: false,
+  questionLimit: 60,
 };
 
 // Define the reducer function
-export const QuizReducer: Reducer<QuizinitialState, Action> = (state, action) => {
+export const QuizReducer: Reducer<QuizinitialState, Action> = (
+  state,
+  action
+) => {
   switch (action.type) {
     case ActionType.INCREMENT_CORRECT_ANSWERS:
       return { ...state, correctAnswers: state.correctAnswersSum + 1 };
     case ActionType.INCREMENT_INCORRECT_ANSWERS:
       return { ...state, incorrectAnswers: state.incorrectAnswersSum + 1 };
     case ActionType.SET_CORRECT_ANSWERED:
-      return { ...state, Correct_Answered: [...state.Correct_Answered, action.payload]};    
-      case ActionType.SET_INCORRECT_ANSWERED:
-        return { ...state, Incorrect_Answered: [...state.Incorrect_Answered, action.payload] };
+      return {
+        ...state,
+        Correct_Answered: [...state.Correct_Answered, action.payload],
+      };
+    case ActionType.SET_INCORRECT_ANSWERED:
+      return {
+        ...state,
+        Incorrect_Answered: [...state.Incorrect_Answered, action.payload],
+      };
     case ActionType.SET_CURRENT_QUESTION:
-      return { ...state, currentQuestion: action.payload};
-      case ActionType.SET_QUIZ_LIST:
-          return { ...state, QuizList: action.payload}
+      return { ...state, currentQuestion: action.payload };
+    case ActionType.SET_QUIZ_LIST:
+      return { ...state, QuizList: action.payload };
     case ActionType.SET_TAGS:
       return { ...state, Tags: action.payload };
-      case ActionType.SET_QUIZ_TIME:
-        return { ...state, QuizTime: action.payload };
+    case ActionType.SET_QUIZ_TIME:
+      return { ...state, QuizTime: action.payload };
     case ActionType.SET_QUIZ_DIRECTION:
       return { ...state, Direction: action.payload };
+    case ActionType.SET_SHOW_ANSWER:
+      return { ...state, showAnswer: action.payload };
+    case ActionType.SET_QUESTION_LIMIT:
+      return { ...state, questionLimit: action.payload };
     default:
       return state;
   }
