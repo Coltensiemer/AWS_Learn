@@ -21,7 +21,6 @@ import { QuizProps, QuestionType } from '../../prisma/dataTypes';
 import QuizTracker from './QuizTracker';
 import { PaginationDirection } from './PaginationDirection';
 import { compareAnswer } from '../functions/compareAnswers/compareAnswers';
-import { generateSessionId } from '../functions/generateSessionID/generateSessionID';
 import { useRouter } from 'next/navigation';
 import { nextQuestion } from '../functions/nextQuestion/nextQuestion';
 import { collectGenerateParams } from 'next/dist/build/utils';
@@ -37,7 +36,7 @@ type OptionValue = z.infer<typeof FormSchema>['type'];
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // This is the Quiz component that is exported to the page.
-export function Quiz({ questions }: QuizProps) {
+export function Quiz({ questions, serverAction }: { questions: QuizProps; serverAction: () => void }) {
   const [sessionId, setSessionId] = useState('');
   const QuizContext = useContext(QuizProgressContext);
   const router = useRouter();

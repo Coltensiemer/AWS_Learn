@@ -2,6 +2,12 @@ import react, { cache } from 'react';
 import { Quiz } from '../../../useClient/Quiz';
 import { QuizProps, QuestionType } from '../../../../prisma/dataTypes';
 import prisma from '../../../lib/prisma';
+import { generateCookieID } from '../../../functions/generateSessionID/generateCookieID';
+import { cookies } from 'next/headers';
+import { getSession, createCookie } from '../../../../lib';
+
+
+
 
 async function GETQuiz(tags: string[]) {
   // When no tags are selected, return all questions
@@ -36,10 +42,14 @@ export default async function Page({
   searchParams: { tags: string[] };
 }) {
   const response = await QuizCache(searchParams.tags);
+  const session = await getSession();
+
+  // createCookie();
 
   return (
     <div className='flex flex-col'>
       <Quiz questions={response} />
+      <pre>{JSON.stringify(session,null,2)}</pre>
     </div>
   );
 }

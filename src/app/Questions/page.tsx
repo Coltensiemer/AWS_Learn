@@ -3,8 +3,9 @@
 import Link from 'next/link';
 import { Button } from '../../components/shadcn/button/button';
 import QuizOption from '../../useClient/QuizOption';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { QuizProgressContext } from '../../useContext/QuizProgressContext';
+import { createCookie } from '../../../lib';
 
 export default function EasyQuestions() {
   const QuizContext = useContext(QuizProgressContext);
@@ -15,6 +16,10 @@ export default function EasyQuestions() {
   }
 
 const { Tags } = QuizContext;
+
+  useEffect(() => {
+    createCookie();
+  }, []);
 
   return (
     <>
