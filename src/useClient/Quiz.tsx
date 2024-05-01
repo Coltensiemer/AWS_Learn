@@ -28,8 +28,9 @@ import { collectGenerateParams } from 'next/dist/build/utils';
 
 // This is the schema that is used to validate the form data for the quiz.
 export const FormSchema = z.object({
-  type: z.enum(['A', 'B', 'C', 'D', '']),
-});
+  type: z.enum(['A', 'B', 'C', 'D']),
+}).required(); 
+
 type OptionValue = z.infer<typeof FormSchema>['type'];
 
 
@@ -43,6 +44,7 @@ export function Quiz({ questions }: QuizProps) {
   const [selectedOptions, setSelectedOptions] = useState<{
     [key: number]: OptionValue;
   }>({});
+ 
 
   const handleOptionChange = (questionID: any, value: any) => {
     setSelectedOptions({
@@ -59,12 +61,11 @@ export function Quiz({ questions }: QuizProps) {
   }, []);
 
   const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+    resolver: zodResolver(FormSchema)
   });
 
   if (!QuizContext) return null;
   if (!questions) return null;
-  // Defaults to the first question in the array until the QuizContext is available for currentQuestion
   
 /// Get's the ID of the current question
   const currentQuestionID =
@@ -80,22 +81,22 @@ export function Quiz({ questions }: QuizProps) {
       return;
     }
 
-    console.log(formData, 'formData')
     // FormData.type is undefined, so the if statement is always true
-    if (formData.type === undefined || formData.type === "") {
+    if (formData.type === undefined) {
       form.reset();
     }
+    else {
+      ///Checkes to see if the answer is correct, 
+          const correct_answer: string = questions.find((q) => q.id === currentQuestionID)
+            ?.correct_answer as string;
+      //Compares and returns boolen value
+            const isCorrect = compareAnswer(formData.type, correct_answer);
+      /// If it goes into incorrect first, it will not go into correct ************ 
+          setCorrectorIncorrectQs(QuizContext, currentQuestionID, isCorrect);
+      
+          form.reset();
+    }
 
-///Checkes to see if the answer is correct, 
-    const correct_answer: string = questions.find((q) => q.id === currentQuestionID)
-      ?.correct_answer as string;
-      console.log(correct_answer, 'correct_answer')
-//Compares and returns boolen value
-      const isCorrect = compareAnswer(formData.type, correct_answer);
-/// If it goes into incorrect first, it will not go into correct ************ 
-    setCorrectorIncorrectQs(QuizContext, currentQuestionID, isCorrect);
-
-    form.reset();
     
   // Determine the next or previous question ID based on the direction
   let nextId;
@@ -117,7 +118,7 @@ const nextIndex = QuizContext?.QuizList.indexOf(nextId);
     }
   }
 
-  console.log(QuizContext, 'QuizContext')
+  // console.log(QuizContext, 'QuizContext')
   
   return (
     <div className='h-{500} min-w-60 max-w-96 m-10 p-10  overflow-auto'>
@@ -127,7 +128,7 @@ const nextIndex = QuizContext?.QuizList.indexOf(nextId);
             <FormField
               control={form.control}
               name='type'
-              render={({ field }) => (
+              render={({ field, formState: {errors} }) => (
                 <FormItem className='flex justify-around flex-col overflow-scroll mr-2'>
                   <div>
                     <FormLabel className='text-lg whitespace-normal break-normal'>
@@ -144,8 +145,10 @@ const nextIndex = QuizContext?.QuizList.indexOf(nextId);
                         /// 
                         field.onChange(selectedValue);
                       }}
+                       
                       className='space-y-2'
                     >
+                       {errors.type && <p>{errors.type.message}</p>}
                       {questions
                         .find((q) => q.id === currentQuestionID)
                         ?.options.map((option, index) => {
