@@ -14,62 +14,72 @@ datasource db {
   // url      = env("DATABASE_URL_PRODUCTION")
 }
 
-model User {
+model user {
   id            String          @id @default(cuid())
   email         String          @unique
   name          String?
   password      String
-  CompletedQuiz CompletedQuiz[]
-  QuizProgress  QuizProgress[]
+  completedquiz completedquiz[]
+  quizprogress  quizprogress[]
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
 }
 
-model Quiz {
+model fakeuser {
+  id        String   @id @default(cuid())
+  cookieid  String
+  completedquiz completedquiz[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model quiz {
   id             Int      @id @default(autoincrement())
   tag            String
   sub_tag        String
   question       String
   correct_answer String
-  options        Option[]
+  options        option[]
 }
 
-model Option {
+model option {
   id        Int     @id @default(autoincrement())
   value     String
-  isCorrect Boolean
-  quiz      Quiz    @relation(fields: [quizId], references: [id])
+  iscorrect Boolean
+  quiz      quiz    @relation(fields: [quizId], references: [id])
   quizId    Int
 }
 
 // model for completed quiz
-model CompletedQuiz {
+model completedquiz {
   id               String    @id @default(cuid())
-  quizIDUsed       Int[]
-  user             User?     @relation(fields: [userId], references: [id])
+  quizidused       Int[]
+  user             user?     @relation(fields: [userId], references: [id])
   userId           String?
-  correctAnswers   Int[]
-  incorrectAnswers Int[]
+  fakeuser       fakeuser? @relation(fields: [fakeuserid], references: [id])
+  fakeuserid     String?
+  correctanswers   Int[]
+  incorrectanswers Int[]
   tags             String[]
   score            Int?
-  startTimer       Int?
-  finishedAt       Int
+  starttimer       Int?
+  finishedat       Int
   quizDate         DateTime?
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
 }
 
 //Model for user's progress when quiz is in progress
-model QuizProgress {
+model quizprogress {
   id               String   @id @default(cuid())
-  quizIDUsed       Int[]
-  user             User?    @relation(fields: [userId], references: [id])
+  quizidused       Int[]
+  user             user?    @relation(fields: [userId], references: [id])
   userId           String?
-  correctAnswers   Int[]
-  incorrectAnswers Int[]
+  correctanswers   Int[]
+  incorrectanswers Int[]
   tags             String[]
-  currentQuestion  Int
-  currentTimer     Int?
+  currentquestion  Int
+  currenttimer     Int?
   quiztimer        Int?
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt

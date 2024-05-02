@@ -6,8 +6,8 @@ async function main() {
   try {
     //Delete all users to clear the database
     await prisma.user.deleteMany();
-    await prisma.completedQuiz.deleteMany();
-    await prisma.quizProgress.deleteMany();
+    await prisma.completedquiz.deleteMany();
+    await prisma.quizprogress.deleteMany();
 
     await prisma.user.upsert({
       where: { email: 'alice@prisma.io' },
@@ -16,24 +16,24 @@ async function main() {
         email: 'alice@prisma.io',
         name: 'Alice',
         password: 'password',
-        CompletedQuiz: {
+        completedquiz: {
           create: {
-            quizIDUsed: [1, 2, 3, 4, 5, 6],
-            correctAnswers: [1, 3, 5],
-            incorrectAnswers: [2, 4, 6],
+            quizidused: [1, 2, 3, 4, 5, 6],
+            correctanswers: [1, 3, 5],
+            incorrectanswers: [2, 4, 6],
             tags: ['EC2', 'Lambda'],
             score: 50,
-            startTimer: 120,
-            finishedAt: 20,
+            starttimer: 120,
+            finishedat: 20,
             quizDate: new Date(),
           },
         },
-        QuizProgress: {
+        quizprogress: {
           create: {
-            quizIDUsed: [1, 2, 3, 4, 5, 6],
-            correctAnswers: [1, 3],
-            incorrectAnswers: [2, 4],
-            currentQuestion: 5,
+            quizidused: [1, 2, 3, 4, 5, 6],
+            correctanswers: [1, 3],
+            incorrectanswers: [2, 4],
+            currentquestion: 5,
             quiztimer: 42,
             tags: ['EC2', 'Lambda'],
           },
@@ -60,7 +60,7 @@ async function main() {
           options: {
             create: item.options.map((option: any) => ({
               value: option.value,
-              isCorrect: option.isCorrect, // Set isCorrect based on the value field of each option
+              iscorrect: option.isCorrect, // Set isCorrect based on the value field of each option
             })),
           },
         },
