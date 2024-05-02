@@ -23,27 +23,26 @@ import { PaginationDirection } from './PaginationDirection';
 import { compareAnswer } from '../functions/compareAnswers/compareAnswers';
 import { useRouter } from 'next/navigation';
 import { nextQuestion } from '../functions/nextQuestion/nextQuestion';
-import { collectGenerateParams } from 'next/dist/build/utils';
+import { QuizSubmit } from './QuizSubmitResults';
+
 
 // This is the schema that is used to validate the form data for the quiz.
-export const FormSchema = z.object({
-  type: z.enum(['A', 'B', 'C', 'D']),
-}).required(); 
+export const FormSchema = z
+  .object({
+    type: z.enum(['A', 'B', 'C', 'D']),
+  })
+  .required();
 
 type OptionValue = z.infer<typeof FormSchema>['type'];
-
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // This is the Quiz component that is exported to the page.
 export function Quiz({ questions }: QuizProps) {
-  const [sessionId, setSessionId] = useState('');
   const QuizContext = useContext(QuizProgressContext);
   const router = useRouter();
   const [selectedOptions, setSelectedOptions] = useState<{
     [key: number]: OptionValue;
   }>({});
- 
 
   const handleOptionChange = (questionID: any, value: any) => {
     setSelectedOptions({
@@ -60,65 +59,57 @@ export function Quiz({ questions }: QuizProps) {
   }, []);
 
   const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema)
+    resolver: zodResolver(FormSchema),
   });
 
   if (!QuizContext) return null;
   if (!questions) return null;
-  
-/// Get's the ID of the current question
-  const currentQuestionID =
-    QuizContext?.QuizList[QuizContext.currentQuestion]
+
+  /// Get's the ID of the current question
+  const currentQuestionID = QuizContext?.QuizList[QuizContext.currentQuestion];
 
   // To identify the last question in the array and change the button text to 'Submit'
   const currentIndex = QuizContext?.currentQuestion as number;
-  
+
   // This function is called when the form is submitted.
   function onSubmit(data: z.infer<typeof FormSchema>) {
     const formData = form.getValues();
     if (!questions) {
       return;
     }
-
     // FormData.type is undefined, so the if statement is always true
     if (formData.type === undefined) {
       form.reset();
-    }
-    else {
-      ///Checkes to see if the answer is correct, 
-          const correct_answer: string = questions.find((q) => q.id === currentQuestionID)
-            ?.correct_answer as string;
+    } else {
+      ///Checkes to see if the answer is correct,
+      const correct_answer: string = questions.find(
+        (q) => q.id === currentQuestionID
+      )?.correct_answer as string;
       //Compares and returns boolen value
-            const isCorrect = compareAnswer(formData.type, correct_answer);
-      /// If it goes into incorrect first, it will not go into correct ************ 
-          setCorrectorIncorrectQs(QuizContext, currentQuestionID, isCorrect);
-      
-          form.reset();
+      const isCorrect = compareAnswer(formData.type, correct_answer);
+      /// If it goes into incorrect first, it will not go into correct ************
+      setCorrectorIncorrectQs(QuizContext, currentQuestionID, isCorrect);
+
+      form.reset();
     }
-
-    
-  // Determine the next or previous question ID based on the direction
-  let nextId;
-  let direction = QuizContext?.Direction;
-  console.log(direction, 'direction first Quiz.tsx')
-  if (direction === 'next') {
-    nextId = nextQuestion(currentIndex, questions, 'next');
-  } else if (direction === 'prev') {
-    nextId = nextQuestion(currentIndex, questions, 'prev');
-  }
-const nextIndex = QuizContext?.QuizList.indexOf(nextId);
-  // Update current question ID in QuizContext
-  QuizContext?.SET_CURRENT_QUESTION(nextIndex as number);
-
-
+    // Determine the next or previous question ID based on the direction
+    let nextId;
+    let direction = QuizContext?.Direction;
+    console.log(direction, 'direction first Quiz.tsx');
+    if (direction === 'next') {
+      nextId = nextQuestion(currentIndex, questions, 'next');
+    } else if (direction === 'prev') {
+      nextId = nextQuestion(currentIndex, questions, 'prev');
+    }
+    const nextIndex = QuizContext?.QuizList.indexOf(nextId);
+    // Update current question ID in QuizContext
+    QuizContext?.SET_CURRENT_QUESTION(nextIndex as number);
     // Check if it's the last question
     if (nextId === undefined || nextId === null) {
       router.push('/Questions/Results');
     }
   }
 
-  // console.log(QuizContext, 'QuizContext')
-  
   return (
     <div className='h-{500} min-w-60 max-w-96 m-10 p-10  overflow-auto'>
       <div className='flex h-72 m-2'>
@@ -127,11 +118,14 @@ const nextIndex = QuizContext?.QuizList.indexOf(nextId);
             <FormField
               control={form.control}
               name='type'
-              render={({ field, formState: {errors} }) => (
+              render={({ field, formState: { errors } }) => (
                 <FormItem className='flex justify-around flex-col overflow-scroll mr-2'>
                   <div>
                     <FormLabel className='text-lg whitespace-normal break-normal'>
-                      {questions.find((q) => q.id === currentQuestionID)?.question}
+                      {
+                        questions.find((q) => q.id === currentQuestionID)
+                          ?.question
+                      }
                     </FormLabel>
                   </div>
                   <FormControl>
@@ -139,15 +133,17 @@ const nextIndex = QuizContext?.QuizList.indexOf(nextId);
                       value={selectedOptions[currentQuestionID] || ''}
                       name='type'
                       onValueChange={(value) => {
-                        const selectedValue = value || ""; // If value is undefined or null, use an empty string
-                        handleOptionChange(currentQuestionID, selectedValue as OptionValue);
-                        /// 
+                        const selectedValue = value || ''; // If value is undefined or null, use an empty string
+                        handleOptionChange(
+                          currentQuestionID,
+                          selectedValue as OptionValue
+                        );
+                        ///
                         field.onChange(selectedValue);
                       }}
-                       
                       className='space-y-2'
                     >
-                       {errors.type && <p>{errors.type.message}</p>}
+                      {errors.type && <p>{errors.type.message}</p>}
                       {questions
                         .find((q) => q.id === currentQuestionID)
                         ?.options.map((option, index) => {
@@ -179,17 +175,10 @@ const nextIndex = QuizContext?.QuizList.indexOf(nextId);
         <PaginationDirection
           currentIndex={currentIndex + 1}
           handleFormSubmit={onSubmit}
-          />
+        />
         <QuizTracker currentIndex={currentIndex} />
       </div>
-          {currentIndex === QuizContext?.QuizList.length - 1 ? (
-            // Render the "Submit" button when at the last question
-            <div className='flex'>
-            <Button  type='submit'>
-              Submit Quiz
-            </Button>
-            </div>
-          ) : null}
+      <QuizSubmit questions={questions} currentIndex={currentIndex} correct={QuizContext.Correct_Answered} incorrect={QuizContext.Incorrect_Answered}/>
     </div>
   );
 }
