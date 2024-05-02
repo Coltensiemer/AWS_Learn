@@ -2,6 +2,8 @@ import prisma from '../../../lib/prisma';
 import { QuestionType } from '../../../../prisma/dataTypes';
 import { NextResponse, NextRequest } from 'next/server';
 
+
+// GETTING TYPESCRIPT ERROR... 
 // export async function GET(
 //   request: Request,
 //   { params }: { params: { tags: string[] } }
@@ -45,7 +47,7 @@ export async function POST(request: Request) {
 
   try {
     let existingUser = await prisma.user.findUnique({
-      where: { id: userID_OR_Email },
+      where: { email: userID_OR_Email },
       include: { completedquiz: true },
     });
 

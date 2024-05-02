@@ -27,7 +27,7 @@ model user {
 
 model fakeuser {
   id        String   @id @default(cuid())
-  cookieid  String
+  cookieid  String  @unique
   completedquiz completedquiz[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
