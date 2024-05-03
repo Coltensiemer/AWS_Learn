@@ -1,8 +1,28 @@
-'use client'
-import { QuestionType } from "@prisma/dataTypes";
-import { AlertDialog, AlertDialogContent, AlertDialogAction, AlertDialogCancel, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription } from "../components/shadcn/alert-dialog";
-import { useState } from "react";
-import { Button } from "../components/shadcn/button/button";
+'use client';
+import { QuestionType } from '@prisma/dataTypes';
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+} from '../components/shadcn/alert-dialog';
+import { useState, useContext } from 'react';
+import { Button } from '../components/shadcn/button/button';
+import {
+  Card,
+  CardHeader,
+  CardDescription,
+  CardFooter,
+  CardTitle,
+} from '../components/shadcn/card/card';
+// import { useRouter } from 'next/navigation';
+import { PostBody } from '../app/api/quiz/route';
+import { QuizProgressContext } from '../useContext/QuizProgressContext';
+import { getSession } from '../../lib';
 
 function totalScore(questions: QuestionType[], correct: number[]) {
   const total = questions.length;
@@ -12,12 +32,12 @@ function totalScore(questions: QuestionType[], correct: number[]) {
 
 function totalQuestionsAnswered(
   questions: QuestionType[],
-	
+
   correct: number[],
   incorrect: number[]
 ) {
   const total = questions.length;
-  const answered = correct.length;
+  const answered = correct.length + incorrect.length;
   const reminding = total - answered;
   const answeredQuestionIds = [...correct, ...incorrect];
   const unansweredQuestions = questions.filter(
@@ -26,42 +46,57 @@ function totalQuestionsAnswered(
   return { total, answered, reminding, unansweredQuestions };
 }
 
-
-
-
-
-
-
-
 export function QuizSubmit({
   questions,
   correct,
-	currentIndex, 
+  currentIndex,
   incorrect,
 }: {
   questions: QuestionType[];
   correct: number[];
   incorrect: number[];
-	currentIndex: number;
+  currentIndex: number;
 }) {
-
-	const [isOpen, setIsOpen] = useState(false);
-
+  const [isOpen, setIsOpen] = useState(false);
+  // const router = useRouter();
   const { total, answered, reminding, unansweredQuestions } =
     totalQuestionsAnswered(questions, correct, incorrect);
   const Score = totalScore(questions, correct);
+  const OneTimeSessionID = getSession();
+  const QuizContext = useContext(QuizProgressContext);
+  if (!QuizContext) return null;
 
- const handleSubmit = () => {
-    // Submit the quiz
-    // creates a post request to the server send data to the server
-    // if the server returns a 200 status code, then the quiz is submitted
-    // if the server returns a 400 status code, then the quiz is not submitted
+  const handleSubmit = () => {
+    const requestBody: PostBody = {
+      userID_OR_Email: 'OneTimeSessionID',
+      quizidused: QuizContext.QuizList, // Assuming quizidused is a string
+      correctanswers: QuizContext.Correct_Answered,
+      incorrectanswers: QuizContext.Incorrect_Answered,
+      tags: QuizContext.Tags, // Assuming tags is an empty array in this context
+      score: Score,
+      starttimer: QuizContext.QuizTime, // Assuming starttimer is a string
+      finishedat: 0, // Assuming finishedat is a string
+    };
+    fetch('/api/quiz', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        requestBody,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+				console.log('Quiz submitted successfully')
+        // router.push('/quiz/results');
+      } else if (res.status === 401) {
+        throw new Error('Network Error');
+      }
+    });
+
     // redirect to loading page
     return (
       <>
-        <p>
-          `${answered}/${total}`;
-        </p>
         <p>`${reminding} questions left`;</p>
         {unansweredQuestions.map((q, index) => (
           <li key={index}>{q.id}</li>
@@ -71,28 +106,37 @@ export function QuizSubmit({
   };
 
   return (
-			<>
-    <AlertDialog open={isOpen} >
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Submit Quiz</AlertDialogTitle>
-        </AlertDialogHeader>
-        <AlertDialogDescription>
-          Are you sure you want to submit the quiz?
-          {/* IF NOT ALL QUESTIONS ARE ANSWERED */}
-        </AlertDialogDescription>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Submit</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-	{currentIndex === questions.length - 1 ? (
-	 <div className='flex'>
-		 <Button onClick={() => setIsOpen(true)}>Submit Quiz</Button>
-	 </div>
- ) : null}
-	</>
-  
-
-)}
+    <>
+      <AlertDialog open={isOpen}>
+        <AlertDialogContent>
+          <Card className='p-10'>
+            <CardHeader>
+              <CardTitle>Submit Quiz </CardTitle>
+            </CardHeader>
+            <CardDescription className='flex flex-col-reverse'>
+              <p>Are you sure you want to submit the quiz?</p>
+              <p className='font-bold'>
+                {answered}/{total} answered.
+              </p>
+            </CardDescription>
+            <CardFooter className='flex justify-evenly m-2'>
+              <AlertDialogCancel
+                onClick={() => {
+                  setIsOpen(!isOpen);
+                }}
+              >
+                Cancel
+              </AlertDialogCancel>
+              <AlertDialogAction onClick={handleSubmit}>Submit</AlertDialogAction>
+            </CardFooter>
+          </Card>
+        </AlertDialogContent>
+      </AlertDialog>
+      {currentIndex === questions.length - 1 ? (
+        <div className='flex'>
+          <Button onClick={() => setIsOpen(true)}>Submit Quiz</Button>
+        </div>
+      ) : null}
+    </>
+  );
+}
