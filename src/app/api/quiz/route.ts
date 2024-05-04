@@ -33,8 +33,8 @@ import { NextResponse, NextRequest } from 'next/server';
 
 
 export interface PostBody { 
-  userID_OR_Email: string;
-  quizidused: string[];
+  sessionCookie_or_email: string; 
+  quizidused: string[]; 
   correctanswers: number[];
   incorrectanswers: number[];
   tags: string[];
@@ -43,11 +43,10 @@ export interface PostBody {
   finishedat: number;
 } 
 
-//Post Quiz results when test is completed
 export async function POST(request: Request) {
   const body = await request.json();
   const {
-    userID_OR_Email,
+    sessionCookie_or_email,
     quizidused,
     correctanswers,
     incorrectanswers,
@@ -58,49 +57,78 @@ export async function POST(request: Request) {
   } = body;
 
   try {
-    // let existingUser = await prisma.user.findUnique({
-    //   where: { email: userID_OR_Email },
-    //   include: { completedquiz: true },
-    // });
-
-    // if (existingUser) {
-    //   // Update the existing completed quiz record
-    //   const updatedCompletedQuiz = await prisma.completedquiz.update({
-    //     where: { id: existingUser.completedquiz[0].id },
-    //     data: {
-    //       quizidused,
-    //       correctanswers,
-    //       incorrectanswers,
-    //       tags,
-    //       score,
-    //       starttimer,
-    //       finishedat,
-    //     },
-    //   });
-    //   return new Response(JSON.stringify({ message: 'Completed quiz record updated' }), { status: 200 });
-    // } else if (!existingUser) {
-    // Create a new user and the completed quiz record
-    const newUser = await prisma.fakeuser.create({
-      data: {
-        cookieid: userID_OR_Email,
-        completedquiz: {
-          create: {
-            correctanswers,
-            incorrectanswers,
-            quizidused,
-            tags,
-            score,
-            starttimer,
-            finishedat,
-          },
-        },
-      },
+    let existingUser = await prisma.user.findUnique({
+      where: { email: sessionCookie_or_email },
+      include: { completedquiz: true },
     });
-    return new Response(
-      JSON.stringify({ message: 'New user and completed quiz record created' }),
-      { status: 200 }
-    );
-    // }
+
+    if (existingUser) {
+      // Add a new completed quiz record
+      const newCompletedQuiz = await prisma.completedquiz.create({
+        data: {
+          quizidused,
+          correctanswers,
+          incorrectanswers,
+          tags,
+          score,
+          starttimer,
+          finishedat,
+          // Link this completed quiz to the existing user
+          user: {
+            connect: { id: existingUser.id }
+          }
+        },
+      });
+      return new Response(JSON.stringify({ message: 'Completed quiz record updated' }), { status: 200 });
+    } else {
+      let fakeExistingUser = await prisma.fakeuser.findUnique({
+        where: { cookieid: sessionCookie_or_email },
+        include: { completedquiz: true },
+      });
+
+      if (fakeExistingUser) {
+        // Update existing fake user with new completed quiz record
+        const updatedFakeUser = await prisma.fakeuser.update({
+          where: { id: fakeExistingUser.id },
+          data: {
+            completedquiz: {
+              create: {
+                correctanswers,
+                incorrectanswers,
+                quizidused,
+                tags,
+                score,
+                starttimer,
+                finishedat,
+              },
+            },
+          },
+        });
+        return new Response(JSON.stringify({ message: 'Existing fake user updated with new completed quiz record' }), { status: 200 });
+      } else {
+        // Create a new user under fakeuser and the completed quiz record
+        const newUser = await prisma.fakeuser.create({
+          data: {
+            cookieid: sessionCookie_or_email,
+            completedquiz: {
+              create: {
+                correctanswers,
+                incorrectanswers,
+                quizidused,
+                tags,
+                score,
+                starttimer,
+                finishedat,
+              },
+            },
+          },
+        });
+        return new Response(
+          JSON.stringify({ message: 'New user and completed quiz record created' }),
+          { status: 200 }
+        );
+      }
+    }
   } catch (error) {
     console.error('Error:', error);
     return new Response(JSON.stringify({ error: 'An error occurred' }), {
@@ -108,3 +136,4 @@ export async function POST(request: Request) {
     });
   }
 }
+

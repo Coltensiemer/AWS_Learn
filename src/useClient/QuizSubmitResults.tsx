@@ -23,6 +23,7 @@ import {
 import { PostBody } from '../app/api/quiz/route';
 import { QuizProgressContext } from '../useContext/QuizProgressContext';
 import { getSession } from '../../lib';
+import { generateCookieID } from '../functions/generateSessionID/generateCookieID';
 
 function totalScore(questions: QuestionType[], correct: number[]) {
   const total = questions.length;
@@ -62,47 +63,37 @@ export function QuizSubmit({
   const { total, answered, reminding, unansweredQuestions } =
     totalQuestionsAnswered(questions, correct, incorrect);
   const Score = totalScore(questions, correct);
-  const OneTimeSessionID = getSession();
   const QuizContext = useContext(QuizProgressContext);
   if (!QuizContext) return null;
 
-  const handleSubmit = () => {
-    const requestBody: PostBody = {
-      userID_OR_Email: 'OneTimeSessionID',
-      quizidused: QuizContext.QuizList, // Assuming quizidused is a string
-      correctanswers: QuizContext.Correct_Answered,
-      incorrectanswers: QuizContext.Incorrect_Answered,
-      tags: QuizContext.Tags, // Assuming tags is an empty array in this context
-      score: Score,
-      starttimer: QuizContext.QuizTime, // Assuming starttimer is a string
-      finishedat: 0, // Assuming finishedat is a string
-    };
+  const handleSubmit = async () => {
+    const cookieID = await getSession();
+    const cookie = generateCookieID(); 
+    // Here we are sending the quiz results to the server
     fetch('/api/quiz', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        requestBody,
+        "sessionCookie_or_email": cookieID,
+        "quizidused": QuizContext.QuizList, 
+        "correctanswers": QuizContext.Correct_Answered,
+        "incorrectanswers": QuizContext.Incorrect_Answered,
+        "score": Score,
+        "starttimer": QuizContext.QuizTime,
+        "finishedat": 0,
+        "tags": QuizContext.Tags,
       }),
     }).then((res) => {
       if (res.ok) {
-				console.log('Quiz submitted successfully')
+        console.log('Quiz submitted successfully');
         // router.push('/quiz/results');
       } else if (res.status === 401) {
         throw new Error('Network Error');
       }
     });
-
     // redirect to loading page
-    return (
-      <>
-        <p>`${reminding} questions left`;</p>
-        {unansweredQuestions.map((q, index) => (
-          <li key={index}>{q.id}</li>
-        ))}
-      </>
-    );
   };
 
   return (
@@ -127,7 +118,9 @@ export function QuizSubmit({
               >
                 Cancel
               </AlertDialogCancel>
-              <AlertDialogAction onClick={handleSubmit}>Submit</AlertDialogAction>
+              <AlertDialogAction onClick={handleSubmit}>
+                Submit
+              </AlertDialogAction>
             </CardFooter>
           </Card>
         </AlertDialogContent>

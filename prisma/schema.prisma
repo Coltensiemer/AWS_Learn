@@ -26,11 +26,11 @@ model user {
 }
 
 model fakeuser {
-  id        String   @id @default(cuid())
-  cookieid  String  @unique
+  id            String          @id @default(cuid())
+  cookieid      String          @unique
   completedquiz completedquiz[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
 }
 
 model quiz {
@@ -56,8 +56,8 @@ model completedquiz {
   quizidused       Int[]
   user             user?     @relation(fields: [userId], references: [id])
   userId           String?
-  fakeuser       fakeuser? @relation(fields: [fakeuserid], references: [id])
-  fakeuserid     String?
+  fakeuser         fakeuser? @relation(fields: [cookieid], references: [id])
+  cookieid       String?
   correctanswers   Int[]
   incorrectanswers Int[]
   tags             String[]
