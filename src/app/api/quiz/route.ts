@@ -34,7 +34,7 @@ import { NextResponse, NextRequest } from 'next/server';
 
 export interface PostBody { 
   sessionCookie_or_email: string; 
-  quizidused: string[]; 
+  quizidused: number[] | string; 
   correctanswers: number[];
   incorrectanswers: number[];
   tags: string[];
