@@ -6,7 +6,7 @@ interface OptionType {
   }
   
   // Define the data type for the questions
- export interface QuestionType {
+	export interface QuestionType {
 	id: number;
 	tag: string;
 	sub_tag: string;

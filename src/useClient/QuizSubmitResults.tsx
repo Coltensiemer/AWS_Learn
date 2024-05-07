@@ -19,8 +19,6 @@ import {
   CardFooter,
   CardTitle,
 } from '../components/shadcn/card/card';
-// import { useRouter } from 'next/navigation';
-import { PostBody } from '../app/api/quiz/route';
 import { QuizProgressContext } from '../useContext/QuizProgressContext';
 import { getSession } from '../../lib';
 import { generateCookieID } from '../functions/generateSessionID/generateCookieID';
