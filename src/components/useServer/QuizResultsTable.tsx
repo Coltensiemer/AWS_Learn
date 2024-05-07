@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "../table"
 import prisma from "../../lib/prisma"
-
+import Image from "next/image"
 
 async function getQuizList(quizData: {questions: number[]}) { 
 		const data = await prisma.quiz.findMany({
@@ -21,6 +21,14 @@ async function getQuizList(quizData: {questions: number[]}) {
 return data
 } 
 
+
+function SVG(){ 
+	return ( 
+		<div className="border border-green-500">
+		<Image src="/icons/Checkmark.svg" alt="checkmark" width={20} height={20}  />
+		</div>
+	)
+}
 
 export default async function QuizResultsTable({sessionData, sessionID}: any) {
   
@@ -51,7 +59,7 @@ return (
 				<TableRow key={question.id}>
 					<TableCell>{index + 1}</TableCell>
 					<TableCell>{question.question}</TableCell>
-					<TableCell>{correctanswers.includes(question.id) ? 'Correct' : 'Incorrect'}</TableCell>
+					<TableCell>{correctanswers.includes(question.id) ? <SVG /> : 'Incorrect'}</TableCell>
 				</TableRow>
 			)
 		})}
