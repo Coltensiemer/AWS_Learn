@@ -25,6 +25,7 @@ import {
 import { Button } from "../shadcn/button/button"
 import {Input} from "../shadcn/input/input"
 import { QuizProps } from "@prisma/dataTypes"
+import { useState } from "react"
 
 
 interface DataTableProps<TData, TValue> {
@@ -42,6 +43,17 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
   })
+
+	const [expandedRows, setExpandedRows] = useState<string[]>([]);
+
+	// const toggleRowExpanison = (rowId: string) => {
+	// 	setExpandedRows((prev) => {
+	// 		if (prev.includes(rowId)) {
+	// 			return prev.filter((id) => id !== rowId);
+	// 		}
+	// 		return [...prev, rowId];
+	// 	}
+	// }
  
   return (
     <div className="rounded-md border w-full">

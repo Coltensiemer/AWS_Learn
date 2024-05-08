@@ -49,11 +49,9 @@ export default async function Page() {
   	sessiondata?.completedquiz[0].quizidused
   )
 
-
   return (
-    <div>
+		<div>
       <Results sessionData={sessiondata} />
-      {/* <QuizResultsTable sessionID={sessionID} sessionData={sessiondata} /> */}
       <DataTable columns={columns} data={questionList} />
     </div>
   );
