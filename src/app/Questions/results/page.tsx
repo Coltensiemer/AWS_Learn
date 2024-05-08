@@ -3,10 +3,11 @@ import Results from '../../../useClient/Results';
 import { getSession } from '../../../../lib';
 import prisma from '../../../lib/prisma';
 import { date } from 'zod';
-import QuizResultsTable from '../../../components/useServer/QuizResultsTable';
+// import QuizResultsTable from '../../../components/useServer/QuizResultsTable';
+import { DataTable } from '../../../components/useServer/QuizResultsTable';
+import { columns } from './column';
 
-export default async function Page() {
-  const sessionID = await getSession();
+async function getUserResults(sessionID: string) {
   const sessiondata = await prisma.fakeuser.findFirst({
     ///change so it only recieves the last quiz
     where: {
@@ -18,12 +19,42 @@ export default async function Page() {
     },
   });
 
+  return sessiondata;
+}
+
+async function getQuizList(quizidused: number[] | undefined) {
+  // Fetch the Questions used in the quiz
+  try {
+    if (quizidused === undefined) {
+      return null;
+    }
+    const data = await prisma.quiz.findMany({
+      where: {
+        id: { in: quizidused },
+      },
+      include: { options: true },
+    });
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export default async function Page() {
+    const sessionID = await getSession();
+
+		
+    const sessiondata = await getUserResults(sessionID);
+  const questionList = await getQuizList(
+  	sessiondata?.completedquiz[0].quizidused
+  )
+
+
   return (
-    <>
-      <div>
-        <Results sessionData={sessiondata} />
-        <QuizResultsTable sessionID={sessionID} sessionData={sessiondata} />
-      </div>
-    </>
+    <div>
+      <Results sessionData={sessiondata} />
+      {/* <QuizResultsTable sessionID={sessionID} sessionData={sessiondata} /> */}
+      <DataTable columns={columns} data={questionList} />
+    </div>
   );
 }

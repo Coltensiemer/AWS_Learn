@@ -1,7 +1,5 @@
-'use client';
+'use server';
 
-import React, { useEffect } from 'react';
-import { QuizProgressContext } from '../useContext/QuizProgressContext';
 import {
   Card,
   CardContent,
@@ -11,7 +9,11 @@ import {
 import { Button } from '../components/shadcn/button/button';
 import Link from 'next/link';
 
-export default function Results(sessionData: any) {
+
+
+
+
+export default async function Results(sessionData: any) {
   const { sessionDataResults } = sessionData;
   const quizData = sessionData.sessionData.completedquiz[0];
   const correctanwers = quizData.correctanswers;
