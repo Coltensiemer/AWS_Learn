@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function HomePageNoUser() {
   return (
-    <Card className='w-1/4 h-1/2'>
+    <Card className='w-1/4'>
       <CardHeader>
         <h1 className='text-2xl'>Take a Quiz without signing in!</h1>
       </CardHeader>
