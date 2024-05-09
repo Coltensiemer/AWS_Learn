@@ -48,9 +48,12 @@ export default async function Page() {
     sessiondata?.completedquiz[0].quizidused
   );
 
+  if (!sessiondata || !questionList) { return <div>No data Avaliable: Refresh or return to Home</div> } 
+
   return (
     <div className='w-1/2'>
       <Results sessionData={sessiondata} />
+      {/* @ts-ignore */}
       <DataTable columns={columns} data={questionList} />
     </div>
   );

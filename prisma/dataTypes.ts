@@ -1,7 +1,7 @@
 interface OptionType {
 	id: number;
 	value: string;
-	isCorrect: boolean;
+	iscorrect: boolean;
 	quizId: number;
   }
   
