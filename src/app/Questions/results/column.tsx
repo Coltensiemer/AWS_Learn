@@ -51,7 +51,6 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem,
 
 export const columns: ColumnDef<QuizProps>[] = [
   {
-    // accessorKey: "id",
     header: "ID",
     cell: ({ row }) => {
       return <div>{row.index + 1}</div>
@@ -70,11 +69,11 @@ export const columns: ColumnDef<QuizProps>[] = [
     header: "Correct Answer",
   },
 
-  {
-    //@ts-ignore
-    accessorFn: (row) => row.options.map((option) => option.value).join(", "),
-    header: "Options",
-  },
+  // {
+  //   //@ts-ignore
+  //   accessorFn: (row) => row.options.map((option) => option.value).join(", "),
+  //   header: "Options",
+  // },
 
   {
     id: 'actions',
