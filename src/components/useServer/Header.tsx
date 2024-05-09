@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Header(){
   return (
-    <header className='container flex mb-10 px-10 w-1/2'>
+    <header className=' fixed container flex mb-10 px-10 w-1/2'> 
 			<h1>AWS Quiz</h1>
       <nav className='flex items-center justify-between'>
         <ul className='flex px-2'>
