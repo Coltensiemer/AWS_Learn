@@ -65,7 +65,7 @@ export function DataTable<TData, TValue>({
 
 	
   return (
-    <div className='rounded-md border w-full'>
+    <div className='rounded-md border my-8'>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant='outline' className='ml-auto'>
@@ -109,7 +109,7 @@ export function DataTable<TData, TValue>({
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody>
+        <TableBody className='min-w-max'>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow

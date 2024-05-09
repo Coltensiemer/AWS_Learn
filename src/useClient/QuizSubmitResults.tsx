@@ -92,7 +92,6 @@ export function QuizSubmit({
         throw new Error('Network Error');
       }
     });
-    // redirect to loading page
   };
 
   return (

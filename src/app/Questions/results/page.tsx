@@ -41,16 +41,15 @@ async function getQuizList(quizidused: number[] | undefined) {
 }
 
 export default async function Page() {
-    const sessionID = await getSession();
+  const sessionID = await getSession();
 
-		
-    const sessiondata = await getUserResults(sessionID);
+  const sessiondata = await getUserResults(sessionID);
   const questionList = await getQuizList(
-  	sessiondata?.completedquiz[0].quizidused
-  )
+    sessiondata?.completedquiz[0].quizidused
+  );
 
   return (
-		<div>
+    <div className='w-1/2'>
       <Results sessionData={sessiondata} />
       <DataTable columns={columns} data={questionList} />
     </div>
