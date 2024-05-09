@@ -42,9 +42,6 @@ export default async function Page({
   searchParams: { tags: string[] };
 }) {
   const response = await QuizCache(searchParams.tags);
-  const session = await getSession();
-
-  // createCookie();
 
   return (
     <div className='flex flex-col'>

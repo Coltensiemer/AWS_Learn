@@ -1,5 +1,6 @@
 'use client';
 import { QuestionType } from '@prisma/dataTypes';
+import { useRouter } from 'next/navigation';
 import {
   AlertDialog,
   AlertDialogContent,
@@ -61,12 +62,12 @@ export function QuizSubmit({
   const { total, answered, reminding, unansweredQuestions } =
     totalQuestionsAnswered(questions, correct, incorrect);
   const Score = totalScore(questions, correct);
+  const router = useRouter();
   const QuizContext = useContext(QuizProgressContext);
   if (!QuizContext) return null;
 
   const handleSubmit = async () => {
     const cookieID = await getSession();
-    const cookie = generateCookieID(); 
     // Here we are sending the quiz results to the server
     fetch('/api/quiz', {
       method: 'POST',
@@ -86,7 +87,7 @@ export function QuizSubmit({
     }).then((res) => {
       if (res.ok) {
         console.log('Quiz submitted successfully');
-        // router.push('/quiz/results');
+        router.push('/Questions/Results');
       } else if (res.status === 401) {
         throw new Error('Network Error');
       }
