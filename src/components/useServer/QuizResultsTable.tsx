@@ -1,6 +1,6 @@
-"use client"
+'use client';
 
-import * as React from "react"
+import * as React from 'react';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -12,8 +12,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table"
-
+} from '@tanstack/react-table';
 import {
   Table,
   TableBody,
@@ -21,46 +20,76 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from ".././shadcn/table"
-import { Button } from "../shadcn/button/button"
-import {Input} from "../shadcn/input/input"
-import { QuizProps } from "@prisma/dataTypes"
-import { useState } from "react"
+} from '.././shadcn/table';
+import { Button } from '../shadcn/button/button';
+import { Input } from '../shadcn/input/input';
+import { QuizProps } from '@prisma/dataTypes';
+import { useState } from 'react';
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from '@radix-ui/react-dropdown-menu';
 
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
 }
- 
-
-
-
 
 export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+	const [sorting, setSorting] = useState<SortingState>([]);
+
+  const [expandedRows, setExpandedRows] = useState<string[]>([]);
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-		getPaginationRowModel: getPaginationRowModel(),
-  })
+    getPaginationRowModel: getPaginationRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
+		onSortingChange: setSorting,
+		getSortedRowModel: getSortedRowModel(),
+    state: { 
+      columnVisibility,
+			expanded: true,
+			sorting,
+    },
 
-	const [expandedRows, setExpandedRows] = useState<string[]>([]);
+  });
 
-	// const toggleRowExpanison = (rowId: string) => {
-	// 	setExpandedRows((prev) => {
-	// 		if (prev.includes(rowId)) {
-	// 			return prev.filter((id) => id !== rowId);
-	// 		}
-	// 		return [...prev, rowId];
-	// 	}
-	// }
- 
+	
   return (
-    <div className="rounded-md border w-full">
+    <div className='rounded-md border w-full'>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant='outline' className='ml-auto'>
+            Columns
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align='end'>
+          {table
+            .getAllColumns()
+            .filter((column) => column.getCanHide())
+            .map((column) => {
+              return (
+                <DropdownMenuCheckboxItem
+                  key={column.id}
+                  className='capitalize'
+                  checked={column.getIsVisible()}
+                  onCheckedChange={(value) => column.toggleVisibility(!!value)}
+                >
+                  {column.id}
+                </DropdownMenuCheckboxItem>
+              );
+            })}
+        </DropdownMenuContent>
+      </DropdownMenu>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -75,7 +104,7 @@ export function DataTable<TData, TValue>({
                           header.getContext()
                         )}
                   </TableHead>
-                )
+                );
               })}
             </TableRow>
           ))}
@@ -85,7 +114,7 @@ export function DataTable<TData, TValue>({
             table.getRowModel().rows.map((row) => (
               <TableRow
                 key={row.id}
-                data-state={row.getIsSelected() && "selected"}
+                data-state={row.getIsSelected() && 'selected'}
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
@@ -96,25 +125,25 @@ export function DataTable<TData, TValue>({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
+              <TableCell colSpan={columns.length} className='h-24 text-center'>
                 No results.
               </TableCell>
             </TableRow>
           )}
         </TableBody>
       </Table>
-			<div className="flex items-center justify-end space-x-2 py-4">
+      <div className='flex items-center justify-end space-x-2 py-4'>
         <Button
-          variant="outline"
-          size="sm"
+          variant='outline'
+          size='sm'
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
           Previous
         </Button>
         <Button
-          variant="outline"
-          size="sm"
+          variant='outline'
+          size='sm'
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
@@ -122,5 +151,5 @@ export function DataTable<TData, TValue>({
         </Button>
       </div>
     </div>
-  )
+  );
 }

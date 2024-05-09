@@ -1,44 +1,9 @@
 "use client"
-// import { ColumnDef,flexRender,
-//   getCoreRowModel,
-//   useReactTable, } from "@tanstack/react-table" 
-
-
-// 	interface QuestionOption {
-//     id: number;
-//     value: string;
-//     iscorrect: boolean;
-//     quizId: number;
-// }
-
-// interface Question {
-//     id: number;
-//     tag: string;
-//     sub_tag: string;
-//     question: string;
-//     correct_answer: string;
-//     options: QuestionOption[];
-// }
-
-// export type QuestionListType = (Question)[];
-
-// // relook at type and fix 'any
-// export const ColumnHeaders: ColumnDef<QuestionListType | any>[] = [ 
-//     { header: "Question", accessorKey: "question" },
-//     { header: "Subject", accessorKey: "tag" }, // Assuming "subject" is meant to be "tag"
-
-//     { header: "Answer",
-// 		 accessorKey: "correct answer",
-// 		 cell: ({ row }) => (
-//       <div className="capitalize">{row.getValue("Answer")}</div>
-//     ),
-// 	}
-// ];
 
 
 import { ColumnDef } from "@tanstack/react-table"
 import { QuizProps } from "@prisma/dataTypes"
-import { MoreHorizontal } from "lucide-react"
+import { MoreHorizontal, ArrowUpDown } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -51,7 +16,19 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem,
 
 export const columns: ColumnDef<QuizProps>[] = [
   {
-    header: "ID",
+    accessorKey: "id", 
+    header: ({ column }) => {
+      return (
+        <Button variant="ghost"
+        onClick={() => column.toggleSorting(column.getSortIndex() === 0)}>
+          ID
+          <ArrowUpDown className="h-4 w-4" />
+        </Button>
+        
+      )
+    }, 
+    
+    enableHiding: false,
     cell: ({ row }) => {
       return <div>{row.index + 1}</div>
     }
@@ -66,7 +43,17 @@ export const columns: ColumnDef<QuizProps>[] = [
   },
   {
     accessorKey: "correct_answer",
-    header: "Correct Answer",
+    header: ({ column }) => {
+      return (
+        <Button variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+          Correct Answer
+          <ArrowUpDown className="h-4 w-4" />
+        </Button>
+        
+      )
+    },
+    enableHiding: false,  
   },
 
   // {
