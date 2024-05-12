@@ -20,7 +20,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '.././shadcn/table';
+} from '../shadcn/table';
 import { Button } from '../shadcn/button/button';
 import { Input } from '../shadcn/input/input';
 import { QuizProps } from '@prisma/dataTypes';

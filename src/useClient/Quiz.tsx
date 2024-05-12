@@ -24,6 +24,7 @@ import { compareAnswer } from '../functions/compareAnswers/compareAnswers';
 import { useRouter } from 'next/navigation';
 import { nextQuestion } from '../functions/nextQuestion/nextQuestion';
 import { QuizSubmit } from './QuizSubmitResults';
+import { Card } from '../components/shadcn/card/card';
 
 
 // This is the schema that is used to validate the form data for the quiz.
@@ -111,7 +112,7 @@ export function Quiz({ questions }: QuizProps) {
   }
 
   return (
-    <div className='h-{500} min-w-60 max-w-96 m-10 p-10  overflow-auto'>
+    <Card className='h-{500} min-w-60 max-w-96 m-10 p-10  overflow-auto'>
       <div className='flex h-72 m-2'>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='flex'>
@@ -179,6 +180,6 @@ export function Quiz({ questions }: QuizProps) {
         <QuizTracker currentIndex={currentIndex} />
       </div>
       <QuizSubmit questions={questions} currentIndex={currentIndex} correct={QuizContext.Correct_Answered} incorrect={QuizContext.Incorrect_Answered}/>
-    </div>
+    </Card>
   );
 }

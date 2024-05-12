@@ -7,6 +7,7 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
+    './@/**/*.{ts,tsx}',
     "./stories/**/*.{js,ts,jsx,tsx}",
   ],
   prefix: "",
@@ -19,6 +20,13 @@ const config = {
       },
     },
     extend: {
+         colors: { 
+      primary: '#243E36',
+      foreground: "#FAFAFF",
+      background: "#EEF0F2",
+      darkbackground: "#231f20",
+      darkforeground: "#797270"
+    },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },

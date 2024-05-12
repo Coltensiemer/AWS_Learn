@@ -4,7 +4,7 @@ import { getSession } from '../../../../lib';
 import prisma from '../../../lib/prisma';
 import { date } from 'zod';
 // import QuizResultsTable from '../../../components/useServer/QuizResultsTable';
-import { DataTable } from '../../../components/useServer/QuizResultsTable';
+import { DataTable } from '../../../components/useClient/QuizResultsTable';
 import { columns } from './column';
 
 async function getUserResults(sessionID: string) {
