@@ -22,28 +22,30 @@ import {
   TableRow,
 } from '../shadcn/table';
 import { Button } from '../shadcn/button/button';
-import { Input } from '../shadcn/input/input';
-import { QuizProps } from '@prisma/dataTypes';
 import { useState } from 'react';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@radix-ui/react-dropdown-menu';
-
+} from '../shadcn/dropdownmenu/dropdownmenu';
+import { Card } from '../shadcn/card/card';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: TData[]; 
+  data: TData[];
 }
+
+
 
 export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-	const [sorting, setSorting] = useState<SortingState>([]);
+  const [sorting, setSorting] = useState<SortingState>([]);
 
   const [expandedRows, setExpandedRows] = useState<string[]>([]);
 
@@ -53,43 +55,51 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
-		onSortingChange: setSorting,
-		getSortedRowModel: getSortedRowModel(),
-    state: { 
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    state: {
       columnVisibility,
-			expanded: true,
-			sorting,
+      expanded: true,
+      sorting,
     },
-
   });
 
-	
+  const resetFilters = () => { 
+    setSorting([]);
+    setColumnVisibility({});
+  }
+
   return (
-    <div className='rounded-md border my-8'>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant='outline' className='ml-auto'>
-            Columns
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align='end'>
-          {table
-            .getAllColumns()
-            .filter((column) => column.getCanHide())
-            .map((column) => {
-              return (
-                <DropdownMenuCheckboxItem
-                  key={column.id}
-                  className='capitalize'
-                  checked={column.getIsVisible()}
-                  onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                >
-                  {column.id}
-                </DropdownMenuCheckboxItem>
-              );
-            })}
-        </DropdownMenuContent>
-      </DropdownMenu>
+    <Card className='rounded-md border my-4'>
+      <div className='flex justify-around items-center'>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant='outline' className='m-2'>
+              Columns
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align='end' className='bg-foreground'>
+            {table
+              .getAllColumns()
+              .filter((column) => column.getCanHide())
+              .map((column) => {
+                return (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className='capitalize'
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) =>
+                      column.toggleVisibility(!!value)
+                    }
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                );
+              })}
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <Button variant='ghost' onClick={resetFilters} className='text-xs underline'>Reset Filters</Button>
+      </div>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -150,6 +160,6 @@ export function DataTable<TData, TValue>({
           Next
         </Button>
       </div>
-    </div>
+    </Card>
   );
 }
