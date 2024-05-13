@@ -9,19 +9,22 @@ const analytics = [
   "Amazon Managed Streaming for Apache Kafka (Amazon MSK)",
   "Amazon OpenSearch Service",
   "Amazon QuickSight",
-  "Amazon Redshift"
+  "Amazon Redshift",
+  "Best Practices"
 ];
 
 const applicationIntegration = [
   "Amazon EventBridge",
   "Amazon Simple Notification Service (Amazon SNS)",
   "Amazon Simple Queue Service (Amazon SQS)",
-  "AWS Step Functions"
+  "AWS Step Functions",
+  "Best Practices"
 ];
 
 const businessApplications = [
   "Amazon Connect",
-  "Amazon Simple Email Service (Amazon SES)"
+  "Amazon Simple Email Service (Amazon SES)",
+  "Best Practices",
 ];
 
 const cloudFinancialManagement = [
@@ -29,7 +32,8 @@ const cloudFinancialManagement = [
   "AWS Budgets",
   "AWS Cost and Usage Report",
   "AWS Cost Explorer",
-  "AWS Marketplace"
+  "AWS Marketplace",
+  "Best Practices"
 ];
 
 const compute = [
@@ -39,20 +43,23 @@ const compute = [
   "Amazon Lightsail",
   "AWS Local Zones",
   "AWS Outposts",
-  "AWS Wavelength"
+  "AWS Wavelength",
+  "Best Practices"
 ];
 
 const containers = [
   "Amazon Elastic Container Registry (Amazon ECR)",
   "Amazon Elastic Container Service (Amazon ECS)",
-  "Amazon Elastic Kubernetes Service (Amazon EKS)"
+  "Amazon Elastic Kubernetes Service (Amazon EKS)",
+  "Best Practices",
 ];
 
 const customerEngagement = [
   "AWS Activate for Startups",
   "AWS IQ",
   "AWS Managed Services (AMS)",
-  "AWS Support"
+  "AWS Support",
+  "Best Practices"
 ];
 
 const database = [
@@ -60,7 +67,8 @@ const database = [
   "Amazon DynamoDB",
   "Amazon MemoryDB for Redis",
   "Amazon Neptune",
-  "Amazon RDS"
+  "Amazon RDS",
+  "Best Practices"
 ];
 
 const developerTools = [
@@ -74,24 +82,28 @@ const developerTools = [
   "AWS CodeDeploy",
   "AWS CodePipeline",
   "AWS CodeStar",
-  "AWS X-Ray"
+  "AWS X-Ray",
+  "Best Practices"
 ];
 
 const endUserComputing = [
   "Amazon AppStream 2.0",
   "Amazon WorkSpaces",
-  "Amazon WorkSpaces Web Frontend"
+  "Amazon WorkSpaces Web Frontend",
+  "Best Practices"
 ];
 
 const webAndMobile = [
   "AWS Amplify",
   "AWS AppSync",
-  "AWS Device Farm"
+  "AWS Device Farm",
+  "Best Practices"
 ];
 
 const IoT = [
   "AWS IoT Core",
-  "AWS IoT Greengrass"
+  "AWS IoT Greengrass",
+  "Best Practices"
 ];
 const machineLearning = [
   "Amazon Comprehend",
@@ -102,7 +114,8 @@ const machineLearning = [
   "Amazon SageMaker",
   "Amazon Textract",
   "Amazon Transcribe",
-  "Amazon Translate"
+  "Amazon Translate",
+  "Best Practices"
 ];
 
 const managementAndGovernance = [
@@ -122,7 +135,10 @@ const managementAndGovernance = [
   "AWS Service Catalog",
   "AWS Systems Manager",
   "AWS Trusted Advisor",
-  "AWS Well-Architected Tool"
+  "AWS Well-Architected Tool",
+  "AWS Quick Start",
+  "Technical Account Manager (TAM)", 
+  "Best Practices"
 ];
 
 const migrationAndTransfer = [
@@ -132,7 +148,8 @@ const migrationAndTransfer = [
   "AWS Migration Hub",
   "AWS Schema Conversion Tool (AWS SCT)",
   "AWS Snow Family",
-  "AWS Transfer Family"
+  "AWS Transfer Family",
+  "Best Practices"
 ];
 
 const networkingAndContentDelivery = [
@@ -142,7 +159,8 @@ const networkingAndContentDelivery = [
   "AWS Global Accelerator",
   "Amazon Route 53",
   "Amazon VPC",
-  "AWS VPN"
+  "AWS VPN",
+  "Best Practices"
 ];
 
 const securityIdentityAndCompliance = [
@@ -165,12 +183,14 @@ const securityIdentityAndCompliance = [
   "AWS Secrets Manager",
   "AWS Security Hub",
   "AWS Shield",
-  "AWS WAF"
+  "AWS WAF",
+  "Best Practices"
 ];
 
 const serverless = [
   "AWS Fargate",
-  "AWS Lambda"
+  "AWS Lambda",
+  "Best Practices"
 ];
 
 const storage = [
@@ -181,7 +201,8 @@ const storage = [
   "Amazon FSx",
   "Amazon S3",
   "Amazon S3 Glacier",
-  "AWS Storage Gateway"
+  "AWS Storage Gateway",
+  "Best Practices"
 ];
 
 

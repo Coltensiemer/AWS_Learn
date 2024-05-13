@@ -9,6 +9,7 @@ import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
+  getExpandedRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
@@ -38,8 +39,6 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-
-
 export function DataTable<TData, TValue>({
   columns,
   data,
@@ -47,7 +46,7 @@ export function DataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [sorting, setSorting] = useState<SortingState>([]);
 
-  const [expandedRows, setExpandedRows] = useState<string[]>([]);
+  const [expandedRows, setExpandedRows] = useState<{}>({});
 
   const table = useReactTable({
     data,
@@ -57,6 +56,9 @@ export function DataTable<TData, TValue>({
     onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    onExpandedChange: setExpandedRows,
+    getExpandedRowModel: getExpandedRowModel(),
+    enableExpanding: true,
     state: {
       columnVisibility,
       expanded: true,
@@ -64,10 +66,10 @@ export function DataTable<TData, TValue>({
     },
   });
 
-  const resetFilters = () => { 
+  const resetFilters = () => {
     setSorting([]);
     setColumnVisibility({});
-  }
+  };
 
   return (
     <Card className='rounded-md border my-4'>
@@ -98,7 +100,13 @@ export function DataTable<TData, TValue>({
               })}
           </DropdownMenuContent>
         </DropdownMenu>
-        <Button variant='ghost' onClick={resetFilters} className='text-xs underline'>Reset Filters</Button>
+        <Button
+          variant='ghost'
+          onClick={resetFilters}
+          className='text-xs underline'
+        >
+          Reset Filters
+        </Button>
       </div>
       <Table>
         <TableHeader>

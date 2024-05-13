@@ -58,8 +58,15 @@ export const columns: ColumnDef<QuizProps>[] = [
 
   // {
   //   //@ts-ignore
-  //   accessorFn: (row) => row.options.map((option) => option.value).join(", "),
+  //   // accessorFn: (row) => row.options.map((option) => option.value).join(", "),
   //   header: "Options",
+  //   cell: ({ row }) => {
+  //   {row.getIsExpanded() && (
+  //     <Button onClick={row.getToggleExpandedHandler()}>
+  //       {row.getIsExpanded() ? "Expanded" : "collasped"}</Button>
+  //   )}
+  //   {getValue}
+  // }
   // },
 
   {
