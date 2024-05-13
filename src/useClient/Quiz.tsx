@@ -83,9 +83,11 @@ export function Quiz({ questions }: QuizProps) {
       form.reset();
     } else {
       ///Checkes to see if the answer is correct,
-      const correct_answer: string = questions.find(
+      const correct_answer: string[] = questions.find(
         (q) => q.id === currentQuestionID
-      )?.correct_answer as string;
+      )?.correct_answer as string[];
+
+      console.log(correct_answer, 'correct_answer');
       //Compares and returns boolen value
       const isCorrect = compareAnswer(formData.type, correct_answer);
       /// If it goes into incorrect first, it will not go into correct ************

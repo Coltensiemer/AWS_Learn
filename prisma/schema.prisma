@@ -38,7 +38,7 @@ model quiz {
   tag            String
   sub_tag        String
   question       String
-  correct_answer String
+  correct_answer String[]
   options        option[]
 }
 

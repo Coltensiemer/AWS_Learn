@@ -1,275 +1,119 @@
-[
-	{
-	  "id": 1,
-	  "tag": "EC2",
-    "sub_tag": "EC2",
-	  "question": "What is AWS EC2 primarily used for?",
-	  "options": [
-		{ "value": "A. Storing data", "isCorrect": false },
-		{ "value": "B. Running virtual servers in the cloud", "isCorrect": true },
-		{ "value": "C. Managing DNS records", "isCorrect": false },
-		{ "value": "D. Distributing content globally", "isCorrect": false }
-	  ],
-	  "correct_answer": "B"
-	},
-	{
-	  "id": 2,
-	  "tag": "EC2",
-    "sub_tag": "EC2",
-	  "question": "Which of the following instance types provides the highest level of compute power in AWS EC2?",
-	  "options": [
-		{ "value": "A. T2", "isCorrect": false },
-		{ "value": "B. M5", "isCorrect": true },
-		{ "value": "C. C4", "isCorrect": false },
-		{ "value": "D. R3", "isCorrect": false }
-	  ],
-	  "correct_answer": "B"
-	},
-	{
-	  "id": 3,
-	  "tag": "EC2",
-    "sub_tag": "EC2",
-	  "question": "What is an EC2 instance type that is optimized for memory-intensive applications?",
-	  "options": [
-		{ "value": "A. T2", "isCorrect": false },
-		{ "value": "B. M5", "isCorrect": false },
-		{ "value": "C. X1", "isCorrect": true },
-		{ "value": "D. C4", "isCorrect": false }
-	  ],
-	  "correct_answer": "C"
-	},
-	{
-	  "id": 4,
-	  "tag": "Lambda",
-    "sub_tag": "Lambda",
-	  "question": "What is AWS Lambda?",
-	  "options": [
-		{ "value": "A. A database service", "isCorrect": false },
-		{ "value": "B. A serverless computing service", "isCorrect": true },
-		{ "value": "C. A networking service", "isCorrect": false },
-		{ "value": "D. A storage service", "isCorrect": false }
-	  ],
-	  "correct_answer": "B"
-	},
-	{
-	  "id": 5,
-	  "tag": "Lambda",
-    "sub_tag": "Lambda",
-	  "question": "What is the maximum execution time allowed for a single invocation of an AWS Lambda function?",
-	  "options": [
-		{ "value": "A. 1 minute", "isCorrect": false },
-		{ "value": "B. 5 minutes", "isCorrect": true },
-		{ "value": "C. 15 minutes", "isCorrect": false },
-		{ "value": "D. 30 minutes", "isCorrect": false }
-	  ],
-	  "correct_answer": "B"
-	},
-	{
-	  "id": 6,
-	  "tag": "Lambda",
-    "sub_tag": "Lambda",
-	  "question": "Which programming languages are supported by AWS Lambda?",
-	  "options": [
-		{ "value": "A. Java only", "isCorrect": false },
-		{ "value": "B. JavaScript/Node.js, Python, Java, Ruby, Go, .NET Core", "isCorrect": true },
-		{ "value": "C. JavaScript/Node.js only", "isCorrect": false },
-		{ "value": "D. Python only", "isCorrect": false }
-	  ],
-	  "correct_answer": "B"
-	},
-		{
-		  "id": 7,
-		  "tag": "S3",
-      "sub_tag": "S3",
-		  "question": "What is AWS S3 primarily used for?",
-		  "options": [
-			{ "value": "A. Running virtual servers in the cloud", "isCorrect": false },
-			{ "value": "B. Storing and retrieving data objects", "isCorrect": true },
-			{ "value": "C. Managing DNS records", "isCorrect": false },
-			{ "value": "D. Running containerized applications", "isCorrect": false }
-		  ],
-		  "correct_answer": "B"
-		},
-		{
-		  "id": 8,
-		  "tag": "S3",
-      "sub_tag": "S3",
-		  "question": "What is the maximum size of an individual object that can be stored in AWS S3?",
-		  "options": [
-			{ "value": "A. 5 GB", "isCorrect": false },
-			{ "value": "B. 10 GB", "isCorrect": false },
-			{ "value": "C. 5 TB", "isCorrect": true },
-			{ "value": "D. 10 TB", "isCorrect": false }
-		  ],
-		  "correct_answer": "C"
-		},
-		{
-		  "id": 9,
-		 "tag": "S3",
-     "sub_tag": "S3",
-		  "question": "What storage classes are available in AWS S3?",
-		  "options": [
-			{ "value": "A. Standard, Reduced Redundancy Storage (RRS), Glacier", "isCorrect": true },
-			{ "value": "B. Standard, Glacier, Deep Archive", "isCorrect": false },
-			{ "value": "C. Standard, Reduced Redundancy Storage (RRS), Infrequent Access (IA)", "isCorrect": false },
-			{ "value": "D. Standard, Glacier, Infrequent Access (IA)", "isCorrect": false }
-		  ],
-		  "correct_answer": "A"
-		},
-		{
-		  "id": 10,
-		  "tag": "RDS",
-      "sub_tag": "RDS",
-		  "question": "What is Amazon RDS?",
-		  "options": [
-			{ "value": "A. A content delivery network", "isCorrect": false },
-			{ "value": "B. A managed relational database service", "isCorrect": true },
-			{ "value": "C. A serverless computing service", "isCorrect": false },
-			{ "value": "D. A container orchestration service", "isCorrect": false }
-		  ],
-		  "correct_answer": "B"
-		},
-		{
-		  "id": 11,
-		  "tag": "RDS",
-      "sub_tag": "RDS",
-		  "question": "Which database engines are supported by Amazon RDS?",
-		  "options": [
-			{ "value": "A. MySQL, PostgreSQL, Oracle, SQL Server, MariaDB, Amazon Aurora", "isCorrect": true },
-			{ "value": "B. MySQL, PostgreSQL, SQL Server", "isCorrect": false },
-			{ "value": "C. MySQL, MongoDB, Oracle", "isCorrect": false },
-			{ "value": "D. PostgreSQL, SQL Server, MariaDB", "isCorrect": false }
-		  ],
-		  "correct_answer": "A"
-		},
-		{
-		  "id": 12,
-		  "tag": "RDS",
-      "sub_tag": "RDS",
-		  "question": "What is Multi-AZ deployment in Amazon RDS?",
-		  "options": [
-			{ "value": "A. A deployment strategy for deploying containers across multiple availability zones", "isCorrect": false },
-			{ "value": "B. A configuration option that allows you to deploy your database across multiple availability zones for high availability", "isCorrect": true },
-			{ "value": "C. A managed service for orchestrating data pipelines", "isCorrect": false },
-			{ "value": "D. A storage class for storing infrequently accessed data", "isCorrect": false }
-		  ],
-		  "correct_answer": "B"
-		},
-    {
-      "id": 17,
-      "tag": "EKS",
-      "sub_tag": "EKS",
-      "question": "What is EKS in AWS?",
-      "options": [
-        { "value": "A. Elastic Kubernetes Service", "isCorrect": true },
-        { "value": "B. Elastic Kafka Service", "isCorrect": false },
-        { "value": "C. Elastic Kinesis Service", "isCorrect": false },
-        { "value": "D. Elastic Kafka Streams", "isCorrect": false }
-      ],
-      "correct_answer": "A"
-    },
-    {
-      "id": 18,
-      "tag": "EKS",
-      "sub_tag": "EKS",
-      "question": "What is the primary use of AWS EKS?",
-      "options": [
-        { "value": "A. Processing data streams", "isCorrect": false },
-        { "value": "B. Running Kubernetes clusters", "isCorrect": true },
-        { "value": "C. Managing serverless functions", "isCorrect": false },
-        { "value": "D. Storing and retrieving files", "isCorrect": false }
-      ],
-      "correct_answer": "B"
-    },
-    {
-      "id": 19,
-      "tag": "KMS",
-      "sub_tag": "KMS",
-      "question": "What does KMS stand for in AWS?",
-      "options": [
-        { "value": "A. Key Management Service", "isCorrect": true },
-        { "value": "B. Kubernetes Management Service", "isCorrect": false },
-        { "value": "C. Kafka Messaging Service", "isCorrect": false },
-        { "value": "D. Keyless Management Service", "isCorrect": false }
-      ],
-      "correct_answer": "A"
-    },
-    {
-      "id": 20,
-      "tag": "KMS",
-      "sub_tag": "KMS",
-      "question": "What is the primary purpose of AWS KMS?",
-      "options": [
-        { "value": "A. Container orchestration", "isCorrect": false },
-        { "value": "B. Managing encryption keys", "isCorrect": true },
-        { "value": "C. Data warehousing", "isCorrect": false },
-        { "value": "D. Real-time data processing", "isCorrect": false }
-      ],
-      "correct_answer": "B"
-    },
-    {
-      "id": 21,
-      "tag": "RDS",
-      "sub_tag": "RDS",
-      "question": "What does RDS stand for in AWS?",
-      "options": [
-        { "value": "A. Relational Database Service", "isCorrect": true },
-        { "value": "B. Remote Data Storage", "isCorrect": false },
-        { "value": "C. Real-time Data Streaming", "isCorrect": false },
-        { "value": "D. Remote Database Sync", "isCorrect": false }
-      ],
-      "correct_answer": "A"
-    },
-    {
-      "id": 22,
-      "tag": "RDS",
-      "sub_tag": "RDS",
-      "question": "Which database engines are supported by Amazon RDS?",
-      "options": [
-        { "value": "A. MySQL, PostgreSQL, Oracle", "isCorrect": true },
-        { "value": "B. MySQL, MongoDB, SQL Server", "isCorrect": false },
-        { "value": "C. PostgreSQL, SQL Server, MariaDB", "isCorrect": false },
-        { "value": "D. DynamoDB, Oracle, Cassandra", "isCorrect": false }
-      ],
-      "correct_answer": "A"
-    },
-    {
-      "id": 23,
-      "tag": "DynamoDB",
-      "sub_tag": "DynamoDB",
-      "question": "What is DynamoDB in AWS?",
-      "options": [
-        { "value": "A. Document database service", "isCorrect": false },
-        { "value": "B. Key-value and document database service", "isCorrect": true },
-        { "value": "C. Relational database service", "isCorrect": false },
-        { "value": "D. Time-series database service", "isCorrect": false }
-      ],
-      "correct_answer": "B"
-    },
-    {
-      "id": 24,
-      "tag": "DynamoDB",
-      "sub_tag": "DynamoDB",
-      "question": "What type of database is DynamoDB?",
-      "options": [
-        { "value": "A. Relational database", "isCorrect": false },
-        { "value": "B. NoSQL database", "isCorrect": true },
-        { "value": "C. Graph database", "isCorrect": false },
-        { "value": "D. Columnar database", "isCorrect": false }
-      ],
-      "correct_answer": "B"
-    },
-    {
-      "id": 25,
-      "tag": "Glue",
-      "sub_tag": "Glue",
-      "question": "What is AWS Glue?",
-      "options": [
-        { "value": "A. A data warehousing solution", "isCorrect": false },
-        { "value": "B. An ETL (Extract, Transform, Load) service", "isCorrect": true },
-        { "value": "C. A message queuing service", "isCorrect": false },
-        { "value": "D. A serverless computing service", "isCorrect": false }
-      ],
-      "correct_answer": "B"
-    }
-	  ]
+[{
+  "id": 2,
+  "tag": "Management and Governance",
+  "sub_tag": "AWS Management Console",
+  "question": "AWS allows users to manage their resources using a web-based user interface. What is the name of this interface?",
+  "options": [
+    { "value": "A. AWS CLI", "isCorrect": false },
+    { "value": "B. AWS API", "isCorrect": false },
+    { "value": "C. AWS SDK", "isCorrect": false },
+    { "value": "D. AWS Management Console", "isCorrect": true }
+  ],
+  "correct_answer": ["D"]
+}, 
+{
+  "id": 3,
+  "tag": "Compute",
+  "sub_tag": "Horizontal Scaling",
+  "question": "Which of the following is an example of horizontal scaling in the AWS Cloud?",
+  "options": [
+    { "value": "A. Replacing an existing EC2 instance with a larger, more powerful one.", "isCorrect": false },
+    { "value": "B. Increasing the compute capacity of a single EC2 instance to address the growing demands of an application.", "isCorrect": false },
+    { "value": "C. Adding more RAM capacity to an EC2 instance.", "isCorrect": false },
+    { "value": "D. Adding more EC2 instances of the same size to handle an increase in traffic.", "isCorrect": true }
+  ],
+  "correct_answer": ["D"]
+},
+{
+  "id": 4,
+  "tag": "Management and Governance",
+  "sub_tag": "AWS CloudTrail",
+  "question": "You have noticed that several critical Amazon EC2 instances have been terminated. Which of the following AWS services would help you determine who took this action?",
+  "options": [
+    { "value": "A. Amazon Inspector.", "isCorrect": false },
+    { "value": "B. AWS CloudTrail.", "isCorrect": true },
+    { "value": "C. AWS Trusted Advisor.", "isCorrect": false },
+    { "value": "D. EC2 Instance Usage Report.", "isCorrect": false }
+  ],
+  "correct_answer": ["B"]
+},{
+  "id": 5,
+  "tag": "Management and Governance",
+  "sub_tag": "Reliability",
+  "question": "Which of the below options are related to the reliability of AWS? (Choose TWO)",
+  "options": [
+    { "value": "A. Applying the principle of least privilege to all AWS resources.", "isCorrect": false },
+    { "value": "B. Automatically provisioning new resources to meet demand.", "isCorrect": false },
+    { "value": "C. All AWS services are considered Global Services, and this design helps customers serve their international users.", "isCorrect": false },
+    { "value": "D. Providing compensation to customers if issues occur.", "isCorrect": false },
+    { "value": "E. Ability to recover quickly from failures.", "isCorrect": true }
+  ],
+  "correct_answer": ["E"]
+},
+{
+  "id": 6,
+  "tag": "Security, Identity, and Compliance",
+  "sub_tag": "AWS Shared Responsibility Model",
+  "question": "Which statement is true regarding the AWS Shared Responsibility Model?",
+  "options": [
+    { "value": "A. Responsibilities vary depending on the services used.", "isCorrect": true },
+    { "value": "B. Security of the IaaS services is the responsibility of AWS.", "isCorrect": false },
+    { "value": "C. Patching the guest OS is always the responsibility of AWS.", "isCorrect": false },
+    { "value": "D. Security of the managed services is the responsibility of the customer.", "isCorrect": false }
+  ],
+  "correct_answer": ["A"]
+},
+{
+  "id": 7,
+  "tag": "Cloud Financial Management",
+  "sub_tag": "Reserved Instances, Consolidated Billing",
+  "question": "You have set up consolidated billing for several AWS accounts. One of the accounts has purchased a number of reserved instances for 3 years. Which of the following is true regarding this scenario?",
+  "options": [
+    { "value": "A. The Reserved Instance discounts can only be shared with the master account.", "isCorrect": false },
+    { "value": "B. All accounts can receive the hourly cost benefit of the Reserved Instances.", "isCorrect": true },
+    { "value": "C. The purchased instances will have better performance than On-demand instances.", "isCorrect": false },
+    { "value": "D. There are no cost benefits from using consolidated billing; It is for informational purposes only.", "isCorrect": false }
+  ],
+  "correct_answer": ["B"]
+},
+{
+  "id": 8,
+  "tag": "Compute",
+  "sub_tag": "High Availability",
+  "question": "A company has developed an eCommerce web application in AWS. What should they do to ensure that the application has the highest level of availability?",
+  "options": [
+    { "value": "A. Deploy the application across multiple Availability Zones and Edge locations.", "isCorrect": false },
+    { "value": "B. Deploy the application across multiple Availability Zones and subnets.", "isCorrect": false },
+    { "value": "C. Deploy the application across multiple Regions and Availability Zones.", "isCorrect": true },
+    { "value": "D. Deploy the application across multiple VPC’s and subnets.", "isCorrect": false }
+  ],
+  "correct_answer": ["C"]
+},
+{
+  "id": 9,
+  "tag": "Migration and Transfer",
+  "sub_tag": "Data Transfer, Hybrid Cloud",
+  "question": "What does AWS Snowball provide? (Choose TWO)",
+  "options": [
+    { "value": "A. Built-in computing capabilities that allow customers to process data locally.", "isCorrect": false },
+    { "value": "B. A catalog of third-party software solutions that customers need to build solutions and run their businesses.", "isCorrect": false },
+    { "value": "C. A hybrid cloud storage between on-premises environments and the AWS Cloud.", "isCorrect": false },
+    { "value": "D. An Exabyte-scale data transfer service that allows you to move extremely large amounts of data to AWS.", "isCorrect": true },
+    { "value": "E. Secure transfer of large amounts of data into and out of the AWS.", "isCorrect": true }
+  ],
+  "correct_answer": ["D, E"]
+},
+{
+  "id": 10,
+  "tag": "Management and Governance",
+  "sub_tag": "Support Services",
+  "question": "A company has an AWS Enterprise Support plan. They want quick and efficient guidance with their billing and account inquiries. Which of the following should the company use?",
+  "options": [
+    { "value": "A. AWS Health Dashboard.", "isCorrect": false },
+    { "value": "B. AWS Support Concierge.", "isCorrect": true },
+    { "value": "C. AWS Customer Service.", "isCorrect": false },
+    { "value": "D. AWS Operations Support.", "isCorrect": false }
+  ],
+  "correct_answer": ["B"]
+}
+] 

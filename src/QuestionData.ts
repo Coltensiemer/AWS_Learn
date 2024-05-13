@@ -180,7 +180,7 @@
     { "value": "D. Operating applications on behalf of customers.", "isCorrect": false },
     { "value": "E. All of the physical security and most of the data/network security are taken care of for you.", "isCorrect": true }
   ],
-  "correct_answer": "A, E"
+  "correct_answer": ["A, E"]
 },
 {
   "id": 16,
@@ -196,7 +196,7 @@
   "correct_answer": "B"
 },
 {
-  "id": 1,
+  "id": 17,
   "tag": "Cloud Financial Management",
   "sub_tag": "AWS Cost and Usage Report",
   "question": "Which of the following helps a customer view the Amazon EC2 billing activity for the past month?",
@@ -209,7 +209,7 @@
   "correct_answer": "D"
 },
 {
-  "id": 2,
+  "id": 18,
   "tag": "Cloud Financial Management",
   "sub_tag": "Best Practices",
   "question": "What do you gain from setting up consolidated billing for five different AWS accounts under another master account?",
@@ -222,7 +222,7 @@
   "correct_answer": "B"
 },
 {
-  "id": 3,
+  "id": 19,
   "tag": "Storage",
   "sub_tag": "Best Practices",
   "question": "What should you do in order to keep the data on EBS volumes safe? (Choose TWO)",
@@ -236,7 +236,7 @@
   "correct_answer": ["B", "C"]
 },
 {
-  "id": 4,
+  "id": 20,
   "tag": "Management and Governance",
   "sub_tag": "",
   "question": "One of the most important AWS best-practices to follow is the cloud architecture principle of elasticity. How does this principle improve your architecture’s design?",
@@ -249,7 +249,7 @@
   "correct_answer": "D"
 },
 {
-  "id": 5,
+  "id": 21,
   "tag": "Cloud Financial Management",
   "sub_tag": "AWS Cost and Usage Report",
   "question": "A startup company is operating on limited funds and is extremely concerned about cost overruns. Which of the below options can be used to notify the company when their monthly AWS bill exceeds $2000? (Choose TWO)",
@@ -263,7 +263,7 @@
   "correct_answer": ["A", "C"]
 },
 {
-  "id": 1,
+  "id": 22,
   "tag": "Networking and Content Delivery",
   "sub_tag": "Best Practices",
   "question": "What does Amazon CloudFront use to distribute content to global users with low latency?",
@@ -276,7 +276,7 @@
   "correct_answer": "C"
 },
 {
-  "id": 2,
+  "id": 23,
   "tag": "Security, Identity, and Compliance",
   "sub_tag": "Best Practices",
   "question": "What does the 'Principle of Least Privilege' refer to?",
@@ -289,7 +289,7 @@
   "correct_answer": "A"
 },
 {
-  "id": 3,
+  "id": 24,
   "tag": "Compute",
   "sub_tag": "Best Practices",
   "question": "Which of the following does NOT belong to the AWS Cloud Computing models?",
@@ -302,7 +302,7 @@
   "correct_answer": "D"
 },
 {
-  "id": 4,
+  "id": 25,
   "tag": "Storage",
   "sub_tag": "Amazon S3 Glacier",
   "question": "The identification process of an online financial services company requires that new users must complete an online interview with their security team. The completed recorded interviews are only required in the event of a legal issue or a regulatory compliance breach. What is the most cost-effective service to store the recorded videos?",
@@ -315,7 +315,7 @@
   "correct_answer": "C"
 },
 {
-  "id": 5,
+  "id": 26,
   "tag": "Networking and Content Delivery",
   "sub_tag": "Amazon Route 53",
   "question": "Which service provides DNS in the AWS cloud?",
@@ -328,7 +328,7 @@
   "correct_answer": "A"
 },
 {
-  "id": 6,
+  "id": 27,
   "tag": "Security, Identity, and Compliance",
   "sub_tag": "AWS Shield",
   "question": "Hundreds of thousands of DDoS attacks are recorded every month worldwide. What service does AWS provide to help protect AWS Customers from these attacks? (Choose TWO)",
@@ -342,7 +342,7 @@
   "correct_answer": ["A", "D"]
 },
   {
-    "id": 1,
+    "id": 28,
     "tag": "Storage",
     "sub_tag": "AWS Elastic Disaster Recovery",
     "question": "A company is deploying a new two-tier web application in AWS. Where should the most frequently accessed data be stored so that the application’s response time is optimal?",
@@ -355,7 +355,7 @@
     "correct_answer": "D"
   },
   {
-    "id": 2,
+    "id": 29,
     "tag": "Compute",
     "sub_tag": "Amazon EC2",
     "question": "You want to run a questionnaire application for only one day (without interruption), which Amazon EC2 purchase option should you use?",
@@ -368,7 +368,7 @@
     "correct_answer": "D"
   },
   {
-    "id": 3,
+    "id": 30,
     "tag": "Compute",
     "sub_tag": "Amazon EC2",
     "question": "You are working on a project that involves creating thumbnails of millions of images. Consistent uptime is not an issue, and continuous processing is not required. Which EC2 buying option would be the most cost-effective?",
@@ -381,7 +381,7 @@
     "correct_answer": "D"
   },
   {
-    "id": 4,
+    "id": 31,
     "tag": "Networking and Content Delivery",
     "sub_tag": "Amazon CloudFront",
     "question": "Which of the following can be described as a global content delivery network (CDN) service?",
@@ -394,7 +394,7 @@
     "correct_answer": "D"
   },
   {
-    "id": 5,
+    "id": 32,
     "tag": "Security, Identity, and Compliance",
     "sub_tag": "AWS Artifact",
     "question": "Which of the following services allows customers to manage their agreements with AWS?",
@@ -407,7 +407,7 @@
     "correct_answer": "A"
   },
   {
-    "id": 1,
+    "id": 33,
     "tag": "Database",
     "sub_tag": "Amazon DynamoDB",
     "question": "Which of the following are examples of AWS-Managed Services, where AWS is responsible for the operational and maintenance burdens of running the service? (Choose TWO)",
@@ -421,7 +421,7 @@
     "correct_answer": ["B", "C"]
   },
   {
-    "id": 2,
+    "id": 34,
     "tag": "Database",
     "sub_tag": "Amazon DynamoDB",
     "question": "Your company has a data store application that requires access to a NoSQL database. Which AWS database offering would meet this requirement?",
@@ -434,7 +434,7 @@
     "correct_answer": "B"
   },
   {
-    "id": 3,
+    "id": 35,
     "tag": "Management and Governance",
     "sub_tag": "Technical Account Manager (TAM)",
     "question": "As part of the Enterprise support plan, who is the primary point of contact for ongoing support needs?",
@@ -447,7 +447,7 @@
     "correct_answer": "D"
   },
   {
-    "id": 4,
+    "id": 36,
     "tag": "Cloud Financial Management",
     "sub_tag": "AWS Cost Explorer",
     "question": "How can you view the distribution of AWS spending in one of your AWS accounts?",
@@ -460,7 +460,7 @@
     "correct_answer": "C"
   },
   {
-    "id": 5,
+    "id": 37,
     "tag": "Security, Identity, and Compliance",
     "sub_tag": "AWS Identity and Access Management (IAM)",
     "question": "Which of the following must an IAM user provide to interact with AWS services using the AWS Command Line Interface (AWS CLI)?",
@@ -473,7 +473,7 @@
     "correct_answer": "A"
   },
   {
-    "id": 6,
+    "id": 38,
     "tag": "Customer Engagement",
     "sub_tag": "AWS Support",
     "question": "You have AWS Basic support, and you have discovered that some AWS resources are being used maliciously, and those resources could potentially compromise your data. What should you do?",
@@ -486,7 +486,7 @@
     "correct_answer": "B"
   },
   {
-    "id": 7,
+    "id": 39,
     "tag": "Security, Identity, and Compliance",
     "sub_tag": "Best Practices",
     "question": "Select TWO examples of the AWS shared controls.",
@@ -500,7 +500,7 @@
     "correct_answer": ["A", "D"]
   },
   {
-    "id": 8,
+    "id": 40,
     "tag": "Compute",
     "sub_tag": "Amazon EC2",
     "question": "In order to implement best practices when dealing with a 'Single Point of Failure,' you should attempt to build as much automation as possible in both detecting and reacting to failure. Which of the following AWS services would help? (Choose TWO)",
@@ -514,7 +514,7 @@
     "correct_answer": ["B", "E"]
   },
   {
-    "id": 1,
+    "id": 41,
     "tag": "Networking and Content Delivery",
     "sub_tag": "Amazon CloudFront",
     "question": "A company is planning to host an educational website on AWS. Their video courses will be streamed all around the world. Which of the following AWS services will help achieve high transfer speeds?",
@@ -527,7 +527,7 @@
     "correct_answer": "D"
   },
   {
-    "id": 2,
+    "id": 42,
     "tag": "Database",
     "sub_tag": "Amazon Aurora",
     "question": "A developer is planning to build a two-tier web application that has a MySQL database layer. Which of the following AWS database services would provide automated backups for the application?",
@@ -540,7 +540,7 @@
     "correct_answer": "B"
   },
   {
-    "id": 3,
+    "id": 43,
     "tag": "Management and Governance",
     "sub_tag": "AWS CloudFormation",
     "question": "What is the AWS service that enables AWS architects to manage infrastructure as code?",
@@ -553,7 +553,7 @@
     "correct_answer": "A"
   },
   {
-    "id": 4,
+    "id": 44,
     "tag": "Security, Identity, and Compliance",
     "sub_tag": "Best Practices",
     "question": "Under the shared responsibility model, which of the following is the responsibility of AWS?",
@@ -566,7 +566,7 @@
     "correct_answer": "C"
   },
   {
-    "id": 5,
+    "id": 45,
     "tag": "Management and Governance",
     "sub_tag": "AWS Health Dashboard",
     "question": "What does the AWS Health Dashboard provide? (Choose TWO)",
@@ -580,7 +580,7 @@
     "correct_answer": ["A", "E"]
   },
   {
-    "id": 6,
+    "id": 46,
     "tag": "Management and Governance",
     "sub_tag": "Amazon CloudWatch",
     "question": "You have deployed your application on multiple Amazon EC2 instances. Your customers complain that sometimes they can’t reach your application. Which AWS service allows you to monitor the performance of your EC2 instances to assist in troubleshooting these issues?",
@@ -593,7 +593,7 @@
     "correct_answer": "C"
   },
   {
-    "id": 1,
+    "id": 47,
     "tag": "Management and Governance",
     "sub_tag": "AWS Trusted Advisor",
     "question": "Your company is developing a critical web application in AWS, and the security of the application is a top priority. Which of the following AWS services will provide infrastructure security optimization recommendations?",
@@ -606,7 +606,7 @@
     "correct_answer": "D"
   },
   {
-    "id": 2,
+    "id": 48,
     "tag": "Storage",
     "sub_tag": "Amazon S3",
     "question": "Which of the following is not a benefit of Amazon S3? (Choose TWO)",
@@ -620,7 +620,7 @@
     "correct_answer": ["B", "E"]
   },
   {
-    "id": 3,
+    "id": 49,
     "tag": "Security, Identity, and Compliance",
     "sub_tag": "Best Practices",
     "question": "In the AWS Shared responsibility Model, which of the following are the responsibility of the customer? (Choose TWO)",
@@ -634,7 +634,7 @@
     "correct_answer": ["B", "D"]
   },
   {
-    "id": 4,
+    "id": 50,
     "tag": "Management and Governance",
     "sub_tag": "AWS Quick Start",
     "question": "What does AWS provide to deploy popular technologies such as IBM MQ on AWS with the least amount of effort and time?",
@@ -647,7 +647,7 @@
     "correct_answer": "C"
   },
   {
-    "id": 5,
+    "id": 1,
     "tag": "Compute",
     "sub_tag": "Amazon EC2",
     "question": "An organization has decided to purchase an Amazon EC2 Reserved Instance (RI) for three years in order to reduce costs. It is possible that the application workloads could change during the reservation period. What is the EC2 Reserved Instance (RI) type that will allow the company to exchange the purchased reserved instance for another reserved instance with higher computing power if they need to?",
