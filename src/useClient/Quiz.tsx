@@ -41,17 +41,7 @@ type OptionValue = z.infer<typeof FormSchema>['type'];
 export function Quiz({ questions }: QuizProps) {
   const QuizContext = useContext(QuizProgressContext);
   const router = useRouter();
-  const [selectedOptions, setSelectedOptions] = useState<{
-    [key: number]: OptionValue;
-  }>({});
-
-  const handleOptionChange = (questionID: any, value: any) => {
-    setSelectedOptions({
-      ...selectedOptions,
-      [questionID]: value,
-    });
-  };
-
+  
   useEffect(() => {
     //Sets the QuizList in the context to the list of questions
     if (QuizContext && questions) {
@@ -65,13 +55,13 @@ export function Quiz({ questions }: QuizProps) {
 
   if (!QuizContext) return null;
   if (!questions) return null;
-
+  
   /// Get's the ID of the current question
   const currentQuestionID = QuizContext?.QuizList[QuizContext.currentQuestion];
-
+  
   // To identify the last question in the array and change the button text to 'Submit'
   const currentIndex = QuizContext?.currentQuestion as number;
-
+  
   // This function is called when the form is submitted.
   function onSubmit(data: z.infer<typeof FormSchema>) {
     const formData = form.getValues();
@@ -86,13 +76,13 @@ export function Quiz({ questions }: QuizProps) {
       const correct_answer: string[] = questions.find(
         (q) => q.id === currentQuestionID
       )?.correct_answer as string[];
-
+      
       console.log(correct_answer, 'correct_answer');
       //Compares and returns boolen value
       const isCorrect = compareAnswer(formData.type, correct_answer);
       /// If it goes into incorrect first, it will not go into correct ************
       setCorrectorIncorrectQs(QuizContext, currentQuestionID, isCorrect);
-
+      
       form.reset();
     }
     // Determine the next or previous question ID based on the direction
@@ -112,7 +102,8 @@ export function Quiz({ questions }: QuizProps) {
       router.push('/Questions/Results');
     }
   }
-
+  
+  console.log(QuizContext.optionSelected, 'optionSelected context');
   return (
     <Card className='h-{500} min-w-60 max-w-96 m-10 p-10  overflow-auto'>
       <div className='flex h-72 m-2'>
@@ -133,16 +124,17 @@ export function Quiz({ questions }: QuizProps) {
                   </div>
                   <FormControl>
                     <RadioGroup
-                      value={selectedOptions[currentQuestionID] || ''}
+                      value={QuizContext.optionSelected[currentQuestionID] || ''}
                       name='type'
                       onValueChange={(value) => {
+                        console.log(value, 'value');
                         const selectedValue = value || ''; // If value is undefined or null, use an empty string
-                        handleOptionChange(
-                          currentQuestionID,
-                          selectedValue as OptionValue
-                        );
-                        ///
+                        QuizContext.SET_OPTION_SELECTED({
+                         [currentQuestionID]: selectedValue                        
+                        } 
+                      )
                         field.onChange(selectedValue);
+                        console.log(selectedValue, 'selectedValue')
                       }}
                       className='space-y-2'
                     >

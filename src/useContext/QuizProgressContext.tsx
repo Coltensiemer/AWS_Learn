@@ -20,8 +20,7 @@ export interface QuizProgressContextType {
   QuizTime: number; 
   Direction: string;
   questionLimit: number;
-  incrementCorrectAnswers: () => void;
-  incrementIncorrectAnswers: () => void;
+  optionSelected: { [key: number]: string}
   SET_CURRENT_QUESTION: (payload: any) => void;
   SET_CORRECT_ANSWERED: (payload: any) => void;
   SET_INCORRECT_ANSWERED: (payload: any) => void;
@@ -31,6 +30,7 @@ export interface QuizProgressContextType {
   SET_QUIZ_DIRECTION: (payload: any) => void;
   SET_SHOW_ANSWER: (payload: any) => void;
   SET_QUESTION_LIMIT: (payload: any) => void;
+  SET_OPTION_SELECTED: (payload: any) => void;
 }
 
 //Create a context to store the quiz progress data
@@ -53,16 +53,7 @@ export const QuizProgressProvider = ({
     dispatch({ type: ActionType.SET_QUIZ_LIST, payload });
   };
 
-  //male sure state updates
-  const incrementCorrectAnswers = () => {
-    dispatch({ type: ActionType.INCREMENT_CORRECT_ANSWERS });
-  };
-
-  //make sure state updates
-  const incrementIncorrectAnswers = () => {
-    dispatch({ type: ActionType.INCREMENT_INCORRECT_ANSWERS });
-  };
-
+  
   // When this function is called, the useEffect hook will be triggered and the current question will be incremented
   const SET_CURRENT_QUESTION = (payload: number) => {
     dispatch({ type: ActionType.SET_CURRENT_QUESTION, payload });
@@ -94,6 +85,10 @@ export const QuizProgressProvider = ({
   const SET_QUESTION_LIMIT = (payload: number) => {
     dispatch({ type: ActionType.SET_QUESTION_LIMIT, payload });
    }
+  
+  const SET_OPTION_SELECTED = (payload: any) => {
+    dispatch({ type: ActionType.SET_OPTION_SELECTED, payload });
+  }
 
   const contextValue = useMemo(
     () => ({
@@ -108,8 +103,7 @@ export const QuizProgressProvider = ({
       Direction: state.Direction,
       showAnwer: state.showAnswer,
       questionLimit: state.questionLimit,
-      incrementCorrectAnswers,
-      incrementIncorrectAnswers,
+      optionSelected: state.optionSelected,
       SET_CURRENT_QUESTION,
       SET_CORRECT_ANSWERED,
       SET_INCORRECT_ANSWERED,
@@ -118,7 +112,8 @@ export const QuizProgressProvider = ({
       SET_QUIZ_TIME,
       SET_QUIZ_DIRECTION,
       SET_SHOW_ANSWER,
-      SET_QUESTION_LIMIT
+      SET_QUESTION_LIMIT,
+      SET_OPTION_SELECTED
     }),
     [
       state.Correct_Answered,
@@ -131,7 +126,8 @@ export const QuizProgressProvider = ({
       state.QuizTime,
       state.Direction,
       state.showAnswer,
-      state.questionLimit
+      state.questionLimit,
+      state.optionSelected
     ]
   );
 
