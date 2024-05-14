@@ -22,7 +22,7 @@ import {
 } from '../components/shadcn/card/card';
 import { QuizProgressContext } from '../useContext/QuizProgressContext';
 import { getSession } from '../../lib';
-import { generateCookieID } from '../functions/generateSessionID/generateCookieID';
+
 
 function totalScore(questions: QuestionType[], correct: number[]) {
   const total = questions.length;
@@ -83,6 +83,7 @@ export function QuizSubmit({
         "starttimer": QuizContext.QuizTime,
         "finishedat": 0,
         "tags": QuizContext.Tags,
+        'quizselectedoptions': QuizContext.optionSelected, 
       }),
     }).then((res) => {
       if (res.ok) {
