@@ -13,6 +13,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
+  ExpandedState
 } from '@tanstack/react-table';
 import {
   Table,
@@ -33,21 +34,25 @@ import {
   DropdownMenuTrigger,
 } from '../shadcn/dropdownmenu/dropdownmenu';
 import { Card } from '../shadcn/card/card';
+import { TableQuestionType } from '../../app/Questions/Results/column';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends TableQuestionType, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [sorting, setSorting] = useState<SortingState>([]);
 
-  const [expandedRows, setExpandedRows] = useState<{}>({});
+  const [expanded, setExpanded] = React.useState<ExpandedState>({})
 
+  
+  
+  
   const table = useReactTable({
     data,
     columns,
@@ -56,19 +61,23 @@ export function DataTable<TData, TValue>({
     onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
-    onExpandedChange: setExpandedRows,
-    getExpandedRowModel: getExpandedRowModel(),
-    enableExpanding: true,
+    onExpandedChange: setExpanded,
+    getExpandedRowModel: getExpandedRowModel(),  
+    getSubRows: (row: any) => row?.options,  
     state: {
       columnVisibility,
-      expanded: true,
       sorting,
+      expanded, 
     },
+    
   });
-
+  
+  console.log(table.getRowModel().rows)
+  
   const resetFilters = () => {
     setSorting([]);
     setColumnVisibility({});
+    
   };
 
   return (
@@ -127,13 +136,14 @@ export function DataTable<TData, TValue>({
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody className='min-w-max'>
+        <TableBody  className='min-w-max'>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
+
               <TableRow
-                key={row.id}
+                key={row.original.id}
                 data-state={row.getIsSelected() && 'selected'}
-              >
+                >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -168,6 +178,8 @@ export function DataTable<TData, TValue>({
           Next
         </Button>
       </div>
+      <label>Expanded State:</label>
+      <pre>{JSON.stringify(expanded, null, 2)}</pre>
     </Card>
   );
 }

@@ -53,7 +53,6 @@ export default async function Page() {
   return (
     <div className='w-1/2'>
       <Results sessionData={sessiondata} />
-      {/* @ts-ignore */}
       <DataTable columns={columns} data={questionList} />
     </div>
   );
