@@ -77,7 +77,7 @@ export function DataTable<TData extends TableQuestionType, TValue>({
   const resetFilters = () => {
     setSorting([]);
     setColumnVisibility({});
-    
+    setExpanded({});
   };
 
   return (
@@ -139,7 +139,7 @@ export function DataTable<TData extends TableQuestionType, TValue>({
         <TableBody  className='min-w-max'>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
-
+<>
               <TableRow
                 key={row.original.id}
                 data-state={row.getIsSelected() && 'selected'}
@@ -150,6 +150,20 @@ export function DataTable<TData extends TableQuestionType, TValue>({
                   </TableCell>
                 ))}
               </TableRow>
+              {row.getIsExpanded() ? (
+
+              <TableRow>
+                {row.original.options.map((option: any) => (
+                  <TableCell className='bg-gray-200' key={option.id}>
+                    {option.value}
+                  </TableCell>
+                ))} 
+              </TableRow>
+              )
+               : (null)
+               
+               }
+                </>
             ))
           ) : (
             <TableRow>
