@@ -21,7 +21,7 @@ import {
   CardTitle,
 } from '../components/shadcn/card/card';
 import { QuizProgressContext } from '../useContext/QuizProgressContext';
-import { getSession } from '../../lib';
+import { getSession } from '../../actions/cookieActions/cookieActions';
 
 
 function totalScore(questions: QuestionType[], correct: number[]) {

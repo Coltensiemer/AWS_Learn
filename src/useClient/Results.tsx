@@ -14,11 +14,10 @@ import Link from 'next/link';
 
 
 export default async function Results(sessionData: any) {
-  const { sessionDataResults } = sessionData;
-  const quizData = sessionData.sessionData.completedquiz[0];
-  const correctanwers = quizData.correctanswers;
-  const score = quizData.score;
-  const correctanswersNumber = correctanwers.length;
+  const data = sessionData.sessionData[0]
+  const correctanwers = data.correct_answer
+  const score = data.score
+  const correctanswersNumber = data.correct_answer.length
 
   return (
     <Card>

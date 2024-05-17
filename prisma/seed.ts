@@ -18,14 +18,15 @@ async function main() {
         password: 'password',
         completedquiz: {
           create: {
-            quizidused: [1, 2, 3, 4, 5, 6],
-            correctanswers: [1, 3, 5],
-            incorrectanswers: [2, 4, 6],
+            quizidused: [19, 20, 21, 22, 23, 24,25,26,27,],
+            correctanswers: [19, 21, 23],
+            incorrectanswers: [24, 25, 26],
             tags: ['EC2', 'Lambda'],
             score: 50,
             starttimer: 120,
             finishedat: 20,
             quizDate: new Date(),
+            quizselectedoptions: [{ id: 19, value: 'A'}, { id: 20, value: 'B'}, { id: 21, value: 'C'}, { id: 22, value: 'D'}, { id: 23, value: 'A'}, { id: 24, value: 'B'}],
           },
         },
         quizprogress: {

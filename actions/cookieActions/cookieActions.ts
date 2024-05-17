@@ -1,7 +1,8 @@
 'use server'
 
 import { cookies } from "next/headers";
-import { generateCookieID } from "./src/functions/generateSessionID/generateCookieID";
+import { generateCookieID } from "../../src/functions/generateSessionID/generateCookieID";
+import prisma from "../../src/lib/prisma";
 
 export async function getSession() {
   // Retrieve the OneTimeSessionID cookie value
@@ -21,3 +22,18 @@ export async function createCookie() {
 }
 
 
+export async function UserTestResults(sessionID: string) {
+  
+  const sessiondata = await prisma.fakeuser.findFirst({
+    ///change so it only recieves the last quiz
+    where: {
+      cookieid: sessionID,
+    },
+    include: { completedquiz: true },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+
+  return sessiondata;
+}

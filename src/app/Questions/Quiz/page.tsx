@@ -4,7 +4,7 @@ import { QuizProps, QuestionType } from '../../../../prisma/dataTypes';
 import prisma from '../../../lib/prisma';
 import { generateCookieID } from '../../../functions/generateSessionID/generateCookieID';
 import { cookies } from 'next/headers';
-import { getSession } from '../../../../lib';
+import { getSession } from '../../../../actions/cookieActions/cookieActions';
 
 
 

@@ -5,7 +5,7 @@ import { Button } from '../../components/shadcn/button/button';
 import QuizOption from '../../useClient/QuizOption';
 import { useContext, useEffect } from 'react';
 import { QuizProgressContext } from '../../useContext/QuizProgressContext';
-import { createCookie } from '../../../lib';
+import { createCookie } from '../../../actions/cookieActions/cookieActions';
 
 export default function EasyQuestions() {
   const QuizContext = useContext(QuizProgressContext);

@@ -34,7 +34,7 @@ import {
   DropdownMenuTrigger,
 } from '../shadcn/dropdownmenu/dropdownmenu';
 import { Card } from '../shadcn/card/card';
-import { TableQuestionType } from '../../app/Questions/Results/column';
+import { TableQuestionType, UserTableQuestionType } from '../../../actions/resultsFakeUserAction';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -72,7 +72,7 @@ export function DataTable<TData extends TableQuestionType, TValue>({
     
   });
   
-  console.log(table.getRowModel().rows)
+  // console.log(table.getRowModel().rows)
   
   const resetFilters = () => {
     setSorting([]);
@@ -80,6 +80,8 @@ export function DataTable<TData extends TableQuestionType, TValue>({
     setExpanded({});
   };
 
+
+  console.log(table.getRowModel().rows)
   return (
     <Card className='rounded-md border my-4'>
       <div className='flex justify-around items-center'>
