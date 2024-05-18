@@ -14,18 +14,22 @@ import Link from 'next/link';
 
 
 export default async function Results(sessionData: any) {
-  const data = sessionData.sessionData[0] 
-  const correctanwers = data.correct_answer
+  const data = sessionData.sessionData.completedquiz[0]
+  
+  const correctanswersNumber = data.correctanswers.length;
+  const totalquestions = data.quizidused.length; 
+  const tags = data.tags
   const score = data.score
-  const correctanswersNumber = data.correct_answer.length
 
   return (
     <Card>
       <CardHeader>Congrats on the quiz!</CardHeader>
       <CardDescription>Here are your Results.</CardDescription>
       <CardContent className='flex flex-col gap-2 justify-center'>
-        <p>{correctanswersNumber} Correct Answers</p>
+        {/* <p>{correctanswersNumber} Correct Answers</p> */}
         <p>Score: {score}%</p>
+        {tags.length > 0 && <p>Tags used: {tags}</p>}
+        <p>{correctanswersNumber}/{totalquestions} Answered correctly</p>
         <Button>
           <Link href="/Questions">Start a new quiz quiz</Link>
         </Button>

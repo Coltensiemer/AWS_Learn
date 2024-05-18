@@ -79,6 +79,7 @@ export function DataTable<TData extends TableQuestionType, TValue>({
   };
 
 
+
   console.log(table.getRowModel().rows)
   return (
     <Card className='rounded-md border my-4'>

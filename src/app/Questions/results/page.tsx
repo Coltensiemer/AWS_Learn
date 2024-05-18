@@ -17,12 +17,12 @@ export default async function Page() {
   const sessiondata= await getFakeUserTableResultData(sessionID); 
  
  
-  console.log(sessiondata)
+  // console.log(userResults)
   if (!sessiondata ) { return <div>No data Avaliable: Refresh or return to Home</div> } 
 
   return (
     <div className='w-1/2'>
-      <Results sessionData={sessiondata} />
+      <Results sessionData={userResults} />
       <DataTable columns={columns} data={sessiondata} />
     </div>
   );

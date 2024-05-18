@@ -10,6 +10,7 @@ import { ArrowUpDown } from 'lucide-react';
 
 
 export const columns: ColumnDef<TableQuestionType>[] = [
+
   {
     header: ({ column }) => {
       return (
@@ -23,7 +24,7 @@ export const columns: ColumnDef<TableQuestionType>[] = [
       );
     },
     enableHiding: false,
-    id: 'index',
+   accessorKey: 'id',
   },
   {
     header: 'Question',
