@@ -61,7 +61,7 @@ model completedquiz {
   cookieid       String?
   correctanswers   Int[]
   incorrectanswers Int[]
-  quizselectedoptions Json? 
+  quizselectedoptions Json 
   tags             String[]
   score            Int?
   starttimer       Int?

@@ -6,15 +6,18 @@ import { date } from 'zod';
 // import QuizResultsTable from '../../../components/useServer/QuizResultsTable';
 import { DataTable } from '../../../components/useClient/QuizResultsTable';
 import { getTableResultData } from '../../../../actions/resultsActions';
-import {getFakeUserTableResultData} from '../../../../actions/resultsFakeUserAction';
+import {getFakeUserResults, getFakeUserTableResultData} from '../../../../actions/resultsFakeUserAction';
 import {columns} from './column';
 
 
 
 export default async function Page() {
   const sessionID = await getSession();
+  const userResults = await getFakeUserResults(sessionID);
   const sessiondata= await getFakeUserTableResultData(sessionID); 
  
+ 
+  console.log(sessiondata)
   if (!sessiondata ) { return <div>No data Avaliable: Refresh or return to Home</div> } 
 
   return (

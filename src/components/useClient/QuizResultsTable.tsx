@@ -71,9 +71,7 @@ export function DataTable<TData extends TableQuestionType, TValue>({
     },
     
   });
-  
-  // console.log(table.getRowModel().rows)
-  
+    
   const resetFilters = () => {
     setSorting([]);
     setColumnVisibility({});

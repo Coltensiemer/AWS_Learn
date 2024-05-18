@@ -1,5 +1,6 @@
 'use server';
 
+import { object } from 'zod';
 import prisma from '../src/lib/prisma';
 
 interface OptionType {
@@ -17,22 +18,23 @@ export interface TableQuestionType {
   question: string;
   correct_answer: string[];
   options: OptionType[];
+  userCorrect: boolean; 
+  userSelected: string;  
 }
 
 export interface UserTableQuestionType {
   quizidused: number[];
   correct_answer: number[];
   incorrectanswer: number[];
-  quizselectedoptions: any;
+  quizselectedoptions: Record<number, string>;
   tags: string[];
   score: number | null;
   starttimer: number | null;
   finishedat: number | null;
   quizDate: Date | null;
-  questions: TableQuestionType[]
 }
 
-async function getFakeUserResults(sessionID: string) {
+export async function getFakeUserResults(sessionID: string) {
   /// make more effiecient
   /// take the most recent quiz
 
@@ -74,18 +76,33 @@ export async function getFakeUserTableResultData(cookieid: string) {
   try {
     const userQuizData = await getFakeUserResults(cookieid);
 
+    // console.log(userQuizData?.completedquiz[0].quizselectedoptions)
     if (!userQuizData) {
       return null;
     }
-
+    const completedQuiz = userQuizData.completedquiz[0];
     const quizList = userQuizData.completedquiz[0].quizidused;
 
+    // console.log(Object.keys(completedQuiz.quizselectedoptions))
+    // console.log(Object.values(completedQuiz.quizselectedoptions))
     const quizData = await getQuizList(quizList);
 
     if (!quizData) {
       return null;
-    }
-    const questiondata = quizData.map((quiz) => {
+   }
+   //@ts-ignore
+    const questiondata: TableQuestionType[] = quizData.map((quiz, index) => {
+      const userCorrect = completedQuiz.correctanswers.some((answers, i) => {
+        return answers === quiz.id;
+      });
+
+      if (completedQuiz.quizselectedoptions === null) return null 
+      const optionValue = Object.values(completedQuiz.quizselectedoptions).find((value, key) => {
+        return quiz.id === key +1;
+      }) || null;
+      
+  
+      
       return {
         id: quiz.id,
         tag: quiz.tag,
@@ -93,18 +110,14 @@ export async function getFakeUserTableResultData(cookieid: string) {
         question: quiz.question,
         correct_answer: quiz.correct_answer,
         options: quiz.options,
+        userCorrect,
+        userSelected: optionValue
       };
-     }) as TableQuestionType[];
 
-  
+    });
 
-
-    const completeQuizData: TableQuestionType[] = [
-      ...questiondata,     
-      
-    ];
-
-    return completeQuizData;
+    
+    return questiondata;
 
   } catch (error) {
     console.error(error);

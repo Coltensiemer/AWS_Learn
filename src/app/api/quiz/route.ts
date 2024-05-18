@@ -41,6 +41,7 @@ export interface PostBody {
   score: number;
   starttimer: number;
   finishedat: number;
+  quizselectedoptions: any;
 } 
 
 export async function POST(request: Request) {
@@ -54,6 +55,7 @@ export async function POST(request: Request) {
     score,
     starttimer,
     finishedat,
+    quizselectedoptions
   } = body;
 
   try {
@@ -73,7 +75,7 @@ export async function POST(request: Request) {
           score,
           starttimer,
           finishedat,
-          // Link this completed quiz to the existing user
+          quizselectedoptions,
           user: {
             connect: { id: existingUser.id }
           }
@@ -100,6 +102,7 @@ export async function POST(request: Request) {
                 score,
                 starttimer,
                 finishedat,
+                quizselectedoptions
               },
             },
           },
@@ -119,6 +122,7 @@ export async function POST(request: Request) {
                 score,
                 starttimer,
                 finishedat,
+                quizselectedoptions
               },
             },
           },
