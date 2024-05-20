@@ -34,12 +34,15 @@ import {
   DropdownMenuTrigger,
 } from '../shadcn/dropdownmenu/dropdownmenu';
 import { Card } from '../shadcn/card/card';
-import { TableQuestionType, UserTableQuestionType } from '../../../actions/resultsFakeUserAction';
+import { TableQuestionType, UserTableQuestionType, OptionType } from '../../../actions/resultsFakeUserAction';
+
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
+
+
 
 export function DataTable<TData extends TableQuestionType, TValue>({
   columns,
@@ -47,9 +50,9 @@ export function DataTable<TData extends TableQuestionType, TValue>({
 }: DataTableProps<TData, TValue>) {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [sorting, setSorting] = useState<SortingState>([]);
-
+  
   const [expanded, setExpanded] = React.useState<ExpandedState>({})
-
+  
   
   
   
@@ -63,7 +66,7 @@ export function DataTable<TData extends TableQuestionType, TValue>({
     getSortedRowModel: getSortedRowModel(),
     onExpandedChange: setExpanded,
     getExpandedRowModel: getExpandedRowModel(),  
-    getSubRows: (row: any) => row?.options,  
+    // getSubRows: (row: TData) =>  row.options,
     state: {
       columnVisibility,
       sorting,
@@ -71,13 +74,17 @@ export function DataTable<TData extends TableQuestionType, TValue>({
     },
     
   });
-    
+  
+    const getSubRows = (row: TableQuestionType): OptionType[] => { 
+      return row.options;
+    }
+      
   const resetFilters = () => {
     setSorting([]);
     setColumnVisibility({});
     setExpanded({});
   };
-
+  
 
 
   console.log(table.getRowModel().rows)
@@ -151,9 +158,9 @@ export function DataTable<TData extends TableQuestionType, TValue>({
                   </TableCell>
                 ))}
               </TableRow>
-              {row.getIsExpanded() ? (
+              {/* {row.getIsExpanded() ? (
 
-              <TableRow>
+              <TableRow className=''>
                 {row.original.options.map((option: any) => (
                   <TableCell className='bg-gray-200' key={option.id}>
                     {option.value}
@@ -163,7 +170,7 @@ export function DataTable<TData extends TableQuestionType, TValue>({
               )
                : (null)
                
-               }
+               } */}
                 </>
             ))
           ) : (

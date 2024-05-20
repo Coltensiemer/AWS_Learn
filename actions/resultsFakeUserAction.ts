@@ -3,12 +3,6 @@
 import { object } from 'zod';
 import prisma from '../src/lib/prisma';
 
-interface OptionType {
-  id: number;
-  value: string;
-  iscorrect: boolean;
-  quizId: number;
-}
 
 // Define the data type for the questions
 export interface TableQuestionType {
@@ -20,6 +14,12 @@ export interface TableQuestionType {
   options: OptionType[];
   userCorrect: boolean; 
   userSelected: string;  
+}
+export interface OptionType {
+  id: number;
+  value: string;
+  iscorrect: boolean;
+  quizId: number;
 }
 
 export interface UserTableQuestionType {

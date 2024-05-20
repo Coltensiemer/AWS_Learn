@@ -29,6 +29,9 @@ export const columns: ColumnDef<TableQuestionType>[] = [
   {
     header: 'Question',
     accessorKey: 'question',
+    cell: ({ row }) => {
+      return <p>{row.original.question}</p>;
+    }
   },
   {
     header: 'Correct Answer',
@@ -38,7 +41,7 @@ export const columns: ColumnDef<TableQuestionType>[] = [
   header: 'Answer',
   accessorKey: 'userCorrect',
   cell: ({ row }) => {
-    return row.original.userCorrect ? 'Correct' : 'Incorrect';
+
   }
 },
   {
@@ -50,7 +53,7 @@ export const columns: ColumnDef<TableQuestionType>[] = [
     id: 'actions',
     header: 'Actions',
 
-    cell: ({ row, renderValue }) => (
+    cell: ({ row, getValue }) => (
       <div
         className='expander'
         style={{
@@ -102,8 +105,9 @@ export const columns: ColumnDef<TableQuestionType>[] = [
               </>
             )}
           </button>
-        )}
-      </div>
+        )}{' '}
+        {getValue<boolean>()}
+     </div>
     ),
   },
 
