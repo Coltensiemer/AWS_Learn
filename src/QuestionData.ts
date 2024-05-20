@@ -11,7 +11,7 @@
     { "value": "C. AWS SDK", "isCorrect": false },
     { "value": "D. AWS Management Console", "isCorrect": true }
   ],
-  "correct_answer": "D"
+  "correct_answer": ["D"]
 }, 
 {
   "id": 3,
@@ -24,7 +24,7 @@
     { "value": "C. Adding more RAM capacity to an EC2 instance.", "isCorrect": false },
     { "value": "D. Adding more EC2 instances of the same size to handle an increase in traffic.", "isCorrect": true }
   ],
-  "correct_answer": "D"
+  "correct_answer": ["D"]
 },
 {
   "id": 4,
@@ -37,7 +37,7 @@
     { "value": "C. AWS Trusted Advisor.", "isCorrect": false },
     { "value": "D. EC2 Instance Usage Report.", "isCorrect": false }
   ],
-  "correct_answer": "B"
+  "correct_answer": ["B"]
 },{
   "id": 5,
   "tag": "Management and Governance",
@@ -50,7 +50,7 @@
     { "value": "D. Providing compensation to customers if issues occur.", "isCorrect": false },
     { "value": "E. Ability to recover quickly from failures.", "isCorrect": true }
   ],
-  "correct_answer": "E"
+  "correct_answer": ["E"]
 },
 {
   "id": 6,
@@ -63,7 +63,7 @@
     { "value": "C. Patching the guest OS is always the responsibility of AWS.", "isCorrect": false },
     { "value": "D. Security of the managed services is the responsibility of the customer.", "isCorrect": false }
   ],
-  "correct_answer": "A"
+  "correct_answer": ["A"]
 },
 {
   "id": 7,
@@ -76,7 +76,7 @@
     { "value": "C. The purchased instances will have better performance than On-demand instances.", "isCorrect": false },
     { "value": "D. There are no cost benefits from using consolidated billing; It is for informational purposes only.", "isCorrect": false }
   ],
-  "correct_answer": "B"
+  "correct_answer": ["B"]
 },
 {
   "id": 8,
@@ -89,7 +89,7 @@
     { "value": "C. Deploy the application across multiple Regions and Availability Zones.", "isCorrect": true },
     { "value": "D. Deploy the application across multiple VPC’s and subnets.", "isCorrect": false }
   ],
-  "correct_answer": "C"
+  "correct_answer": ["C"]
 },
 {
   "id": 9,
@@ -116,7 +116,7 @@
     { "value": "C. AWS Customer Service.", "isCorrect": false },
     { "value": "D. AWS Operations Support.", "isCorrect": false }
   ],
-  "correct_answer": "B"
+  "correct_answer": ["B"]
 },
 {
   "id": 11,
@@ -129,7 +129,7 @@
     { "value": "C. Building a new data center in the US and implementing a hybrid model.", "isCorrect": false },
     { "value": "D. Deploying new Amazon EC2 instances in a Region located in the US.", "isCorrect": true }
   ],
-  "correct_answer": "D"
+  "correct_answer": ["D"]
 },
 {
   "id": 12,
@@ -142,7 +142,7 @@
     { "value": "C. IAM user groups.", "isCorrect": true },
     { "value": "D. AWS Organizations.", "isCorrect": false }
   ],
-  "correct_answer": "C"
+  "correct_answer": ["C"]
 },
 {
   "id": 13,
@@ -155,7 +155,7 @@
     { "value": "C. AWS Server Migration Service.", "isCorrect": false },
     { "value": "D. AWS Application Discovery Service.", "isCorrect": false }
   ],
-  "correct_answer": "B"
+  "correct_answer": ["B"]
 },
 {
   "id": 14,
@@ -168,7 +168,7 @@
     { "value": "C. Implement elasticity.", "isCorrect": true },
     { "value": "D. Adopt monolithic architecture.", "isCorrect": false }
   ],
-  "correct_answer": "C"
+  "correct_answer": ["C"]
 },
 {
   "id": 15,
@@ -195,7 +195,7 @@
     { "value": "C. Allows updates of any monolithic application quickly and easily.", "isCorrect": false },
     { "value": "D. Allows tracking of any API call made to any AWS service.", "isCorrect": false }
   ],
-  "correct_answer": "B"
+  "correct_answer": ["B"]
 },
 {
   "id": 17,
@@ -208,7 +208,7 @@
     { "value": "C. AWS Systems Manager.", "isCorrect": false },
     { "value": "D. AWS Cost & Usage Reports.", "isCorrect": true }
   ],
-  "correct_answer": "D"
+  "correct_answer": ["D"]
 },
 {
   "id": 18,
@@ -221,7 +221,7 @@
     { "value": "C. Each AWS account gets volume discounts.", "isCorrect": false },
     { "value": "D. Each AWS account gets five times the free-tier services capacity.", "isCorrect": false }
   ],
-  "correct_answer": "B"
+  "correct_answer": ["B"]
 },
 {
   "id": 19,
@@ -248,7 +248,7 @@
     { "value": "C. By reducing interdependencies between application components wherever possible.", "isCorrect": false },
     { "value": "D. By automatically provisioning the required AWS resources based on changes in demand.", "isCorrect": true }
   ],
-  "correct_answer": "D"
+  "correct_answer": ["D"]
 },
 {
   "id": 21,
@@ -275,7 +275,7 @@
     { "value": "C. AWS Edge Locations.", "isCorrect": true },
     { "value": "D. AWS Availability Zones.", "isCorrect": false }
   ],
-  "correct_answer": "C"
+  "correct_answer": ["C"]
 },
 {
   "id": 23,
@@ -288,7 +288,7 @@
     { "value": "C. All trusted IAM users should have access to any AWS service in the respective AWS account.", "isCorrect": false },
     { "value": "D. IAM users should not be granted any permissions; to keep your account safe.", "isCorrect": false }
   ],
-  "correct_answer": "A"
+  "correct_answer": ["A"]
 },
 {
   "id": 24,
@@ -301,7 +301,7 @@
     { "value": "C. Software as a Service (SaaS).", "isCorrect": false },
     { "value": "D. Networking as a Service (NaaS).", "isCorrect": true }
   ],
-  "correct_answer": "D"
+  "correct_answer": ["D"]
 },
 {
   "id": 25,
@@ -314,7 +314,7 @@
     { "value": "C. Amazon S3 Glacier Deep Archive.", "isCorrect": true },
     { "value": "D. Amazon EBS.", "isCorrect": false }
   ],
-  "correct_answer": "C"
+  "correct_answer": ["C"]
 },
 {
   "id": 26,
@@ -327,7 +327,7 @@
     { "value": "C. Amazon CloudFront.", "isCorrect": false },
     { "value": "D. Amazon EMR.", "isCorrect": false }
   ],
-  "correct_answer": "A"
+  "correct_answer": ["A"]
 },
 {
   "id": 27,
@@ -354,7 +354,7 @@
       { "value": "C. Amazon EBS volume.", "isCorrect": false },
       { "value": "D. Amazon ElastiCache.", "isCorrect": true }
     ],
-    "correct_answer": "D"
+    "correct_answer": ["D"]
   },
   {
     "id": 29,
@@ -367,7 +367,7 @@
       { "value": "C. Dedicated instances.", "isCorrect": false },
       { "value": "D. On-demand instances.", "isCorrect": true }
     ],
-    "correct_answer": "D"
+    "correct_answer": ["D"]
   },
   {
     "id": 30,
@@ -380,7 +380,7 @@
       { "value": "C. Dedicated Instances.", "isCorrect": false },
       { "value": "D. Spot Instances.", "isCorrect": true }
     ],
-    "correct_answer": "D"
+    "correct_answer": ["D"]
   },
   {
     "id": 31,
@@ -393,7 +393,7 @@
       { "value": "C. AWS Regions.", "isCorrect": false },
       { "value": "D. Amazon CloudFront.", "isCorrect": true }
     ],
-    "correct_answer": "D"
+    "correct_answer": ["D"]
   },
   {
     "id": 32,
@@ -406,7 +406,7 @@
       { "value": "C. AWS Systems Manager.", "isCorrect": false },
       { "value": "D. AWS Organizations.", "isCorrect": false }
     ],
-    "correct_answer": "A"
+    "correct_answer": ["A"]
   },
   {
     "id": 33,
@@ -433,7 +433,7 @@
       { "value": "C. Amazon Elastic Block Store.", "isCorrect": false },
       { "value": "D. Amazon Redshift.", "isCorrect": false }
     ],
-    "correct_answer": "B"
+    "correct_answer": ["B"]
   },
   {
     "id": 35,
@@ -446,7 +446,7 @@
       { "value": "C. AWS Consulting Partners.", "isCorrect": false },
       { "value": "D. Technical Account Manager (TAM).", "isCorrect": true }
     ],
-    "correct_answer": "D"
+    "correct_answer": ["D"]
   },
   {
     "id": 36,
@@ -459,7 +459,7 @@
       { "value": "C. By using AWS Cost Explorer.", "isCorrect": true },
       { "value": "D. By contacting the AWS Finance team.", "isCorrect": false }
     ],
-    "correct_answer": "C"
+    "correct_answer": ["C"]
   },
   {
     "id": 37,
@@ -472,7 +472,7 @@
       { "value": "C. UserID.", "isCorrect": false },
       { "value": "D. User name and password.", "isCorrect": false }
     ],
-    "correct_answer": "A"
+    "correct_answer": ["A"]
   },
   {
     "id": 38,
@@ -485,7 +485,7 @@
       { "value": "C. Contact the AWS Concierge team.", "isCorrect": false },
       { "value": "D. Contact the AWS Security team.", "isCorrect": false }
     ],
-    "correct_answer": "B"
+    "correct_answer": ["B"]
   },
   {
     "id": 39,
@@ -526,7 +526,7 @@
       { "value": "C. AWS CloudFormation.", "isCorrect": false },
       { "value": "D. Amazon CloudFront.", "isCorrect": true }
     ],
-    "correct_answer": "D"
+    "correct_answer": ["D"]
   },
   {
     "id": 42,
@@ -539,7 +539,7 @@
       { "value": "C. Amazon DynamoDB.", "isCorrect": false },
       { "value": "D. Amazon Neptune.", "isCorrect": false }
     ],
-    "correct_answer": "B"
+    "correct_answer": ["B"]
   },
   {
     "id": 43,
@@ -552,7 +552,7 @@
       { "value": "C. Amazon SES.", "isCorrect": false },
       { "value": "D. Amazon EMR.", "isCorrect": false }
     ],
-    "correct_answer": "A"
+    "correct_answer": ["A"]
   },
   {
     "id": 44,
@@ -565,7 +565,7 @@
       { "value": "C. Server-side encryption.", "isCorrect": true },
       { "value": "D. Filtering traffic with Security Groups.", "isCorrect": false }
     ],
-    "correct_answer": "C"
+    "correct_answer": ["C"]
   },
   {
     "id": 45,
@@ -592,7 +592,7 @@
       { "value": "C. Amazon CloudWatch.", "isCorrect": true },
       { "value": "D. AWS CloudTrail.", "isCorrect": false }
     ],
-    "correct_answer": "C"
+    "correct_answer": ["C"]
   },
   {
     "id": 47,
@@ -605,7 +605,7 @@
       { "value": "C. AWS Secrets Manager.", "isCorrect": false },
       { "value": "D. AWS Trusted Advisor.", "isCorrect": true }
     ],
-    "correct_answer": "D"
+    "correct_answer": ["D"]
   },
   {
     "id": 48,
@@ -646,10 +646,10 @@
       { "value": "C. AWS Quick Start reference deployments.", "isCorrect": true },
       { "value": "D. AWS OpsWorks.", "isCorrect": false }
     ],
-    "correct_answer": "C"
+    "correct_answer": ["C"]
   },
   {
-    "id": 1,
+    "id": 61,
     "tag": "Compute",
     "sub_tag": "Amazon EC2",
     "question": "An organization has decided to purchase an Amazon EC2 Reserved Instance (RI) for three years in order to reduce costs. It is possible that the application workloads could change during the reservation period. What is the EC2 Reserved Instance (RI) type that will allow the company to exchange the purchased reserved instance for another reserved instance with higher computing power if they need to?",
@@ -659,7 +659,7 @@
       { "value": "C. Standard RI.", "isCorrect": false },
       { "value": "D. Convertible RI.", "isCorrect": true }
     ],
-    "correct_answer": "D"
+    "correct_answer": ["D"]
   }
 
 ]
