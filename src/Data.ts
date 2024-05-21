@@ -101,7 +101,7 @@
     { "value": "D. An Exabyte-scale data transfer service that allows you to move extremely large amounts of data to AWS.", "isCorrect": true },
     { "value": "E. Secure transfer of large amounts of data into and out of the AWS.", "isCorrect": true }
   ],
-  "correct_answer": ["D, E"]
+  "correct_answer": ["D", "E"]
 },
 {
   "id": 10,
