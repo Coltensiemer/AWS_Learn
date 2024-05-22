@@ -22,7 +22,7 @@ export enum ActionType {
 interface Action {
   type: ActionType;
   payload?: any;
-  inputType?: string, 
+  inputType?: string;
 }
 
 // Define the initial state type
@@ -35,7 +35,7 @@ export type QuizinitialState = {
   correctAnswersSum: number;
   incorrectAnswersSum: number;
   currentQuestion: number;
-  optionSelected: {[key: number]: string[] };
+  optionSelected: { [key: number]: string[] };
   Direction: string;
   showAnswer: boolean;
   questionLimit: number;
@@ -87,45 +87,40 @@ export const QuizReducer: Reducer<QuizinitialState, Action> = (
       return { ...state, showAnswer: action.payload };
     case ActionType.SET_QUESTION_LIMIT:
       return { ...state, questionLimit: action.payload };
-      case ActionType.SET_OPTION_SELECTED:
-        return {
-          ...state,
-          optionSelected: {
-            ...state.optionSelected,
-            ...Object.keys(action.payload).reduce((acc, key) => {
+    case ActionType.SET_OPTION_SELECTED:
+      return {
+        ...state,
+        optionSelected: {
+          ...state.optionSelected,
+          ...Object.keys(action.payload).reduce(
+            (acc, key) => {
               const numericKey = Number(key);
               const currentSelections = state.optionSelected[numericKey] || [];
               const newSelection = action.payload[numericKey];
-              const array:string[] = []
-
               if (action.inputType === 'checkbox') {
                 let updatedSelections;
 
                 if (currentSelections.includes(newSelection)) {
                   // If the value is already included and should be removed
-                  updatedSelections = currentSelections.filter(value => value !== newSelection);                  
-
+                  updatedSelections = currentSelections.filter(
+                    (value) => value !== newSelection
+                  );
                 } else {
                   // If the value should be added
                   updatedSelections = [...currentSelections, newSelection];
                 }
-      
-                acc[numericKey] = updatedSelections
-                
-                console.log(newSelection, 'newSelections')
-                console.log(currentSelections, 'currentSelections')
-                // For checkboxes, add or remove the value ensuring no duplicates
-
-
+                acc[numericKey] = updatedSelections;
               } else if (action.inputType === 'radio') {
                 // For radio buttons, replace the array with the new single selection
                 acc[numericKey] = newSelection;
               }
-      
+
               return acc;
-            }, {} as { [key: number]: string[] }),
-          },
-        };
+            },
+            {} as { [key: number]: string[] }
+          ),
+        },
+      };
     default:
       return state;
   }

@@ -76,6 +76,8 @@ export function Quiz({ questions }: QuizProps) {
     if (!questions) {
       return;
     }
+
+    if (QuizContext === null || QuizContext === undefined) return;
     // FormData.type is undefined, so the if statement is always true
     if (formData.type === undefined) {
       form.reset();
@@ -84,17 +86,20 @@ export function Quiz({ questions }: QuizProps) {
       const correct_answer: string[] = questions.find(
         (q) => q.id === currentQuestionID
       )?.correct_answer as string[];
+
       //Compares and returns boolen value
-      const isCorrect = compareAnswer(formData.type, correct_answer);
+      const isCorrect = compareAnswer(
+        QuizContext.optionSelected[currentQuestionID],
+        correct_answer
+      );
       /// If it goes into incorrect first, it will not go into correct ************
       setCorrectorIncorrectQs(QuizContext, currentQuestionID, isCorrect);
-
+      console.log(QuizContext)  
       form.reset();
     }
     // Determine the next or previous question ID based on the direction
     let nextId;
     let direction = QuizContext?.Direction;
-    console.log(direction, 'direction first Quiz.tsx');
     if (direction === 'next') {
       nextId = nextQuestion(currentIndex, questions, 'next');
     } else if (direction === 'prev') {
@@ -121,8 +126,6 @@ export function Quiz({ questions }: QuizProps) {
               control={form.control}
               name='type'
               render={({ field, formState: { errors } }) => {
-
-                console.log(QuizContext.optionSelected, 'optionSelected')
                 return (
                   <FormItem className='flex justify-around flex-col overflow-scroll mr-2'>
                     <div>
@@ -147,21 +150,31 @@ export function Quiz({ questions }: QuizProps) {
                                 >
                                   <Checkbox
                                     className='h-5 w-5'
-                                    checked={QuizContext.optionSelected[currentQuestionID]?.includes(option.value[0])}
+                                    checked={QuizContext.optionSelected[
+                                      currentQuestionID
+                                    ]?.includes(option.value[0])}
                                     value={option.value}
-                                    onCheckedChange={(checked) => {                        
-                                      // need to remove checked value from array if unchecked
-                                      // can't allow a duiplcate value in the array
-                               
-                                      console.log(field, 'field')
+                                    onCheckedChange={(checked) => {
                                       const selectedValue = option.value[0];
 
-                                      QuizContext.SET_OPTION_SELECTED({
-                                        [currentQuestionID]: selectedValue, // Update the current question ID with the selected value
-                                      }, 'checkbox');
-                                    }}
-                                    
+                                      QuizContext.SET_OPTION_SELECTED(
+                                        {
+                                          [currentQuestionID]: selectedValue, // Update the current question ID with the selected value
+                                        },
+                                        'checkbox'
+                                      );
+                                      const newValue = checked
+                                        ? [
+                                            ...(field.value || []),
+                                            selectedValue,
+                                          ] // Add the selected value if checked
+                                        : (field.value || []).filter(
+                                            (value: string) =>
+                                              value !== selectedValue
+                                          ); // Remove the selected value if unchecked
 
+                                      field.onChange(newValue);
+                                    }}
                                     id={`r${index}`}
                                   />
                                   <Label htmlFor={`r${index}`}>
@@ -174,19 +187,22 @@ export function Quiz({ questions }: QuizProps) {
                       ) : (
                         <RadioGroup
                           value={
-                            QuizContext.optionSelected[currentQuestionID]?.[0] || ''
+                            QuizContext.optionSelected[
+                              currentQuestionID
+                            ]?.[0] || ''
                           }
                           name='type'
                           onValueChange={(value) => {
                             //handle form change to auto update if correct or incorrect
-                            const selectedValue = value || '';// If value is undefined or null, use an empty string
+                            const selectedValue = value || ''; // If value is undefined or null, use an empty string
 
-                            QuizContext.SET_OPTION_SELECTED({                            
-                              [currentQuestionID]: selectedValue[0],
-                              
-                            }, 'radio');
+                            QuizContext.SET_OPTION_SELECTED(
+                              {
+                                [currentQuestionID]: selectedValue[0],
+                              },
+                              'radio'
+                            );
                             field.onChange(selectedValue);
-                            
                           }}
                           className='space-y-2'
                         >
