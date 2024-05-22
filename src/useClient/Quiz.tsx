@@ -25,29 +25,25 @@ import { useRouter } from 'next/navigation';
 import { nextQuestion } from '../functions/nextQuestion/nextQuestion';
 import { QuizSubmit } from './QuizSubmitResults';
 import { Card } from '../components/shadcn/card/card';
-
+import { Checkbox } from '../components/shadcn/checkbox/checkbox';
 
 // This is the schema that is used to validate the form data for the quiz.
 export const FormSchema = z
   .object({
-    type: z.enum(['A', 'B', 'C', 'D']),
+    type: z.enum(['A', 'B', 'C', 'D', 'E']),
   })
   .required();
 
 type OptionValue = z.infer<typeof FormSchema>['type'];
 
-
-
-export function checkBoxes(value: OptionValue) {
-
- } 
+export function checkBoxes(value: OptionValue) {}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // This is the Quiz component that is exported to the page.
 export function Quiz({ questions }: QuizProps) {
   const QuizContext = useContext(QuizProgressContext);
   const router = useRouter();
-  
+
   useEffect(() => {
     //Sets the QuizList in the context to the list of questions
     if (QuizContext && questions) {
@@ -61,17 +57,18 @@ export function Quiz({ questions }: QuizProps) {
 
   if (!QuizContext) return null;
   if (!questions) return null;
-  
+
   /// Get's the ID of the current question
   const currentQuestionID = QuizContext?.QuizList[QuizContext.currentQuestion];
-  
+
   // To identify the last question in the array and change the button text to 'Submit'
   const currentIndex = QuizContext?.currentQuestion as number;
 
-  const correct_answer = questions.find(q => q.id === currentQuestionID)?.correct_answer
-  if (correct_answer === undefined) return null; 
-  const isMutiple = correct_answer.length > 1 
-
+  const correct_answer = questions.find(
+    (q) => q.id === currentQuestionID
+  )?.correct_answer;
+  if (correct_answer === undefined) return null;
+  const isMutiple = correct_answer.length > 1;
 
   // This function is called when the form is submitted.
   function onSubmit(data: z.infer<typeof FormSchema>) {
@@ -91,7 +88,7 @@ export function Quiz({ questions }: QuizProps) {
       const isCorrect = compareAnswer(formData.type, correct_answer);
       /// If it goes into incorrect first, it will not go into correct ************
       setCorrectorIncorrectQs(QuizContext, currentQuestionID, isCorrect);
-      
+
       form.reset();
     }
     // Determine the next or previous question ID based on the direction
@@ -111,104 +108,114 @@ export function Quiz({ questions }: QuizProps) {
       router.push('/Questions/Results');
     }
   }
-  
+
   return (
     <Card className=' m-10 p-10'>
       <div className='flex  m-2'>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className='flex h-96 w-96'>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className='flex h-96 w-96'
+          >
             <FormField
               control={form.control}
               name='type'
               render={({ field, formState: { errors } }) => {
-                
-                
+
+                console.log(QuizContext.optionSelected, 'optionSelected')
                 return (
-
                   <FormItem className='flex justify-around flex-col overflow-scroll mr-2'>
-                  <div>
-                    <FormLabel className='text-lg whitespace-normal break-normal'>
-                      {
-                        questions.find((q) => q.id === currentQuestionID)
-                        ?.question
-                      }
-                    </FormLabel>
-                  </div>
-                  <FormControl>
-                    {isMutiple ? 
-                    <div className=''>
-                      
-
-                      {/* /// This is the checkbox component - complete on submit with two or more values - edit layout */}
-                      {questions
-                        .find((q) => q.id === currentQuestionID)
-                        ?.options.map((option, index) => {
-                          return (
-                            <div
-                            key={index}
-                            className='flex items-start space-x-2 p-2'
-                            >
-                              <input
-                              className='h-5 w-5'
-                              type='checkbox'
-                                value={option.value}
-                                id={`r${index}`}
-                                />
-                              <Label htmlFor={`r${index}`}>
-                                {option.value}
-                              </Label>
-                            </div>
-                          );
-                          
-                        })}
-                      
+                    <div>
+                      <FormLabel className='text-lg whitespace-normal break-normal'>
+                        {
+                          questions.find((q) => q.id === currentQuestionID)
+                            ?.question
+                        }
+                      </FormLabel>
                     </div>
-                    
-                    : 
-                  
+                    <FormControl>
+                      {isMutiple ? (
+                        <div className=''>
+                          {/* /// This is the checkbox component - complete on submit with two or more values - edit layout */}
+                          {questions
+                            .find((q) => q.id === currentQuestionID)
+                            ?.options.map((option, index) => {
+                              return (
+                                <div
+                                  key={index}
+                                  className='flex items-start space-x-2 p-2'
+                                >
+                                  <Checkbox
+                                    className='h-5 w-5'
+                                    checked={QuizContext.optionSelected[currentQuestionID]?.includes(option.value[0])}
+                                    value={option.value}
+                                    onCheckedChange={(checked) => {                        
+                                      // need to remove checked value from array if unchecked
+                                      // can't allow a duiplcate value in the array
+                               
+                                      console.log(field, 'field')
+                                      const selectedValue = option.value[0];
 
+                                      QuizContext.SET_OPTION_SELECTED({
+                                        [currentQuestionID]: selectedValue, // Update the current question ID with the selected value
+                                      }, 'checkbox');
+                                    }}
+                                    
 
-                    <RadioGroup
-                    value={QuizContext.optionSelected[currentQuestionID] || ''}
-                    name='type'
-                    onValueChange={(value) => {
-                      //handle form change to auto update if correct or incorrect
-                      const selectedValue = value || ''; // If value is undefined or null, use an empty string
-                      QuizContext.SET_OPTION_SELECTED({
-                        [currentQuestionID]: selectedValue                        
-                      } 
-                    )
-                    field.onChange(selectedValue);
-                    console.log(selectedValue, 'selectedValue')
-                  }}
-                  className='space-y-2'
-                  >
-                      {errors.type && <p>{errors.type.message}</p>}
-                      {questions
-                        .find((q) => q.id === currentQuestionID)
-                        ?.options.map((option, index) => {
-                          return (
-                            <div
-                            key={index}
-                            className='flex items-start space-x-2'
-                            >
-                              <RadioGroupItem
-                                value={option.value[0]}
-                                id={`r${index}`}
-                                />
-                              <Label htmlFor={`r${index}`}>
-                                {option.value}
-                              </Label>
-                            </div>
-                          );
-                          
-                        })}
-                    </RadioGroup>
-                }
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-  )}}
+                                    id={`r${index}`}
+                                  />
+                                  <Label htmlFor={`r${index}`}>
+                                    {option.value}
+                                  </Label>
+                                </div>
+                              );
+                            })}
+                        </div>
+                      ) : (
+                        <RadioGroup
+                          value={
+                            QuizContext.optionSelected[currentQuestionID]?.[0] || ''
+                          }
+                          name='type'
+                          onValueChange={(value) => {
+                            //handle form change to auto update if correct or incorrect
+                            const selectedValue = value || '';// If value is undefined or null, use an empty string
+
+                            QuizContext.SET_OPTION_SELECTED({                            
+                              [currentQuestionID]: selectedValue[0],
+                              
+                            }, 'radio');
+                            field.onChange(selectedValue);
+                            
+                          }}
+                          className='space-y-2'
+                        >
+                          {errors.type && <p>{errors.type.message}</p>}
+                          {questions
+                            .find((q) => q.id === currentQuestionID)
+                            ?.options.map((option, index) => {
+                              return (
+                                <div
+                                  key={index}
+                                  className='flex items-start space-x-2'
+                                >
+                                  <RadioGroupItem
+                                    value={option.value[0]}
+                                    id={`r${index}`}
+                                  />
+                                  <Label htmlFor={`r${index}`}>
+                                    {option.value}
+                                  </Label>
+                                </div>
+                              );
+                            })}
+                        </RadioGroup>
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
             />
           </form>
         </Form>
@@ -220,7 +227,12 @@ export function Quiz({ questions }: QuizProps) {
         />
         <QuizTracker currentIndex={currentIndex} />
       </div>
-      <QuizSubmit questions={questions} currentIndex={currentIndex} correct={QuizContext.Correct_Answered} incorrect={QuizContext.Incorrect_Answered}/>
+      <QuizSubmit
+        questions={questions}
+        currentIndex={currentIndex}
+        correct={QuizContext.Correct_Answered}
+        incorrect={QuizContext.Incorrect_Answered}
+      />
     </Card>
   );
 }
