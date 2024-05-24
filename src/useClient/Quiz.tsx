@@ -168,6 +168,7 @@ export function Quiz({ questions }: QuizProps) {
                                             ...(field.value || []),
                                             selectedValue,
                                           ] // Add the selected value if checked
+                                          //@ts-expect-error
                                         : (field.value || []).filter(
                                             (value: string) =>
                                               value !== selectedValue
