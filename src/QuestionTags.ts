@@ -68,6 +68,7 @@ const database = [
   "Amazon MemoryDB for Redis",
   "Amazon Neptune",
   "Amazon RDS",
+  "Amazon ElastiCache",
   "Best Practices"
 ];
 
@@ -184,7 +185,8 @@ const securityIdentityAndCompliance = [
   "AWS Security Hub",
   "AWS Shield",
   "AWS WAF",
-  "Best Practices"
+  "Best Practices",
+  "AWS MFA"
 ];
 
 const serverless = [
