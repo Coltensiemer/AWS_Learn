@@ -79,6 +79,7 @@ export default function QuizOption() {
     setQuizTimer(true);
     SET_TAGS([]);
     SET_QUIZ_TIME(60);
+    SET_QUIZ_LENGTH(60);
   };
 
   useEffect(() => {
@@ -88,7 +89,6 @@ export default function QuizOption() {
 
   useEffect(() => {
     SET_QUIZ_LENGTH(quizLengthInput);
-    console.log(quizLength, 'quizLength')
   }, [quizLengthInput]);
 
   return (
@@ -118,18 +118,23 @@ export default function QuizOption() {
         {/* //Quiz Timer */}
         <TabsContent value='Options' className='w-full'>
           <div className='flex flex-col items-center p-4'>
-            <div>
+            <div className='flex items-center space-x-2'>
               <p>
                 Quiz Length is
+                </p>
                 <Input
-                  maxLength={150}
+                className='w-24'
+                
+                  maxLength={3}
+                  minLength={1}
+                  max={150}
                   type='number'
                   placeholder='Enter a Number'
+                  value={quizLength}
                   onChange={(e) => 
                     SET_QUIZ_LENGTH(e.target.value)
                   }
                 />
-              </p>
             </div>
 
             <div className='justify-center flex items-center'>
