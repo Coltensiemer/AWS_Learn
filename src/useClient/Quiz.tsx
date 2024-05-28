@@ -94,10 +94,19 @@ export function Quiz({ questions }: QuizProps) {
       );
       /// If it goes into incorrect first, it will not go into correct ************
       setCorrectorIncorrectQs(QuizContext, currentQuestionID, isCorrect);
-      console.log(QuizContext)  
       form.reset();
     }
     // Determine the next or previous question ID based on the direction
+
+
+    // select next question based on the direction updated quiz context of direction
+    // that context gets used in the parent component to determine the next question base off the next ID
+    //NextID will set the indexof the quizlist and set the current question
+    // Is there a better way to pass the direction to the nextQuestion function in the child so the parent updated syncronously?
+    //currently the direction is updated in the parent but is a click behind since it is an async function
+
+
+
     let nextId;
     let direction = QuizContext?.Direction;
     if (direction === 'next') {
@@ -168,6 +177,7 @@ export function Quiz({ questions }: QuizProps) {
                                             ...(field.value || []),
                                             selectedValue,
                                           ] // Add the selected value if checked
+                                          //@ts-expect-error
                                         : (field.value || []).filter(
                                             (value: string) =>
                                               value !== selectedValue
@@ -248,6 +258,7 @@ export function Quiz({ questions }: QuizProps) {
         currentIndex={currentIndex}
         correct={QuizContext.Correct_Answered}
         incorrect={QuizContext.Incorrect_Answered}
+        onSubmit={onSubmit}
       />
     </Card>
   );

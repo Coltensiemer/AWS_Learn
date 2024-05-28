@@ -54,22 +54,25 @@ export function PaginationDirection({
   // Function to go to selected question
   /// Unable to get back to the FIRST QuESITON ' index is out of bounds' error***** 
   function goToSelectedQuestion(index: number) {
-    console.log(index, 'index + 1')
+    // Need to update handFormSubmit to not handle the next direction
+    // handleFormSubmit(index);
     if (QuizContext === undefined) return null;
     const quizId = QuizContext.QuizList[index + 1 ];
-    const nextIndex = QuizContext?.QuizList.indexOf(quizId);
-    QuizContext.SET_CURRENT_QUESTION(nextIndex) ;
+    const selectedIndex = QuizContext?.QuizList.indexOf(quizId);
+    QuizContext.SET_CURRENT_QUESTION(selectedIndex) ;
   }
 
 
   // is the function to handle the next question
   // CURRENT BUG, HandleFORMSumbit does not update in time to get the correct index
+
+
   const handleNextQuestion = (direction: string) => {
     handleFormSubmit(direction)
     QuizContext.SET_QUIZ_DIRECTION(direction);
   } 
 
-  
+
 
   const questionColor = (index: number) => {
     const quizId = QuizContext.QuizList[index];

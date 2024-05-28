@@ -51,11 +51,13 @@ export function QuizSubmit({
   correct,
   currentIndex,
   incorrect,
+  onSubmit,
 }: {
   questions: QuestionType[];
   correct: number[];
   incorrect: number[];
   currentIndex: number;
+  onSubmit: (data: any) => void;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   // const router = useRouter();
@@ -67,6 +69,7 @@ export function QuizSubmit({
   if (!QuizContext) return null;
 
   const handleSubmit = async () => {
+    onSubmit
     const cookieID = await getSession();
     // Here we are sending the quiz results to the server
     fetch('/api/quiz', {

@@ -59,22 +59,27 @@ export const QuizProgressProvider = ({
     dispatch({ type: ActionType.SET_CURRENT_QUESTION, payload });
   };
 
+  //If an answer is correct, this function will be called and the quiz id will be added to the correct array
   const SET_CORRECT_ANSWERED = (payload: any) => {
     dispatch({ type: ActionType.SET_CORRECT_ANSWERED, payload });
   };
 
+  //if an answer is incorrect, this function will be called and the quiz id will be added to the incorrect array
   const SET_INCORRECT_ANSWERED = (payload: any) => {
     dispatch({ type: ActionType.SET_INCORRECT_ANSWERED, payload });
   };
 
+  //This function will set the tags for the quiz in the Question page. 
   const SET_TAGS = (payload: any) => {
     dispatch({ type: ActionType.SET_TAGS, payload });
   }
 
+  //This function will set the time for the quiz in the Question page.
   const SET_QUIZ_TIME = (payload: any) => {
     dispatch({ type: ActionType.SET_QUIZ_TIME, payload });
   };
 
+  
   const SET_QUIZ_DIRECTION = (payload: string) => {
     dispatch({ type: ActionType.SET_QUIZ_DIRECTION, payload });
   }
