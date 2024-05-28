@@ -4,7 +4,7 @@ import React from "react";
 
 export default function Home() {
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-evenly items-center min-h-screen">
       <HomePageNoUser />
       <HomePageSignIn />
     </div>
