@@ -1,17 +1,20 @@
 import Link from 'next/link';
+import { Button } from '../shadcn/button/button';
 
 export default function Header(){
   return (
-    <header className=' fixed container flex mb-10 px-10 w-1/2'> 
-			<h1>AWS Quiz</h1>
+    <header className=' fixed container flex px-10 m-2'> 
+			<h1 className='font-bold text-xl mr-auto'>AWS Quiz</h1>
       <nav className='flex items-center justify-between'>
-        <ul className='flex px-2'>
+        <ul className='flex space-x-4'>
           <li>
+            <Button variant='link'>
             <Link href="/">
               Home
             </Link>
+            </Button>
           </li>
-          <li>
+          {/* <li>
             <Link href="/">
           About 
             </Link>
@@ -20,7 +23,7 @@ export default function Header(){
             <Link href="/">
               Contact
             </Link>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </header>
