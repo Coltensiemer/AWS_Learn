@@ -1,7 +1,5 @@
 'use client';
 
-import { any, number } from 'zod';
-import { Quiz } from '../useClient/Quiz';
 import { Reducer } from 'react';
 
 // Define the action types
@@ -16,6 +14,7 @@ export enum ActionType {
   SET_SHOW_ANSWER,
   SET_QUESTION_LIMIT,
   SET_OPTION_SELECTED,
+  SET_QUIZ_LENGTH,
 }
 
 // Define the action interface
@@ -39,6 +38,7 @@ export type QuizinitialState = {
   Direction: string;
   showAnswer: boolean;
   questionLimit: number;
+  quizLength: number;
 };
 
 // Create the initial state object
@@ -47,7 +47,7 @@ export const initialQuizState: QuizinitialState = {
   Correct_Answered: [],
   Incorrect_Answered: [],
   Tags: [],
-  QuizTime: 0,
+  QuizTime: 60,
   correctAnswersSum: 0,
   incorrectAnswersSum: 0,
   currentQuestion: 0,
@@ -55,6 +55,7 @@ export const initialQuizState: QuizinitialState = {
   showAnswer: false,
   questionLimit: 60,
   optionSelected: {},
+  quizLength: 60,
 };
 
 // Define the reducer function
@@ -87,6 +88,8 @@ export const QuizReducer: Reducer<QuizinitialState, Action> = (
       return { ...state, showAnswer: action.payload };
     case ActionType.SET_QUESTION_LIMIT:
       return { ...state, questionLimit: action.payload };
+    case ActionType.SET_QUIZ_LENGTH:
+      return { ...state, quizLength: action.payload };
     case ActionType.SET_OPTION_SELECTED:
       return {
         ...state,

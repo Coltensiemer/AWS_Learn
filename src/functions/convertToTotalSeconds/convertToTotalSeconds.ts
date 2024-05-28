@@ -3,7 +3,6 @@ export const convertToTotalSeconds = (minutes: number = 0, seconds: number = 0) 
 }
 
 const minutesToseconds = minutes * 60;
-console.log(minutes, seconds)
 const totalseconds = minutesToseconds + seconds;
 return totalseconds;
 }

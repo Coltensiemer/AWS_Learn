@@ -1,26 +1,22 @@
 'use client';
 
-import { Button } from '../components/shadcn/button/button';
+import { Button } from '../shadcn/button/button';
 import React, { useState, useContext, useEffect } from 'react';
-import { QuizProgressContext } from '../useContext/QuizProgressContext';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '../components/shadcn/tabs';
-import { Switch } from '../components/shadcn/switch';
-import { Label } from '../components/shadcn/label';
-import { Toggle } from '../components/shadcn/toggle';
+import { QuizProgressContext } from '../../useContext/QuizProgressContext';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../shadcn/tabs';
+import { Switch } from '../shadcn/switch';
+import { Label } from '../shadcn/label';
+import { Toggle } from '../shadcn/toggle';
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '../components/shadcn/card/card';
-import { TimeInput } from '../components/shadcn/inputTimer';
-import { convertToTotalSeconds } from '../functions/convertToTotalSeconds/convertToTotalSeconds';
-import { QuestionTags } from '../QuestionTags';
+} from '../shadcn/card/card';
+import { TimeInput } from '../shadcn/inputTimer';
+import { convertToTotalSeconds } from '../../functions/convertToTotalSeconds/convertToTotalSeconds';
+import { QuestionTags } from '../../QuestionTags';
+import { Input } from '../shadcn/input/input';
 import { ScrollArea } from '@radix-ui/react-scroll-area';
 
 // }
@@ -46,16 +42,25 @@ const renderSecondsText = (seconds: number): string => {
 };
 
 export default function QuizOption() {
-  const [TimeMinutes, setTimeMinutes] = useState<any>(0);
+  const [TimeMinutes, setTimeMinutes] = useState<any>(60);
   const [TimeSeconds, setTimeSeconds] = useState<any>(0);
-  const [QuizTimer, setQuizTimer] = useState(false);
+  const [quizLengthInput, setQuizLengthInput] = useState(60);
+  const [QuizTimer, setQuizTimer] = useState(true);
   const QuizContext = useContext(QuizProgressContext);
   if (!QuizContext) {
     throw new Error(
       'QuizProgressContext must be used within a QuizProgressProvider'
     );
   }
-  const { SET_TAGS, Tags, SET_QUIZ_TIME, QuizTime } = QuizContext;
+  const {
+    SET_TAGS,
+    Tags,
+    SET_QUIZ_TIME,
+    QuizTime,
+    SET_QUIZ_LENGTH,
+    quizLength,
+  } = QuizContext;
+
 
   // Function to handle tag selection/deselection
   const handleTagChange = (tag: string) => {
@@ -68,14 +73,27 @@ export default function QuizOption() {
     }
   };
 
+  const resetAll = () => {
+    setTimeMinutes(60);
+    setTimeSeconds(0);
+    setQuizTimer(true);
+    SET_TAGS([]);
+    SET_QUIZ_TIME(60);
+  };
+
   useEffect(() => {
     const totalSeconds = convertToTotalSeconds(TimeMinutes, TimeSeconds);
     SET_QUIZ_TIME(totalSeconds);
-  }, [TimeMinutes, TimeSeconds]);
+  }, [TimeMinutes, TimeSeconds,]);
+
+  useEffect(() => {
+    SET_QUIZ_LENGTH(quizLengthInput);
+    console.log(quizLength, 'quizLength')
+  }, [quizLengthInput]);
 
   return (
     <Card className='flex flex-col lg:flex-row h-96'>
-      <CardHeader>
+      <CardHeader className='border'>
         <CardTitle>Quiz Options</CardTitle>
         <CardDescription>Customize your quiz</CardDescription>
       </CardHeader>
@@ -84,24 +102,39 @@ export default function QuizOption() {
           <TabsTrigger value='Tags'>Quiz Tags</TabsTrigger>
           <TabsTrigger value='Options'>Options</TabsTrigger>
         </TabsList>
-        <TabsContent value='Tags' className='w-96 flex flex-col'>
-        {QuestionTags.map((tag, tagIndex) => (
-        <Toggle
-          variant='solid'
-          pressed={Tags.includes(tag[0])}
-          onPressedChange={() => handleTagChange(tag[0])}
-          key={tagIndex}
-        >
-          <label htmlFor={tag[0]}>{tag[0]}</label>
-        </Toggle>
-                ))}
+        <TabsContent value='Tags' className='w-full flex flex-col'>
+          {QuestionTags.map((tag, tagIndex) => (
+            <Toggle
+              variant='solid'
+              pressed={Tags.includes(tag[0])}
+              onPressedChange={() => handleTagChange(tag[0])}
+              key={tagIndex}
+            >
+              <label htmlFor={tag[0]}>{tag[0]}</label>
+            </Toggle>
+          ))}
         </TabsContent>
 
         {/* //Quiz Timer */}
-        <TabsContent value='Options' className='w-96'>
-          <div className='flex flex-col items-center p-2'>
+        <TabsContent value='Options' className='w-full'>
+          <div className='flex flex-col items-center p-4'>
+            <div>
+              <p>
+                Quiz Length is
+                <Input
+                  maxLength={150}
+                  type='number'
+                  placeholder='Enter a Number'
+                  onChange={(e) => 
+                    SET_QUIZ_LENGTH(e.target.value)
+                  }
+                />
+              </p>
+            </div>
+
             <div className='justify-center flex items-center'>
               <Switch
+                checked={QuizTimer}
                 id='QuizTimer'
                 onCheckedChange={() => setQuizTimer(!QuizTimer)}
               ></Switch>
@@ -133,11 +166,18 @@ export default function QuizOption() {
       </Tabs>
 
       {/* Showing quiz options */}
-      <Card className='w-96 sticky h-32 lg:h-full overflow-scroll  bottom-20 lg:static lg:border-l-2 border-gray-500'>
-        <CardHeader></CardHeader>
-        <div>
-          {!QuizTime && <p>Timer is not set.</p>}
-          {QuizTime && QuizTime > 2 ? (
+      <Card className='w-96 m-2 sticky h-32 lg:h-full overflow-scroll  bottom-20 lg:static'>
+        <CardHeader>
+          <Button onClick={resetAll} variant='ghost' className='w-24 text-xs'>
+            Reset
+          </Button>
+        </CardHeader>
+
+        <div className='flex flex-col items-center'>
+          <div>
+            <p>Your quiz will be {quizLength} long.</p>
+          </div>
+          {QuizTimer === true && QuizTime > 2 ? (
             <p>
               Timer is set for{' '}
               {TimeMinutes && TimeMinutes > 0

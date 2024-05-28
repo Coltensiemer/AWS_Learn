@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Button } from '../../components/shadcn/button/button';
-import QuizOption from '../../useClient/QuizOption';
+import QuizOption from '../../components/useClient/QuizOption';
 import { useContext, useEffect } from 'react';
 import { QuizProgressContext } from '../../useContext/QuizProgressContext';
 import { createCookie } from '../../../actions/cookieActions/cookieActions';

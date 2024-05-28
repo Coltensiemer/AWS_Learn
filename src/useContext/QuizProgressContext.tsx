@@ -19,8 +19,8 @@ export interface QuizProgressContextType {
   Tags: string[];
   QuizTime: number; 
   Direction: string;
-  questionLimit: number;
   optionSelected: { [key: number]: string[]}
+  quizLength: number;
   SET_CURRENT_QUESTION: (payload: any) => void;
   SET_CORRECT_ANSWERED: (payload: any) => void;
   SET_INCORRECT_ANSWERED: (payload: any) => void;
@@ -29,8 +29,8 @@ export interface QuizProgressContextType {
   SET_QUIZ_TIME: (payload: any) => void;
   SET_QUIZ_DIRECTION: (payload: any) => void;
   SET_SHOW_ANSWER: (payload: any) => void;
-  SET_QUESTION_LIMIT: (payload: any) => void;
   SET_OPTION_SELECTED: (payload: any, inputType: string) => void;
+  SET_QUIZ_LENGTH: (payload: any) => void;
 }
 
 //Create a context to store the quiz progress data
@@ -87,13 +87,14 @@ export const QuizProgressProvider = ({
   const SET_SHOW_ANSWER = (payload: boolean) => {
     dispatch({ type: ActionType.SET_SHOW_ANSWER, payload });
   } 
-  const SET_QUESTION_LIMIT = (payload: number) => {
-    dispatch({ type: ActionType.SET_QUESTION_LIMIT, payload });
-   }
-  
+
   const SET_OPTION_SELECTED = (payload: any, inputType: string) => {
     dispatch({ type: ActionType.SET_OPTION_SELECTED, payload, inputType: inputType });
   }
+
+  const SET_QUIZ_LENGTH = (payload: number) => { 
+    dispatch({ type: ActionType.SET_QUIZ_LENGTH, payload });
+  } 
 
   const contextValue = useMemo(
     () => ({
@@ -107,8 +108,8 @@ export const QuizProgressProvider = ({
       QuizTime: state.QuizTime,
       Direction: state.Direction,
       showAnwer: state.showAnswer,
-      questionLimit: state.questionLimit,
       optionSelected: state.optionSelected,
+      quizLength: state.quizLength,
       SET_CURRENT_QUESTION,
       SET_CORRECT_ANSWERED,
       SET_INCORRECT_ANSWERED,
@@ -117,8 +118,8 @@ export const QuizProgressProvider = ({
       SET_QUIZ_TIME,
       SET_QUIZ_DIRECTION,
       SET_SHOW_ANSWER,
-      SET_QUESTION_LIMIT,
-      SET_OPTION_SELECTED
+      SET_OPTION_SELECTED,
+      SET_QUIZ_LENGTH
     }),
     [
       state.Correct_Answered,
@@ -131,8 +132,8 @@ export const QuizProgressProvider = ({
       state.QuizTime,
       state.Direction,
       state.showAnswer,
-      state.questionLimit,
-      state.optionSelected
+      state.optionSelected,
+      state.quizLength,
     ]
   );
 
