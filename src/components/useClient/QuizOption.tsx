@@ -17,13 +17,7 @@ import { TimeInput } from '../shadcn/inputTimer';
 import { convertToTotalSeconds } from '../../functions/convertToTotalSeconds/convertToTotalSeconds';
 import { QuestionTags } from '../../QuestionTags';
 import { Input } from '../shadcn/input/input';
-import { ScrollArea } from '@radix-ui/react-scroll-area';
 
-// }
-// Quiz Length
-// quiz tags
-// quiz difficulty
-// Quiz timer
 // See if answer is correct or wrong
 
 // Function to render time in minutes and seconds
@@ -171,7 +165,7 @@ export default function QuizOption() {
       </Tabs>
 
       {/* Showing quiz options */}
-      <Card className='w-96 m-2 sticky h-32 lg:h-full overflow-scroll  bottom-20 lg:static'>
+      <Card className='w-96 sticky h-32 lg:h-full overflow-scroll border border-none bottom-20 lg:static'>
         <CardHeader>
           <Button onClick={resetAll} variant='ghost' className='w-24 text-xs'>
             Reset

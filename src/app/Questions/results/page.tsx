@@ -30,9 +30,7 @@ export default async function Page() {
     });
   })
  
-  if (!sessiondata) { return <div>No data Avaliable: Refresh or return to Home</div> }
-  console.log(sessiondata[0].options)
-  if (!sessiondata ) { return <div>No data Avaliable: Refresh or return to Home</div> } 
+  if (!sessiondata) { return <div>No data Avaliable: Refresh or return to Home</div> } 
 
   return (
     <div className='w-1/2'>

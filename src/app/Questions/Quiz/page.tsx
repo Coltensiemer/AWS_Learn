@@ -2,20 +2,17 @@ import react, { cache } from 'react';
 import { Quiz } from '../../../useClient/Quiz';
 import { QuizProps, QuestionType } from '../../../../prisma/dataTypes';
 import prisma from '../../../lib/prisma';
-import { generateCookieID } from '../../../functions/generateSessionID/generateCookieID';
-import { cookies } from 'next/headers';
-import { getSession } from '../../../../actions/cookieActions/cookieActions';
 
-
-
-
-async function GETQuiz(tags: string[]) {
+async function GETQuiz(tags: string[], length: number) {
+  const skip = Math.floor(Math.random() * length);
   // When no tags are selected, return all questions
   if (!tags) {
     const data: QuestionType[] = await prisma.quiz.findMany({
       include: {
         options: true,
       },
+      take: Number(length),
+      skip: skip,
     });
     return data;
   }
@@ -39,9 +36,9 @@ const QuizCache = cache(GETQuiz);
 export default async function Page({
   searchParams,
 }: {
-  searchParams: { tags: string[] };
+  searchParams: { tags: string[]; length: number };
 }) {
-  const response = await QuizCache(searchParams.tags);
+  const response = await QuizCache(searchParams.tags, searchParams.length);
 
   return (
     <div className='flex flex-col'>

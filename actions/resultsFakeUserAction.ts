@@ -76,15 +76,13 @@ export async function getFakeUserTableResultData(cookieid: string) {
   try {
     const userQuizData = await getFakeUserResults(cookieid);
 
-    // console.log(userQuizData?.completedquiz[0].quizselectedoptions)
+    
     if (!userQuizData) {
       return null;
     }
     const completedQuiz = userQuizData.completedquiz[0];
     const quizList = userQuizData.completedquiz[0].quizidused;
 
-    // console.log(Object.keys(completedQuiz.quizselectedoptions))
-    // console.log(Object.values(completedQuiz.quizselectedoptions))
     const quizData = await getQuizList(quizList);
 
     if (!quizData) {

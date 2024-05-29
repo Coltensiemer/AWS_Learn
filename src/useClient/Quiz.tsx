@@ -27,6 +27,8 @@ import { QuizSubmit } from './QuizSubmitResults';
 import { Card } from '../components/shadcn/card/card';
 import { Checkbox } from '../components/shadcn/checkbox/checkbox';
 
+
+
 // This is the schema that is used to validate the form data for the quiz.
 export const FormSchema = z
   .object({
@@ -96,16 +98,6 @@ export function Quiz({ questions }: QuizProps) {
       setCorrectorIncorrectQs(QuizContext, currentQuestionID, isCorrect);
       form.reset();
     }
-    // Determine the next or previous question ID based on the direction
-
-
-    // select next question based on the direction updated quiz context of direction
-    // that context gets used in the parent component to determine the next question base off the next ID
-    //NextID will set the indexof the quizlist and set the current question
-    // Is there a better way to pass the direction to the nextQuestion function in the child so the parent updated syncronously?
-    //currently the direction is updated in the parent but is a click behind since it is an async function
-
-
 
     let nextId;
     let direction = QuizContext?.Direction;
@@ -122,6 +114,8 @@ export function Quiz({ questions }: QuizProps) {
       router.push('/Questions/Results');
     }
   }
+
+  console.log(QuizContext, 'QuizContext')
 
   return (
     <Card className=' m-10 p-10'>

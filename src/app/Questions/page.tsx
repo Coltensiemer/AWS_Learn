@@ -15,7 +15,7 @@ export default function EasyQuestions() {
     );
   }
 
-const { Tags } = QuizContext;
+const { Tags, quizLength } = QuizContext;
 
   useEffect(() => {
     createCookie();
@@ -25,7 +25,7 @@ const { Tags } = QuizContext;
     <>
       <div className='flex flex-col lg:w-1/2'>
         <Button>
-          <Link href={{ pathname: '/Questions/Quiz', query: { tags: Tags } }}>
+          <Link href={{ pathname: '/Questions/Quiz', query: { tags: Tags, length: quizLength } }}>
             Start Quiz
           </Link>
         </Button>

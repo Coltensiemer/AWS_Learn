@@ -50,7 +50,6 @@ export async function getTableResultData(cookieid: string) {
 		
 
 		const quizData = await getQuizList(QuizList);
-console.log(quizData)	
     if (!quizData) {
       return null;
     }
@@ -60,7 +59,6 @@ console.log(quizData)
         questions: quizData,
     };
 
-    // console.log(completeQuizData, 'completeQuizData');
   } catch (error) {
     console.error(error);
     return null;

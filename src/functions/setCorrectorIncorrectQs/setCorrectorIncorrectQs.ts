@@ -29,7 +29,6 @@ export function setCorrectorIncorrectQs(
         return;
       } else {
         const index = correctAnsweredArray.indexOf(questionID);
-        console.log(index, 'index');
         if (index !== -1) {
           correctAnsweredArray.splice(index, 1);
           /// this makes the SET_correct come back as undefined...
@@ -50,7 +49,6 @@ export function setCorrectorIncorrectQs(
 
         if (index !== -1) {
           correctAnsweredArray.splice(index, 1);
-          console.log(incorrectAnsweredArray, 'incorrectAnsweredArray');
           /// this makes the SET_INcorrect come back as undefined...
           QuizContext.SET_CORRECT_ANSWERED(questionID);
           QuizContext.SET_INCORRECT_ANSWERED();

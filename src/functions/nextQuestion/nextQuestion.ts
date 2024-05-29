@@ -5,7 +5,6 @@ export const nextQuestion = (
   questions: QuestionType[],
   direction: string
 ) => {
-  console.log(questionIndex, 'questionIndex');
   if (questionIndex === -1) {
     return questionIndex; // if the question is not found return the current index
   } else {

@@ -12,7 +12,6 @@ export enum ActionType {
   SET_QUIZ_TIME,
   SET_QUIZ_DIRECTION,
   SET_SHOW_ANSWER,
-  SET_QUESTION_LIMIT,
   SET_OPTION_SELECTED,
   SET_QUIZ_LENGTH,
 }
@@ -37,7 +36,6 @@ export type QuizinitialState = {
   optionSelected: { [key: number]: string[] };
   Direction: string;
   showAnswer: boolean;
-  questionLimit: number;
   quizLength: number;
 };
 
@@ -53,7 +51,6 @@ export const initialQuizState: QuizinitialState = {
   currentQuestion: 0,
   Direction: 'next',
   showAnswer: false,
-  questionLimit: 60,
   optionSelected: {},
   quizLength: 60,
 };
@@ -86,8 +83,6 @@ export const QuizReducer: Reducer<QuizinitialState, Action> = (
       return { ...state, Direction: action.payload };
     case ActionType.SET_SHOW_ANSWER:
       return { ...state, showAnswer: action.payload };
-    case ActionType.SET_QUESTION_LIMIT:
-      return { ...state, questionLimit: action.payload };
     case ActionType.SET_QUIZ_LENGTH:
       return { ...state, quizLength: action.payload };
     case ActionType.SET_OPTION_SELECTED:

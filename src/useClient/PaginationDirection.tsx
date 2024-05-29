@@ -55,16 +55,12 @@ export function PaginationDirection({
   /// Unable to get back to the FIRST QuESITON ' index is out of bounds' error***** 
   function goToSelectedQuestion(index: number) {
     // Need to update handFormSubmit to not handle the next direction
-    // handleFormSubmit(index);
+    handleFormSubmit(index);
     if (QuizContext === undefined) return null;
     const quizId = QuizContext.QuizList[index + 1 ];
     const selectedIndex = QuizContext?.QuizList.indexOf(quizId);
     QuizContext.SET_CURRENT_QUESTION(selectedIndex) ;
   }
-
-
-  // is the function to handle the next question
-  // CURRENT BUG, HandleFORMSumbit does not update in time to get the correct index
 
 
   const handleNextQuestion = (direction: string) => {
@@ -79,25 +75,17 @@ export function PaginationDirection({
     if (QuizContext.currentQuestion === index) {
       return 'current'
     }
-    // if QUIZCONTEXT OPTION === SHOW ANSWERS RETURN BELOW
     // Check if the index is in the 'incorrect' array
     if (QuizContext.Correct_Answered.includes(quizId)) {
       return 'correct';
     }
-    
-    // if QUIZCONTEXT OPTION === SHOW ANSWERS RETURN BELOW
     // Check if the index is in the 'correct' array
     if (QuizContext.Incorrect_Answered.includes(quizId)) {
       return 'incorrect';
     }
-  
     // If the index is not found in either array, return an empty string
     return 'neutral';
   }
-
-  
-
-  
 
   return (
     <div>
