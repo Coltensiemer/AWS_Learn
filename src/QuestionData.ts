@@ -1007,7 +1007,7 @@
 {
   "id": 88,
   "tag": "Security, Identity, and Compliance",
-  "sub_tag": "",
+  "sub_tag": "AWS WAF",
   "question": "Which of the following services can help protect your web applications from SQL injection and other vulnerabilities in your application code?",
   "options": [
     { "value": "A. Amazon Cognito.", "isCorrect": false },
@@ -1020,7 +1020,7 @@
 {
   "id": 89,
   "tag": "Analytics",
-  "sub_tag": "",
+  "sub_tag": "Amazon EMR",
   "question": "An organization needs to analyze and process a large number of data sets. Which AWS service should they use?",
   "options": [
     { "value": "A. Amazon EMR.", "isCorrect": true },
@@ -1033,7 +1033,7 @@
 {
   "id": 90,
   "tag": "Security, Identity, and Compliance",
-  "sub_tag": "",
+  "sub_tag": "Best Practices",
   "question": "Based on the AWS Shared Responsibility Model, which of the following are the sole responsibility of AWS? (Choose TWO)",
   "options": [
     { "value": "A. Monitoring network performance.", "isCorrect": false },
@@ -1047,7 +1047,7 @@
 {
   "id": 91,
   "tag": "Compute",
-  "sub_tag": "",
+  "sub_tag": "Amazon EC2",
   "question": "What is the AWS service that provides you the highest level of control over the underlying virtual infrastructure?",
   "options": [
     { "value": "A. Amazon Redshift.", "isCorrect": false },
@@ -1060,7 +1060,7 @@
 {
   "id": 92,
   "tag": "Security, Identity, and Compliance",
-  "sub_tag": "",
+  "sub_tag": "Best Practices",
   "question": "What are the default security credentials that are required to access the AWS management console for an IAM user account?",
   "options": [
     { "value": "A. MFA.", "isCorrect": false },
@@ -1073,7 +1073,7 @@
 {
   "id": 93,
   "tag": "Compute",
-  "sub_tag": "",
+  "sub_tag": "AMI",
   "question": "In your on-premises environment, you can create as many virtual servers as you need from a single template. What can you use to perform the same in AWS?",
   "options": [
     { "value": "A. IAM.", "isCorrect": false },
@@ -1086,7 +1086,7 @@
 {
   "id": 94,
   "tag": "Cloud Financial Management",
-  "sub_tag": "",
+  "sub_tag": "Best Practices",
   "question": "What are two advantages of using Cloud Computing over using traditional data centers? (Choose TWO)",
   "options": [
     { "value": "A. Reserved Compute capacity.", "isCorrect": false },
@@ -1100,7 +1100,7 @@
 {
   "id": 95,
   "tag": "Security, Identity, and Compliance",
-  "sub_tag": "",
+  "sub_tag": "Best Practices",
   "question": "Which of the following aspects of security are managed by AWS? (Choose TWO)",
   "options": [
     { "value": "A. Encryption of EBS volumes.", "isCorrect": false },
@@ -1114,7 +1114,7 @@
 {
   "id": 96,
   "tag": "Management and Governance",
-  "sub_tag": "",
+  "sub_tag": "Best Practices",
   "question": "Which statement best describes the operational excellence pillar of the AWS Well-Architected Framework?",
   "options": [
     { "value": "A. The ability of a system to recover gracefully from failure.", "isCorrect": false },
@@ -1127,7 +1127,7 @@
 {
   "id": 97,
   "tag": "Networking and Content Delivery",
-  "sub_tag": "",
+  "sub_tag": "Best Practices",
   "question": "AWS has created a large number of Edge Locations as part of its Global Infrastructure. Which of the following is NOT a benefit of using Edge Locations?",
   "options": [
     { "value": "A. Edge locations are used by CloudFront to cache the most recent responses.", "isCorrect": false },
@@ -1140,7 +1140,7 @@
 {
   "id": 98,
   "tag": "Management and Governance",
-  "sub_tag": "",
+  "sub_tag": "AWS CloudTrail",
   "question": "What are the change management tools that help AWS customers audit and monitor all resource changes in their AWS environment? (Choose TWO)",
   "options": [
     { "value": "A. AWS CloudTrail.", "isCorrect": true },
@@ -1154,7 +1154,7 @@
 {
   "id": 99,
   "tag": "Containers",
-  "sub_tag": "",
+  "sub_tag": "Amazon ECS",
   "question": "Which of the following services allows you to run containerized applications on a cluster of EC2 instances?",
   "options": [
     { "value": "A. Amazon ECS.", "isCorrect": true },
@@ -1166,8 +1166,8 @@
 },
 {
   "id": 100,
-  "tag": "Security, Identity, and Compliance",
-  "sub_tag": "",
+  "tag": "Management and Governance",
+  "sub_tag": "AWS CloudTrail",
   "question": "Which of the following services will help businesses ensure compliance in AWS?",
   "options": [
     { "value": "A. CloudFront.", "isCorrect": false },
@@ -1180,7 +1180,7 @@
 {
   "id": 101,
   "tag": "Storage",
-  "sub_tag": "",
+  "sub_tag": "Amazon S3 Glacier",
   "question": "Which of the following procedures will help reduce your Amazon S3 costs?",
   "options": [
     { "value": "A. Use the Import/Export feature to move old files automatically to Amazon Glacier.", "isCorrect": false },
@@ -1192,8 +1192,8 @@
 },
 {
   "id": 102,
-  "tag": "Architecting",
-  "sub_tag": "",
+  "tag": "Management and Governance",
+  "sub_tag": "AWS Auto Scaling",
   "question": "What are the AWS services/features that can help you maintain a highly available and fault-tolerant architecture in AWS? (Choose TWO)",
   "options": [
     { "value": "A. AWS Direct Connect.", "isCorrect": false },
@@ -1207,7 +1207,7 @@
 {
   "id": 103,
   "tag": "Cost Management",
-  "sub_tag": "",
+  "sub_tag": "Best Practices",
   "question": "Which of the following activities may help reduce your AWS monthly costs?",
   "options": [
     { "value": "A. Enabling Amazon EC2 Auto Scaling for all of your workloads.", "isCorrect": true },
@@ -1220,7 +1220,7 @@
 {
   "id": 104,
   "tag": "Storage",
-  "sub_tag": "",
+  "sub_tag": "Amazon S3",
   "question": "What is the AWS service/feature that takes advantage of Amazon CloudFront’s globally distributed edge locations to transfer files to S3 with higher upload speeds?",
   "options": [
     { "value": "A. S3 Transfer Acceleration.", "isCorrect": true },
@@ -1233,7 +1233,7 @@
 {
   "id": 105,
   "tag": "Security, Identity, and Compliance",
-  "sub_tag": "",
+  "sub_tag": "AWS Security Hub",
   "question": "Which of the following AWS security features is associated with an EC2 instance and functions to filter incoming traffic requests?",
   "options": [
     { "value": "A. AWS X-Ray.", "isCorrect": false },
@@ -1245,8 +1245,8 @@
 },
 {
   "id": 106,
-  "tag": "Performance Efficiency",
-  "sub_tag": "",
+  "tag": "Networking and Content Delivery",
+  "sub_tag": "AWS Global Accelerator",
   "question": "Which AWS services can be used to improve the performance of a global application and reduce latency for its users? (Choose TWO)",
   "options": [
     { "value": "A. AWS KMS.", "isCorrect": false },
@@ -1260,7 +1260,7 @@
 {
   "id": 107,
   "tag": "Database",
-  "sub_tag": "",
+  "sub_tag": "Best Practices",
   "question": "Using Amazon RDS falls under the shared responsibility model. Which of the following are customer responsibilities? (Choose TWO)",
   "options": [
     { "value": "A. Building the relational database schema.", "isCorrect": true },
@@ -1274,7 +1274,7 @@
 {
   "id": 108,
   "tag": "Database",
-  "sub_tag": "",
+  "sub_tag": "Amazon RDS",
   "question": "A company has a large amount of structured data stored in their on-premises data center. They are planning to migrate all the data to AWS, what is the most appropriate AWS database option?",
   "options": [
     { "value": "A. Amazon DynamoDB.", "isCorrect": false },
@@ -1287,7 +1287,7 @@
 {
   "id": 109,
   "tag": "Management and Governance",
-  "sub_tag": "",
+  "sub_tag": "APN Technology Partners",
   "question": "A company has created a solution that helps AWS customers improve their architectures on AWS. Which AWS program may support this company?",
   "options": [
     { "value": "A. APN Consulting Partners.", "isCorrect": false },
@@ -1300,7 +1300,7 @@
 {
   "id": 110,
   "tag": "Compute",
-  "sub_tag": "",
+  "sub_tag": "AWS Lambda",
   "question": "What is the AWS serverless service that allows you to run your applications without any administrative burden?",
   "options": [
     { "value": "A. Amazon LightSail.", "isCorrect": false },
@@ -1313,7 +1313,7 @@
 {
   "id": 111,
   "tag": "Reliability",
-  "sub_tag": "",
+  "sub_tag": "Best Practices",
   "question": "Jessica is managing an e-commerce web application in AWS. The application is hosted on six EC2 instances. One day, three of the instances crashed; but none of her customers were affected. What has Jessica done correctly in this scenario?",
   "options": [
     { "value": "A. She has properly built an elastic system.", "isCorrect": false },
@@ -1326,7 +1326,7 @@
 {
   "id": 112,
   "tag": "Storage",
-  "sub_tag": "",
+  "sub_tag": "Amazon Elastic File System (EFS)",
   "question": "Where can you store files in AWS? (Choose TWO)",
   "options": [
     { "value": "A. Amazon EFS.", "isCorrect": true },
@@ -1340,7 +1340,7 @@
 {
   "id": 113,
   "tag": "Application Integration",
-  "sub_tag": "",
+  "sub_tag": "Amazon Simple Queue Service (SQS)",
   "question": "Which AWS service can be used to store and reliably deliver messages across distributed systems?",
   "options": [
     { "value": "A. Amazon Simple Queue Service.", "isCorrect": true },
@@ -1353,7 +1353,7 @@
 {
   "id": 114,
   "tag": "Cost Management",
-  "sub_tag": "",
+  "sub_tag": "Best Practices",
   "question": "Which of the following describes the payment model that AWS makes available for customers that can commit to using Amazon EC2 over a one or 3-year term to reduce their total computing costs?",
   "options": [
     { "value": "A. Pay less as AWS grows.", "isCorrect": false },
@@ -1366,7 +1366,7 @@
 {
   "id": 115,
   "tag": "Cost Management",
-  "sub_tag": "",
+  "sub_tag": "Best Practices",
   "question": "A company is migrating its on-premises database to Amazon RDS. What should the company do to ensure Amazon RDS costs are kept to a minimum?",
   "options": [
     { "value": "A. Right-size before and after migration.", "isCorrect": true },
@@ -1379,7 +1379,7 @@
 {
   "id": 116,
   "tag": "Database",
-  "sub_tag": "",
+  "sub_tag": "Amazon Elastic Block Store (EBS)",
   "question": "What is the primary storage service used by Amazon RDS database instances?",
   "options": [
     { "value": "A. Amazon Glacier.", "isCorrect": false },
@@ -1391,8 +1391,8 @@
 },
 {
   "id": 117,
-  "tag": "Monitoring and Troubleshooting",
-  "sub_tag": "",
+  "tag": "Developer Tools",
+  "sub_tag": "AWS X-Ray",
   "question": "A company is developing a new application using a microservices framework. The new application is having performance and latency issues. Which AWS Service should be used to troubleshoot these issues?",
   "options": [
     { "value": "A. AWS CodePipeline.", "isCorrect": false },
@@ -1404,8 +1404,8 @@
 },
 {
   "id": 118,
-  "tag": "Reliability",
-  "sub_tag": "",
+  "tag": "Database",
+  "sub_tag": "Amazon DynamoDB",
   "question": "Which of the following AWS services is designed with native Multi-AZ fault tolerance in mind? (Choose TWO)",
   "options": [
     { "value": "A. Amazon Redshift.", "isCorrect": false },
@@ -1419,7 +1419,7 @@
 {
   "id": 119,
   "tag": "Database",
-  "sub_tag": "",
+  "sub_tag": "Best Practices",
   "question": "What are the Amazon RDS features that can be used to improve the availability of your database? (Choose TWO)",
   "options": [
     { "value": "A. AWS Regions.", "isCorrect": false },
@@ -1433,7 +1433,7 @@
 {
   "id": 120,
   "tag": "Performance Efficiency",
-  "sub_tag": "",
+  "sub_tag": "Best Practices",
   "question": "Sarah has deployed an application in the Northern California (us-west-1) region. After examining the application’s traffic, she notices that about 30% of the traffic is coming from Asia. What can she do to reduce latency for the users in Asia?",
   "options": [
     { "value": "A. Replicate the current resources across multiple Availability Zones within the same region.", "isCorrect": false },
@@ -1446,7 +1446,7 @@
 {
   "id": 121,
   "tag": "Security, Identity, and Compliance",
-  "sub_tag": "",
+  "sub_tag": "AWS Identity and Access Management",
   "question": "An organization runs many systems and uses many AWS products. Which of the following services enables them to control how each developer interacts with these products?",
   "options": [
     { "value": "A. AWS Identity and Access Management.", "isCorrect": true },
@@ -1458,8 +1458,8 @@
 },
 {
   "id": 122,
-  "tag": "Cloud Computing Models",
-  "sub_tag": "",
+  "tag": "Database",
+  "sub_tag": "Amazon EC2",
   "question": "Using Amazon EC2 falls under which of the following cloud computing models?",
   "options": [
     { "value": "A. Iaas & SaaS.", "isCorrect": false },
@@ -1471,8 +1471,8 @@
 },
 {
   "id": 123,
-  "tag": "Best Practices",
-  "sub_tag": "",
+  "tag": "Developer Tools",
+  "sub_tag": "Bsdt Practices",
   "question": "Which of the below is a best-practice when building applications on AWS?",
   "options": [
     { "value": "A. Strengthen physical security by applying the principle of least privilege.", "isCorrect": false },
@@ -1485,7 +1485,7 @@
 {
   "id": 124,
   "tag": "Storage",
-  "sub_tag": "",
+  "sub_tag": "Amazon S3",
   "question": "Your company is designing a new application that will store and retrieve photos and videos. Which of the following services should you recommend as the underlying storage mechanism?",
   "options": [
     { "value": "A. Amazon EBS.", "isCorrect": false },
@@ -1498,7 +1498,7 @@
 {
   "id": 125,
   "tag": "Storage",
-  "sub_tag": "",
+  "sub_tag": "Amazon S3 Glacier",
   "question": "Amazon Glacier is an Amazon S3 storage class that is suitable for storing [...] & [...]. (Choose TWO)",
   "options": [
     { "value": "A. Active archives.", "isCorrect": true },
@@ -1512,7 +1512,7 @@
 {
   "id": 126,
   "tag": "Compute",
-  "sub_tag": "",
+  "sub_tag": "AWS Elastic Beanstalk",
   "question": "What does Amazon Elastic Beanstalk provide?",
   "options": [
     { "value": "A. A PaaS solution to automate application deployment.", "isCorrect": true },
@@ -1524,8 +1524,8 @@
 },
 {
   "id": 127,
-  "tag": "Security",
-  "sub_tag": "",
+  "tag": "Securiry, Identity, and Compliance",
+  "sub_tag": "Amazon Inspector",
   "question": "What is the AWS service that performs automated network assessments of Amazon EC2 instances to check for vulnerabilities?",
   "options": [
     { "value": "A. Amazon Kinesis.", "isCorrect": false },
@@ -1537,8 +1537,8 @@
 },
 {
   "id": 128,
-  "tag": "Shared Responsibility Model",
-  "sub_tag": "",
+  "tag": "Management and Governance",
+  "sub_tag": "Best Practices",
   "question": "Under the Shared Responsibility Model, which of the following controls do customers fully inherit from AWS? (Choose TWO)",
   "options": [
     { "value": "A. Patch management controls.", "isCorrect": false },
@@ -1551,8 +1551,8 @@
 },
 {
   "id": 129,
-  "tag": "Cost Management",
-  "sub_tag": "",
+  "tag": "Cloud Financial Management",
+  "sub_tag": "Best Practices",
   "question": "A company needs to host a database in Amazon RDS for at least three years. Which of the following options would be the most cost-effective solution?",
   "options": [
     { "value": "A. Reserved instances - No Upfront.", "isCorrect": false },
@@ -1564,8 +1564,8 @@
 },
 {
   "id": 130,
-  "tag": "Performance Efficiency",
-  "sub_tag": "",
+  "tag": "Networking and Content Delivery",
+  "sub_tag": "Best Practices",
   "question": "Your application has recently experienced significant global growth, and international users are complaining of high latency. What is the AWS characteristic that can help improve your international users’ experience?",
   "options": [
     { "value": "A. Elasticity.", "isCorrect": false },
@@ -1577,8 +1577,8 @@
 },
 {
   "id": 131,
-  "tag": "Cost Management",
-  "sub_tag": "",
+  "tag": "Cloud Financial Management",
+  "sub_tag": "AWS Lambda",
   "question": "Savings Plans are available for which of the following AWS compute services? (Choose TWO)",
   "options": [
     { "value": "A. AWS Batch.", "isCorrect": false },

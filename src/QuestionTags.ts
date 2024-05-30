@@ -139,6 +139,7 @@ const managementAndGovernance = [
   "AWS Well-Architected Tool",
   "AWS Quick Start",
   "Technical Account Manager (TAM)", 
+  "APN Technology Partners",
   "Best Practices"
 ];
 
