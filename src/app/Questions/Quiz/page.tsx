@@ -4,7 +4,7 @@ import { QuizProps, QuestionType } from '../../../../prisma/dataTypes';
 import prisma from '../../../lib/prisma';
 
 async function GETQuiz(tags: string[], length: number) {
-  const skip = Math.floor(Math.random() * length);
+  
   // When no tags are selected, return all questions
   if (!tags) {
     const data: QuestionType[] = await prisma.quiz.findMany({
@@ -12,7 +12,6 @@ async function GETQuiz(tags: string[], length: number) {
         options: true,
       },
       take: Number(length),
-      skip: skip,
     });
     return data;
   }
