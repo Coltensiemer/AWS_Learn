@@ -73,7 +73,7 @@ export function Quiz({ questions }: QuizProps) {
   const isMutiple = correct_answer.length > 1;
 
   // This function is called when the form is submitted.
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  function onSubmit() {
     const formData = form.getValues();
     if (!questions) {
       return;
@@ -178,6 +178,7 @@ export function Quiz({ questions }: QuizProps) {
                                           ); // Remove the selected value if unchecked
 
                                       field.onChange(newValue);
+                                      onSubmit();
                                     }}
                                     id={`r${index}`}
                                   />
@@ -207,6 +208,7 @@ export function Quiz({ questions }: QuizProps) {
                               'radio'
                             );
                             field.onChange(selectedValue);
+                 
                           }}
                           className='space-y-2'
                         >
@@ -243,7 +245,7 @@ export function Quiz({ questions }: QuizProps) {
       <div className='flex flex-col justify-center items-center'>
         <PaginationDirection
           currentIndex={currentIndex + 1}
-          handleFormSubmit={onSubmit}
+          // handleFormSubmit={onSubmit}
         />
         <QuizTracker currentIndex={currentIndex} />
       </div>

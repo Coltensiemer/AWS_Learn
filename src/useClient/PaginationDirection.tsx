@@ -33,10 +33,10 @@ import { QuizProgressContext } from '../useContext/QuizProgressContext';
 
 export function PaginationDirection({
   currentIndex,
-  handleFormSubmit,
+  // handleFormSubmit,
 }: {
   currentIndex: number;
-  handleFormSubmit: (data: any) => void;
+  // handleFormSubmit: (data: any) => void;
 }) {
   const QuizContext = useContext(QuizProgressContext);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -55,7 +55,7 @@ export function PaginationDirection({
   /// Unable to get back to the FIRST QuESITON ' index is out of bounds' error***** 
   function goToSelectedQuestion(index: number) {
     // Need to update handFormSubmit to not handle the next direction
-    handleFormSubmit(index);
+    // handleFormSubmit(index);
     if (QuizContext === undefined) return null;
     const quizId = QuizContext.QuizList[index + 1 ];
     const selectedIndex = QuizContext?.QuizList.indexOf(quizId);
@@ -64,7 +64,7 @@ export function PaginationDirection({
 
 
   const handleNextQuestion = (direction: string) => {
-    handleFormSubmit(direction)
+    // handleFormSubmit(direction)
     QuizContext.SET_QUIZ_DIRECTION(direction);
   } 
 
