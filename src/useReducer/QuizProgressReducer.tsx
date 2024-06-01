@@ -11,9 +11,9 @@ export enum ActionType {
   SET_TAGS,
   SET_QUIZ_TIME,
   SET_QUIZ_DIRECTION,
-  SET_SHOW_ANSWER,
   SET_OPTION_SELECTED,
   SET_QUIZ_LENGTH,
+  SET_SHOW_ANSWERS
 }
 
 // Define the action interface
@@ -35,8 +35,8 @@ export type QuizinitialState = {
   currentQuestion: number;
   optionSelected: { [key: number]: string[] };
   Direction: string;
-  showAnswer: boolean;
   quizLength: number;
+  showAnswers: boolean;
 };
 
 // Create the initial state object
@@ -50,9 +50,9 @@ export const initialQuizState: QuizinitialState = {
   incorrectAnswersSum: 0,
   currentQuestion: 0,
   Direction: 'next',
-  showAnswer: false,
   optionSelected: {},
   quizLength: 60,
+  showAnswers: false,
 };
 
 // Define the reducer function
@@ -81,10 +81,10 @@ export const QuizReducer: Reducer<QuizinitialState, Action> = (
       return { ...state, QuizTime: action.payload };
     case ActionType.SET_QUIZ_DIRECTION:
       return { ...state, Direction: action.payload };
-    case ActionType.SET_SHOW_ANSWER:
-      return { ...state, showAnswer: action.payload };
     case ActionType.SET_QUIZ_LENGTH:
       return { ...state, quizLength: action.payload };
+    case ActionType.SET_SHOW_ANSWERS:
+      return { ...state, showAnswers: action.payload };
     case ActionType.SET_OPTION_SELECTED:
       return {
         ...state,

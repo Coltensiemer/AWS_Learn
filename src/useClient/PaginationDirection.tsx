@@ -31,11 +31,9 @@ import { QuizProgressContext } from '../useContext/QuizProgressContext';
 import { nextQuestion } from '../functions/nextQuestion/nextQuestion';
 import { dir } from 'console';
 
-
-
 export function PaginationDirection({
   currentIndex,
-  questions
+  questions,
   // handleFormSubmit,
 }: {
   currentIndex: number;
@@ -45,9 +43,8 @@ export function PaginationDirection({
   const QuizContext = useContext(QuizProgressContext);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-
   if (QuizContext === undefined) return null;
- 
+
   // Drawer Functions
   const openDrawer = () => {
     setIsDrawerOpen(true);
@@ -57,18 +54,17 @@ export function PaginationDirection({
   };
 
   // Function to go to selected question
-  /// Unable to get back to the FIRST QuESITON ' index is out of bounds' error***** 
+  /// Unable to get back to the FIRST QuESITON ' index is out of bounds' error*****
   function goToSelectedQuestion(index: number) {
     // Need to update handFormSubmit to not handle the next direction
     // handleFormSubmit(index);
     if (QuizContext === undefined) return null;
-    const quizId = QuizContext.QuizList[index + 1 ];
+    const quizId = QuizContext.QuizList[index + 1];
     const selectedIndex = QuizContext?.QuizList.indexOf(quizId);
-    QuizContext.SET_CURRENT_QUESTION(selectedIndex) ;
+    QuizContext.SET_CURRENT_QUESTION(selectedIndex);
   }
 
-
-  const handleNextQuestion = (direction: string) => {    
+  const handleNextQuestion = (direction: string) => {
     let nextId;
     if (direction === 'next') {
       nextId = nextQuestion(currentIndex, questions, 'next');
@@ -82,27 +78,25 @@ export function PaginationDirection({
     if (nextId === undefined || nextId === null) {
       return null;
     }
-
-  } 
-
-
+  };
 
   const questionColor = (index: number) => {
+    
     const quizId = QuizContext.QuizList[index];
     if (QuizContext.currentQuestion === index) {
-      return 'current'
+      return 'current';
     }
     // Check if the index is in the 'incorrect' array
-    if (QuizContext.Correct_Answered.includes(quizId)) {
+    if (QuizContext.Correct_Answered.includes(quizId) && QuizContext.showAnswers) {
       return 'correct';
     }
     // Check if the index is in the 'correct' array
-    if (QuizContext.Incorrect_Answered.includes(quizId)) {
+    if (QuizContext.Incorrect_Answered.includes(quizId) && QuizContext.showAnswers) {
       return 'incorrect';
     }
     // If the index is not found in either array, return an empty string
     return 'neutral';
-  }
+  };
 
   return (
     <div>
@@ -111,7 +105,9 @@ export function PaginationDirection({
           {currentIndex !== undefined && currentIndex > 1 && (
             <>
               <PaginationItem>
-                <PaginationPrevious onClick={() => handleNextQuestion('prev')} />
+                <PaginationPrevious
+                  onClick={() => handleNextQuestion('prev')}
+                />
               </PaginationItem>
             </>
           )}
@@ -120,12 +116,12 @@ export function PaginationDirection({
               {currentIndex}
             </PaginationLink>
           </PaginationItem>
-           <TooltipProvider> 
+          <TooltipProvider>
             <Tooltip>
               <TooltipTrigger>
                 <PaginationItem>
                   <Drawer>
-                      <PaginationEllipsis onClick={openDrawer} />{' '}
+                    <PaginationEllipsis onClick={openDrawer} />{' '}
                   </Drawer>
                 </PaginationItem>
               </TooltipTrigger>
@@ -133,7 +129,7 @@ export function PaginationDirection({
                 <p className='text-xs'>See Quiz Progression</p>
               </TooltipContent>
             </Tooltip>
-          </TooltipProvider> 
+          </TooltipProvider>
 
           {/* // This is the drawer component that is not working */}
           {currentIndex !== undefined &&
@@ -141,7 +137,7 @@ export function PaginationDirection({
               <>
                 <PaginationItem></PaginationItem>
                 <PaginationItem>
-                <PaginationNext onClick={() => handleNextQuestion('next')} />
+                  <PaginationNext onClick={() => handleNextQuestion('next')} />
                 </PaginationItem>
               </>
             )}
@@ -158,8 +154,8 @@ export function PaginationDirection({
             {QuizContext.QuizList.map((quizItem, index) => (
               <Button
                 onClick={() => goToSelectedQuestion(index - 1)}
-                AnswerType={questionColor(index)}            
-                key={index +1}
+                AnswerType={questionColor(index)}
+                key={index + 1}
               >
                 Question {index + 1}
               </Button>
@@ -173,7 +169,7 @@ export function PaginationDirection({
             </DrawerClose>
           </DrawerFooter>
         </DrawerContent>
-          </Drawer>
-    </div> 
+      </Drawer>
+    </div>
   );
 }

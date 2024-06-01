@@ -17,6 +17,13 @@ import { TimeInput } from '../shadcn/inputTimer';
 import { convertToTotalSeconds } from '../../functions/convertToTotalSeconds/convertToTotalSeconds';
 import { QuestionTags } from '../../QuestionTags';
 import { Input } from '../shadcn/input/input';
+import { Checkbox } from '../shadcn/checkbox/checkbox';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '../shadcn/tooltip';
 
 // See if answer is correct or wrong
 
@@ -40,6 +47,7 @@ export default function QuizOption() {
   const [TimeSeconds, setTimeSeconds] = useState<any>(0);
   const [quizLengthInput, setQuizLengthInput] = useState(60);
   const [QuizTimer, setQuizTimer] = useState(true);
+
   const QuizContext = useContext(QuizProgressContext);
   if (!QuizContext) {
     throw new Error(
@@ -53,8 +61,9 @@ export default function QuizOption() {
     QuizTime,
     SET_QUIZ_LENGTH,
     quizLength,
+    SET_SHOW_ANSWERS,
+    showAnswers,
   } = QuizContext;
-
 
   // Function to handle tag selection/deselection
   const handleTagChange = (tag: string) => {
@@ -74,12 +83,13 @@ export default function QuizOption() {
     SET_TAGS([]);
     SET_QUIZ_TIME(60);
     SET_QUIZ_LENGTH(60);
+    SET_SHOW_ANSWERS(false);
   };
 
   useEffect(() => {
     const totalSeconds = convertToTotalSeconds(TimeMinutes, TimeSeconds);
     SET_QUIZ_TIME(totalSeconds);
-  }, [TimeMinutes, TimeSeconds,]);
+  }, [TimeMinutes, TimeSeconds]);
 
   useEffect(() => {
     SET_QUIZ_LENGTH(quizLengthInput);
@@ -111,24 +121,19 @@ export default function QuizOption() {
 
         {/* //Quiz Timer */}
         <TabsContent value='Options' className='w-full'>
-          <div className='flex flex-col items-center p-4'>
+          <div className='flex flex-col  p-4 space-y-4'>
             <div className='flex items-center space-x-2'>
-              <p>
-                Quiz Length is
-                </p>
-                <Input
+              <p>Quiz Length is</p>
+              <Input
                 className='w-24'
-                
-                  maxLength={3}
-                  minLength={1}
-                  max={150}
-                  type='number'
-                  placeholder='Enter a Number'
-                  value={quizLength}
-                  onChange={(e) => 
-                    SET_QUIZ_LENGTH(e.target.value)
-                  }
-                />
+                maxLength={3}
+                minLength={1}
+                max={150}
+                type='number'
+                placeholder='Enter a Number'
+                value={quizLength}
+                onChange={(e) => SET_QUIZ_LENGTH(e.target.value)}
+              />
             </div>
 
             <div className='justify-center flex items-center'>
@@ -144,6 +149,7 @@ export default function QuizOption() {
             {QuizTimer == true && (
               <div className='flex justify-center items-center'>
                 <TimeInput
+                  value={TimeMinutes}
                   inputSize={'sm'}
                   identifier='min'
                   onChange={(e) => {
@@ -160,6 +166,27 @@ export default function QuizOption() {
                 />
               </div>
             )}
+            <div className='flex m-4 justify-start items-center space-x-4'>
+              <Checkbox
+                onCheckedChange={() => SET_SHOW_ANSWERS(!showAnswers)}
+                checked={showAnswers}
+                id='checkbox'
+              />
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <label htmlFor='checkbox' className='text-xs hover:underline'>
+                      Enable instant feedback on questions. 
+                    </label>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p className='text-xs'>
+                      Enable to show if your answer is correct or wrong. 
+                    </p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
           </div>
         </TabsContent>
       </Tabs>
@@ -189,7 +216,7 @@ export default function QuizOption() {
               .
             </p>
           ) : null}
-          {!Tags.length && <p>No tags selected.</p>}
+
           <div className='flex flex-wrap justify-center'>
             {Tags.map((tag, index) => (
               <Toggle
