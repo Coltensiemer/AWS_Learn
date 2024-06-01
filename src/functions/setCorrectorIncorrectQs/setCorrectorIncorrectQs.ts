@@ -11,47 +11,36 @@ export function setCorrectorIncorrectQs(
     ? QuizContext?.Incorrect_Answered
     : [];
 
-  //Arrays are empty
-  // Arrays are logged to the console for debugging purposes
-
-
+  // Checks if the questionID is already in the correct or incorrect array
   const isAlreadyCorrect = correctAnsweredArray.includes(questionID);
   const isAlreadyIncorrect = incorrectAnsweredArray.includes(questionID);
-
-  // fixed the array of Correct_Answered and Incorrect to be an array of numbers
-  //
 
   switch (true) {
     // If the answer is already correct, remove it from the correct array and add it to the incorrect array
     case isAlreadyCorrect: {
       if (isCorrect) {
-        // if the answer is correct, find the index of the questionID in the correctAnsweredArray
         return;
       } else {
+        // if the answer is correct, find the index of the questionID in the correctAnsweredArray
         const index = correctAnsweredArray.indexOf(questionID);
         if (index !== -1) {
           correctAnsweredArray.splice(index, 1);
-          /// this makes the SET_correct come back as undefined...
-          QuizContext.SET_CORRECT_ANSWERED();
           QuizContext.SET_INCORRECT_ANSWERED(questionID);
         }
       }
-
       break;
     }
     // If the answer is already incorrect, remove it from the incorrect array and add it to the correct array
     case isAlreadyIncorrect: {
       if (!isCorrect) {
-        // if the answer is correct, find the index of the questionID in the correctAnsweredArray
         return;
       } else {
-        const index = correctAnsweredArray.indexOf(questionID);
+        // if the answer is correct, find the index of the questionID in the correctAnsweredArray
+        const index = incorrectAnsweredArray.indexOf(questionID);
 
         if (index !== -1) {
-          correctAnsweredArray.splice(index, 1);
-          /// this makes the SET_INcorrect come back as undefined...
+          incorrectAnsweredArray.splice(index, 1);
           QuizContext.SET_CORRECT_ANSWERED(questionID);
-          QuizContext.SET_INCORRECT_ANSWERED();
         }
       }
 
@@ -69,7 +58,7 @@ export function setCorrectorIncorrectQs(
     }
     // If the answer is not found, log an error
     default: {
-      console.error('Error in the switch statement');
+      console.error('Error in the switch statement determing correct or incorrect answer.');
     }
   }
 }

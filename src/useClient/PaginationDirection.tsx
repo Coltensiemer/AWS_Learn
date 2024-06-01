@@ -28,18 +28,23 @@ import {
 import { Button } from '../components/shadcn/button/button';
 import { useContext, useEffect, useState } from 'react';
 import { QuizProgressContext } from '../useContext/QuizProgressContext';
+import { nextQuestion } from '../functions/nextQuestion/nextQuestion';
+import { dir } from 'console';
 
 
 
 export function PaginationDirection({
   currentIndex,
+  questions
   // handleFormSubmit,
 }: {
   currentIndex: number;
+  questions: any;
   // handleFormSubmit: (data: any) => void;
 }) {
   const QuizContext = useContext(QuizProgressContext);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
 
   if (QuizContext === undefined) return null;
  
@@ -63,9 +68,21 @@ export function PaginationDirection({
   }
 
 
-  const handleNextQuestion = (direction: string) => {
-    // handleFormSubmit(direction)
-    QuizContext.SET_QUIZ_DIRECTION(direction);
+  const handleNextQuestion = (direction: string) => {    
+    let nextId;
+    if (direction === 'next') {
+      nextId = nextQuestion(currentIndex, questions, 'next');
+    } else if (direction === 'prev') {
+      nextId = nextQuestion(currentIndex, questions, 'prev');
+    }
+    const nextIndex = QuizContext?.QuizList.indexOf(nextId);
+    // Update current question ID in QuizContext
+    QuizContext?.SET_CURRENT_QUESTION(nextIndex as number);
+    // Check if it's the last question
+    if (nextId === undefined || nextId === null) {
+      return null;
+    }
+
   } 
 
 
@@ -103,7 +120,6 @@ export function PaginationDirection({
               {currentIndex}
             </PaginationLink>
           </PaginationItem>
-          {/* // This is the drawer component that is not working */}
            <TooltipProvider> 
             <Tooltip>
               <TooltipTrigger>

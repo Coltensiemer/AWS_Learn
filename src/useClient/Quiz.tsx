@@ -26,15 +26,18 @@ import { nextQuestion } from '../functions/nextQuestion/nextQuestion';
 import { QuizSubmit } from './QuizSubmitResults';
 import { Card } from '../components/shadcn/card/card';
 import { Checkbox } from '../components/shadcn/checkbox/checkbox';
+import { on } from 'events';
+import { Value } from '@radix-ui/react-select';
+
 
 
 
 // This is the schema that is used to validate the form data for the quiz.
 export const FormSchema = z
-  .object({
-    type: z.enum(['A', 'B', 'C', 'D', 'E']),
-  })
-  .required();
+.object({
+  type: z.enum(['A', 'B', 'C', 'D', 'E']),
+})
+.required();
 
 type OptionValue = z.infer<typeof FormSchema>['type'];
 
@@ -44,7 +47,6 @@ export function checkBoxes(value: OptionValue) {}
 // This is the Quiz component that is exported to the page.
 export function Quiz({ questions }: QuizProps) {
   const QuizContext = useContext(QuizProgressContext);
-  const router = useRouter();
 
   useEffect(() => {
     //Sets the QuizList in the context to the list of questions
@@ -78,7 +80,6 @@ export function Quiz({ questions }: QuizProps) {
     if (!questions) {
       return;
     }
-
     if (QuizContext === null || QuizContext === undefined) return;
     // FormData.type is undefined, so the if statement is always true
     if (formData.type === undefined) {
@@ -91,31 +92,14 @@ export function Quiz({ questions }: QuizProps) {
 
       //Compares and returns boolen value
       const isCorrect = compareAnswer(
-        QuizContext.optionSelected[currentQuestionID],
+        formData.type,
         correct_answer
       );
-      /// If it goes into incorrect first, it will not go into correct ************
+      //Updates the context with the correct or incorrect answer
       setCorrectorIncorrectQs(QuizContext, currentQuestionID, isCorrect);
       form.reset();
     }
-
-    let nextId;
-    let direction = QuizContext?.Direction;
-    if (direction === 'next') {
-      nextId = nextQuestion(currentIndex, questions, 'next');
-    } else if (direction === 'prev') {
-      nextId = nextQuestion(currentIndex, questions, 'prev');
-    }
-    const nextIndex = QuizContext?.QuizList.indexOf(nextId);
-    // Update current question ID in QuizContext
-    QuizContext?.SET_CURRENT_QUESTION(nextIndex as number);
-    // Check if it's the last question
-    if (nextId === undefined || nextId === null) {
-      router.push('/Questions/Results');
-    }
   }
-
-  console.log(QuizContext, 'QuizContext')
 
   return (
     <Card className=' m-10 p-10'>
@@ -158,14 +142,14 @@ export function Quiz({ questions }: QuizProps) {
                                     ]?.includes(option.value[0])}
                                     value={option.value}
                                     onCheckedChange={(checked) => {
-                                      const selectedValue = option.value[0];
-
+                                      const selectedValue = option.value[0];                                    
                                       QuizContext.SET_OPTION_SELECTED(
                                         {
                                           [currentQuestionID]: selectedValue, // Update the current question ID with the selected value
                                         },
                                         'checkbox'
-                                      );
+                                      );          
+                                                             
                                       const newValue = checked
                                         ? [
                                             ...(field.value || []),
@@ -177,8 +161,10 @@ export function Quiz({ questions }: QuizProps) {
                                               value !== selectedValue
                                           ); // Remove the selected value if unchecked
 
-                                      field.onChange(newValue);
-                                      onSubmit();
+                                          // current bug. works unless three or more options are selected. QuizContext.optionSelected[currentQuestionID] is not updating 
+
+                                      field.onChange([QuizContext.optionSelected[currentQuestionID],newValue]);
+                                      onSubmit();  
                                     }}
                                     id={`r${index}`}
                                   />
@@ -208,7 +194,7 @@ export function Quiz({ questions }: QuizProps) {
                               'radio'
                             );
                             field.onChange(selectedValue);
-                 
+                            onSubmit();
                           }}
                           className='space-y-2'
                         >
@@ -245,6 +231,7 @@ export function Quiz({ questions }: QuizProps) {
       <div className='flex flex-col justify-center items-center'>
         <PaginationDirection
           currentIndex={currentIndex + 1}
+          questions={questions}
           // handleFormSubmit={onSubmit}
         />
         <QuizTracker currentIndex={currentIndex} />
