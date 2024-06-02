@@ -31,6 +31,7 @@ const buttonVariants = cva(
         neutral: "bg-neutral-900",
         current: "bg-white-500 m-1 border b-4 border-blue-500 text-blue-900 hover:bg-blue-200 ",
         complete: "bg-blue-300 text-blue-900 border b-4 border-blue-700 hover:bg-blue-200 m-1",
+        isAnswered: "bg-blue-300 text-blue-900 border b-4 border-blue-700 hover:bg-blue-200 m-1",
       }
       
     },
@@ -49,7 +50,7 @@ export interface ButtonProps
   backgroundColor?: string
   size?: "default" | "sm" | "lg" | "icon"
   variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link"
-  AnswerType?: "correct" | "incorrect" | "neutral" | "current" | "complete"
+  AnswerType?: "correct" | "incorrect" | "neutral" | "current" | "complete" | "isAnswered"
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(

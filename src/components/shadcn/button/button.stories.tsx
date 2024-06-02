@@ -19,7 +19,7 @@ const meta = {
     backgroundColor: { control: 'color' },
     size: { control: { type: 'select', options: ['default', 'sm', 'lg', 'icon'] } },
     variant: { control: { type: 'select', options: ['default', 'destructive', 'outline', 'secondary', 'ghost', 'link'] } },
-    AnswerType: { control: { type: 'select', options: ['correct', 'incorrect', 'neutral'] } },
+    AnswerType: { control: { type: 'select', options: ['correct', 'incorrect', 'neutral', 'current', 'isAnswered'] } },
   },
   // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
   args: { onClick: fn() },
@@ -49,7 +49,7 @@ export const Secondary: Story = {
   },
 }; 
 
-export const AnswerType: Story = { 
+export const Current: Story = { 
   args: {
     children:"Enter text here",
     label: 'Button',
@@ -57,3 +57,30 @@ export const AnswerType: Story = {
     AnswerType: 'current',
 } 
 } 
+
+export const Correct: Story = { 
+  args: {
+    children:"Enter text here",
+    label: 'Button',
+    size: 'default',
+    AnswerType: 'correct',
+} 
+} 
+
+export const inCorrect: Story = { 
+  args: {
+    children:"Enter text here",
+    label: 'Button',
+    size: 'default',
+    AnswerType: 'incorrect',
+} 
+} 
+
+export const isAnswered: Story = {
+  args: {
+    children:"Enter text here",
+    label: 'Button',
+    size: 'default',
+    AnswerType: 'isAnswered',
+  },
+};

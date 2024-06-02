@@ -94,6 +94,10 @@ export function PaginationDirection({
     if (QuizContext.Incorrect_Answered.includes(quizId) && QuizContext.showAnswers) {
       return 'incorrect';
     }
+
+    if (QuizContext.Correct_Answered.includes(quizId) || QuizContext.Incorrect_Answered.includes(quizId)) {
+      return 'isAnswered';
+    }
     // If the index is not found in either array, return an empty string
     return 'neutral';
   };
