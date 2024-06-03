@@ -1588,7 +1588,699 @@
     { "value": "E. AWS Lambda.", "isCorrect": true }
   ],
   "correct_answer": ["D", "E"]
+},
+{
+  "id": 132,
+  "tag": "Storage",
+  "sub_tag": "",
+  "question": "Where can you store files in AWS? (Choose TWO)",
+  "options": [
+    { "value": "A. Amazon EFS.", "isCorrect": true },
+    { "value": "B. Amazon SNS.", "isCorrect": false },
+    { "value": "C. Amazon EBS.", "isCorrect": true },
+    { "value": "D. Amazon ECS.", "isCorrect": false },
+    { "value": "E. Amazon EMR.", "isCorrect": false }
+  ],
+  "correct_answer": ["A", "C"]
+},
+{
+  "id": 133,
+  "tag": "Messaging",
+  "sub_tag": "",
+  "question": "Which AWS service can be used to store and reliably deliver messages across distributed systems?",
+  "options": [
+    { "value": "A. Amazon Simple Queue Service.", "isCorrect": true },
+    { "value": "B. AWS Storage Gateway.", "isCorrect": false },
+    { "value": "C. Amazon Simple Email Service.", "isCorrect": false },
+    { "value": "D. Amazon Simple Storage Service.", "isCorrect": false }
+  ],
+  "correct_answer": ["A"]
+},
+{
+  "id": 134,
+  "tag": "Billing",
+  "sub_tag": "",
+  "question": "Which of the following describes the payment model that AWS makes available for customers that can commit to using Amazon EC2 over a one or 3-year term to reduce their total computing costs?",
+  "options": [
+    { "value": "A. Pay less as AWS grows.", "isCorrect": false },
+    { "value": "B. Pay as you go.", "isCorrect": false },
+    { "value": "C. Pay less by using more.", "isCorrect": false },
+    { "value": "D. Save when you reserve.", "isCorrect": true }
+  ],
+  "correct_answer": ["D"]
+},
+{
+  "id": 135,
+  "tag": "Cost Management",
+  "sub_tag": "",
+  "question": "A company is migrating its on-premises database to Amazon RDS. What should the company do to ensure Amazon RDS costs are kept to a minimum?",
+  "options": [
+    { "value": "A. Right-size before and after migration.", "isCorrect": true },
+    { "value": "B. Use a Multi-Region Active-Passive architecture.", "isCorrect": false },
+    { "value": "C. Combine On-demand Capacity Reservations with Saving Plans.", "isCorrect": false },
+    { "value": "D. Use a Multi-Region Active-Active architecture.", "isCorrect": false }
+  ],
+  "correct_answer": ["A"]
+},
+{
+  "id": 136,
+  "tag": "Storage",
+  "sub_tag": "",
+  "question": "What is the primary storage service used by Amazon RDS database instances?",
+  "options": [
+    { "value": "A. Amazon Glacier.", "isCorrect": false },
+    { "value": "B. Amazon EBS.", "isCorrect": true },
+    { "value": "C. Amazon EFS.", "isCorrect": false },
+    { "value": "D. Amazon S3.", "isCorrect": false }
+  ],
+  "correct_answer": ["B"]
+},
+{
+  "id": 137,
+  "tag": "Performance Monitoring",
+  "sub_tag": "",
+  "question": "A company is developing a new application using a microservices framework. The new application is having performance and latency issues. Which AWS Service should be used to troubleshoot these issues?",
+  "options": [
+    { "value": "A. AWS CodePipeline.", "isCorrect": false },
+    { "value": "B. AWS X-Ray.", "isCorrect": true },
+    { "value": "C. Amazon Inspector.", "isCorrect": false },
+    { "value": "D. AWS CloudTrail.", "isCorrect": false }
+  ],
+  "correct_answer": ["B"]
+},
+{
+  "id": 138,
+  "tag": "Fault Tolerance",
+  "sub_tag": "",
+  "question": "Which of the following AWS services is designed with native Multi-AZ fault tolerance in mind? (Choose TWO)",
+  "options": [
+    { "value": "A. Amazon Redshift.", "isCorrect": false },
+    { "value": "B. AWS Snowball.", "isCorrect": false },
+    { "value": "C. Amazon Simple Storage Service.", "isCorrect": true },
+    { "value": "D. Amazon EBS.", "isCorrect": false },
+    { "value": "E. Amazon DynamoDB.", "isCorrect": true }
+  ],
+  "correct_answer": ["C", "E"]
+},
+{
+  "id": 139,
+  "tag": "Database",
+  "sub_tag": "",
+  "question": "What are the Amazon RDS features that can be used to improve the availability of your database? (Choose TWO)",
+  "options": [
+    { "value": "A. AWS Regions.", "isCorrect": false },
+    { "value": "B. Multi-AZ Deployment.", "isCorrect": true },
+    { "value": "C. Automatic patching.", "isCorrect": false },
+    { "value": "D. Read Replicas.", "isCorrect": true },
+    { "value": "E. Edge Locations.", "isCorrect": false }
+  ],
+  "correct_answer": ["B", "D"]
+}, 
+{
+  "id": 140,
+  "tag": "Performance",
+  "sub_tag": "",
+  "question": "Sarah has deployed an application in the Northern California (us-west-1) region. After examining the application’s traffic, she notices that about 30% of the traffic is coming from Asia. What can she do to reduce latency for the users in Asia?",
+  "options": [
+    { "value": "A. Replicate the current resources across multiple Availability Zones within the same region.", "isCorrect": false },
+    { "value": "B. Migrate the application to a hosting provider in Asia.", "isCorrect": false },
+    { "value": "C. Recreate the website content.", "isCorrect": false },
+    { "value": "D. Create a CDN using CloudFront, so that content is cached at Edge Locations close to and in Asia.", "isCorrect": true }
+  ],
+  "correct_answer": ["D"]
+},
+{
+  "id": 141,
+  "tag": "Security",
+  "sub_tag": "",
+  "question": "An organization runs many systems and uses many AWS products. Which of the following services enables them to control how each developer interacts with these products?",
+  "options": [
+    { "value": "A. AWS Identity and Access Management.", "isCorrect": true },
+    { "value": "B. Amazon RDS.", "isCorrect": false },
+    { "value": "C. Network Access Control Lists.", "isCorrect": false },
+    { "value": "D. Amazon EMR.", "isCorrect": false }
+  ],
+  "correct_answer": ["A"]
+},
+{
+  "id": 142,
+  "tag": "Cloud Computing Models",
+  "sub_tag": "",
+  "question": "Using Amazon EC2 falls under which of the following cloud computing models?",
+  "options": [
+    { "value": "A. Iaas & SaaS.", "isCorrect": false },
+    { "value": "B. IaaS.", "isCorrect": true },
+    { "value": "C. SaaS.", "isCorrect": false },
+    { "value": "D. PaaS.", "isCorrect": false }
+  ],
+  "correct_answer": ["B"]
+},
+{
+  "id": 143,
+  "tag": "Best Practices",
+  "sub_tag": "",
+  "question": "Which of the below is a best-practice when building applications on AWS?",
+  "options": [
+    { "value": "A. Strengthen physical security by applying the principle of least privilege.", "isCorrect": false },
+    { "value": "B. Ensure that the application runs on hardware from trusted vendors.", "isCorrect": false },
+    { "value": "C. Use IAM policies to maintain performance.", "isCorrect": false },
+    { "value": "D. Decouple the components of the application so that they run independently.", "isCorrect": true }
+  ],
+  "correct_answer": ["D"]
+},
+{
+  "id": 144,
+  "tag": "Storage",
+  "sub_tag": "",
+  "question": "Your company is designing a new application that will store and retrieve photos and videos. Which of the following services should you recommend as the underlying storage mechanism?",
+  "options": [
+    { "value": "A. Amazon EBS.", "isCorrect": false },
+    { "value": "B. Amazon SQS.", "isCorrect": false },
+    { "value": "C. Amazon Instance store.", "isCorrect": false },
+    { "value": "D. Amazon S3.", "isCorrect": true }
+  ],
+  "correct_answer": ["D"]
+},
+{
+  "id": 145,
+  "tag": "Storage",
+  "sub_tag": "",
+  "question": "Amazon Glacier is an Amazon S3 storage class that is suitable for storing [...] & [...]. (Choose TWO)",
+  "options": [
+    { "value": "A. Active archives.", "isCorrect": true },
+    { "value": "B. Dynamic websites’ assets.", "isCorrect": false },
+    { "value": "C. Long-term analytic data.", "isCorrect": true },
+    { "value": "D. Active databases.", "isCorrect": false },
+    { "value": "E. Cached data.", "isCorrect": false }
+  ],
+  "correct_answer": ["A", "C"]
+},
+{
+  "id": 146,
+  "tag": "Application Deployment",
+  "sub_tag": "",
+  "question": "What does Amazon Elastic Beanstalk provide?",
+  "options": [
+    { "value": "A. A PaaS solution to automate application deployment.", "isCorrect": true },
+    { "value": "B. A compute engine for Amazon ECS.", "isCorrect": false },
+    { "value": "C. A scalable file storage solution for use with AWS and on-premises servers.", "isCorrect": false },
+    { "value": "D. A NoSQL database service.", "isCorrect": false }
+  ],
+  "correct_answer": ["A"]
+},
+{
+  "id": 147,
+  "tag": "Security",
+  "sub_tag": "",
+  "question": "What is the AWS service that performs automated network assessments of Amazon EC2 instances to check for vulnerabilities?",
+  "options": [
+    { "value": "A. Amazon Kinesis.", "isCorrect": false },
+    { "value": "B. Security groups.", "isCorrect": false },
+    { "value": "C. Amazon Inspector.", "isCorrect": true },
+    { "value": "D. AWS Network Access Control Lists.", "isCorrect": false }
+  ],
+  "correct_answer": ["C"]
+},
+{
+  "id": 148,
+  "tag": "Shared Responsibility Model",
+  "sub_tag": "",
+  "question": "Under the Shared Responsibility Model, which of the following controls do customers fully inherit from AWS? (Choose TWO)",
+  "options": [
+    { "value": "A. Patch management controls.", "isCorrect": false },
+    { "value": "B. Database controls.", "isCorrect": false },
+    { "value": "C. Awareness & Training.", "isCorrect": false },
+    { "value": "D. Environmental controls.", "isCorrect": true },
+    { "value": "E. Physical controls.", "isCorrect": true }
+  ],
+  "correct_answer": ["D", "E"]
+},
+{
+  "id": 149,
+  "tag": "Cost Management",
+  "sub_tag": "",
+  "question": "A company needs to host a database in Amazon RDS for at least three years. Which of the following options would be the most cost-effective solution?",
+  "options": [
+    { "value": "A. Reserved instances - No Upfront.", "isCorrect": false },
+    { "value": "B. Reserved instances - Partial Upfront.", "isCorrect": true },
+    { "value": "C. On-Demand instances.", "isCorrect": false },
+    { "value": "D. Spot Instances.", "isCorrect": false }
+  ],
+  "correct_answer": ["B"]
+},
+{
+  "id": 150,
+  "tag": "Performance",
+  "sub_tag": "",
+  "question": "Your application has recently experienced significant global growth, and international users are complaining of high latency. What is the AWS characteristic that can help improve your international users’ experience?",
+  "options": [
+    { "value": "A. Elasticity.", "isCorrect": false },
+    { "value": "B. Global reach.", "isCorrect": true },
+    { "value": "C. Data durability.", "isCorrect": false },
+    { "value": "D. High availability.", "isCorrect": false }
+  ],
+  "correct_answer": ["B"]
+},
+{
+  "id": 151,
+  "tag": "Cloud Financial Management",
+  "sub_tag": "",
+  "question": "Savings Plans are available for which of the following AWS compute services? (Choose TWO)",
+  "options": [
+    { "value": "A. AWS Batch.", "isCorrect": false },
+    { "value": "B. AWS Outposts.", "isCorrect": false },
+    { "value": "C. Amazon Lightsail.", "isCorrect": false },
+    { "value": "D. Amazon EC2.", "isCorrect": true },
+    { "value": "E. AWS Lambda.", "isCorrect": true }
+  ],
+  "correct_answer": ["D", "E"]
+},
+{
+  "id": 152,
+  "tag": "Disaster Recovery",
+  "sub_tag": "",
+  "question": "A company has business critical workloads hosted on AWS and they are unwilling to accept any downtime. Which of the following is a recommended best practice to protect their workloads in the event of an unexpected natural disaster?",
+  "options": [
+    { "value": "A. Replicate data across multiple Edge Locations worldwide and use Amazon CloudFront to perform automatic failover in the event of an outage.", "isCorrect": false },
+    { "value": "B. Deploy AWS resources across multiple Availability Zones within the same AWS Region.", "isCorrect": false },
+    { "value": "C. Create point-in-time backups in another subnet and recover this data when a disaster occurs.", "isCorrect": false },
+    { "value": "D. Deploy AWS resources to another AWS Region and implement an Active-Active disaster recovery strategy.", "isCorrect": true }
+  ],
+  "correct_answer": ["D"]
+},
+{
+  "id": 153,
+  "tag": "Service Limits",
+  "sub_tag": "",
+  "question": "Which statement is correct with regards to AWS service limits? (Choose TWO)",
+  "options": [
+    { "value": "A. You can contact AWS support to increase the service limits.", "isCorrect": true },
+    { "value": "B. Each IAM user has the same service limit.", "isCorrect": false },
+    { "value": "C. There are no service limits on AWS.", "isCorrect": false },
+    { "value": "D. You can use the AWS Trusted Advisor to monitor your service limits.", "isCorrect": true },
+    { "value": "E. The Amazon Simple Email Service is responsible for sending email notifications when usage approaches a service limit.", "isCorrect": false }
+  ],
+  "correct_answer": ["A", "D"]
+},
+{
+  "id": 154,
+  "tag": "Management Tools",
+  "sub_tag": "",
+  "question": "What is the AWS tool that enables you to use scripts to manage all AWS services and resources?",
+  "options": [
+    { "value": "A. AWS Console.", "isCorrect": false },
+    { "value": "B. AWS Service Catalog.", "isCorrect": false },
+    { "value": "C. AWS OpsWorks.", "isCorrect": false },
+    { "value": "D. AWS CLI.", "isCorrect": true }
+  ],
+  "correct_answer": ["D"]
+},
+{
+  "id": 155,
+  "tag": "Hybrid Cloud",
+  "sub_tag": "",
+  "question": "What are the connectivity options that can be used to build hybrid cloud architectures? (Choose TWO)",
+  "options": [
+    { "value": "A. AWS Artifact.", "isCorrect": false },
+    { "value": "B. AWS Cloud9.", "isCorrect": false },
+    { "value": "C. AWS Direct Connect.", "isCorrect": true },
+    { "value": "D. AWS CloudTrail.", "isCorrect": false },
+    { "value": "E. AWS VPN.", "isCorrect": true }
+  ],
+  "correct_answer": ["C", "E"]
+},
+{
+  "id": 156,
+  "tag": "Load Balancing",
+  "sub_tag": "",
+  "question": "A company has deployed a new web application on multiple Amazon EC2 instances. Which of the following should they use to ensure that the incoming HTTP traffic is distributed evenly across the instances?",
+  "options": [
+    { "value": "A. AWS EC2 Auto Recovery.", "isCorrect": false },
+    { "value": "B. AWS Auto Scaling.", "isCorrect": false },
+    { "value": "C. AWS Network Load Balancer.", "isCorrect": false },
+    { "value": "D. AWS Application Load Balancer.", "isCorrect": true }
+  ],
+  "correct_answer": ["D"]
+},
+{
+  "id": 157,
+  "tag": "Databases",
+  "sub_tag": "",
+  "question": "Which of the following AWS offerings is a MySQL-compatible relational database service that can scale capacity automatically based on demand?",
+  "options": [
+    { "value": "A. Amazon Neptune.", "isCorrect": false },
+    { "value": "B. Amazon Aurora.", "isCorrect": true },
+    { "value": "C. Amazon RDS for SQL Server.", "isCorrect": false },
+    { "value": "D. Amazon RDS for PostgreSQL.", "isCorrect": false }
+  ],
+  "correct_answer": ["B"]
+},
+{
+  "id": 158,
+  "tag": "Security",
+  "sub_tag": "",
+  "question": "Which of the following can help protect your EC2 instances from DDoS attacks? (Choose TWO)",
+  "options": [
+    { "value": "A. AWS CloudHSM.", "isCorrect": false },
+    { "value": "B. Security Groups.", "isCorrect": true },
+    { "value": "C. AWS Batch.", "isCorrect": false },
+    { "value": "D. AWS IAM.", "isCorrect": false },
+    { "value": "E. Network Access Control Lists (Network ACLs).", "isCorrect": true }
+  ],
+  "correct_answer": ["B", "E"]
+},
+{
+  "id": 159,
+  "tag": "Data Warehousing",
+  "sub_tag": "",
+  "question": "What is the AWS data warehouse service that supports a high level of query performance on large amounts of datasets?",
+  "options": [
+    { "value": "A. Amazon Redshift.", "isCorrect": true },
+    { "value": "B. Amazon Kinesis.", "isCorrect": false },
+    { "value": "C. Amazon DynamoDB.", "isCorrect": false },
+    { "value": "D. Amazon RDS.", "isCorrect": false }
+  ],
+  "correct_answer": ["A"]
+},
+{
+  "id": 159,
+  "tag": "Data Warehousing",
+  "sub_tag": "",
+  "question": "What is the AWS data warehouse service that supports a high level of query performance on large amounts of datasets?",
+  "options": [
+    { "value": "A. Amazon Redshift.", "isCorrect": true },
+    { "value": "B. Amazon Kinesis.", "isCorrect": false },
+    { "value": "C. Amazon DynamoDB.", "isCorrect": false },
+    { "value": "D. Amazon RDS.", "isCorrect": false }
+  ],
+  "correct_answer": ["A"]
+},
+{
+  "id": 160,
+  "tag": "TCO Analysis",
+  "sub_tag": "",
+  "question": "Which of the following should be considered when performing a TCO analysis to compare the costs of running an application on AWS instead of on-premises?",
+  "options": [
+    { "value": "A. Application development.", "isCorrect": false },
+    { "value": "B. Market research.", "isCorrect": false },
+    { "value": "C. Business analysis.", "isCorrect": false },
+    { "value": "D. Physical hardware.", "isCorrect": true }
+  ],
+  "correct_answer": ["D"]
+},
+{
+  "id": 161,
+  "tag": "Billing",
+  "sub_tag": "",
+  "question": "How are AWS customers billed for Linux-based Amazon EC2 usage?",
+  "options": [
+    { "value": "A. EC2 instances will be billed on one second increments, with a minimum of one minute.", "isCorrect": true },
+    { "value": "B. EC2 instances will be billed on one hour increments, with a minimum of one day.", "isCorrect": false },
+    { "value": "C. EC2 instances will be billed on one minute increments, with a minimum of one hour.", "isCorrect": false },
+    { "value": "D. EC2 instances will be billed on one day increments, with a minimum of one month.", "isCorrect": false }
+  ],
+  "correct_answer": ["A"]
+},
+{
+  "id": 162,
+  "tag": "EC2 Pricing and Configuration",
+  "sub_tag": "",
+  "question": "Which of the following will impact the price paid for an EC2 instance? (Choose TWO)",
+  "options": [
+    { "value": "A. Instance type.", "isCorrect": true },
+    { "value": "B. The Availability Zone where the instance is provisioned.", "isCorrect": true },
+    { "value": "C. Load balancing.", "isCorrect": false },
+    { "value": "D. Number of buckets.", "isCorrect": false },
+    { "value": "E. Number of private IPs.", "isCorrect": false }
+  ],
+  "correct_answer": ["A", "B"]
+},
+{
+  "id": 163,
+  "tag": "EC2 Management",
+  "sub_tag": "",
+  "question": "A customer spent a lot of time configuring a newly deployed Amazon EC2 instance. After the workload increases, the customer decides to provision another EC2 instance with an identical configuration. How can the customer achieve this?",
+  "options": [
+    { "value": "A. By creating an AWS Config template from the old instance and launching a new instance from it.", "isCorrect": false },
+    { "value": "B. By creating an EBS Snapshot of the old instance.", "isCorrect": false },
+    { "value": "C. By installing Aurora on EC2 and launching a new instance from it.", "isCorrect": false },
+    { "value": "D. By creating an AMI from the old instance and launching a new instance from it.", "isCorrect": true }
+  ],
+  "correct_answer": ["D"]
+},
+{
+  "id": 164,
+  "tag": "AWS Organizations",
+  "sub_tag": "",
+  "question": "A company uses AWS Organizations to manage all of its AWS accounts. Which of the following allows the company to restrict what services and actions are allowed in each individual account?",
+  "options": [
+    { "value": "A. IAM Principals.", "isCorrect": false },
+    { "value": "B. AWS Service Control Policies (SCPs).", "isCorrect": true },
+    { "value": "C. IAM policies.", "isCorrect": false },
+    { "value": "D. AWS Fargate.", "isCorrect": false }
+  ],
+  "correct_answer": ["B"]
+},
+{
+  "id": 165,
+  "tag": "AWS Cloud Characteristics",
+  "sub_tag": "",
+  "question": "Which of the following statements describes the AWS Cloud’s agility?",
+  "options": [
+    { "value": "A. AWS allows you to host your applications in multiple regions around the world.", "isCorrect": false },
+    { "value": "B. AWS provides customizable hardware at the lowest possible cost.", "isCorrect": false },
+    { "value": "C. AWS allows you to provision resources in minutes.", "isCorrect": true },
+    { "value": "D. AWS allows you to pay upfront to reduce costs.", "isCorrect": false }
+  ],
+  "correct_answer": ["C"]
+}, 
+{
+  "id": 166,
+  "tag": "Amazon RDS",
+  "sub_tag": "",
+  "question": "What are the benefits of using the Amazon Relational Database Service? (Choose TWO)",
+  "options": [
+    { "value": "A. Lower administrative burden.", "isCorrect": true },
+    { "value": "B. Complete control over the underlying host.", "isCorrect": false },
+    { "value": "C. Resizable compute capacity.", "isCorrect": false },
+    { "value": "D. Scales automatically to larger or smaller instance types.", "isCorrect": true },
+    { "value": "E. Supports the document and key-value data structure.", "isCorrect": false }
+  ],
+  "correct_answer": ["A", "D"]
+},
+{
+  "id": 167,
+  "tag": "Networking",
+  "sub_tag": "",
+  "question": "What is the connectivity option that uses Internet Protocol Security (IPSec) to establish encrypted connectivity between an on-premises network and the AWS Cloud?",
+  "options": [
+    { "value": "A. Internet Gateway.", "isCorrect": false },
+    { "value": "B. AWS IQ.", "isCorrect": false },
+    { "value": "C. AWS Direct Connect.", "isCorrect": false },
+    { "value": "D. AWS Site-to-Site VPN.", "isCorrect": true }
+  ],
+  "correct_answer": ["D"]
+},
+{
+  "id": 168,
+  "tag": "AWS Support",
+  "sub_tag": "",
+  "question": "What is the minimum level of AWS support that provides 24x7 access to technical support engineers via phone and chat?",
+  "options": [
+    { "value": "A. Enterprise Support.", "isCorrect": false },
+    { "value": "B. Developer Support.", "isCorrect": false },
+    { "value": "C. Basic Support.", "isCorrect": false },
+    { "value": "D. Business Support.", "isCorrect": true }
+  ],
+  "correct_answer": ["D"]
+},
+{
+  "id": 169,
+  "tag": "Network Security",
+  "sub_tag": "",
+  "question": "Which of the following is used to control network traffic in AWS? (Choose TWO)",
+  "options": [
+    { "value": "A. Network Access Control Lists (NACLs).", "isCorrect": true },
+    { "value": "B. Key Pairs.", "isCorrect": false },
+    { "value": "C. Access Keys.", "isCorrect": false },
+    { "value": "D. IAM Policies.", "isCorrect": false },
+    { "value": "E. Security Groups.", "isCorrect": true }
+  ],
+  "correct_answer": ["A", "E"]
+},
+{
+  "id": 170,
+  "tag": "EC2 Instance Types",
+  "sub_tag": "",
+  "question": "A company has developed a media transcoding application in AWS. The application is designed to recover quickly from hardware failures. Which one of the following types of instance would be the most cost-effective choice to use?",
+  "options": [
+    { "value": "A. Reserved instances.", "isCorrect": false },
+    { "value": "B. Spot Instances.", "isCorrect": false },
+    { "value": "C. On-Demand instances.", "isCorrect": false },
+    { "value": "D. Dedicated instances.", "isCorrect": false }
+  ],
+  "correct_answer": ["B"]
+},
+{
+  "id": 171,
+  "tag": "AWS Service Status",
+  "sub_tag": "",
+  "question": "Which AWS Service provides the current status of all AWS Services in all AWS Regions?",
+  "options": [
+    { "value": "A. AWS Service Health Dashboard.", "isCorrect": false },
+    { "value": "B. AWS Management Console.", "isCorrect": false },
+    { "value": "C. Amazon CloudWatch.", "isCorrect": false },
+    { "value": "D. AWS Personal Health Dashboard.", "isCorrect": true }
+  ],
+  "correct_answer": ["D"]
+},
+{
+  "id": 172,
+  "tag": "AWS Developer Tools",
+  "sub_tag": "",
+  "question": "Which AWS service or feature can be used to call AWS Services from different programming languages?",
+  "options": [
+    { "value": "A. AWS Software Development Kit.", "isCorrect": true },
+    { "value": "B. AWS Command Line Interface.", "isCorrect": false },
+    { "value": "C. AWS CodeDeploy.", "isCorrect": false },
+    { "value": "D. AWS Management Console.", "isCorrect": false }
+  ],
+  "correct_answer": ["A"]
+},
+{
+  "id": 173,
+  "tag": "AWS Domain Services",
+  "sub_tag": "",
+  "question": "Which AWS Service can be used to register a new domain name?",
+  "options": [
+    { "value": "A. Amazon Personalize.", "isCorrect": false },
+    { "value": "B. Amazon Route 53.", "isCorrect": true },
+    { "value": "C. AWS KMS.", "isCorrect": false },
+    { "value": "D. AWS Config.", "isCorrect": false }
+  ],
+  "correct_answer": ["B"]
+},
+{
+  "id": 174,
+  "tag": "AWS Automation Tools",
+  "sub_tag": "",
+  "question": "App development companies move their business to AWS to reduce time-to-market and improve customer satisfaction, what are the AWS automation tools that help them deploy their applications faster? (Choose TWO)",
+  "options": [
+    { "value": "A. AWS CloudFormation.", "isCorrect": true },
+    { "value": "B. AWS Migration Hub.", "isCorrect": false },
+    { "value": "C. AWS IAM.", "isCorrect": false },
+    { "value": "D. AWS Elastic Beanstalk.", "isCorrect": true },
+    { "value": "E. Amazon Macie.", "isCorrect": false }
+  ],
+  "correct_answer": ["A", "D"]
+},
+{
+  "id": 175,
+  "tag": "Cost Management",
+  "sub_tag": "",
+  "question": "Which AWS service provides cost-optimization recommendations?",
+  "options": [
+    { "value": "A. AWS Trusted Advisor.", "isCorrect": true },
+    { "value": "B. AWS Pricing Calculator.", "isCorrect": false },
+    { "value": "C. Amazon QuickSight.", "isCorrect": false },
+    { "value": "D. AWS X-Ray.", "isCorrect": false }
+  ],
+  "correct_answer": ["A"]
+},
+{
+  "id": 176,
+  "tag": "Networking",
+  "sub_tag": "",
+  "question": "A company has hundreds of VPCs in multiple AWS Regions worldwide. What service does AWS offer to simplify the connection management among the VPCs?",
+  "options": [
+    { "value": "A. VPC Peering.", "isCorrect": false },
+    { "value": "B. AWS Transit Gateway.", "isCorrect": true },
+    { "value": "C. Amazon Connect.", "isCorrect": false },
+    { "value": "D. Security Groups.", "isCorrect": false }
+  ],
+  "correct_answer": ["B"]
+},
+{
+  "id": 177,
+  "tag": "EC2 Pricing and Configuration",
+  "sub_tag": "",
+  "question": "What is one benefit and one drawback of buying a reserved EC2 instance? (Select TWO)",
+  "options": [
+    { "value": "A. Instances can be shut down by AWS at any time with no notification.", "isCorrect": false },
+    { "value": "B. Reserved instances require at least a one-year pricing commitment.", "isCorrect": true },
+    { "value": "C. There is no additional charge for using dedicated instances.", "isCorrect": false },
+    { "value": "D. Reserved instances provide a significant discount compared to on-demand instances.", "isCorrect": true },
+    { "value": "E.Reserved instances are best suited for periodic workloads.", "isCorrect": false }
+  ],
+  "correct_answer": ["B", "D"]
+},
+{
+  "id": 178,
+  "tag": "Global Infrastructure",
+  "sub_tag": "",
+  "question": "Why does every AWS Region contain multiple Availability Zones?",
+  "options": [
+    { "value": "A. Multiple Availability Zones allows you to build resilient and highly available architectures.", "isCorrect": true },
+    { "value": "B. Multiple Availability Zones results in lower total cost compared to deploying in a single Availability Zone.", "isCorrect": false },
+    { "value": "C. Multiple Availability Zones allows for data replication and global reach.", "isCorrect": false },
+    { "value": "D. Multiple Availability Zones within a region increases the storage capacity available in that region.", "isCorrect": false }
+  ],
+  "correct_answer": ["A"]
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

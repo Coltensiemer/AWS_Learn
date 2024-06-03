@@ -16,10 +16,8 @@ export interface TableQuestionType {
   userSelected: string;  
 }
 export interface OptionType {
-  id: number;
   value: string;
   iscorrect: boolean;
-  quizId: number;
 }
 
 export interface UserTableQuestionType {

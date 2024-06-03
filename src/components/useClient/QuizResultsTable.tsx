@@ -66,7 +66,7 @@ export function DataTable<TData extends TableQuestionType, TValue>({
     getSortedRowModel: getSortedRowModel(),
     onExpandedChange: setExpanded,
     getExpandedRowModel: getExpandedRowModel(),  
-    // getSubRows: (row: TData) =>  row.options,
+    getSubRows: (row: TData) =>  row.options,
     state: {
       columnVisibility,
       sorting,

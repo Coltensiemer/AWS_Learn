@@ -15,21 +15,9 @@ export default async function Page() {
   const sessionID = await getSession();
   const userResults = await getFakeUserResults(sessionID);
   const sessiondata= await getFakeUserTableResultData(sessionID); 
- 
-  const flatrows = sessiondata?.flatMap((row) => {
-    return row.options.map((option) => {
-      return {
-        tag: row.tag,
-        sub_tag: row.sub_tag,
-        question: row.question,
-        correct_answer: row.correct_answer,
-        userCorrect: row.userCorrect,
-        userSelected: row.userSelected,
-        ...option,
-      };
-    });
-  })
- 
+  
+  console.log(sessiondata);
+  
   if (!sessiondata) { return <div>No data Avaliable: Refresh or return to Home</div> } 
 
   return (
