@@ -13,7 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from '../shadcn/card/card';
-import { TimeInput } from '../shadcn/inputTimer';
+import { TimeInput } from '../shadcn/inputTimer/inputTimer';
 import { convertToTotalSeconds } from '../../functions/convertToTotalSeconds/convertToTotalSeconds';
 import { QuestionTags } from '../../QuestionTags';
 import { Input } from '../shadcn/input/input';

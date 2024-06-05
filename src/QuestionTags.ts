@@ -84,6 +84,7 @@ const developerTools = [
   "AWS CodePipeline",
   "AWS CodeStar",
   "AWS X-Ray",
+  "AWS Cloud Development Kit (AWS CDK)",
   "Best Practices"
 ];
 
