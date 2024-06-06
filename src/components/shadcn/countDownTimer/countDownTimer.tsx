@@ -13,17 +13,14 @@ export interface CounterProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Counter = React.forwardRef<HTMLDivElement, CounterProps>(
-  ({ className, asChild, countDownValue = 100,  ...props }, ref) => {
-
+  ({ className, asChild, countDownValue = 100, ...props }, ref) => {
     const [currentValue, setCurrentValue] = useState(countDownValue);
 
     useEffect(() => {
-      
-        const interval = setInterval(() => {
-          setCurrentValue((prevValue) => Math.max(prevValue - 1, 0));
-        }, 1000);
-        return () => clearInterval(interval);
-      
+      const interval = setInterval(() => {
+        setCurrentValue((prevValue) => Math.max(prevValue - 1, 0));
+      }, 1000);
+      return () => clearInterval(interval);
     }, [countDownValue]);
 
     return (
@@ -34,9 +31,11 @@ const Counter = React.forwardRef<HTMLDivElement, CounterProps>(
           className
         )}
         {...props}
-      >   <CounterHeader>{props.children}</CounterHeader>
-      <CounterTimer countDownValue={currentValue} />
-      <CounterProgress countDownValue={currentValue} />
+      >
+        {' '}
+        <CounterHeader>{props.children}</CounterHeader>
+        <CounterTimer countDownValue={currentValue} />
+        <CounterProgress countDownValue={currentValue} />
       </div>
     );
   }
@@ -56,21 +55,17 @@ const CounterHeader = React.forwardRef<HTMLDivElement, CounterProps>(
 
 CounterHeader.displayName = 'CounterHeader';
 
-
 const CounterTimer = React.forwardRef<HTMLDivElement, CounterProps>(
   ({ className, countDownValue, ...props }, ref) => {
-    return (
-      <p>{countDownValue}</p>
-    );
+    return <p>{countDownValue}</p>;
   }
 );
-
 
 const CounterProgress = React.forwardRef<HTMLDivElement, CounterProps>(
   ({ className, countDownValue = 100, countDown = false, ...props }, ref) => {
     return (
       <div ref={ref} className={cn('flex flex-col space-y-1.5 p-6', className)}>
-<CountDownProgress value={countDownValue} countdown={countDown} />
+        <CountDownProgress value={countDownValue} countdown={countDown} />
       </div>
     );
   }
