@@ -24,14 +24,45 @@ const levelVariants = cva('transition-all', {
 export interface ProgressProps
   extends React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> {
   value?: number;
-  level?: 'full' | 'quarter' | 'nearEmpty' | 'Empty';
-  backgroundColor?: 'Default' | 'Empty';
+  countdown?: boolean;
 }
 
 const Progress = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,
   ProgressProps
->(({ className, value, ...props }, ref) => {
+>(({ className, value, countdown = false, ...props }, ref) => {
+
+
+  return (
+    <ProgressPrimitive.Root
+      ref={ref}
+      className={cn(
+        'relative h-2 w-full overflow-hidden rounded-full border',
+        className
+      )}
+      {...props}
+    >
+      <ProgressPrimitive.Indicator
+        className={cn(
+          'h-full w-full flex-1 transition-all',
+        )}
+        style={{ transform: `translateX(-${100 - (value|| 0)}%)` }}
+      />
+    </ProgressPrimitive.Root>
+  );
+});
+Progress.displayName = ProgressPrimitive.Root.displayName;
+
+export { Progress };
+
+
+
+const CountDownProgress = React.forwardRef<
+  React.ElementRef<typeof ProgressPrimitive.Root>,
+  ProgressProps
+>(({ className, value, countdown = false, ...props }, ref) => {
+
+
   let level: 'full' | 'quarter' | 'nearEmpty' | 'Empty' = 'full';
   let backgroundColor: 'Default' | 'Empty' = 'Default';
   if (value === 0) {
@@ -57,11 +88,11 @@ const Progress = React.forwardRef<
           'h-full w-full flex-1 transition-all',
           levelVariants({ level })
         )}
-        style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
+        style={{ transform: `translateX(-${100 - (value|| 0)}%)` }}
       />
     </ProgressPrimitive.Root>
   );
 });
 Progress.displayName = ProgressPrimitive.Root.displayName;
 
-export { Progress };
+export { CountDownProgress };
