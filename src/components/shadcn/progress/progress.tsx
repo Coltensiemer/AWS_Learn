@@ -1,28 +1,67 @@
-"use client"
+'use client';
 
-import * as React from "react"
-import * as ProgressPrimitive from "@radix-ui/react-progress"
+import * as React from 'react';
+import * as ProgressPrimitive from '@radix-ui/react-progress';
 
-import { cn } from "../../../lib/utils"
+import { cn } from '../../../lib/utils';
+import { cva, VariantProps } from 'class-variance-authority';
+
+const levelVariants = cva('transition-all', {
+  variants: {
+    level: {
+      full: 'bg-green-500',
+      quarter: 'bg-yellow-500',
+      nearEmpty: 'bg-red-500',
+      Empty: 'bg-black-500',
+    },
+    backgroundColor: {
+      Default: 'border-primary',
+      Empty: 'border-red-500 border',
+    },
+  },
+});
+
+export interface ProgressProps
+  extends React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> {
+  value?: number;
+  level?: 'full' | 'quarter' | 'nearEmpty' | 'Empty';
+  backgroundColor?: 'Default' | 'Empty';
+}
 
 const Progress = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root>
->(({ className, value, ...props }, ref) => (
-  <ProgressPrimitive.Root
-    ref={ref}
-    className={cn(
-      "relative h-2 w-full overflow-hidden rounded-full border border-primary bg-primary-foreground",
-      className
-    )}
-    {...props}
-  >
-    <ProgressPrimitive.Indicator
-      className="h-full w-full flex-1 bg-primary transition-all"
-      style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
-    />
-  </ProgressPrimitive.Root>
-))
-Progress.displayName = ProgressPrimitive.Root.displayName
+  ProgressProps
+>(({ className, value, ...props }, ref) => {
+  let level: 'full' | 'quarter' | 'nearEmpty' | 'Empty' = 'full';
+  let backgroundColor: 'Default' | 'Empty' = 'Default';
+  if (value === 0) {
+    backgroundColor = 'Empty';
+  } else if (value && value <= 10) {
+    level = 'nearEmpty';
+  } else if (value && value <= 25) {
+    level = 'quarter';
+  }
 
-export { Progress }
+  return (
+    <ProgressPrimitive.Root
+      ref={ref}
+      className={cn(
+        'relative h-2 w-full overflow-hidden rounded-full border',
+        levelVariants({ backgroundColor }),
+        className
+      )}
+      {...props}
+    >
+      <ProgressPrimitive.Indicator
+        className={cn(
+          'h-full w-full flex-1 transition-all',
+          levelVariants({ level })
+        )}
+        style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
+      />
+    </ProgressPrimitive.Root>
+  );
+});
+Progress.displayName = ProgressPrimitive.Root.displayName;
+
+export { Progress };
