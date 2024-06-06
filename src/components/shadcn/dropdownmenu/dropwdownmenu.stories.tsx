@@ -17,7 +17,6 @@ import {
   DropdownMenuRadioGroup,
 } from './dropdownmenu';
 import { Button, buttonVariants } from "../button/button";
-import { DropdownMenuCheckboxItemProps } from '@radix-ui/react-dropdown-menu';
 import * as React from 'react';
 
 const meta: Meta = { 
