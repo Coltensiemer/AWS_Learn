@@ -1,10 +1,14 @@
-Certainly! Here's the updated README.md file outline with all sections in one sheet:
+
 
 ```markdown
 # Project Name
+AWS Learn
+
+
 
 ## Description
-Brief description of the project, including its purpose and key features.
+This application is tool to study and learn for the AWS cerifications. 
+Users have the applility to select options on how they want their quiz and be able to see the results. 
 
 ## Table of Contents
 - [Installation](#installation)
@@ -25,30 +29,36 @@ Brief description of the project, including its purpose and key features.
 
 ## Usage
 1. To start the development server, run:
-`
+```bash
    npm run dev
+```
 2. To build the project, run:
-`
+```bash
    npm run build
-
+```
 3. To start the production server, run:
-`
+```bash
    npm run start
-
+```
 4. Create a .env 
    `DATABASE_URL="postgresql://{username}:{password}@localhost:{port}/{dbName}?schema=SCHEMA"`
-
+   
 5. How to seed developement DB run: 
-`
+```bash
    npx prisma db seed
-
-6. Additional scripts:
+```
+6. How to run StoryBook
+```bash
+   npm run storybook
+```
+7. Additional scripts:
    - `lint`: Run ESLint for linting.
    - `storybook`: Start Storybook development server.
    - `build-storybook`: Build Storybook static files.
 
 ## Contributing
 If you'd like to contribute to the project, please follow these steps:
+
 1. Fork the repository.
 2. Create a new branch for your feature or bug fix.
 3. Make your changes and ensure tests pass.
@@ -57,13 +67,10 @@ If you'd like to contribute to the project, please follow these steps:
 
 ## License
 
+
 ## Credits
 Acknowledgements for any third-party libraries, resources, or individuals who contributed to the project.
 - [@hookform/resolvers](https://www.npmjs.com/package/@hookform/resolvers)
-- [@radix-ui/react-label](https://www.npmjs.com/package/@radix-ui/react-label)
-- [@radix-ui/react-radio-group](https://www.npmjs.com/package/@radix-ui/react-radio-group)
-- [@radix-ui/react-slot](https://www.npmjs.com/package/@radix-ui/react-slot)
-- [@radix-ui/react-toast](https://www.npmjs.com/package/@radix-ui/react-toast)
 - [class-variance-authority](https://www.npmjs.com/package/class-variance-authority)
 - [clsx](https://www.npmjs.com/package/clsx)
 - [lucide-react](https://www.npmjs.com/package/lucide-react)
@@ -71,6 +78,8 @@ Acknowledgements for any third-party libraries, resources, or individuals who co
 - [react](https://www.npmjs.com/package/react)
 - [react-dom](https://www.npmjs.com/package/react-dom)
 - [react-hook-form](https://www.npmjs.com/package/react-hook-form)
+- [shadcn] (https://ui.shadcn.com/)
+- [storybook] (https://storybook.js.org/)
 - [tailwind-merge](https://www.npmjs.com/package/tailwind-merge)
 - [tailwindcss-animate](https://www.npmjs.com/package/tailwindcss-animate)
 - [zod](https://www.npmjs.com/package/zod)
