@@ -61,6 +61,8 @@ const CounterTimer = React.forwardRef<HTMLDivElement, CounterProps>(
   }
 );
 
+CounterTimer.displayName = 'CounterTimer';
+
 const CounterProgress = React.forwardRef<HTMLDivElement, CounterProps>(
   ({ className, countDownValue = 100, countDown = false, ...props }, ref) => {
     return (

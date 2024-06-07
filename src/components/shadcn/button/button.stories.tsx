@@ -67,7 +67,7 @@ export const Correct: Story = {
 } 
 } 
 
-export const inCorrect: Story = { 
+export const IsCorrect: Story = { 
   args: {
     children:"Enter text here",
     label: 'Button',
@@ -76,7 +76,7 @@ export const inCorrect: Story = {
 } 
 } 
 
-export const isAnswered: Story = {
+export const IsAnswered: Story = {
   args: {
     children:"Enter text here",
     label: 'Button',

@@ -5,6 +5,7 @@ import * as ProgressPrimitive from '@radix-ui/react-progress';
 
 import { cn } from '../../../lib/utils';
 import { cva, VariantProps } from 'class-variance-authority';
+import { count } from 'console';
 
 const levelVariants = cva('transition-all', {
   variants: {
@@ -55,6 +56,7 @@ Progress.displayName = ProgressPrimitive.Root.displayName;
 
 export { Progress };
 
+Progress.displayName = ProgressPrimitive.Root.displayName;
 
 
 const CountDownProgress = React.forwardRef<
@@ -93,6 +95,6 @@ const CountDownProgress = React.forwardRef<
     </ProgressPrimitive.Root>
   );
 });
-Progress.displayName = ProgressPrimitive.Root.displayName;
+CountDownProgress.displayName = ProgressPrimitive.Root.displayName;
 
 export { CountDownProgress };
