@@ -33,6 +33,11 @@ export const columns: ColumnDef<TableQuestionType>[] = [
       return <p>{row.original.question}</p>;
     },
   },
+
+  { 
+    header:'userSelected',
+    accessorKey: 'userSelected',
+  },
   {
     header: 'Correct Answer',
     accessorKey: 'correct_answer',
