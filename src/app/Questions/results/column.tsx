@@ -8,9 +8,7 @@ import {
 import { Button } from '../../../components/shadcn/button/button';
 import { ArrowUpDown } from 'lucide-react';
 
-
 export const columns: ColumnDef<TableQuestionType>[] = [
-
   {
     header: ({ column }) => {
       return (
@@ -24,30 +22,31 @@ export const columns: ColumnDef<TableQuestionType>[] = [
       );
     },
     enableHiding: false,
-   accessorKey: 'id',
+    accessorFn: (row, rowIndex) => rowIndex + 1, // rowIndex starts from 0, so add 1 to start from 1
+    id: 'index',
+    cell: (info) => info.row.index + 1, // This is for the cell value
   },
   {
     header: 'Question',
     accessorKey: 'question',
     cell: ({ row }) => {
       return <p>{row.original.question}</p>;
-    }
+    },
   },
   {
     header: 'Correct Answer',
     accessorKey: 'correct_answer',
   },
-{
-  header: 'Answer',
-  accessorKey: 'userCorrect',
-  cell: ({ row }) => {
-
-  }
-},
+  {
+    header: 'Answer',
+    accessorKey: 'userCorrect',
+    cell: ({ row }) => {},
+  },
   {
     header: 'Tag',
     accessorKey: 'tag',
   },
+
 
   {
     id: 'actions',
@@ -107,8 +106,7 @@ export const columns: ColumnDef<TableQuestionType>[] = [
           </button>
         )}{' '}
         {getValue<boolean>()}
-     </div>
+      </div>
     ),
   },
-
 ];

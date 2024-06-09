@@ -90,7 +90,6 @@ export function QuizSubmit({
       }),
     }).then((res) => {
       if (res.ok) {
-      
         router.push('/Questions/Results');
       } else if (res.status === 401) {
         throw new Error('Network Error');

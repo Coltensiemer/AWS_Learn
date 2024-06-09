@@ -97,6 +97,10 @@ export async function getFakeUserTableResultData(cookieid: string) {
         return quiz.id === key +1;
       }) || null;
       
+      const transformedOptions = quiz.options.map((option) => ({
+        question: option.value,
+        correct_answer: option.iscorrect,
+      }));
   
       
       return {
@@ -105,9 +109,9 @@ export async function getFakeUserTableResultData(cookieid: string) {
         sub_tag: quiz.sub_tag,
         question: quiz.question,
         correct_answer: quiz.correct_answer,
-        options: quiz.options,
+        options: transformedOptions,
         userCorrect,
-        userSelected: optionValue
+        userSelected: optionValue,
       };
 
     });

@@ -76,16 +76,27 @@ export function DataTable<TData extends TableQuestionType, TValue>({
     
   });
   
-    const getSubRows = (row: TableQuestionType): OptionType[] => { 
-      return row.options;
-    }
-      
+  
   const resetFilters = () => {
     setSorting([]);
     setColumnVisibility({});
     setExpanded({});
   };
   
+  
+  
+  // console.log(table.getRowModel().rows.map((row) => row.original.options.map((option: any) => option.value)))
+  // function expanableSubComponent(table: any) { 
+  //   return (
+  //     <TableRow>
+  //       {/* {table.original.options.map((option: any) => (
+  //         <TableCell className='bg-gray-200' key={option.id}>
+  //           {option.value}
+  //         </TableCell>
+  //       ))} */}
+  //     </TableRow>
+  //   );
+  // }
 
 
   
@@ -159,19 +170,7 @@ export function DataTable<TData extends TableQuestionType, TValue>({
                   </TableCell>
                 ))}
               </TableRow>
-              {/* {row.getIsExpanded() ? (
-
-              <TableRow className=''>
-                {row.original.options.map((option: any) => (
-                  <TableCell className='bg-gray-200' key={option.id}>
-                    {option.value}
-                  </TableCell>
-                ))} 
-              </TableRow>
-              )
-               : (null)
-               
-               } */}
+              
                 </>
             ))
           ) : (
