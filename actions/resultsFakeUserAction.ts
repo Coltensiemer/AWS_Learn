@@ -32,8 +32,7 @@ export interface UserTableQuestionType {
 }
 
 export async function getFakeUserResults(sessionID: string) {
-  /// make more effiecient
-  /// take the most recent quiz
+
 
   const sessiondata = await prisma.fakeuser.findFirst({
     ///change so it only recieves the last quiz

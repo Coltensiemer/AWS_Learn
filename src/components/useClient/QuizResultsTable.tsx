@@ -14,7 +14,8 @@ import {
   getSortedRowModel,
   useReactTable,
   ExpandedState,
-  
+  PaginationState,
+  ColumnFiltering,
 } from '@tanstack/react-table';
 import {
   Table,
@@ -35,15 +36,13 @@ import {
   DropdownMenuTrigger,
 } from '../shadcn/dropdownmenu/dropdownmenu';
 import { Card } from '../shadcn/card/card';
-import { TableQuestionType, UserTableQuestionType, OptionType } from '../../../actions/resultsFakeUserAction';
-
+import { Input } from '../shadcn/input/input';
+import { TableQuestionType } from '../../../actions/resultsFakeUserAction';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
-
-
 
 export function DataTable<TData extends TableQuestionType, TValue>({
   columns,
@@ -51,42 +50,40 @@ export function DataTable<TData extends TableQuestionType, TValue>({
 }: DataTableProps<TData, TValue>) {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [sorting, setSorting] = useState<SortingState>([]);
-  
-  const [expanded, setExpanded] = React.useState<ExpandedState>({})
-  
+  const [pagination, setPagination] = React.useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  });
+  const [expanded, setExpanded] = React.useState<ExpandedState>({});
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    onPaginationChange: setPagination,
     onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     onExpandedChange: setExpanded,
-    getExpandedRowModel: getExpandedRowModel(),  
-  
+    getExpandedRowModel: getExpandedRowModel(),
+
     //@ts-ignore
-    getSubRows: (row: TData) =>  row.options,
+    getSubRows: (row: TData) => row.options,
     state: {
       columnVisibility,
       sorting,
-      expanded, 
+      expanded,
+      pagination,
     },
-    
   });
-  
-  
+
   const resetFilters = () => {
     setSorting([]);
     setColumnVisibility({});
     setExpanded({});
   };
-  
-  
-  
 
-
-  
   return (
     <Card className='rounded-md border my-4'>
       <div className='flex justify-around items-center'>
@@ -143,23 +140,25 @@ export function DataTable<TData extends TableQuestionType, TValue>({
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody  className='min-w-max'>
+        <TableBody className='min-w-max'>
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
-<>
-              <TableRow
-                key={row.original.id}
-                data-state={row.getIsSelected() && 'selected'}
-                className='hover:bg-gray-100 cursor-pointer'
+              <>
+                <TableRow
+                  key={row.original.id}
+                  data-state={row.getIsSelected() && 'selected'}
+                  className='hover:bg-gray-100 cursor-pointer'
                 >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-              </TableRow>
-              
-                </>
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </>
             ))
           ) : (
             <TableRow>
@@ -170,7 +169,21 @@ export function DataTable<TData extends TableQuestionType, TValue>({
           )}
         </TableBody>
       </Table>
-      <div className='flex items-center justify-end space-x-2 py-4'>
+      <div className='flex items-center justify-end  space-x-4 py-4'>
+        
+          <span className='flex justify-center items-center text-xs'>
+            Go to Page
+            <Input
+              className='w-16'
+              type='number'
+              defaultValue={table.getState().pagination.pageIndex + 1}
+              onChange={(e) => {
+                const page = e.target.value ? parseInt(e.target.value) - 1 : 0;
+                table.setPageIndex(page);
+              }}
+            ></Input>
+          </span>
+      
         <Button
           variant='outline'
           size='sm'
@@ -188,8 +201,6 @@ export function DataTable<TData extends TableQuestionType, TValue>({
           Next
         </Button>
       </div>
-      <label>Expanded State:</label>
-      <pre>{JSON.stringify(expanded, null, 2)}</pre>
     </Card>
   );
 }
