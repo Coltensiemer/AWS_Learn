@@ -6,7 +6,9 @@ import {
   UserTableQuestionType,
 } from '../../../../actions/resultsFakeUserAction';
 import { Button } from '../../../components/shadcn/button/button';
-import { ArrowUpDown } from 'lucide-react';
+import { ArrowUpDown, Check, CircleX } from 'lucide-react';
+import Image from 'next/image';
+import { info, table } from 'console';
 
 export const columns: ColumnDef<TableQuestionType>[] = [
   {
@@ -34,34 +36,30 @@ export const columns: ColumnDef<TableQuestionType>[] = [
     },
   },
 
-  { 
-    header:'userSelected',
-    accessorKey: 'userSelected',
-  },
   {
     header: 'Correct Answer',
     accessorKey: 'correct_answer',
   },
   {
-    header: 'Answer',
-    accessorKey: 'userCorrect',
-    cell: ({ row }) => {},
+    header: 'Selected Answer',
+    accessorKey: 'userSelected',
   },
+  {
+    header: "User's Answer",
+    accessorKey: 'userCorrect',
+  }, 
   {
     header: 'Tag',
     accessorKey: 'tag',
   },
-
-
   {
     id: 'actions',
     header: 'Actions',
 
     cell: ({ row, getValue }) => (
       <div
-        className='expander'
         style={{
-          paddingLeft: `${row.depth * 2}rem`,
+          paddingLeft: `${row.depth * 1}rem`,
         }}
       >
         {row.getCanExpand() && (
@@ -110,7 +108,6 @@ export const columns: ColumnDef<TableQuestionType>[] = [
             )}
           </button>
         )}{' '}
-        {getValue<boolean>()}
       </div>
     ),
   },

@@ -94,6 +94,7 @@ export function QuizSubmit({
       } else if (res.status === 401) {
         throw new Error('Network Error');
       }
+      console.log(cookieID, 'cookieID')
     });
   };
 

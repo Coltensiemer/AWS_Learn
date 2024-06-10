@@ -6,6 +6,7 @@ async function main() {
   try {
     //Delete all users to clear the database
     await prisma.user.deleteMany();
+    await prisma.fakeuser.deleteMany();
     await prisma.completedquiz.deleteMany();
     await prisma.quizprogress.deleteMany();
 

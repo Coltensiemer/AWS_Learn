@@ -8,7 +8,7 @@ import { DataTable } from '../../../components/useClient/QuizResultsTable';
 import { getTableResultData } from '../../../../actions/resultsActions';
 import {getFakeUserResults, getFakeUserTableResultData} from '../../../../actions/resultsFakeUserAction';
 import {columns} from './column';
-
+import { Check } from 'lucide-react';
 
 
 export default async function Page() {
@@ -24,6 +24,7 @@ export default async function Page() {
     <div className='w-1/2'>
       <Results sessionData={userResults} />
       <DataTable columns={columns} data={sessiondata} />
+      <Check />
     </div>
   );
 }

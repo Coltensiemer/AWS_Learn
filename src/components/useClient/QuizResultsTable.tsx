@@ -13,7 +13,8 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-  ExpandedState
+  ExpandedState,
+  
 } from '@tanstack/react-table';
 import {
   Table,
@@ -53,9 +54,6 @@ export function DataTable<TData extends TableQuestionType, TValue>({
   
   const [expanded, setExpanded] = React.useState<ExpandedState>({})
   
-  
-  
-  
   const table = useReactTable({
     data,
     columns,
@@ -66,6 +64,7 @@ export function DataTable<TData extends TableQuestionType, TValue>({
     getSortedRowModel: getSortedRowModel(),
     onExpandedChange: setExpanded,
     getExpandedRowModel: getExpandedRowModel(),  
+  
     //@ts-ignore
     getSubRows: (row: TData) =>  row.options,
     state: {
@@ -85,18 +84,6 @@ export function DataTable<TData extends TableQuestionType, TValue>({
   
   
   
-  // console.log(table.getRowModel().rows.map((row) => row.original.options.map((option: any) => option.value)))
-  // function expanableSubComponent(table: any) { 
-  //   return (
-  //     <TableRow>
-  //       {/* {table.original.options.map((option: any) => (
-  //         <TableCell className='bg-gray-200' key={option.id}>
-  //           {option.value}
-  //         </TableCell>
-  //       ))} */}
-  //     </TableRow>
-  //   );
-  // }
 
 
   
@@ -163,6 +150,7 @@ export function DataTable<TData extends TableQuestionType, TValue>({
               <TableRow
                 key={row.original.id}
                 data-state={row.getIsSelected() && 'selected'}
+                className='hover:bg-gray-100 cursor-pointer'
                 >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
