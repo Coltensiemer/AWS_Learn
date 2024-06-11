@@ -2213,7 +2213,163 @@
     { "value": "D. Multiple Availability Zones within a region increases the storage capacity available in that region.", "isCorrect": false }
   ],
   "correct_answer": ["A"]
-}
+},
+  {
+    "id": 179,
+    "tag": "Cloud Adoption Framework",
+    "sub_tag": "Business",
+    "question": "Which of the following best describes the focus of the Business perspective in the Cloud Adoption Framework?",
+    "options": [
+      { "value": "A. Aligning IT strategies with business strategies.", "isCorrect": true },
+      { "value": "B. Ensuring data encryption and network security.", "isCorrect": false },
+      { "value": "C. Managing cloud infrastructure costs.", "isCorrect": false },
+      { "value": "D. Automating deployment processes.", "isCorrect": false }
+    ],
+    "correct_answer": ["A"]
+  },
+  {
+    "id": 180,
+    "tag": "Cloud Adoption Framework",
+    "sub_tag": "Business",
+    "question": "The Business perspective in the Cloud Adoption Framework deals primarily with which of the following?",
+    "options": [
+      { "value": "A. Data encryption.", "isCorrect": false },
+      { "value": "B. Network security.", "isCorrect": false },
+      { "value": "C. Aligning IT and business strategies.", "isCorrect": true },
+      { "value": "D. Automating CI/CD pipelines.", "isCorrect": false }
+    ],
+    "correct_answer": ["C"]
+  },
+  {
+    "id": 181,
+    "tag": "Cloud Adoption Framework",
+    "sub_tag": "People",
+    "question": "Which of the following focuses on ensuring that the workforce has the skills needed to support cloud adoption?",
+    "options": [
+      { "value": "A. Business perspective.", "isCorrect": false },
+      { "value": "B. People perspective.", "isCorrect": true },
+      { "value": "C. Governance perspective.", "isCorrect": false },
+      { "value": "D. Operations perspective.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 182,
+    "tag": "Cloud Adoption Framework",
+    "sub_tag": "People",
+    "question": "The People perspective includes which of the following activities?",
+    "options": [
+      { "value": "A. Ensuring data encryption.", "isCorrect": false },
+      { "value": "B. Aligning IT with business strategies.", "isCorrect": false },
+      { "value": "C. Developing a skilled workforce.", "isCorrect": true },
+      { "value": "D. Managing cloud infrastructure costs.", "isCorrect": false }
+    ],
+    "correct_answer": ["C"]
+  },
+  {
+    "id": 183,
+    "tag": "Cloud Adoption Framework",
+    "sub_tag": "Governance",
+    "question": "Which perspective in the Cloud Adoption Framework focuses on aligning projects with business goals?",
+    "options": [
+      { "value": "A. Governance perspective.", "isCorrect": true },
+      { "value": "B. Security perspective.", "isCorrect": false },
+      { "value": "C. Platform perspective.", "isCorrect": false },
+      { "value": "D. Operations perspective.", "isCorrect": false }
+    ],
+    "correct_answer": ["A"]
+  },
+  {
+    "id": 184,
+    "tag": "Cloud Adoption Framework",
+    "sub_tag": "Governance",
+    "question": "The Governance perspective in the Cloud Adoption Framework is primarily concerned with which of the following?",
+    "options": [
+      { "value": "A. Managing security policies.", "isCorrect": false },
+      { "value": "B. Ensuring compliance and aligning projects with business goals.", "isCorrect": true },
+      { "value": "C. Developing a skilled workforce.", "isCorrect": false },
+      { "value": "D. Automating deployment processes.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 185,
+    "tag": "Cloud Adoption Framework",
+    "sub_tag": "Platform",
+    "question": "Which perspective focuses on designing, deploying, and managing cloud environments?",
+    "options": [
+      { "value": "A. Business perspective.", "isCorrect": false },
+      { "value": "B. People perspective.", "isCorrect": false },
+      { "value": "C. Platform perspective.", "isCorrect": true },
+      { "value": "D. Operations perspective.", "isCorrect": false }
+    ],
+    "correct_answer": ["C"]
+  },
+  {
+    "id": 186,
+    "tag": "Cloud Adoption Framework",
+    "sub_tag": "Platform",
+    "question": "The Platform perspective includes which of the following activities?",
+    "options": [
+      { "value": "A. Ensuring data encryption.", "isCorrect": false },
+      { "value": "B. Aligning IT with business strategies.", "isCorrect": false },
+      { "value": "C. Designing and managing cloud environments.", "isCorrect": true },
+      { "value": "D. Developing a skilled workforce.", "isCorrect": false }
+    ],
+    "correct_answer": ["C"]
+  },
+  {
+    "id": 187,
+    "tag": "Cloud Adoption Framework",
+    "sub_tag": "Operations",
+    "question": "Which perspective in the Cloud Adoption Framework focuses on day-to-day operations and management?",
+    "options": [
+      { "value": "A. Business perspective.", "isCorrect": false },
+      { "value": "B. People perspective.", "isCorrect": false },
+      { "value": "C. Governance perspective.", "isCorrect": false },
+      { "value": "D. Operations perspective.", "isCorrect": true }
+    ],
+    "correct_answer": ["D"]
+  },
+  {
+    "id": 188,
+    "tag": "Cloud Adoption Framework",
+    "sub_tag": "Operations",
+    "question": "The Operations perspective is responsible for which of the following?",
+    "options": [
+      { "value": "A. Aligning IT strategies with business strategies.", "isCorrect": false },
+      { "value": "B. Managing day-to-day cloud operations.", "isCorrect": true },
+      { "value": "C. Ensuring data encryption.", "isCorrect": false },
+      { "value": "D. Developing a skilled workforce.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 189,
+    "tag": "Cloud Adoption Framework",
+    "sub_tag": "Security",
+    "question": "Which perspective focuses on protecting data, applications, and infrastructure?",
+    "options": [
+      { "value": "A. Governance perspective.", "isCorrect": false },
+      { "value": "B. People perspective.", "isCorrect": false },
+      { "value": "C. Security perspective.", "isCorrect": true },
+      { "value": "D. Operations perspective.", "isCorrect": false }
+    ],
+    "correct_answer": ["C"]
+  },
+  {
+    "id": 190,
+    "tag": "Cloud Adoption Framework",
+    "sub_tag": "Security",
+    "question": "The Security perspective includes which of the following activities?",
+    "options": [
+      { "value": "A. Aligning IT strategies with business strategies.", "isCorrect": false },
+      { "value": "B. Protecting data and managing security policies.", "isCorrect": true },
+      { "value": "C. Developing a skilled workforce.", "isCorrect": false },
+      { "value": "D. Automating deployment processes.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  }
 
 
 
