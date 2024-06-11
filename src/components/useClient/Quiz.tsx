@@ -1,8 +1,8 @@
 'use client';
 
 import React, { use, useContext, useEffect, useState } from 'react';
-import { RadioGroup, RadioGroupItem } from '../components/shadcn/radio-group';
-import { Label } from '../components/shadcn/label';
+import { RadioGroup, RadioGroupItem } from '../shadcn/radio-group';
+import { Label } from '../shadcn/label';
 import { array, set, z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -13,22 +13,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../components/shadcn/form/form';
-import { Button } from '../components/shadcn/button/button';
-import { setCorrectorIncorrectQs } from '../functions/setCorrectorIncorrectQs/setCorrectorIncorrectQs';
-import { QuizProgressContext } from '../useContext/QuizProgressContext';
-import { QuizProps, QuestionType } from '../../prisma/dataTypes';
-import QuizTracker from './QuizTracker';
+} from '../shadcn/form/form';
+import { setCorrectorIncorrectQs } from '../../functions/setCorrectorIncorrectQs/setCorrectorIncorrectQs';
+import { QuizProgressContext } from '../../useContext/QuizProgressContext';
+import { QuizProps, QuestionType } from '../../../prisma/dataTypes';
+import QuizTracker from '../../useClient/QuizTracker';
 import { PaginationDirection } from './PaginationDirection';
-import { compareAnswer } from '../functions/compareAnswers/compareAnswers';
-import { useRouter } from 'next/navigation';
-import { nextQuestion } from '../functions/nextQuestion/nextQuestion';
-import { QuizSubmit } from './QuizSubmitResults';
-import { Card } from '../components/shadcn/card/card';
-import { Checkbox } from '../components/shadcn/checkbox/checkbox';
-import { on } from 'events';
-import { Value } from '@radix-ui/react-select';
-
+import { compareAnswer } from '../../functions/compareAnswers/compareAnswers';
+import { QuizSubmit } from '../../useClient/QuizSubmitResults';
+import { Card } from '../shadcn/card/card';
+import { Checkbox } from '../shadcn/checkbox/checkbox';
 
 
 

@@ -8,7 +8,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from '../components/shadcn/pagination';
+} from '../shadcn/pagination';
 import {
   Drawer,
   DrawerClose,
@@ -18,17 +18,17 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from '../components/shadcn/drawer/drawer';
+} from '../shadcn/drawer/drawer';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '../components/shadcn/tooltip';
-import { Button } from '../components/shadcn/button/button';
+} from '../shadcn/tooltip';
+import { Button } from '../shadcn/button/button';
 import { useContext, useEffect, useState } from 'react';
-import { QuizProgressContext } from '../useContext/QuizProgressContext';
-import { nextQuestion } from '../functions/nextQuestion/nextQuestion';
+import { QuizProgressContext } from '../../useContext/QuizProgressContext';
+import { nextQuestion } from '../../functions/nextQuestion/nextQuestion';
 import { dir } from 'console';
 
 export function PaginationDirection({

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useContext, useState } from 'react';
-import { QuizProgressContext } from '../useContext/QuizProgressContext';
+import { QuizProgressContext } from '../../useContext/QuizProgressContext';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { Quiz } from './Quiz';
 

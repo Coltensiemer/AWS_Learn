@@ -1,5 +1,5 @@
 import react, { cache } from 'react';
-import { Quiz } from '../../../useClient/Quiz';
+import { Quiz } from '../../../components/useClient/Quiz';
 import { QuizProps, QuestionType } from '../../../../prisma/dataTypes';
 import prisma from '../../../lib/prisma';
 

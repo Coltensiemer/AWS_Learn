@@ -1,7 +1,7 @@
 'use client'
 
 import { useContext } from "react"
-import { QuizProgressContext } from "../useContext/QuizProgressContext"
+import { QuizProgressContext } from "../../useContext/QuizProgressContext"
 
 
 interface QuizTrackerProps {

@@ -10,18 +10,18 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogDescription,
-} from '../components/shadcn/alert-dialog';
+} from '../../components/shadcn/alert-dialog';
 import { useState, useContext } from 'react';
-import { Button } from '../components/shadcn/button/button';
+import { Button } from '../../components/shadcn/button/button';
 import {
   Card,
   CardHeader,
   CardDescription,
   CardFooter,
   CardTitle,
-} from '../components/shadcn/card/card';
-import { QuizProgressContext } from '../useContext/QuizProgressContext';
-import { getSession } from '../../actions/cookieActions/cookieActions';
+} from '../../components/shadcn/card/card';
+import { QuizProgressContext } from '../../useContext/QuizProgressContext';
+import { getSession } from '../../../actions/cookieActions/cookieActions';
 
 
 function totalScore(questions: QuestionType[], correct: number[]) {
