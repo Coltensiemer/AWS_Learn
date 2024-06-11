@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import Results from '../../../useClient/Results';
+import Results from '../../../components/useClient/Results';
 import { getSession } from '../../../../actions/cookieActions/cookieActions';
 import prisma from '../../../lib/prisma';
 import { date } from 'zod';

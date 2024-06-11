@@ -17,10 +17,10 @@ import {
 import { setCorrectorIncorrectQs } from '../../functions/setCorrectorIncorrectQs/setCorrectorIncorrectQs';
 import { QuizProgressContext } from '../../useContext/QuizProgressContext';
 import { QuizProps, QuestionType } from '../../../prisma/dataTypes';
-import QuizTracker from '../../useClient/QuizTracker';
+import QuizTracker from '../useClient/QuizTracker';
 import { PaginationDirection } from './PaginationDirection';
 import { compareAnswer } from '../../functions/compareAnswers/compareAnswers';
-import { QuizSubmit } from '../../useClient/QuizSubmitResults';
+import { QuizSubmit } from '../useClient/QuizSubmitResults';
 import { Card } from '../shadcn/card/card';
 import { Checkbox } from '../shadcn/checkbox/checkbox';
 

@@ -1,4 +1,4 @@
-import QuizCountDownTimer from "../../../useClient/QuizCountDownTimer"
+import QuizCountDownTimer from "../../../components/useClient/QuizCountDownTimer"
 import {Button} from "../../../components/shadcn/button/button"; 
 import Link from "next/link";
 
