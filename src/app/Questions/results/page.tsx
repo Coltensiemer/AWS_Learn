@@ -1,11 +1,7 @@
-import { NextResponse } from 'next/server';
+
 import Results from '../../../components/useClient/Results';
 import { getSession } from '../../../../actions/cookieActions/cookieActions';
-import prisma from '../../../lib/prisma';
-import { date } from 'zod';
-// import QuizResultsTable from '../../../components/useServer/QuizResultsTable';
 import { DataTable } from '../../../components/useClient/QuizResultsTable';
-import { getTableResultData } from '../../../../actions/resultsActions';
 import {getFakeUserResults, getFakeUserTableResultData} from '../../../../actions/resultsFakeUserAction';
 import {columns} from './column';
 

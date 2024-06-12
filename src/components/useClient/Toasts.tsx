@@ -1,7 +1,7 @@
 "use client"
 
-import { Toaster } from '../components/shadcn/toaster';
-import { Button } from '../components/shadcn/button/button';
+import { Toaster } from '../shadcn/toaster';
+import { Button } from '../shadcn/button/button';
 
 export default function SuccessfulToast() {
 //@ts-ignore

@@ -5,7 +5,7 @@ const meta = {
   title: 'Atomic/Counter',
   component: Counter,
   parameters: {
-    layout: 'centered',
+layout: 'centered',
   },
   tags: ['autodocs'],
   argTypes: {
@@ -29,7 +29,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    countDownValue: 50,
+    countDownValue: 20,
     countDown: true,
     children: 'Counter Header Text',
   },

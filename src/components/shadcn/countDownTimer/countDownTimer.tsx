@@ -27,14 +27,15 @@ const Counter = React.forwardRef<HTMLDivElement, CounterProps>(
       <div
         ref={ref}
         className={cn(
-          'flex flex-col space-y-1.5 p-6 bg-slate-400 border rounded-lg border-primary',
+          'flex flex-col space-y-1.5 p-6 bg-foreground border rounded-lg border-primary',
           className
         )}
         {...props}
       >
-        {' '}
-        <CounterHeader>{props.children}</CounterHeader>
-        <CounterTimer countDownValue={currentValue} />
+        <div className='flex flex-col justify-center items-center'>
+          <CounterHeader>{props.children}</CounterHeader>
+          <CounterTimer countDownValue={currentValue} />
+        </div>
         <CounterProgress countDownValue={currentValue} />
       </div>
     );
@@ -47,7 +48,7 @@ const CounterHeader = React.forwardRef<HTMLDivElement, CounterProps>(
   ({ className, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn('flex flex-col space-y-1.5 p-6', className)}
+      className={cn('flex flex-col space-y-1.5 p-2', className)}
       {...props}
     />
   )
@@ -57,7 +58,11 @@ CounterHeader.displayName = 'CounterHeader';
 
 const CounterTimer = React.forwardRef<HTMLDivElement, CounterProps>(
   ({ className, countDownValue, ...props }, ref) => {
-    return <p>{countDownValue}</p>;
+    return (
+      <div ref={ref}>
+        {countDownValue === 0 ? <p>Time is Over</p> : <p>{countDownValue}</p>}
+      </div>
+    );
   }
 );
 
@@ -66,7 +71,7 @@ CounterTimer.displayName = 'CounterTimer';
 const CounterProgress = React.forwardRef<HTMLDivElement, CounterProps>(
   ({ className, countDownValue = 100, countDown = false, ...props }, ref) => {
     return (
-      <div ref={ref} className={cn('flex flex-col space-y-1.5 p-6', className)}>
+      <div ref={ref} className={cn('flex flex-col space-y-1.5', className)}>
         <CountDownProgress value={countDownValue} countdown={countDown} />
       </div>
     );
