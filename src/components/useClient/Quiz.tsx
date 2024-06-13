@@ -96,7 +96,7 @@ export function Quiz({ questions }: QuizProps) {
   }
 
   return (
-    <Card className=' m-10 p-10'>
+    <Card className='p-10'>
       <div className='flex  m-2'>
         <Form {...form}>
           <form

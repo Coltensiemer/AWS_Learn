@@ -9,8 +9,7 @@ export default function QuizQuestionLayout({
   }) {
 	return (
 		<>
-		<aside className="flex justify-center items-start h-screen fixed top-0 left-10 pr-4">
-		<QuizCountDownTimer />
+		<aside className="flex flex-col justify-start items-start h-screen fixed top-24 left-10 space-y-4">
 		<Button className='text-xs' size="sm">
 			<Link href="/Questions">
 			Back to Quiz Settings

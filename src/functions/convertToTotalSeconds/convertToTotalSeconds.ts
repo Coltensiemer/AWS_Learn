@@ -6,3 +6,4 @@ const minutesToseconds = minutes * 60;
 const totalseconds = minutesToseconds + seconds;
 return totalseconds;
 }
+

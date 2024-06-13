@@ -2,8 +2,9 @@ import react, { cache } from 'react';
 import { Quiz } from '../../../components/useClient/Quiz';
 import { QuizProps, QuestionType } from '../../../../prisma/dataTypes';
 import prisma from '../../../lib/prisma';
+import QuizCountDownTimer from '../../../components/useClient/QuizCountDownTimer';
 
-async function GETQuiz(tags: string[], length: number) {
+async function GETQuiz(tags: string[], length: number,) {
   
   // When no tags are selected, return all questions
   if (!tags) {
@@ -42,6 +43,7 @@ export default async function Page({
   return (
     <div className='flex flex-col'>
       <Quiz questions={response} />
+      <QuizCountDownTimer />
     </div>
   );
 }
