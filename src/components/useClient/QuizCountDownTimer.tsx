@@ -19,7 +19,6 @@ const { QuizTime } = QuizContext;
 
 return (
   <div className='w-full pt-2'>
-  
     {QuizTime ? 
       <Counter countDownValue={QuizTime}>
       </Counter>
@@ -27,4 +26,5 @@ return (
     }
   </div>
 );
+
 }
