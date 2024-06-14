@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Progress } from './progress';
+import { Progress, CountDownProgress } from './progress';
 import { count } from 'console';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -21,7 +21,7 @@ const meta: Meta = {
     countdown: {
       control: { type: 'boolean' },
       description: 'Whether the progress bar will countdown or not',
-    }
+    },
   },
 };
 
@@ -36,6 +36,17 @@ export const Default: Story = (args: any) => (
 );
 
 Default.args = {
+  value: 25,
+  countdown: true,
+};
+
+export const CountDownProgressStory: Story = (args: any) => (
+  <div className='w-96'>
+    <CountDownProgress {...args}></CountDownProgress>
+  </div>
+);
+
+CountDownProgressStory.args = {
   value: 50,
-  countdown: false,
+  countdown: true,
 };
