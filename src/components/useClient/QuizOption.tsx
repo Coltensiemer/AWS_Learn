@@ -25,19 +25,14 @@ import {
   TooltipTrigger,
 } from '../shadcn/tooltip';
 
-// See if answer is correct or wrong
-
-// Function to render time in minutes and seconds
 const renderTime = (value: number, unit: string): string => {
+  //* Function to render time in minutes and seconds
   return value == 1 ? `${value} ${unit}` : `${value} ${unit}s`;
 };
 
-// Function to render minutes text
 const renderMinutesText = (minutes: number): string => {
   return renderTime(minutes, 'minute');
 };
-
-// Function to render seconds text
 const renderSecondsText = (seconds: number): string => {
   return renderTime(seconds, 'second');
 };
@@ -65,13 +60,11 @@ export default function QuizOption() {
     showAnswers,
   } = QuizContext;
 
-  // Function to handle tag selection/deselection
+  //* Function to handle tag selection/deselection
   const handleTagChange = (tag: string) => {
     if (Tags.includes(tag)) {
-      // Deselect tag
       SET_TAGS(Tags.filter((selectedTag) => selectedTag !== tag));
     } else {
-      // Select tag
       SET_TAGS([...Tags, tag]);
     }
   };
@@ -87,13 +80,24 @@ export default function QuizOption() {
   };
 
   useEffect(() => {
-    const totalSeconds = convertToTotalSeconds(TimeMinutes, TimeSeconds);
+    const totalSeconds = convertToTotalSeconds(TimeMinutes, TimeSeconds)
     SET_QUIZ_TIME(totalSeconds);
   }, [TimeMinutes, TimeSeconds]);
 
   useEffect(() => {
     SET_QUIZ_LENGTH(quizLengthInput);
   }, [quizLengthInput]);
+
+  useEffect(() => {
+    if (QuizTimer === false) {
+      SET_QUIZ_TIME(null);
+    } else { 
+      const totalSeconds = convertToTotalSeconds(TimeMinutes, TimeSeconds)
+      SET_QUIZ_TIME(totalSeconds);
+    }
+
+    console.log('QuizTime', QuizTime);
+  }, [QuizTimer, TimeMinutes, TimeSeconds]);
 
   return (
     <Card className='flex flex-col lg:flex-row h-96'>
@@ -175,13 +179,16 @@ export default function QuizOption() {
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <label htmlFor='checkbox' className='text-xs hover:underline'>
-                      Enable instant feedback on questions. 
+                    <label
+                      htmlFor='checkbox'
+                      className='text-xs hover:underline'
+                    >
+                      Enable instant feedback on questions.
                     </label>
                   </TooltipTrigger>
                   <TooltipContent>
                     <p className='text-xs'>
-                      Enable to show if your answer is correct or wrong. 
+                      Enable to show if your answer is correct or wrong.
                     </p>
                   </TooltipContent>
                 </Tooltip>

@@ -95,6 +95,8 @@ export function Quiz({ questions }: QuizProps) {
     }
   }
 
+
+
   return (
     <Card className='p-10'>
       <div className='flex  m-2'>
@@ -113,8 +115,8 @@ export function Quiz({ questions }: QuizProps) {
                       <FormLabel className='text-lg whitespace-normal break-normal'>
                         {
                           questions.find((q) => q.id === currentQuestionID)
-                            ?.question
-                        }
+                          ?.question
+                          }
                       </FormLabel>
                     </div>
                     <FormControl>
@@ -126,40 +128,40 @@ export function Quiz({ questions }: QuizProps) {
                             ?.options.map((option, index) => {
                               return (
                                 <div
-                                  key={index}
-                                  className='flex items-start space-x-2 p-2'
+                                key={index}
+                                className='flex items-start space-x-2 p-2'
                                 >
                                   <Checkbox
                                     className='h-5 w-5'
                                     checked={QuizContext.optionSelected[
                                       currentQuestionID
-                                    ]?.includes(option.value[0])}
+                                      ]?.includes(option.value[0])}
                                     value={option.value}
                                     onCheckedChange={(checked) => {
                                       const selectedValue = option.value[0];                                    
                                       QuizContext.SET_OPTION_SELECTED(
                                         {
                                           [currentQuestionID]: selectedValue, // Update the current question ID with the selected value
-                                        },
+                                          },
                                         'checkbox'
-                                      );          
-                                                             
-                                      const newValue = checked
+                                        );          
+                                        
+                                        const newValue = checked
                                         ? [
-                                            ...(field.value || []),
-                                            selectedValue,
+                                          ...(field.value || []),
+                                          selectedValue,
                                           ] // Add the selected value if checked
                                           //@ts-expect-error
-                                        : (field.value || []).filter(
+                                          : (field.value || []).filter(
                                             (value: string) =>
                                               value !== selectedValue
-                                          ); // Remove the selected value if unchecked
-
-                                          // current bug. works unless three or more options are selected. QuizContext.optionSelected[currentQuestionID] is not updating 
-
-                                      field.onChange([QuizContext.optionSelected[currentQuestionID],newValue]);
-                                      onSubmit();  
-                                    }}
+                                            ); // Remove the selected value if unchecked
+                                            
+                                            // current bug. works unless three or more options are selected. QuizContext.optionSelected[currentQuestionID] is not updating 
+                                            
+                                            field.onChange([QuizContext.optionSelected[currentQuestionID],newValue]);
+                                            onSubmit();  
+                                            }}
                                     id={`r${index}`}
                                   />
                                   <Label htmlFor={`r${index}`}>
@@ -167,39 +169,39 @@ export function Quiz({ questions }: QuizProps) {
                                   </Label>
                                 </div>
                               );
-                            })}
+                              })}
                         </div>
                       ) : (
                         <RadioGroup
-                          value={
-                            QuizContext.optionSelected[
-                              currentQuestionID
+                        value={
+                          QuizContext.optionSelected[
+                            currentQuestionID
                             ]?.[0] || ''
-                          }
-                          name='type'
-                          onValueChange={(value) => {
-                            //handle form change to auto update if correct or incorrect
-                            const selectedValue = value || ''; // If value is undefined or null, use an empty string
-
-                            QuizContext.SET_OPTION_SELECTED(
-                              {
-                                [currentQuestionID]: selectedValue[0],
-                              },
-                              'radio'
-                            );
-                            field.onChange(selectedValue);
-                            onSubmit();
-                          }}
-                          className='space-y-2'
-                        >
+                            }
+                            name='type'
+                            onValueChange={(value) => {
+                              //handle form change to auto update if correct or incorrect
+                              const selectedValue = value || ''; 
+                              
+                              QuizContext.SET_OPTION_SELECTED(
+                                {
+                                  [currentQuestionID]: selectedValue[0],
+                                  },
+                                  'radio'
+                                  );
+                                  field.onChange(selectedValue);
+                                  onSubmit();
+                                  }}
+                                  className='space-y-2'
+                                  >
                           {errors.type && <p>{errors.type.message}</p>}
                           {questions
                             .find((q) => q.id === currentQuestionID)
                             ?.options.map((option, index) => {
                               return (
                                 <div
-                                  key={index}
-                                  className='flex items-start space-x-2'
+                                key={index}
+                                className='flex items-start space-x-2'
                                 >
                                   <RadioGroupItem
                                     value={option.value[0]}
@@ -210,14 +212,14 @@ export function Quiz({ questions }: QuizProps) {
                                   </Label>
                                 </div>
                               );
-                            })}
+                              })}
                         </RadioGroup>
                       )}
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 );
-              }}
+                }}
             />
           </form>
         </Form>
@@ -226,10 +228,10 @@ export function Quiz({ questions }: QuizProps) {
         <PaginationDirection
           currentIndex={currentIndex + 1}
           questions={questions}
-          // handleFormSubmit={onSubmit}
         />
         <QuizTracker currentIndex={currentIndex} />
       </div>
+      <button onClick={() => {console.log(QuizContext.QuizTime)}}>Click</button>
       <QuizSubmit
         questions={questions}
         currentIndex={currentIndex}

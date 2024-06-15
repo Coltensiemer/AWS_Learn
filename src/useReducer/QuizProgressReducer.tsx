@@ -10,6 +10,7 @@ export enum ActionType {
   SET_INCORRECT_ANSWERED,
   SET_TAGS,
   SET_QUIZ_TIME,
+  SET_QUIZ_FINISH_TIME,
   SET_QUIZ_DIRECTION,
   SET_OPTION_SELECTED,
   SET_QUIZ_LENGTH,
@@ -30,6 +31,7 @@ export type QuizinitialState = {
   Incorrect_Answered: any[];
   Tags: any[];
   QuizTime: number;
+  QuizFinishTime: number | string | null;
   correctAnswersSum: number;
   incorrectAnswersSum: number;
   currentQuestion: number;
@@ -46,6 +48,7 @@ export const initialQuizState: QuizinitialState = {
   Incorrect_Answered: [],
   Tags: [],
   QuizTime: 60,
+  QuizFinishTime: null,
   correctAnswersSum: 0,
   incorrectAnswersSum: 0,
   currentQuestion: 0,
@@ -79,6 +82,8 @@ export const QuizReducer: Reducer<QuizinitialState, Action> = (
       return { ...state, Tags: action.payload };
     case ActionType.SET_QUIZ_TIME:
       return { ...state, QuizTime: action.payload };
+    case ActionType.SET_QUIZ_FINISH_TIME:
+        return { ...state, QuizFinishTime: action.payload };
     case ActionType.SET_QUIZ_DIRECTION:
       return { ...state, Direction: action.payload };
     case ActionType.SET_QUIZ_LENGTH:

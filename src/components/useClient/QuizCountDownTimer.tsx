@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useContext, useState } from 'react';
+import React, { use, useContext, useEffect, useState } from 'react';
 import { QuizProgressContext } from '../../useContext/QuizProgressContext';
 import { Counter, CounterHeader, CounterTimer } from '../shadcn/countDownTimer/countDownTimer';
 
@@ -9,6 +9,7 @@ import { Counter, CounterHeader, CounterTimer } from '../shadcn/countDownTimer/c
 
 export default function QuizCountDownTimer() {
 
+  
   const QuizContext = useContext(QuizProgressContext);
   if (!QuizContext)
     throw new Error(
