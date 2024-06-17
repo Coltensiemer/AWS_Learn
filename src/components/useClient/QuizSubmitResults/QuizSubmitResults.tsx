@@ -8,17 +8,17 @@ import {
   AlertDialogContent,
   AlertDialogAction,
   AlertDialogCancel,
-} from '../../components/shadcn/alert-dialog';
-import { Button } from '../../components/shadcn/button/button';
+} from '../../shadcn/alert-dialog';
+import { Button } from '../../shadcn/button/button';
 import {
   Card,
   CardHeader,
   CardDescription,
   CardFooter,
   CardTitle,
-} from '../../components/shadcn/card/card';
-import { QuizProgressContext } from '../../useContext/QuizProgressContext';
-import { getSession } from '../../../actions/cookieActions/cookieActions';
+} from '../../shadcn/card/card';
+import { QuizProgressContext } from '../../../useContext/QuizProgressContext';
+import { getSession } from '../../../../actions/cookieActions/cookieActions';
 
 //* Calculate the total score of the quiz
 function totalScore(questions: QuestionType[], correct: number[]) {

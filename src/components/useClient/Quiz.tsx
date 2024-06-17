@@ -20,7 +20,7 @@ import { QuizProps, QuestionType } from '../../../prisma/dataTypes';
 import QuizTracker from '../useClient/QuizTracker';
 import { PaginationDirection } from './PaginationDirection';
 import { compareAnswer } from '../../functions/compareAnswers/compareAnswers';
-import { QuizSubmit } from '../useClient/QuizSubmitResults';
+import { QuizSubmit } from './QuizSubmitResults/QuizSubmitResults';
 import { Card } from '../shadcn/card/card';
 import { Checkbox } from '../shadcn/checkbox/checkbox';
 
