@@ -231,7 +231,6 @@ export function Quiz({ questions }: QuizProps) {
         />
         <QuizTracker currentIndex={currentIndex} />
       </div>
-      <button onClick={() => {console.log(QuizContext.QuizTime)}}>Click</button>
       <QuizSubmit
         questions={questions}
         currentIndex={currentIndex}
