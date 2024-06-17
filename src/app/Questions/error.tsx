@@ -17,7 +17,7 @@ export default function ErrorPage({
     console.error(error);
 
     // Redirect after a delay (e.g., 5 seconds)
-    const redirectTimer = setTimeout(() => {
+    const redirectTimer = setTimeout(() => { 
       setRedirecting(true);
       router.back(); // Redirect to previous page
     }, 1000000); // Delay in milliseconds (10 seconds)

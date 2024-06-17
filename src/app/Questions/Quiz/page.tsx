@@ -5,6 +5,10 @@ import prisma from '../../../lib/prisma';
 import QuizCountDownTimer from '../../../components/useClient/QuizCountDownTimer';
 
 async function GETQuiz(tags: string[], length: number,) {
+
+  const getRandomArbitrary = (min: number, max: number) => {
+    return Math.random() * (max - min) + min;
+  }
   
   // When no tags are selected, return all questions
   if (!tags) {
@@ -13,6 +17,7 @@ async function GETQuiz(tags: string[], length: number,) {
         options: true,
       },
       take: Number(length),
+      skip: Math.floor(getRandomArbitrary(0, 10)),
     });
     return data;
   }
