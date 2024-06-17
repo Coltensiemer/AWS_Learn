@@ -2369,9 +2369,149 @@
       { "value": "D. Automating deployment processes.", "isCorrect": false }
     ],
     "correct_answer": ["B"]
+  },
+  {
+    "id": 191,
+    "tag": "Security, Identity, and Compliance",
+    "sub_tag": "AWS Macie",
+    "question": "A user needs to automatically discover, classify, and protect sensitive data stored in Amazon S3. Which AWS service can meet these requirements?",
+    "options": [
+      { "value": "A. AWS Macie", "isCorrect": true },
+      { "value": "B. Amazon GuardDuty", "isCorrect": false },
+      { "value": "C. AWS WAF", "isCorrect": false },
+      { "value": "D. AWS CloudTrail", "isCorrect": false }
+    ],
+    "correct_answer": ["A"]
+  },
+  {
+    "id": 192,
+    "tag": "Mangement and Governance",
+    "sub_tag": "AWS CloudTrail",
+    "question": "A company needs to monitor and receive alerts about AWS Management Console sign-in events that involve the AWS account root user. Which AWS service can meet these requirements?",
+    "options": [
+      { "value": "A. Amazon CloudWatch", "isCorrect": false },
+      { "value": "B. AWS Config", "isCorrect": false },
+      { "value": "C. AWS CloudTrail", "isCorrect": true },
+      { "value": "D. AWS Trusted Advisor", "isCorrect": false }
+    ],
+    "correct_answer": ["C"]
+  },
+  {
+    "id": 193,
+    "tag": "Storage",
+    "sub_tag": "S3",
+    "question": "Which of the functionalities are characteristics of Amazon S3? (Select TWO.)",
+    "options": [
+      { "value": "A. Object storage", "isCorrect": true },
+      { "value": "B. Block storage", "isCorrect": false },
+      { "value": "C. File storage", "isCorrect": false },
+      { "value": "D. Lifecycle management", "isCorrect": true },
+      { "value": "E. Virtual private network", "isCorrect": false }
+    ],
+    "correct_answer": ["A", "D"]
+  },
+  {
+    "id": 194,
+    "tag": "Management and Governance",
+    "sub_tag": "AWS Organizations",
+    "question": "Each department within a company has its own independent AWS account and its own payment method. The company needs to centralize departmental governance and reduce costs. Which AWS service will meet these requirements?",
+    "options": [
+      { "value": "A. AWS Organizations", "isCorrect": true },
+      { "value": "B. AWS Control Tower", "isCorrect": false },
+      { "value": "C. AWS Budgets", "isCorrect": false },
+      { "value": "D. AWS Cost Explorer", "isCorrect": false }
+    ],
+    "correct_answer": ["A"]
+  },
+  {
+    "id": 195,
+    "tag": "Serverless",
+    "sub_tag": "AWS Lambda",
+    "question": "How does AWS charge for AWS Lambda usage once the free tier has been exceeded? (Select TWO.)",
+    "options": [
+      { "value": "A. By the number of requests", "isCorrect": true },
+      { "value": "B. By the amount of memory allocated", "isCorrect": false },
+      { "value": "C. By the amount of time the code executes", "isCorrect": true },
+      { "value": "D. By the number of instances used", "isCorrect": false },
+      { "value": "E. By the amount of storage used", "isCorrect": false }
+    ],
+    "correct_answer": ["A", "C"]
+  },
+  {
+    "id": 196,
+    "tag": "Database",
+    "sub_tag": "Amazon RDS",
+    "question": "A user deploys an Amazon RDS DB instance in multiple Availability Zones. This strategy involves which pillar of the AWS Well-Architected Framework?",
+    "options": [
+      { "value": "A. Operational Excellence", "isCorrect": false },
+      { "value": "B. Security", "isCorrect": false },
+      { "value": "C. Reliability", "isCorrect": true },
+      { "value": "D. Cost Optimization", "isCorrect": false }
+    ],
+    "correct_answer": ["C"]
+  },
+  {
+    "id": 197,
+    "tag": "Networking and Content Delivery",
+    "sub_tag": "AWS Direct Connect",
+    "question": "A company wants to establish a consistent and private connection from the company's on-premises data center to the AWS Cloud. Which AWS service will meet this requirement?",
+    "options": [
+      { "value": "A. AWS VPN", "isCorrect": false },
+      { "value": "B. AWS Direct Connect", "isCorrect": true },
+      { "value": "C. Amazon CloudFront", "isCorrect": false },
+      { "value": "D. Amazon Route 53", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 198,
+    "tag": "Management and Governance",
+    "sub_tag": "AWS Trusted Advisor",
+    "question": "Which AWS service identifies security groups that allow unrestricted access to a user's AWS resources?",
+    "options": [
+      { "value": "A. AWS Trusted Advisor", "isCorrect": true },
+      { "value": "B. AWS Shield", "isCorrect": false },
+      { "value": "C. AWS WAF", "isCorrect": false },
+      { "value": "D. AWS Config", "isCorrect": false }
+    ],
+    "correct_answer": ["A"]
+  },
+  {
+    "id": 199,
+    "tag": "Databases",
+    "sub_tag": "Amazon RDS",
+    "question": "A company requires a relational database on AWS that records new customer orders from a website. Which AWS service or feature will meet this requirement?",
+    "options": [
+      { "value": "A. Amazon DynamoDB", "isCorrect": false },
+      { "value": "B. Amazon RDS", "isCorrect": true },
+      { "value": "C. Amazon Redshift", "isCorrect": false },
+      { "value": "D. Amazon S3", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 200,
+    "tag": "Developer Tools",
+    "sub_tag": "AWS CodeCommit",
+    "question": "A company is moving all of their development activities to AWS. The company wants a solution to store and manage their developers' source code. Which AWS service will meet this requirement?",
+    "options": [
+      { "value": "A. AWS CodePipeline", "isCorrect": false },
+      { "value": "B. AWS CodeDeploy", "isCorrect": false },
+      { "value": "C. AWS CodeCommit", "isCorrect": true },
+      { "value": "D. AWS CodeBuild", "isCorrect": false }
+    ],
+    "correct_answer": ["C"]
   }
-
-
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
 
 
