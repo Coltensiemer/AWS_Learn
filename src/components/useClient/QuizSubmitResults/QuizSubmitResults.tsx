@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { QuestionType } from '@prisma/dataTypes';
 import {
@@ -82,28 +82,29 @@ export function QuizAutoSubmit({ handleSubmit }: { handleSubmit: () => Promise<v
   );
 }
 
+
+
 //* Handles quiz submission and displays an alert dialog for confirmation
 export function QuizSubmit({
   questions,
   correct,
   currentIndex,
   incorrect,
-  onSubmit,
 }: {
   questions: QuestionType[];
   correct: number[];
   incorrect: number[];
   currentIndex: number;
   onSubmit: (data: any) => void;
-}) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [showAutoSubmit, setShowAutoSubmit] = useState(false);
-  const { total, answered, remaining, unansweredQuestions } =
-    totalQuestionsAnswered(questions, correct, incorrect);
-  const score = totalScore(questions, correct);
-  const router = useRouter();
+  }) {
   const quizContext = useContext(QuizProgressContext);
   if (!quizContext) return null;
+  const [isOpen, setIsOpen] = useState(false);
+  const { total, answered, remaining, unansweredQuestions } =
+  totalQuestionsAnswered(questions, correct, incorrect);
+  const score = totalScore(questions, correct);
+  const router = useRouter();
+
 
   //* Handle quiz submission and send the results to the server
   const handleSubmit = async () => {
@@ -132,12 +133,12 @@ export function QuizSubmit({
     }
   };
 
-  //* Automatically submit the quiz when the timer reaches zero
-  useEffect(() => {
-    if (quizContext.QuizTime === 0) {
-      setShowAutoSubmit(true);
-    }
-  }, [quizContext.QuizTime]);
+
+ 
+  
+
+  
+
 
   return (
     <>
@@ -173,7 +174,8 @@ export function QuizSubmit({
           <Button onClick={() => setIsOpen(true)}>Submit Quiz</Button>
         </div>
       ) : null}
-      {showAutoSubmit && <QuizAutoSubmit handleSubmit={handleSubmit} />}
+      
+       {quizContext.QuizTime === 0 && quizContext.QuizTime != null && <QuizAutoSubmit handleSubmit={handleSubmit} />}
     </>
   );
 }

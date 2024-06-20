@@ -36,7 +36,7 @@ async function GETQuiz(tags: string[], length: number,) {
 }
 
 //Caching GetQuiz to reduce request to the server
-const QuizCache = cache(GETQuiz);
+const QuizCache = GETQuiz;
 
 export default async function Page({
   searchParams,

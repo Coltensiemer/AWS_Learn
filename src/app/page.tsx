@@ -8,7 +8,8 @@ export default function Home() {
   return (
     <div className="flex justify-evenly items-center min-h-screen">
       <HomePageNoUser />
-      <HomePageSignIn />      
+      {/* //! Will be used for the sign in page once. Leave comment out until user login is set up */}
+      {/* <HomePageSignIn />       */}
     </div>
   );
 }
