@@ -1,0 +1,22 @@
+name: Run ESLint
+
+on: push
+  
+
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run build
+      run: npx next build
