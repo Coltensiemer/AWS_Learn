@@ -24,8 +24,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '../shadcn/table';
-import { Button } from '../shadcn/button/button';
+} from '../atomic/table';
+import { Button } from '../atomic/button/button';
 import { useState } from 'react';
 import {
   DropdownMenu,
@@ -34,9 +34,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../shadcn/dropdownmenu/dropdownmenu';
-import { Card } from '../shadcn/card/card';
-import { Input } from '../shadcn/input/input';
+} from '../atomic/dropdownmenu/dropdownmenu';
+import { Card } from '../atomic/card/card';
+import { Input } from '../atomic/input/input';
 import { TableQuestionType } from '../../../actions/resultsFakeUserAction';
 
 interface DataTableProps<TData, TValue> {

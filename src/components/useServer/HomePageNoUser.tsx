@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardFooter } from '../shadcn/card/card';
-import { Button } from '../shadcn/button/button';
+import { Card, CardContent, CardHeader, CardFooter } from '../atomic/card/card';
+import { Button } from '../atomic/button/button';
 import Link from 'next/link';
 
 export default function HomePageNoUser() {

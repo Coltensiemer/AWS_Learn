@@ -5,8 +5,8 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-} from '../../components/shadcn/card/card';
-import { Button } from '../../components/shadcn/button/button';
+} from '../../components/atomic/card/card';
+import { Button } from '../../components/atomic/button/button';
 import Link from 'next/link';
 
 

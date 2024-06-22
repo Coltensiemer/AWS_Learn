@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button } from '../../../components/shadcn/button/button';
+import { Button } from '../../../components/atomic/button/button';
 
 export default function ErrorPage({
   error,

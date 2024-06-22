@@ -5,7 +5,7 @@ import {
   TableQuestionType,
   UserTableQuestionType,
 } from '../../../../actions/resultsFakeUserAction';
-import { Button } from '../../../components/shadcn/button/button';
+import { Button } from '../../../components/atomic/button/button';
 import { ArrowUpDown, Check, CircleX } from 'lucide-react';
 import Image from 'next/image';
 import { info, table } from 'console';

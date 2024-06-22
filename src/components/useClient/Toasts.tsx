@@ -1,7 +1,7 @@
 "use client"
 
-import { Toaster } from '../shadcn/toaster';
-import { Button } from '../shadcn/button/button';
+import { Toaster } from '../atomic/toaster';
+import { Button } from '../atomic/button/button';
 
 export default function SuccessfulToast() {
 //@ts-ignore

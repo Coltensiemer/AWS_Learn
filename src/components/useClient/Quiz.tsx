@@ -1,8 +1,8 @@
 'use client';
 
 import React, { use, useContext, useEffect, useState } from 'react';
-import { RadioGroup, RadioGroupItem } from '../shadcn/radio-group';
-import { Label } from '../shadcn/label';
+import { RadioGroup, RadioGroupItem } from '../atomic/radio-group';
+import { Label } from '../atomic/label';
 import { array, set, z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -13,7 +13,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../shadcn/form/form';
+} from '../atomic/form/form';
 import { setCorrectorIncorrectQs } from '../../functions/setCorrectorIncorrectQs/setCorrectorIncorrectQs';
 import { QuizProgressContext } from '../../useContext/QuizProgressContext';
 import { QuizProps, QuestionType } from '../../../prisma/dataTypes';
@@ -21,8 +21,8 @@ import QuizTracker from '../useClient/QuizTracker';
 import { PaginationDirection } from './PaginationDirection';
 import { compareAnswer } from '../../functions/compareAnswers/compareAnswers';
 import { QuizSubmit } from './QuizSubmitResults/QuizSubmitResults';
-import { Card } from '../shadcn/card/card';
-import { Checkbox } from '../shadcn/checkbox/checkbox';
+import { Card } from '../atomic/card/card';
+import { Checkbox } from '../atomic/checkbox/checkbox';
 
 
 

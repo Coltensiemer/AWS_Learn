@@ -1,5 +1,5 @@
 
-import { Progress } from "../components/shadcn/progress/progress";
+import { Progress } from "../components/atomic/progress/progress";
 import HomePageNoUser from "../components/useServer/HomePageNoUser";
 import HomePageSignIn from "../components/useServer/HomePageSignIn";
 import React from "react";

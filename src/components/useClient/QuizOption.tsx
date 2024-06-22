@@ -1,29 +1,29 @@
 'use client';
 
-import { Button } from '../shadcn/button/button';
+import { Button } from '../atomic/button/button';
 import React, { useState, useContext, useEffect } from 'react';
 import { QuizProgressContext } from '../../useContext/QuizProgressContext';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../shadcn/tabs';
-import { Switch } from '../shadcn/switch';
-import { Label } from '../shadcn/label';
-import { Toggle } from '../shadcn/toggle';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../atomic/tabs';
+import { Switch } from '../atomic/switch';
+import { Label } from '../atomic/label';
+import { Toggle } from '../atomic/toggle';
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '../shadcn/card/card';
-import { TimeInput } from '../shadcn/inputTimer/inputTimer';
+} from '../atomic/card/card';
+import { TimeInput } from '../atomic/inputTimer/inputTimer';
 import { convertToTotalSeconds } from '../../functions/convertToTotalSeconds/convertToTotalSeconds';
 import { QuestionTags } from '../../QuestionTags';
-import { Input } from '../shadcn/input/input';
-import { Checkbox } from '../shadcn/checkbox/checkbox';
+import { Input } from '../atomic/input/input';
+import { Checkbox } from '../atomic/checkbox/checkbox';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '../shadcn/tooltip';
+} from '../atomic/tooltip';
 
 const renderTime = (value: number, unit: string): string => {
   //* Function to render time in minutes and seconds

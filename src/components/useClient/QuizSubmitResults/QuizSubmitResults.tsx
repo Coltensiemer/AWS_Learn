@@ -6,15 +6,15 @@ import {
   AlertDialogContent,
   AlertDialogAction,
   AlertDialogCancel,
-} from '../../shadcn/alert-dialog';
-import { Button } from '../../shadcn/button/button';
+} from '../../atomic/alert-dialog';
+import { Button } from '../../atomic/button/button';
 import {
   Card,
   CardHeader,
   CardDescription,
   CardFooter,
   CardTitle,
-} from '../../shadcn/card/card';
+} from '../../atomic/card/card';
 import { QuizProgressContext } from '../../../useContext/QuizProgressContext';
 import { getSession } from '../../../../actions/cookieActions/cookieActions';
 

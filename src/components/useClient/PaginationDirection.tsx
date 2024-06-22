@@ -8,7 +8,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from '../shadcn/pagination';
+} from '../atomic/pagination';
 import {
   Drawer,
   DrawerClose,
@@ -18,14 +18,14 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from '../shadcn/drawer/drawer';
+} from '../atomic/drawer/drawer';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '../shadcn/tooltip';
-import { Button } from '../shadcn/button/button';
+} from '../atomic/tooltip';
+import { Button } from '../atomic/button/button';
 import { useContext, useEffect, useState } from 'react';
 import { QuizProgressContext } from '../../useContext/QuizProgressContext';
 import { nextQuestion } from '../../functions/nextQuestion/nextQuestion';

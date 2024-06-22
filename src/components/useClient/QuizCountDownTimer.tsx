@@ -2,7 +2,7 @@
 
 import React, { use, useContext, useEffect, useState } from 'react';
 import { QuizProgressContext } from '../../useContext/QuizProgressContext';
-import { Counter, CounterHeader, CounterTimer } from '../shadcn/countDownTimer/countDownTimer';
+import { Counter, CounterHeader, CounterTimer } from '../atomic/countDownTimer/countDownTimer';
 
 
 

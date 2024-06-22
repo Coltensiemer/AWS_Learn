@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Button } from '../shadcn/button/button';
+import { Button } from '../atomic/button/button';
 
 export default function Header(){
   return (
