@@ -47,7 +47,7 @@ export default async function Page({
 
   return (
     <div className='flex flex-col'>
-      <Quiz questions={response} />
+      <Quiz questions={response} />˛¸
       <QuizCountDownTimer />
     </div>
   );

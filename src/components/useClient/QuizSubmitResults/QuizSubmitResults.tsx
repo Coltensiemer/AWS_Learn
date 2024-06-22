@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { QuestionType } from '@prisma/dataTypes';
@@ -82,8 +80,6 @@ export function QuizAutoSubmit({ handleSubmit }: { handleSubmit: () => Promise<v
   );
 }
 
-
-
 //* Handles quiz submission and displays an alert dialog for confirmation
 export function QuizSubmit({
   questions,
@@ -96,15 +92,19 @@ export function QuizSubmit({
   incorrect: number[];
   currentIndex: number;
   onSubmit: (data: any) => void;
-  }) {
+}) {
   const quizContext = useContext(QuizProgressContext);
-  if (!quizContext) return null;
   const [isOpen, setIsOpen] = useState(false);
-  const { total, answered, remaining, unansweredQuestions } =
-  totalQuestionsAnswered(questions, correct, incorrect);
-  const score = totalScore(questions, correct);
   const router = useRouter();
 
+  if (!quizContext) {
+    console.assert(quizContext, 'QuizProgressContext is null');
+    return null; // or render an alternative UI
+  }
+
+  const { total, answered, remaining, unansweredQuestions } =
+    totalQuestionsAnswered(questions, correct, incorrect);
+  const score = totalScore(questions, correct);
 
   //* Handle quiz submission and send the results to the server
   const handleSubmit = async () => {
@@ -133,49 +133,37 @@ export function QuizSubmit({
     }
   };
 
-
- 
-  
-
-  
-
-
   return (
     <>
-      {quizContext.QuizTime > 0 && (
-        <AlertDialog open={isOpen}>
-          <AlertDialogContent>
-            <Card className='p-10'>
-              <CardHeader>
-                <CardTitle>Submit Quiz</CardTitle>
-              </CardHeader>
-              <CardDescription className='flex flex-col-reverse'>
-                <p>Are you sure you want to submit the quiz?</p>
-                <p className='font-bold'>
-                  {answered}/{total} answered.
-                </p>
-              </CardDescription>
-              <CardFooter className='flex justify-evenly m-2'>
-                <AlertDialogCancel onClick={() => setIsOpen(!isOpen)}>
-                  Cancel
-                </AlertDialogCancel>
-                <AlertDialogAction
-                  onClick={handleSubmit}
-                >
-                  Submit
-                </AlertDialogAction>
-              </CardFooter>
-            </Card>
-          </AlertDialogContent>
-        </AlertDialog>
+      <AlertDialog open={isOpen}>
+        <AlertDialogContent>
+          <Card className='p-10'>
+            <CardHeader>
+              <CardTitle>Submit Quiz</CardTitle>
+            </CardHeader>
+            <CardDescription className='flex flex-col-reverse'>
+              <p>Are you sure you want to submit the quiz?</p>
+              <p className='font-bold'>
+                {answered}/{total} answered.
+              </p>
+            </CardDescription>
+            <CardFooter className='flex justify-evenly m-2'>
+              <AlertDialogCancel onClick={() => setIsOpen(!isOpen)}>
+                Cancel
+              </AlertDialogCancel>
+              <AlertDialogAction onClick={handleSubmit}>
+                Submit
+              </AlertDialogAction>
+            </CardFooter>
+          </Card>
+        </AlertDialogContent>
+      </AlertDialog>
+      <div className='flex'>
+        <Button onClick={() => setIsOpen(true)}>Submit Quiz</Button>
+      </div>
+      {quizContext.QuizTime === 0 && quizContext.QuizTime != null && (
+        <QuizAutoSubmit handleSubmit={handleSubmit} />
       )}
-      {currentIndex === questions.length - 1 && quizContext.QuizTime > 1 ? (
-        <div className='flex'>
-          <Button onClick={() => setIsOpen(true)}>Submit Quiz</Button>
-        </div>
-      ) : null}
-      
-       {quizContext.QuizTime === 0 && quizContext.QuizTime != null && <QuizAutoSubmit handleSubmit={handleSubmit} />}
     </>
   );
 }
