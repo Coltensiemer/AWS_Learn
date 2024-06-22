@@ -1,4 +1,4 @@
-import QuizCountDownTimer from "../../../components/useClient/QuizCountDownTimer"
+import QuizCountDownTimer from "../../../components/quiz/QuizCountDownTimer"
 import {Button} from "../../../components/atomic/button/button"; 
 import Link from "next/link";
 

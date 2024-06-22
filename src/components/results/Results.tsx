@@ -5,8 +5,8 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-} from '../../components/atomic/card/card';
-import { Button } from '../../components/atomic/button/button';
+} from '../atomic/card/card';
+import { Button } from '../atomic/button/button';
 import Link from 'next/link';
 
 

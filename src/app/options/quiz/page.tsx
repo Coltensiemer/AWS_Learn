@@ -1,8 +1,8 @@
 import react, { cache } from 'react';
-import { Quiz } from '../../../components/useClient/Quiz';
+import { Quiz } from '../../../components/quiz/Quiz';
 import { QuizProps, QuestionType } from '../../../../prisma/dataTypes';
 import prisma from '../../../lib/prisma';
-import QuizCountDownTimer from '../../../components/useClient/QuizCountDownTimer';
+import QuizCountDownTimer from '../../../components/quiz/QuizCountDownTimer';
 
 async function GETQuiz(tags: string[], length: number,) {
 

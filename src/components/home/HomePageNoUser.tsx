@@ -11,7 +11,7 @@ export default function HomePageNoUser() {
       <CardContent></CardContent>
       <CardFooter>
         <Button>
-          <Link href='/Questions'>Click a button to start a Quiz</Link>
+          <Link href='/options'>Click a button to start a Quiz</Link>
         </Button>
       </CardFooter>
     </Card>

@@ -13,10 +13,10 @@ export default function HomePageSignIn() {
       </CardContent>
       <CardFooter className='flex justify-center space-x-4'>
         <Button>
-          <Link href='/Questions'>Login</Link>
+          <Link href='/questions'>Login</Link>
         </Button>
         <Button>
-          <Link href='/Questions'>SignUp</Link>
+          <Link href='/questions'>SignUp</Link>
         </Button>
       </CardFooter>
     </Card>

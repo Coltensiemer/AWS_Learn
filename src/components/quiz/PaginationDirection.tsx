@@ -29,7 +29,7 @@ import { Button } from '../atomic/button/button';
 import { useContext, useEffect, useState } from 'react';
 import { QuizProgressContext } from '../../useContext/QuizProgressContext';
 import { nextQuestion } from '../../functions/nextQuestion/nextQuestion';
-import { dir } from 'console';
+
 
 export function PaginationDirection({
   currentIndex,
@@ -54,10 +54,7 @@ export function PaginationDirection({
   };
 
   // Function to go to selected question
-  /// Unable to get back to the FIRST QuESITON ' index is out of bounds' error*****
   function goToSelectedQuestion(index: number) {
-    // Need to update handFormSubmit to not handle the next direction
-    // handleFormSubmit(index);
     if (QuizContext === undefined) return null;
     const quizId = QuizContext.QuizList[index + 1];
     const selectedIndex = QuizContext?.QuizList.indexOf(quizId);

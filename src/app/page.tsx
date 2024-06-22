@@ -1,7 +1,7 @@
 
 import { Progress } from "../components/atomic/progress/progress";
-import HomePageNoUser from "../components/useServer/HomePageNoUser";
-import HomePageSignIn from "../components/useServer/HomePageSignIn";
+import HomePageNoUser from "../components/home/HomePageNoUser";
+import HomePageSignIn from "../components/home/HomePageSignIn";
 import React from "react";
 
 export default function Home() {
