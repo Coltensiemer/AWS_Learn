@@ -1,4 +1,4 @@
-import { Skeleton } from "../../../components/shadcn/skeleton"
+import { Skeleton } from "../../../components/atomic/skeleton"
 
 export default function Loading() {
 

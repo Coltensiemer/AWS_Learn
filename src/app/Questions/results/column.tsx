@@ -5,9 +5,16 @@ import {
   TableQuestionType,
   UserTableQuestionType,
 } from '../../../../actions/resultsFakeUserAction';
+<<<<<<< HEAD
 import { Button } from '../../../components/shadcn/button/button';
 import { ArrowUpDown } from 'lucide-react';
 
+=======
+import { Button } from '../../../components/atomic/button/button';
+import { ArrowUpDown, Check, CircleX } from 'lucide-react';
+import Image from 'next/image';
+import { info, table } from 'console';
+>>>>>>> 6e60b80 (updated folder structure from shadcn to atomoic)
 
 export const columns: ColumnDef<TableQuestionType>[] = [
 

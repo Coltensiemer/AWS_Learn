@@ -5,8 +5,13 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
+<<<<<<< HEAD:src/useClient/Results.tsx
 } from '../components/shadcn/card/card';
 import { Button } from '../components/shadcn/button/button';
+=======
+} from '../../components/atomic/card/card';
+import { Button } from '../../components/atomic/button/button';
+>>>>>>> 6e60b80 (updated folder structure from shadcn to atomoic):src/components/useClient/Results.tsx
 import Link from 'next/link';
 
 

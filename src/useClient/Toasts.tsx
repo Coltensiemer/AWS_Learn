@@ -1,7 +1,12 @@
 "use client"
 
+<<<<<<< HEAD:src/useClient/Toasts.tsx
 import { Toaster } from '../components/shadcn/toaster';
 import { Button } from '../components/shadcn/button/button';
+=======
+import { Toaster } from '../atomic/toaster';
+import { Button } from '../atomic/button/button';
+>>>>>>> 6e60b80 (updated folder structure from shadcn to atomoic):src/components/useClient/Toasts.tsx
 
 export default function SuccessfulToast() {
 //@ts-ignore

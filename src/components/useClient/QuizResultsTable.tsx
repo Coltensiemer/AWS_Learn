@@ -22,8 +22,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '../shadcn/table';
-import { Button } from '../shadcn/button/button';
+} from '../atomic/table';
+import { Button } from '../atomic/button/button';
 import { useState } from 'react';
 import {
   DropdownMenu,
@@ -32,10 +32,17 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+<<<<<<< HEAD
 } from '../shadcn/dropdownmenu/dropdownmenu';
 import { Card } from '../shadcn/card/card';
 import { TableQuestionType, UserTableQuestionType, OptionType } from '../../../actions/resultsFakeUserAction';
 
+=======
+} from '../atomic/dropdownmenu/dropdownmenu';
+import { Card } from '../atomic/card/card';
+import { Input } from '../atomic/input/input';
+import { TableQuestionType } from '../../../actions/resultsFakeUserAction';
+>>>>>>> 6e60b80 (updated folder structure from shadcn to atomoic)
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
