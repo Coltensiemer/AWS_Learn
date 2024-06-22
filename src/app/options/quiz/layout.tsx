@@ -1,8 +1,12 @@
+<<<<<<< HEAD:src/app/Questions/Quiz/layout.tsx
 <<<<<<< HEAD
 import QuizCountDownTimer from "../../../useClient/QuizCountDownTimer"
 import {Button} from "../../../components/shadcn/button/button"; 
 =======
 import QuizCountDownTimer from "../../../components/useClient/QuizCountDownTimer"
+=======
+import QuizCountDownTimer from "../../../components/quiz/QuizCountDownTimer"
+>>>>>>> 1c7c77e (updated component structure and route direction):src/app/options/quiz/layout.tsx
 import {Button} from "../../../components/atomic/button/button"; 
 >>>>>>> 6e60b80 (updated folder structure from shadcn to atomoic)
 import Link from "next/link";

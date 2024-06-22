@@ -127,7 +127,7 @@ export function QuizSubmit({
       }),
     });
     if (response.ok) {
-      router.push('/Questions/Results');
+      router.push('/options/results');
     } else if (response.status === 401) {
       throw new Error('Network Error');
     }

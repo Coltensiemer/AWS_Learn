@@ -1,7 +1,14 @@
 import react, { cache } from 'react';
+<<<<<<< HEAD:src/app/Questions/Quiz/page.tsx
 import { Quiz } from '../../../useClient/Quiz';
 import { QuizProps, QuestionType } from '../../../../prisma/dataTypes';
 import prisma from '../../../lib/prisma';
+=======
+import { Quiz } from '../../../components/quiz/Quiz';
+import { QuizProps, QuestionType } from '../../../../prisma/dataTypes';
+import prisma from '../../../lib/prisma';
+import QuizCountDownTimer from '../../../components/quiz/QuizCountDownTimer';
+>>>>>>> 1c7c77e (updated component structure and route direction):src/app/options/quiz/page.tsx
 
 async function GETQuiz(tags: string[], length: number) {
   

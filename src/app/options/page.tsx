@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Button } from '../../components/atomic/button/button';
-import QuizOption from '../../components/useClient/QuizOption';
+import QuizOption from '../../components/options/QuizOption';
 import { useContext, useEffect } from 'react';
 import { QuizProgressContext } from '../../useContext/QuizProgressContext';
 import { createCookie } from '../../../actions/cookieActions/cookieActions';
@@ -25,7 +25,7 @@ const { Tags, quizLength } = QuizContext;
     <>
       <div className='flex flex-col lg:w-1/2'>
         <Button>
-          <Link href={{ pathname: '/Questions/Quiz', query: { tags: Tags, length: quizLength } }}>
+          <Link href={{ pathname: '/options/quiz', query: { tags: Tags, length: quizLength } }}>
             Start Quiz
           </Link>
         </Button>
