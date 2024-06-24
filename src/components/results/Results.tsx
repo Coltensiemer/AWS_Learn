@@ -5,18 +5,8 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-<<<<<<<< HEAD:src/useClient/Results.tsx
-<<<<<<< HEAD:src/useClient/Results.tsx
-} from '../components/shadcn/card/card';
-import { Button } from '../components/shadcn/button/button';
-=======
-} from '../../components/atomic/card/card';
-import { Button } from '../../components/atomic/button/button';
->>>>>>> 6e60b80 (updated folder structure from shadcn to atomoic):src/components/useClient/Results.tsx
-========
 } from '../atomic/card/card';
 import { Button } from '../atomic/button/button';
->>>>>>>> 1c7c77e (updated component structure and route direction):src/components/results/Results.tsx
 import Link from 'next/link';
 
 

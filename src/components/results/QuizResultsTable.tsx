@@ -32,17 +32,11 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-<<<<<<< HEAD
-} from '../shadcn/dropdownmenu/dropdownmenu';
-import { Card } from '../shadcn/card/card';
-import { TableQuestionType, UserTableQuestionType, OptionType } from '../../../actions/resultsFakeUserAction';
-
-=======
 } from '../atomic/dropdownmenu/dropdownmenu';
 import { Card } from '../atomic/card/card';
 import { Input } from '../atomic/input/input';
-import { TableQuestionType } from '../../../actions/resultsFakeUserAction';
->>>>>>> 6e60b80 (updated folder structure from shadcn to atomoic)
+import { TableQuestionType, OptionType } from '../../../actions/resultsFakeUserAction';
+
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

@@ -8,11 +8,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-<<<<<<< HEAD:src/useClient/PaginationDirection.tsx
-} from '../components/shadcn/pagination';
-=======
 } from '../atomic/pagination';
->>>>>>> 6e60b80 (updated folder structure from shadcn to atomoic):src/components/useClient/PaginationDirection.tsx
 import {
   Drawer,
   DrawerClose,
@@ -22,33 +18,20 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-<<<<<<< HEAD:src/useClient/PaginationDirection.tsx
-} from '../components/shadcn/drawer/drawer';
-=======
 } from '../atomic/drawer/drawer';
->>>>>>> 6e60b80 (updated folder structure from shadcn to atomoic):src/components/useClient/PaginationDirection.tsx
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-<<<<<<< HEAD:src/useClient/PaginationDirection.tsx
-} from '../components/shadcn/tooltip';
-import { Button } from '../components/shadcn/button/button';
-=======
+
 } from '../atomic/tooltip';
 import { Button } from '../atomic/button/button';
->>>>>>> 6e60b80 (updated folder structure from shadcn to atomoic):src/components/useClient/PaginationDirection.tsx
 import { useContext, useEffect, useState } from 'react';
-<<<<<<<< HEAD:src/useClient/PaginationDirection.tsx
-import { QuizProgressContext } from '../useContext/QuizProgressContext';
-import { nextQuestion } from '../functions/nextQuestion/nextQuestion';
-import { dir } from 'console';
-========
 import { QuizProgressContext } from '../../useContext/QuizProgressContext';
 import { nextQuestion } from '../../functions/nextQuestion/nextQuestion';
 
->>>>>>>> 1c7c77e (updated component structure and route direction):src/components/quiz/PaginationDirection.tsx
+
 
 export function PaginationDirection({
   currentIndex,

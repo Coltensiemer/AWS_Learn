@@ -1,13 +1,9 @@
 'use client';
 
 import React, { use, useContext, useEffect, useState } from 'react';
-<<<<<<< HEAD:src/useClient/Quiz.tsx
-import { RadioGroup, RadioGroupItem } from '../components/shadcn/radio-group';
-import { Label } from '../components/shadcn/label';
-=======
+
 import { RadioGroup, RadioGroupItem } from '../atomic/radio-group';
 import { Label } from '../atomic/label';
->>>>>>> 6e60b80 (updated folder structure from shadcn to atomoic):src/components/useClient/Quiz.tsx
 import { array, set, z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -18,35 +14,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-<<<<<<< HEAD:src/useClient/Quiz.tsx
-} from '../components/shadcn/form/form';
-import { Button } from '../components/shadcn/button/button';
-import { setCorrectorIncorrectQs } from '../functions/setCorrectorIncorrectQs/setCorrectorIncorrectQs';
-import { QuizProgressContext } from '../useContext/QuizProgressContext';
-import { QuizProps, QuestionType } from '../../prisma/dataTypes';
-import QuizTracker from './QuizTracker';
-import { PaginationDirection } from './PaginationDirection';
-import { compareAnswer } from '../functions/compareAnswers/compareAnswers';
-import { useRouter } from 'next/navigation';
-import { nextQuestion } from '../functions/nextQuestion/nextQuestion';
-import { QuizSubmit } from './QuizSubmitResults';
-import { Card } from '../components/shadcn/card/card';
-import { Checkbox } from '../components/shadcn/checkbox/checkbox';
-import { on } from 'events';
-import { Value } from '@radix-ui/react-select';
-
-=======
 } from '../atomic/form/form';
 import { setCorrectorIncorrectQs } from '../../functions/setCorrectorIncorrectQs/setCorrectorIncorrectQs';
 import { QuizProgressContext } from '../../useContext/QuizProgressContext';
 import { QuizProps, QuestionType } from '../../../prisma/dataTypes';
 import QuizTracker from './QuizTracker';
-import { PaginationDirection } from './PaginationDirection';
+import { PaginationDirection } from '../quiz/PaginationDirection';
 import { compareAnswer } from '../../functions/compareAnswers/compareAnswers';
 import { QuizSubmit } from './QuizSubmitResults/QuizSubmitResults';
 import { Card } from '../atomic/card/card';
 import { Checkbox } from '../atomic/checkbox/checkbox';
->>>>>>> 6e60b80 (updated folder structure from shadcn to atomoic):src/components/useClient/Quiz.tsx
 
 
 
