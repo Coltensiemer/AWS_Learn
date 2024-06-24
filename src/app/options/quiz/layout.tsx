@@ -11,7 +11,7 @@ export default function QuizQuestionLayout({
 		<>
 		<aside className="flex flex-col justify-start items-start h-screen fixed top-24 left-10 space-y-4">
 		<Button className='text-xs' size="sm">
-			<Link href="/Questions">
+			<Link href="/options">
 			Back to Quiz Settings
 			</Link>
 		</Button>
