@@ -2369,9 +2369,622 @@
       { "value": "D. Automating deployment processes.", "isCorrect": false }
     ],
     "correct_answer": ["B"]
-  }
+  },
+  {
+    "id": 191,
+    "tag": "Security, Identity, and Compliance",
+    "sub_tag": "AWS Macie",
+    "question": "A user needs to automatically discover, classify, and protect sensitive data stored in Amazon S3. Which AWS service can meet these requirements?",
+    "options": [
+      { "value": "A. AWS Macie", "isCorrect": true },
+      { "value": "B. Amazon GuardDuty", "isCorrect": false },
+      { "value": "C. AWS WAF", "isCorrect": false },
+      { "value": "D. AWS CloudTrail", "isCorrect": false }
+    ],
+    "correct_answer": ["A"]
+  },
+  {
+    "id": 192,
+    "tag": "Mangement and Governance",
+    "sub_tag": "AWS CloudTrail",
+    "question": "A company needs to monitor and receive alerts about AWS Management Console sign-in events that involve the AWS account root user. Which AWS service can meet these requirements?",
+    "options": [
+      { "value": "A. Amazon CloudWatch", "isCorrect": false },
+      { "value": "B. AWS Config", "isCorrect": false },
+      { "value": "C. AWS CloudTrail", "isCorrect": true },
+      { "value": "D. AWS Trusted Advisor", "isCorrect": false }
+    ],
+    "correct_answer": ["C"]
+  },
+  {
+    "id": 193,
+    "tag": "Storage",
+    "sub_tag": "S3",
+    "question": "Which of the functionalities are characteristics of Amazon S3? (Select TWO.)",
+    "options": [
+      { "value": "A. Object storage", "isCorrect": true },
+      { "value": "B. Block storage", "isCorrect": false },
+      { "value": "C. File storage", "isCorrect": false },
+      { "value": "D. Lifecycle management", "isCorrect": true },
+      { "value": "E. Virtual private network", "isCorrect": false }
+    ],
+    "correct_answer": ["A", "D"]
+  },
+  {
+    "id": 194,
+    "tag": "Management and Governance",
+    "sub_tag": "AWS Organizations",
+    "question": "Each department within a company has its own independent AWS account and its own payment method. The company needs to centralize departmental governance and reduce costs. Which AWS service will meet these requirements?",
+    "options": [
+      { "value": "A. AWS Organizations", "isCorrect": true },
+      { "value": "B. AWS Control Tower", "isCorrect": false },
+      { "value": "C. AWS Budgets", "isCorrect": false },
+      { "value": "D. AWS Cost Explorer", "isCorrect": false }
+    ],
+    "correct_answer": ["A"]
+  },
+  {
+    "id": 195,
+    "tag": "Serverless",
+    "sub_tag": "AWS Lambda",
+    "question": "How does AWS charge for AWS Lambda usage once the free tier has been exceeded? (Select TWO.)",
+    "options": [
+      { "value": "A. By the number of requests", "isCorrect": true },
+      { "value": "B. By the amount of memory allocated", "isCorrect": false },
+      { "value": "C. By the amount of time the code executes", "isCorrect": true },
+      { "value": "D. By the number of instances used", "isCorrect": false },
+      { "value": "E. By the amount of storage used", "isCorrect": false }
+    ],
+    "correct_answer": ["A", "C"]
+  },
+  {
+    "id": 196,
+    "tag": "Database",
+    "sub_tag": "Amazon RDS",
+    "question": "A user deploys an Amazon RDS DB instance in multiple Availability Zones. This strategy involves which pillar of the AWS Well-Architected Framework?",
+    "options": [
+      { "value": "A. Operational Excellence", "isCorrect": false },
+      { "value": "B. Security", "isCorrect": false },
+      { "value": "C. Reliability", "isCorrect": true },
+      { "value": "D. Cost Optimization", "isCorrect": false }
+    ],
+    "correct_answer": ["C"]
+  },
+  {
+    "id": 197,
+    "tag": "Networking and Content Delivery",
+    "sub_tag": "AWS Direct Connect",
+    "question": "A company wants to establish a consistent and private connection from the company's on-premises data center to the AWS Cloud. Which AWS service will meet this requirement?",
+    "options": [
+      { "value": "A. AWS VPN", "isCorrect": false },
+      { "value": "B. AWS Direct Connect", "isCorrect": true },
+      { "value": "C. Amazon CloudFront", "isCorrect": false },
+      { "value": "D. Amazon Route 53", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 198,
+    "tag": "Management and Governance",
+    "sub_tag": "AWS Trusted Advisor",
+    "question": "Which AWS service identifies security groups that allow unrestricted access to a user's AWS resources?",
+    "options": [
+      { "value": "A. AWS Trusted Advisor", "isCorrect": true },
+      { "value": "B. AWS Shield", "isCorrect": false },
+      { "value": "C. AWS WAF", "isCorrect": false },
+      { "value": "D. AWS Config", "isCorrect": false }
+    ],
+    "correct_answer": ["A"]
+  },
+  {
+    "id": 199,
+    "tag": "Databases",
+    "sub_tag": "Amazon RDS",
+    "question": "A company requires a relational database on AWS that records new customer orders from a website. Which AWS service or feature will meet this requirement?",
+    "options": [
+      { "value": "A. Amazon DynamoDB", "isCorrect": false },
+      { "value": "B. Amazon RDS", "isCorrect": true },
+      { "value": "C. Amazon Redshift", "isCorrect": false },
+      { "value": "D. Amazon S3", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 200,
+    "tag": "Developer Tools",
+    "sub_tag": "AWS CodeCommit",
+    "question": "A company is moving all of their development activities to AWS. The company wants a solution to store and manage their developers' source code. Which AWS service will meet this requirement?",
+    "options": [
+      { "value": "A. AWS CodePipeline", "isCorrect": false },
+      { "value": "B. AWS CodeDeploy", "isCorrect": false },
+      { "value": "C. AWS CodeCommit", "isCorrect": true },
+      { "value": "D. AWS CodeBuild", "isCorrect": false }
+    ],
+    "correct_answer": ["C"]
+  },
+  {
+    "id": 201,
+    "tag": "Management and Governance",
+    "sub_tag": "AWS Organizations",
+    "question": "Which of the following statements about AWS Organizations is true?",
+    "options": [
+      { "value": "A. The master account can have its privileges restricted by Service Control Policies (SCP).", "isCorrect": false },
+      { "value": "B. AWS Organizations provides consolidated billing to simplify the billing process across multiple accounts.", "isCorrect": true },
+      { "value": "C. Automation is not supported for AWS account creation within an organization.", "isCorrect": false },
+      { "value": "D. Each AWS account in an organization must be managed individually without any central oversight.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  }, 
+  {
+    "id": 202,
+    "tag": "Management and Governance",
+    "sub_tag": "Best Practices",
+    "question": "What is one of the benefits of using departmental accounts in a multi-account strategy?",
+    "options": [
+      { "value": "A. All resources are shared across departments for better collaboration.", "isCorrect": false },
+      { "value": "B. It enables isolated resources and logging for each department.", "isCorrect": true },
+      { "value": "C. It eliminates the need for tagging standards.", "isCorrect": false },
+      { "value": "D. It reduces the need for CloudTrail and CloudWatch.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 202,
+    "tag": "Management and Governance",
+    "sub_tag": "AWS Organizations",
+    "question": "Which statement about Service Control Policies (SCP) in AWS Organizations is correct?",
+    "options": [
+      { "value": "A. SCPs can restrict the privileges of the master account.", "isCorrect": false },
+      { "value": "B. SCPs can be applied to specific Organizational Units (OU).", "isCorrect": true },
+      { "value": "C. SCPs act as a whitelist or blacklist for S3 bucket policies.", "isCorrect": false },
+      { "value": "D. SCPs are optional and not commonly used in organizations.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 203,
+    "tag": "Management and Governance",
+    "sub_tag": "AWS Organizations",
+    "question": "What is a key advantage of using AWS Consolidated Billing?",
+    "options": [
+      { "value": "A. It requires separate billing for each account.", "isCorrect": false },
+      { "value": "B. It shares volume pricing discounts across all accounts.", "isCorrect": true },
+      { "value": "C. It does not support resource tagging.", "isCorrect": false },
+      { "value": "D. It eliminates the need for individual account management.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 204,
+    "tag": "Management and Governance",
+    "sub_tag": "AWS Control Tower",
+    "question": "What does AWS Control Tower provide for managing a multi-account environment?",
+    "options": [
+      { "value": "A. Manual setup of accounts and policies.", "isCorrect": false },
+      { "value": "B. Automated policy management and violation detection.", "isCorrect": true },
+      { "value": "C. Basic monitoring without compliance tracking.", "isCorrect": false },
+      { "value": "D. Individual dashboards for each account.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 205,
+    "tag": "Management and Governance",
+    "sub_tag": "AWS Resource Group and Tag Editor",
+    "question": "What is the primary function of AWS Resource Access Manager (AWS RAM)?",
+    "options": [
+      { "value": "A. It automates the creation of AWS resources.", "isCorrect": false },
+      { "value": "B. It enables sharing of AWS resources across multiple accounts.", "isCorrect": true },
+      { "value": "C. It provides resource monitoring and alerts.", "isCorrect": false },
+      { "value": "D. It restricts access to resources within a single account.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 206,
+    "tag": "Management and Governance",
+    "sub_tag": "AWS Service Catalog",
+    "question": "What is the main purpose of the AWS Service Catalog?",
+    "options": [
+      { "value": "A. To provide a marketplace for third-party services.", "isCorrect": false },
+      { "value": "B. To allow users to launch authorized products via a self-service portal.", "isCorrect": true },
+      { "value": "C. To manage AWS account billing and cost allocation.", "isCorrect": false },
+      { "value": "D. To enforce security policies across AWS accounts.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  }, 
+  {
+    "id": 207,
+    "tag": "Management and Governance",
+    "sub_tag": "AWS Compute Optimizer",
+    "question": "Which of the following statements about AWS Compute Optimizer is correct?",
+    "options": [
+      { "value": "A. AWS Compute Optimizer only supports EC2 instances.", "isCorrect": false },
+      { "value": "B. AWS Compute Optimizer uses machine learning to recommend optimal resources.", "isCorrect": true },
+      { "value": "C. Recommendations from AWS Compute Optimizer cannot be exported.", "isCorrect": false },
+      { "value": "D. AWS Compute Optimizer guarantees a 50% cost reduction.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 208,
+    "tag": "Customer Engagement",
+    "sub_tag": "AWS Support",
+    "question": "What support is provided with the AWS Basic Support Plan?",
+    "options": [
+      { "value": "A. 24/7 access to customer service and limited Trusted Advisor checks.", "isCorrect": true },
+      { "value": "B. Full Trusted Advisor checks and access to Cloud Support Engineers.", "isCorrect": false },
+      { "value": "C. Email support during business hours.", "isCorrect": false },
+      { "value": "D. Dedicated Technical Account Manager (TAM).", "isCorrect": false }
+    ],
+    "correct_answer": ["A"]
+  },
+  {
+    "id": 209,
+    "tag": "Customer Engagement",
+    "sub_tag": "AWS Support",
+    "question": "Which of the following is a feature of the AWS Developer Support Plan?",
+    "options": [
+      { "value": "A. Access to Cloud Support Engineers.", "isCorrect": false },
+      { "value": "B. 24/7 phone support.", "isCorrect": false },
+      { "value": "C. Email support during business hours and unlimited cases with one primary contact.", "isCorrect": true },
+      { "value": "D. Technical Account Manager (TAM).", "isCorrect": false }
+    ],
+    "correct_answer": ["C"]
+  },
+  {
+    "id": 210,
+    "tag": "Customer Engagement",
+    "sub_tag": "AWS Support",
+    "question": "What response times does the AWS Business Support Plan offer for production system issues?",
+    "options": [
+      { "value": "A. Less than 24 hours for general inquiries.", "isCorrect": false },
+      { "value": "B. Less than 12 hours for system impaired.", "isCorrect": false },
+      { "value": "C. Less than 4 hours for production system impaired and less than 1 hour for production system down.", "isCorrect": true },
+      { "value": "D. Less than 15 minutes for all issues.", "isCorrect": false }
+    ],
+    "correct_answer": ["C"]
+  },
+  {
+    "id": 211,
+    "tag": "Customer Engagement",
+    "sub_tag": "AWS Support",
+    "question": "Which of the following features is included in the AWS Enterprise On-Ramp Support Plan?",
+    "options": [
+      { "value": "A. Access to Cloud Support Engineers.", "isCorrect": false },
+      { "value": "B. Technical Account Managers (TAM) and Concierge Support.", "isCorrect": true },
+      { "value": "C. Email support during business hours.", "isCorrect": false },
+      { "value": "D. Limited Trusted Advisor checks.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 212,
+    "tag": "Customer Engagement",
+    "sub_tag": "AWS Support",
+    "question": "What distinguishes the AWS Enterprise Support Plan from other plans?",
+    "options": [
+      { "value": "A. Limited Trusted Advisor checks.", "isCorrect": false },
+      { "value": "B. Access to Cloud Support Engineers only during business hours.", "isCorrect": false },
+      { "value": "C. Dedicated Technical Account Manager (TAM) and comprehensive support and advisory services.", "isCorrect": true },
+      { "value": "D. Response times of less than 24 hours for all issues.", "isCorrect": false }
+    ],
+    "correct_answer": ["C"]
+  }, 
+  {
+    "id": 213,
+    "tag": "Machine Learning",
+    "sub_tag": "Amazon Rekognition",
+    "question": "Which of the following is a feature of Amazon Rekognition?",
+    "options": [
+      { "value": "A. Converts speech to text.", "isCorrect": false },
+      { "value": "B. Identifies objects, people, text, and scenes in images and videos.", "isCorrect": true },
+      { "value": "C. Provides language translation.", "isCorrect": false },
+      { "value": "D. Predicts future events using historical data.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 214,
+    "tag": "Machine Learning",
+    "sub_tag": "Amazon Rekognition",
+    "question": "Which of the following use cases can Amazon Rekognition be applied to?",
+    "options": [
+      { "value": "A. Labeling and content moderation.", "isCorrect": true },
+      { "value": "B. Speech to text conversion.", "isCorrect": false },
+      { "value": "C. Language translation.", "isCorrect": false },
+      { "value": "D. Predicting future events.", "isCorrect": false }
+    ],
+    "correct_answer": ["A"]
+  },
+  {
+    "id": 215,
+    "tag": "Machine Learning",
+    "sub_tag": "Amazon Transcribe",
+    "question": "What process does Amazon Transcribe use to convert speech to text?",
+    "options": [
+      { "value": "A. Automatic Language Translation.", "isCorrect": false },
+      { "value": "B. Deep Learning Translation.", "isCorrect": false },
+      { "value": "C. Automatic Speech Recognition (ASR).", "isCorrect": true },
+      { "value": "D. Natural Language Processing (NLP).", "isCorrect": false }
+    ],
+    "correct_answer": ["C"]
+  },
+  {
+    "id": 216,
+    "tag": "Machine Learning",
+    "sub_tag": "Amazon Transcribe",
+    "question": "Which feature of Amazon Transcribe helps in protecting privacy?",
+    "options": [
+      { "value": "A. Speech synthesis.", "isCorrect": false },
+      { "value": "B. Automatic Personally Identifiable Information (PII) redaction.", "isCorrect": true },
+      { "value": "C. Real-time translation.", "isCorrect": false },
+      { "value": "D. Predictive analysis.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 217,
+    "tag": "Machine Learning",
+    "sub_tag": "Amazon Polly",
+    "question": "What is the primary function of Amazon Polly?",
+    "options": [
+      { "value": "A. Text translation.", "isCorrect": false },
+      { "value": "B. Converting text into lifelike speech.", "isCorrect": true },
+      { "value": "C. Analyzing text sentiment.", "isCorrect": false },
+      { "value": "D. Extracting text from images.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 218,
+    "tag": "Machine Learning",
+    "sub_tag": "Amazon Polly",
+    "question": "Which technology does Amazon Polly use to convert text to speech?",
+    "options": [
+      { "value": "A. Deep Learning.", "isCorrect": true },
+      { "value": "B. Natural Language Processing (NLP).", "isCorrect": false },
+      { "value": "C. Automatic Speech Recognition (ASR).", "isCorrect": false },
+      { "value": "D. Predictive Analysis.", "isCorrect": false }
+    ],
+    "correct_answer": ["A"]
+  }, 
+  {
+    "id": 219,
+    "tag": "Machine Learning",
+    "sub_tag": "Amazon Translate",
+    "question": "What is the main feature of Amazon Translate?",
+    "options": [
+      { "value": "A. Provides natural and accurate language translation for large volumes of text.", "isCorrect": true },
+      { "value": "B. Converts text to speech.", "isCorrect": false },
+      { "value": "C. Analyzes text to extract key data points.", "isCorrect": false },
+      { "value": "D. Performs facial analysis and search.", "isCorrect": false }
+    ],
+    "correct_answer": ["A"]
+  },
+  {
+    "id": 220,
+    "tag": "Machine Learning",
+    "sub_tag": "Amazon Translate",
+    "question": "Which of the following translation capabilities does Amazon Translate support?",
+    "options": [
+      { "value": "A. Real-time and batch translation.", "isCorrect": true },
+      { "value": "B. Speech to text conversion.", "isCorrect": false },
+      { "value": "C. Text sentiment analysis.", "isCorrect": false },
+      { "value": "D. Face detection and recognition.", "isCorrect": false }
+    ],
+    "correct_answer": ["A"]
+  },
+  {
+    "id": 221,
+    "tag": "Machine Learning",
+    "sub_tag": "Amazon Lex",
+    "question": "What technology does Amazon Lex use to convert speech to text?",
+    "options": [
+      { "value": "A. Natural Language Processing (NLP).", "isCorrect": false },
+      { "value": "B. Automatic Speech Recognition (ASR) technology used in Alexa.", "isCorrect": true },
+      { "value": "C. Text-to-Speech (TTS).", "isCorrect": false },
+      { "value": "D. Deep Learning Translation.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 222,
+    "tag": "Machine Learning",
+    "sub_tag": "Amazon Connect",
+    "question": "What is Amazon Connect primarily used for?",
+    "options": [
+      { "value": "A. Text translation.", "isCorrect": false },
+      { "value": "B. Creating a cloud-based virtual contact center.", "isCorrect": true },
+      { "value": "C. Text-to-speech conversion.", "isCorrect": false },
+      { "value": "D. Image recognition.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 223,
+    "tag": "Machine Learning",
+    "sub_tag": "Amazon Comprehend",
+    "question": "What is the primary function of Amazon Comprehend?",
+    "options": [
+      { "value": "A. Predicting future events.", "isCorrect": false },
+      { "value": "B. Natural Language Processing (NLP) to analyze text.", "isCorrect": true },
+      { "value": "C. Converting speech to text.", "isCorrect": false },
+      { "value": "D. Providing real-time translation.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 224,
+    "tag": "Machine Learning",
+    "sub_tag": "Amazon Comprehend",
+    "question": "Which feature is supported by Amazon Comprehend?",
+    "options": [
+      { "value": "A. Extracting key data points and determining sentiment from text.", "isCorrect": true },
+      { "value": "B. Converting text to lifelike speech.", "isCorrect": false },
+      { "value": "C. Performing facial recognition.", "isCorrect": false },
+      { "value": "D. Predicting future events.", "isCorrect": false }
+    ],
+    "correct_answer": ["A"]
+  },
+  {
+    "id": 225,
+    "tag": "Machine Learning",
+    "sub_tag": "Amazon SageMaker",
+    "question": "What is Amazon SageMaker used for?",
+    "options": [
+      { "value": "A. Extracting text from images.", "isCorrect": false },
+      { "value": "B. Building, training, and deploying machine learning models.", "isCorrect": true },
+      { "value": "C. Converting text to lifelike speech.", "isCorrect": false },
+      { "value": "D. Real-time language translation.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 226,
+    "tag": "Machine Learning",
+    "sub_tag": "Amazon SageMaker",
+    "question": "Which of the following best describes Amazon SageMaker?",
+    "options": [
+      { "value": "A. A managed service for natural language processing.", "isCorrect": false },
+      { "value": "B. A fully managed service for developers to build, train, and deploy machine learning models.", "isCorrect": true },
+      { "value": "C. A deep learning-based speech-to-text conversion service.", "isCorrect": false },
+      { "value": "D. A service for extracting text and data from scanned documents.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 227,
+    "tag": "Machine Learning",
+    "sub_tag": "Amazon Forecast",
+    "question": "What is Amazon Forecast used for?",
+    "options": [
+      { "value": "A. Extracting text from images.", "isCorrect": false },
+      { "value": "B. Predicting future events using machine learning.", "isCorrect": true },
+      { "value": "C. Converting speech to text.", "isCorrect": false },
+      { "value": "D. Providing real-time translation.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 228,
+    "tag": "Machine Learning",
+    "sub_tag": "Amazon Forecast",
+    "question": "What data does Amazon Forecast analyze to generate predictions?",
+    "options": [
+      { "value": "A. Real-time speech data.", "isCorrect": false },
+      { "value": "B. Historical data stored in Amazon S3.", "isCorrect": true },
+      { "value": "C. Text documents.", "isCorrect": false },
+      { "value": "D. Images and videos.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 229,
+    "tag": "Machine Learning",
+    "sub_tag": "Amazon Kendra",
+    "question": "What is the primary function of Amazon Kendra?",
+    "options": [
+      { "value": "A. Language translation.", "isCorrect": false },
+      { "value": "B. Converting text to speech.", "isCorrect": false },
+      { "value": "C. Intelligent search to extract relevant information from documents.", "isCorrect": true },
+      { "value": "D. Predicting future events.", "isCorrect": false }
+    ],
+    "correct_answer": ["C"]
+  },
+  {
+    "id": 230,
+    "tag": "Machine Learning",
+    "sub_tag": "Amazon Kendra",
+    "question": "Which service provides intelligent search capabilities to extract relevant information from documents?",
+    "options": [
+      { "value": "A. Amazon Polly.", "isCorrect": false },
+      { "value": "B. Amazon Kendra.", "isCorrect": true },
+      { "value": "C. Amazon Rekognition.", "isCorrect": false },
+      { "value": "D. Amazon SageMaker.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 231,
+    "tag": "Machine Learning",
+    "sub_tag": "Amazon Personalize",
+    "question": "What is Amazon Personalize primarily used for?",
+    "options": [
+      { "value": "A. Converting text to lifelike speech.", "isCorrect": false },
+      { "value": "B. Building real-time personalized recommendations.", "isCorrect": true },
+      { "value": "C. Extracting text from scanned documents.", "isCorrect": false },
+      { "value": "D. Language translation.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 232,
+    "tag": "Machine Learning",
+    "sub_tag": "Amazon Personalize",
+    "question": "Which of the following is a use case for Amazon Personalize?",
+    "options": [
+      { "value": "A. Recommending items based on customer search history.", "isCorrect": true },
+      { "value": "B. Predicting future events.", "isCorrect": false },
+      { "value": "C. Extracting text from forms and tables.", "isCorrect": false },
+      { "value": "D. Performing facial analysis and search.", "isCorrect": false }
+    ],
+    "correct_answer": ["A"]
+  },
+  {
+    "id": 233,
+    "tag": "Machine Learning",
+    "sub_tag": "Amazon Textract",
+    "question": "What is Amazon Textract designed to do?",
+    "options": [
+      { "value": "A. Convert speech to text.", "isCorrect": false },
+      { "value": "B. Extract text, handwriting, and data from scanned documents.", "isCorrect": true },
+      { "value": "C. Provide real-time language translation.", "isCorrect": false },
+      { "value": "D. Generate real-time personalized recommendations.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+  {
+    "id": 234,
+    "tag": "Machine Learning",
+    "sub_tag": "Amazon Textract",
+    "question": "Which of the following can Amazon Textract extract data from?",
+    "options": [
+      { "value": "A. Audio recordings.", "isCorrect": false },
+      { "value": "B. Scanned documents, forms, and tables.", "isCorrect": true },
+      { "value": "C. Videos and images.", "isCorrect": false },
+      { "value": "D. Speech to text transcriptions.", "isCorrect": false }
+    ],
+    "correct_answer": ["B"]
+  },
+      
+        
+      
+    
 
+  
+  
+  
+  
+  
+  
+  
 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
 
 
