@@ -1,14 +1,4 @@
 {
-	"workbench.colorCustomizations": {
-		"[Monokai Red Moon]": {
-			// "activityBar.border": "#097969", 
-			// "activityBarTop.background": "#097969",
-			// "activityBarTop.activeBorder": "#097969",
-			// "activityBarTop.activeBackground": "#097969",
-			// "sideBar.border": "#097969",
-			// "editor.wordHighlightStrongBackground": "#097969"
+	"prettier.configPath": ".prettierrc.config.js"
 
-			
-		}
-	}
 }
