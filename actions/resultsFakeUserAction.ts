@@ -1,8 +1,7 @@
 'use server';
 
 import { object } from 'zod';
-import prisma from '../src/lib/prisma';
-
+import prisma from '../prisma/prisma';
 
 // Define the data type for the questions
 export interface TableQuestionType {
@@ -12,8 +11,8 @@ export interface TableQuestionType {
   question: string;
   correct_answer: string[];
   options: OptionType[];
-  userCorrect: boolean; 
-  userSelected: string;  
+  userCorrect: boolean;
+  userSelected: string;
 }
 export interface OptionType {
   value: string;
@@ -67,14 +66,13 @@ async function getQuizList(quizidused: number[] | undefined) {
     return data;
   } catch (error) {
     console.error(error);
-    }
+  }
 }
 
 export async function getFakeUserTableResultData(cookieid: string) {
   try {
     const userQuizData = await getFakeUserResults(cookieid);
 
-    
     if (!userQuizData) {
       return null;
     }
@@ -85,20 +83,19 @@ export async function getFakeUserTableResultData(cookieid: string) {
 
     if (!quizData) {
       return null;
-   }
-   //@ts-ignore
+    }
+    //@ts-ignore
     const questiondata: TableQuestionType[] = quizData.map((quiz, index) => {
       const userCorrect = completedQuiz.correctanswers.some((answers, i) => {
         return answers === quiz.id;
       });
 
-      if (completedQuiz.quizselectedoptions === null) return null 
-      const optionValue = Object.values(completedQuiz.quizselectedoptions).find((value, key) => {
-        return quiz.id === key +1;
-      }) || null;
-      
-  
-      
+      if (completedQuiz.quizselectedoptions === null) return null;
+      const optionValue =
+        Object.values(completedQuiz.quizselectedoptions).find((value, key) => {
+          return quiz.id === key + 1;
+        }) || null;
+
       return {
         id: quiz.id,
         tag: quiz.tag,
@@ -107,14 +104,11 @@ export async function getFakeUserTableResultData(cookieid: string) {
         correct_answer: quiz.correct_answer,
         options: quiz.options,
         userCorrect,
-        userSelected: optionValue
+        userSelected: optionValue,
       };
-
     });
 
-    
     return questiondata;
-
   } catch (error) {
     console.error(error);
     return null;

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { CountDownProgress } from '../progress/progress';
-import { cn } from '../../../lib/utils';
+import { cn } from '../../../../lib/utils';
 
 export interface CounterProps extends React.HTMLAttributes<HTMLDivElement> {
   asChild?: boolean;

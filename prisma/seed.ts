@@ -1,5 +1,5 @@
 import fs from 'fs'; // File system module
-import prisma from '../src/lib/prisma';
+import prisma from './prisma';
 
 /// This creates a user with the email for seed data
 async function main() {
@@ -18,7 +18,7 @@ async function main() {
         password: 'password',
         completedquiz: {
           create: {
-            quizidused: [19, 20, 21, 22, 23, 24,25,26,27,],
+            quizidused: [19, 20, 21, 22, 23, 24, 25, 26, 27],
             correctanswers: [19, 21, 23],
             incorrectanswers: [24, 25, 26],
             tags: ['EC2', 'Lambda'],
@@ -26,7 +26,14 @@ async function main() {
             starttimer: 120,
             finishedat: 20,
             quizDate: new Date(),
-            quizselectedoptions: [{ id: 19, value: 'A'}, { id: 20, value: 'B'}, { id: 21, value: 'C'}, { id: 22, value: 'D'}, { id: 23, value: 'A'}, { id: 24, value: 'B'}],
+            quizselectedoptions: [
+              { id: 19, value: 'A' },
+              { id: 20, value: 'B' },
+              { id: 21, value: 'C' },
+              { id: 22, value: 'D' },
+              { id: 23, value: 'A' },
+              { id: 24, value: 'B' },
+            ],
           },
         },
         quizprogress: {
@@ -41,8 +48,6 @@ async function main() {
         },
       },
     });
-
-  
 
     //Delete all quizzes, options and questions to clear the database
     await prisma.option.deleteMany();
