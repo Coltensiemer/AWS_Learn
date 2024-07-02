@@ -1,10 +1,8 @@
 'use server';
 
-import prisma from '../lib/prisma';
+import prisma from '../prisma/prisma';
 
 async function getUserResults(sessionID: string) {
-
-
   const sessiondata = await prisma.user.findFirst({
     ///change so it only recieves the last quiz
     where: {
@@ -32,7 +30,7 @@ async function getQuizList(quizidused: number[] | undefined) {
       },
       include: { options: true },
     });
-    console.log(data)
+    console.log(data);
   } catch (error) {
     console.error(error);
   }
@@ -41,28 +39,24 @@ async function getQuizList(quizidused: number[] | undefined) {
 export async function getTableResultData(cookieid: string) {
   try {
     const userQuizData = await getUserResults(cookieid);
-	
+
     if (!userQuizData) {
       return null;
     }
 
     const QuizList = userQuizData.completedquiz[0].quizidused;
-		
 
-		const quizData = await getQuizList(QuizList);
+    const quizData = await getQuizList(QuizList);
     if (!quizData) {
       return null;
     }
 
     const completeQuizData: any = {
       ...userQuizData,
-        questions: quizData,
+      questions: quizData,
     };
-
   } catch (error) {
     console.error(error);
     return null;
   }
 }
-
-
