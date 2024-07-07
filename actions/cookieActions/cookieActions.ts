@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { generateCookieID } from "../../src/functions/generateSessionID/generateCookieID";
-import prisma from "../../src/lib/prisma";
+import prisma from "../../lib/prisma";
 
 export async function getSession() {
   // Retrieve the OneTimeSessionID cookie value

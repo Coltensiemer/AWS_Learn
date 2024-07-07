@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { QuizProgressContext } from '../../../useContext/QuizProgressContext';
 import { CountDownProgress } from '../progress/progress';
-import { cn } from '../../../lib/utils';
+import { cn } from '../../../../lib/utils';
 import { convertToMinutesAndSeconds } from '../../../functions/converToMinutesAndSecond/convertToMinutesAndSecond';
 
 const renderTime = (remainingTime: number) => {

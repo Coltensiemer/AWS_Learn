@@ -1,5 +1,5 @@
 import fs from 'fs'; // File system module
-import prisma from '../src/lib/prisma';
+import prisma from '../lib/prisma';
 
 /// This creates a user with the email for seed data
 async function main() {

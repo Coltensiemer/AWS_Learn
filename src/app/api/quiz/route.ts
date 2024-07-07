@@ -1,4 +1,4 @@
-import prisma from '../../../lib/prisma';
+import prisma from '../../../../lib/prisma';
 import { QuestionType } from '../../../../prisma/dataTypes';
 import { NextResponse, NextRequest } from 'next/server';
 

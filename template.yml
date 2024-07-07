@@ -1,0 +1,19 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: AWS SAM template with RDS
+
+Resources:
+   MyDB:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBName: awslearn-db-test
+      VPCSecurityGroups:
+       - Ref: sg-0f4fb1b70cc55951e
+     AllocatedStorage: '5'
+     DBInstanceClass: db.t3.micro
+    Engine: PostgreSQL
+      MasterUsername: MyName
+      ManageMasterUserPassword: true
+      MasterUserSecret:
+       KmsKeyId: !Ref KMSKey
+    DeletionPolicy: Snapshot

@@ -1,6 +1,6 @@
 'use server';
 
-import prisma from '../src/lib/prisma';
+import prisma from '../lib/prisma';
 
 async function getUserResults(sessionID: string) {
 
