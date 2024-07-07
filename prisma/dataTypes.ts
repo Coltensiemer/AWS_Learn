@@ -11,7 +11,7 @@ export interface QuestionType {
   tag: string;
   sub_tag: string;
   question: string;
-  correct_answer: string;
+  correct_answer: string[];
   options: OptionType[];
 }
 
