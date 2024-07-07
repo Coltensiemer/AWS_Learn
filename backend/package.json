@@ -17,11 +17,13 @@
     "ts-jest": "^29.1.5",
     "aws-cdk": "2.148.0",
     "ts-node": "^10.9.2",
-    "typescript": "~5.5.3"
+    "typescript": "~5.5.3",
+    "prisma": "^5.12.1"
   },
   "dependencies": {
     "aws-cdk-lib": "2.148.0",
     "constructs": "^10.0.0",
-    "source-map-support": "^0.5.21"
+    "source-map-support": "^0.5.21",
+    "@prisma/client": "^5.12.1"
   }
 }
