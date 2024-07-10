@@ -5,7 +5,8 @@ import * as rds from 'aws-cdk-lib/aws-rds';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import * as ln from 'aws-cdk-lib/aws-lambda-nodejs';
-// import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
+import * as path from 'path';
+import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 // import { ApiGateway } from 'aws-cdk-lib/aws-events-targets';
 // import { DESTRUCTION } from 'dns';
 // import { after, before } from 'node:test';
@@ -31,6 +32,7 @@ export class BackendStack extends cdk.Stack {
       ],
     });
 
+  
     const securityGroup = new ec2.SecurityGroup(this, 'ResourceInitializerSG', {
       securityGroupName: `${id}ResourceInitializerFnSg`,
       vpc,
@@ -53,6 +55,13 @@ export class BackendStack extends cdk.Stack {
       },
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
+    
+    ///Secrets Manager
+    //Documenitation: https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda-readme.html
+    const secret = secretsmanager.Secret.fromSecretAttributes(this, `${id}-SecretDB`, {
+secretCompleteArn: 'arn:aws:secretsmanager:us-east-2:339713106432:secret:BackendStackMyRdsInstanceSe-ViX8PqhMPhe1-BD8Jt1'
+    })
+
 
     // RDS Instance
     const rdsInstance = new rds.DatabaseInstance(this, 'MyRdsInstance', {
@@ -62,7 +71,7 @@ export class BackendStack extends cdk.Stack {
       engine: rds.DatabaseInstanceEngine.postgres({
         version: rds.PostgresEngineVersion.VER_16_3,
       }),
-      instanceType: ec2.InstanceType.of(ec2.InstanceClass.T2, ec2.InstanceSize.MICRO), // Change to free tier eligible instance
+      instanceType: ec2.InstanceType.of(ec2.InstanceClass.T3, ec2.InstanceSize.MICRO), // Change to free tier eligible instance
       allocatedStorage: 20,
       securityGroups: [securityGroup], // This is the security group created above to allow traffic from the Lambda function
       credentials: rds.Credentials.fromGeneratedSecret('postgres'), // Automatically generates a password for the 'postgres' user
@@ -70,10 +79,13 @@ export class BackendStack extends cdk.Stack {
       publiclyAccessible: true,
     });
 
+
+
     // Lambda function with Prisma bundled
-    const handler = new ln.NodejsFunction(this, 'prisma', {
+    const createLambdaFunction = (name: string, entry: string, subfolder:string ) => {
+    const lambdaFunction = new ln.NodejsFunction(this, name, {
       runtime: lambda.Runtime.NODEJS_20_X,
-      entry: 'functions/index.ts', // Correcting the 'handler' field to 'entry'
+      entry: path.join(__dirname, `../api/${entry}/${subfolder}/index.ts`),
       handler: 'handler', // Add the actual handler function name
       timeout: cdk.Duration.seconds(5),
       environment: { 
@@ -82,8 +94,7 @@ export class BackendStack extends cdk.Stack {
       bundling: { 
         nodeModules: ['@prisma/client', 'prisma'],
         commandHooks: {
-          beforeBundling(_inputDir: string, _outputDir: string) {
-            
+          beforeBundling(_inputDir: string, _outputDir: string) {            
             return [];
           },
           beforeInstall(_inputDir: string, _outputDir: string) {
@@ -95,20 +106,39 @@ export class BackendStack extends cdk.Stack {
               `cp -R ./prisma ${_outputDir}/`];
           },
           afterBundling(_inputDir: string, _outputDir: string) {
-            
+            // Generate the Prisma client and remove the prisma folders to decrease the size of the deployment package
             return [
               `cd ${_outputDir}`,
               'npx prisma generate',
               'rm -rf node_modules/@prisma/engines', // Remove the engines folder to decrease the size of the deployment package
-              'rm -rf node_modules/@prisma/client/node_modules/.bin node_modules/prisma', // Remove the prisma folder to decrease the size of the deployment package
+              'rm -rf node_modules/@prisma/client/node_modules node_modules/.bin node_modules/prisma',
             ];
           },
         },
       },
     });
 
-    new apigateway.LambdaRestApi(this, 'Endpoint', {
-      handler,
+    //! environment variable name pattern incorrect?? 
+    secret.grantRead(lambdaFunction); 
+    lambdaFunction.addEnvironment('db-secert-arn', secret.secretArn)
+    return lambdaFunction;
+  }
+
+// Create the Lambda function
+const getQuizLambda = createLambdaFunction('GetQuizLambda', 'quizzes', 'getQuiz');
+const addusersLambda = createLambdaFunction('AddUsersLambda', 'users', 'addUser');
+
+
+// ! Set up proxy integration for the Lambda function
+    const api = new apigateway.RestApi(this, 'Endpoint', {
+      restApiName: 'lambda-api',
     });
+
+    const quizzes = api.root.addResource('quizzes');
+    const users = api.root.addResource('users');
+
+    quizzes.addMethod('GET', new apigateway.LambdaIntegration(getQuizLambda));
+    users.addMethod('POST', new apigateway.LambdaIntegration(addusersLambda));
+
   }
 }
