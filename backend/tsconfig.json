@@ -2,6 +2,8 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "commonjs",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "lib": [
       "es2020",
       "dom"
@@ -24,6 +26,11 @@
       "./node_modules/@types"
     ]
   },
+
+  "include": [
+    "src/**/*.ts",
+    "**/*.ts",
+  ],
   "exclude": [
     "node_modules",
     "cdk.out"

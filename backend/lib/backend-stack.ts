@@ -33,7 +33,7 @@ export class BackendStack extends cdk.Stack {
     });
 
   
-    const securityGroup = new ec2.SecurityGroup(this, 'ResourceInitializerSG', {
+    const securityGroup = new ec2.SecurityGroup(this, 'my-vpc-SG', {
       securityGroupName: `${id}ResourceInitializerFnSg`,
       vpc,
       allowAllOutbound: true,
@@ -82,15 +82,14 @@ secretCompleteArn: 'arn:aws:secretsmanager:us-east-2:339713106432:secret:Backend
 
 
     // Lambda function with Prisma bundled
-    const createLambdaFunction = (name: string, entry: string, subfolder:string ) => {
+    const createLambdaFunction = (name: string, entry: string ) => {
     const lambdaFunction = new ln.NodejsFunction(this, name, {
       runtime: lambda.Runtime.NODEJS_20_X,
-      entry: path.join(__dirname, `../api/${entry}/${subfolder}/index.ts`),
+      entry: path.join(__dirname, `../api/${entry}/index.ts`),
       handler: 'handler', // Add the actual handler function name
       timeout: cdk.Duration.seconds(5),
-      environment: { 
-        DB_URL: process.env.DATABASE_URL_LOCAL || '', // Ensure DB_URL is defined
-      },
+      vpc: vpc,
+      securityGroups: [securityGroup],
       bundling: { 
         nodeModules: ['@prisma/client', 'prisma'],
         commandHooks: {
@@ -118,18 +117,17 @@ secretCompleteArn: 'arn:aws:secretsmanager:us-east-2:339713106432:secret:Backend
       },
     });
 
-    //! environment variable name pattern incorrect?? 
     secret.grantRead(lambdaFunction); 
-    lambdaFunction.addEnvironment('db-secert-arn', secret.secretArn)
+    // lambdaFunction.addEnvironment('dbsecert', secret.secretArn)
     return lambdaFunction;
   }
 
-// Create the Lambda function
-const getQuizLambda = createLambdaFunction('GetQuizLambda', 'quizzes', 'getQuiz');
-const addusersLambda = createLambdaFunction('AddUsersLambda', 'users', 'addUser');
+// Create the Lambda function with proxy integration
+const getQuizLambda = createLambdaFunction('quizzesLambda', 'quizzes');
+const addusersLambda = createLambdaFunction('usersLambda', 'users');
 
 
-// ! Set up proxy integration for the Lambda function
+// API Gateway
     const api = new apigateway.RestApi(this, 'Endpoint', {
       restApiName: 'lambda-api',
     });

@@ -33,6 +33,9 @@
     "**/*.mjs",
     "./prisma/seed.ts",
     ".next/types/**/*.ts", 
-    "aws/**/*.ts", "aws/events/test-event.js" ],
+    "aws/**/*.ts",
+    "aws/**/**/*.ts", 
+    "aws/**/**/**/**.ts", 
+    "aws/events/test-event.js" ],
   "exclude": ["node_modules"]
 }
