@@ -5,20 +5,30 @@ import {
 
 
 
-
 const getSecert = async () => {
-const secret_name = "BackendStackMyRdsInstanceSe-ViX8PqhMPhe1";
-const client = new SecretsManagerClient()
-const data = await client.send(new GetSecretValueCommand({SecretId: secret_name}))
-return data
-}
+	try {
+		const hostname = process.env.DB_HOSTNAME || "";
+		const DB_SECRET_ARN = process.env.DB_SECRET_ARN || "";
+		const client = new SecretsManagerClient({ region: "us-east-2" });
+		const data = await client.send(
+			new GetSecretValueCommand({ SecretId: DB_SECRET_ARN })
+		);
+	
+		return data.SecretString;
+	} 
+	catch (error) { 
+		console.error("Error fetching secret: ", error);
+		return error; 
+	}
 
+}
 
 
 exports.handler = async () => {
   try {
 
 const result = getSecert()
+console.log(result)
   
     return {
       statusCode: 200,

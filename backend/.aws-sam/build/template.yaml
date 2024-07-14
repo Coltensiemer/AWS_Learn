@@ -289,10 +289,10 @@ Resources:
       aws:asset:path: ../../cdk.out/asset.ee7de53d64cc9d6248fa6aa550f92358f6c907b5efd6f3298aeab1b5e7ea358a
       aws:asset:property: Code
       aws:cdk:path: BackendStack/Custom::VpcRestrictDefaultSGCustomResourceProvider/Handler
-  ResourceInitializerSG942AB8BB:
+  BackendStackResourceInitializerFnSg67A66192:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupDescription: BackendStack/ResourceInitializerSG
+      GroupDescription: BackendStack/BackendStackResourceInitializerFnSg
       GroupName: BackendStackResourceInitializerFnSg
       SecurityGroupEgress:
       - CidrIp: '0.0.0.0/0'
@@ -307,7 +307,7 @@ Resources:
       VpcId:
         Ref: MyVpcF9F0CA6F
     Metadata:
-      aws:cdk:path: BackendStack/ResourceInitializerSG/Resource
+      aws:cdk:path: BackendStack/BackendStackResourceInitializerFnSg/Resource
   rdssubnetgroup:
     Type: AWS::RDS::DBSubnetGroup
     Properties:
@@ -369,13 +369,13 @@ Resources:
       StorageType: gp2
       VPCSecurityGroups:
       - Fn::GetAtt:
-        - ResourceInitializerSG942AB8BB
+        - BackendStackResourceInitializerFnSg67A66192
         - GroupId
     UpdateReplacePolicy: Delete
     DeletionPolicy: Delete
     Metadata:
       aws:cdk:path: BackendStack/MyRdsInstance/Resource
-  GetQuizLambdaServiceRole7803EAE8:
+  quizzesLambdaServiceRole0C22F465:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -391,9 +391,17 @@ Resources:
         - - 'arn:'
           - Ref: AWS::Partition
           - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      - Fn::Join:
+        - ''
+        - - 'arn:'
+          - Ref: AWS::Partition
+          - :iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole
+    DependsOn:
+    - MyVpcprivateSubnet1RouteTableAssociation260F1146
+    - MyVpcprivateSubnet2RouteTableAssociationBC4A677C
     Metadata:
-      aws:cdk:path: BackendStack/GetQuizLambda/ServiceRole/Resource
-  GetQuizLambdaServiceRoleDefaultPolicyE61CD1B5:
+      aws:cdk:path: BackendStack/quizzesLambda/ServiceRole/Resource
+  quizzesLambdaServiceRoleDefaultPolicy3DD67799:
     Type: AWS::IAM::Policy
     Properties:
       PolicyDocument:
@@ -402,39 +410,74 @@ Resources:
           - secretsmanager:DescribeSecret
           - secretsmanager:GetSecretValue
           Effect: Allow
-          Resource: arn:aws:secretsmanager:us-east-2:339713106432:secret:BackendStackMyRdsInstanceSe-ViX8PqhMPhe1-BD8Jt1
+          Resource:
+          - arn:aws:secretsmanager:us-east-2:339713106432:secret:BackendStackMyRdsInstanceSe-ViX8PqhMPhe1-BD8Jt1
+          - Ref: MyRdsInstanceSecretAttachmentC6CA4212
         Version: '2012-10-17'
-      PolicyName: GetQuizLambdaServiceRoleDefaultPolicyE61CD1B5
+      PolicyName: quizzesLambdaServiceRoleDefaultPolicy3DD67799
       Roles:
-      - Ref: GetQuizLambdaServiceRole7803EAE8
+      - Ref: quizzesLambdaServiceRole0C22F465
+    DependsOn:
+    - MyVpcprivateSubnet1RouteTableAssociation260F1146
+    - MyVpcprivateSubnet2RouteTableAssociationBC4A677C
     Metadata:
-      aws:cdk:path: BackendStack/GetQuizLambda/ServiceRole/DefaultPolicy/Resource
-  GetQuizLambdaC3D9E2D1:
+      aws:cdk:path: BackendStack/quizzesLambda/ServiceRole/DefaultPolicy/Resource
+  quizzesLambdaSecurityGroup075BB1FD:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Automatic security group for Lambda Function BackendStackquizzesLambdaF5323431
+      SecurityGroupEgress:
+      - CidrIp: '0.0.0.0/0'
+        Description: Allow all outbound traffic by default
+        IpProtocol: '-1'
+      VpcId:
+        Ref: MyVpcF9F0CA6F
+    DependsOn:
+    - MyVpcprivateSubnet1RouteTableAssociation260F1146
+    - MyVpcprivateSubnet2RouteTableAssociationBC4A677C
+    Metadata:
+      aws:cdk:path: BackendStack/quizzesLambda/SecurityGroup/Resource
+  quizzesLambdaF4CBF2B1:
     Type: AWS::Lambda::Function
     Properties:
       Code:
         S3Bucket:
           Fn::Sub: cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}
-        S3Key: a1a29dd20696b33125c914222c9f9d3deeebb29b4ba738cc00b71269a1506a34.zip
+        S3Key: 552e004a6de6db190ec41d5aacdb39965b87acd79f41ffbfe236a8c00864c7e6.zip
       Environment:
         Variables:
-          dbsecert: arn:aws:secretsmanager:us-east-2:339713106432:secret:BackendStackMyRdsInstanceSe-ViX8PqhMPhe1-BD8Jt1
+          DB_ENDPOINT:
+            Fn::GetAtt:
+            - MyRdsInstanceFB602CDD
+            - Endpoint.Address
+          DB_Name: TestDB
+          DB_SECRET_ARN: arn:aws:secretsmanager:us-east-2:339713106432:secret:BackendStackMyRdsInstanceSe-ViX8PqhMPhe1-BD8Jt1
       Handler: index.handler
       Role:
         Fn::GetAtt:
-        - GetQuizLambdaServiceRole7803EAE8
+        - quizzesLambdaServiceRole0C22F465
         - Arn
       Runtime: nodejs20.x
       Timeout: 5
+      VpcConfig:
+        SecurityGroupIds:
+        - Fn::GetAtt:
+          - quizzesLambdaSecurityGroup075BB1FD
+          - GroupId
+        SubnetIds:
+        - Ref: MyVpcprivateSubnet1Subnet3E5A1110
+        - Ref: MyVpcprivateSubnet2Subnet372894AA
     DependsOn:
-    - GetQuizLambdaServiceRoleDefaultPolicyE61CD1B5
-    - GetQuizLambdaServiceRole7803EAE8
+    - MyVpcprivateSubnet1RouteTableAssociation260F1146
+    - MyVpcprivateSubnet2RouteTableAssociationBC4A677C
+    - quizzesLambdaServiceRoleDefaultPolicy3DD67799
+    - quizzesLambdaServiceRole0C22F465
     Metadata:
-      aws:cdk:path: BackendStack/GetQuizLambda/Resource
-      aws:asset:path: ../../cdk.out/asset.a1a29dd20696b33125c914222c9f9d3deeebb29b4ba738cc00b71269a1506a34
+      aws:cdk:path: BackendStack/quizzesLambda/Resource
+      aws:asset:path: ../../cdk.out/asset.552e004a6de6db190ec41d5aacdb39965b87acd79f41ffbfe236a8c00864c7e6
       aws:asset:is-bundled: true
       aws:asset:property: Code
-  AddUsersLambdaServiceRole7E8A10E6:
+  usersLambdaServiceRole5889B047:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -450,9 +493,17 @@ Resources:
         - - 'arn:'
           - Ref: AWS::Partition
           - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      - Fn::Join:
+        - ''
+        - - 'arn:'
+          - Ref: AWS::Partition
+          - :iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole
+    DependsOn:
+    - MyVpcprivateSubnet1RouteTableAssociation260F1146
+    - MyVpcprivateSubnet2RouteTableAssociationBC4A677C
     Metadata:
-      aws:cdk:path: BackendStack/AddUsersLambda/ServiceRole/Resource
-  AddUsersLambdaServiceRoleDefaultPolicy7A65B33F:
+      aws:cdk:path: BackendStack/usersLambda/ServiceRole/Resource
+  usersLambdaServiceRoleDefaultPolicyEC2A02AF:
     Type: AWS::IAM::Policy
     Properties:
       PolicyDocument:
@@ -461,36 +512,71 @@ Resources:
           - secretsmanager:DescribeSecret
           - secretsmanager:GetSecretValue
           Effect: Allow
-          Resource: arn:aws:secretsmanager:us-east-2:339713106432:secret:BackendStackMyRdsInstanceSe-ViX8PqhMPhe1-BD8Jt1
+          Resource:
+          - arn:aws:secretsmanager:us-east-2:339713106432:secret:BackendStackMyRdsInstanceSe-ViX8PqhMPhe1-BD8Jt1
+          - Ref: MyRdsInstanceSecretAttachmentC6CA4212
         Version: '2012-10-17'
-      PolicyName: AddUsersLambdaServiceRoleDefaultPolicy7A65B33F
+      PolicyName: usersLambdaServiceRoleDefaultPolicyEC2A02AF
       Roles:
-      - Ref: AddUsersLambdaServiceRole7E8A10E6
+      - Ref: usersLambdaServiceRole5889B047
+    DependsOn:
+    - MyVpcprivateSubnet1RouteTableAssociation260F1146
+    - MyVpcprivateSubnet2RouteTableAssociationBC4A677C
     Metadata:
-      aws:cdk:path: BackendStack/AddUsersLambda/ServiceRole/DefaultPolicy/Resource
-  AddUsersLambdaD441E999:
+      aws:cdk:path: BackendStack/usersLambda/ServiceRole/DefaultPolicy/Resource
+  usersLambdaSecurityGroup452ABE0B:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Automatic security group for Lambda Function BackendStackusersLambda3BB5155B
+      SecurityGroupEgress:
+      - CidrIp: '0.0.0.0/0'
+        Description: Allow all outbound traffic by default
+        IpProtocol: '-1'
+      VpcId:
+        Ref: MyVpcF9F0CA6F
+    DependsOn:
+    - MyVpcprivateSubnet1RouteTableAssociation260F1146
+    - MyVpcprivateSubnet2RouteTableAssociationBC4A677C
+    Metadata:
+      aws:cdk:path: BackendStack/usersLambda/SecurityGroup/Resource
+  usersLambdaB774E0F9:
     Type: AWS::Lambda::Function
     Properties:
       Code:
         S3Bucket:
           Fn::Sub: cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}
-        S3Key: '05a8b32f3068d16a98eec5efe002ae3ad9510e152e2c0aa3723e8da665d9a90e.zip'
+        S3Key: c0cdb05412a1595ba1ed8ba9d8e964763dd8579ce9c6f59eee70a902179f24e2.zip
       Environment:
         Variables:
-          dbsecert: arn:aws:secretsmanager:us-east-2:339713106432:secret:BackendStackMyRdsInstanceSe-ViX8PqhMPhe1-BD8Jt1
+          DB_ENDPOINT:
+            Fn::GetAtt:
+            - MyRdsInstanceFB602CDD
+            - Endpoint.Address
+          DB_Name: TestDB
+          DB_SECRET_ARN: arn:aws:secretsmanager:us-east-2:339713106432:secret:BackendStackMyRdsInstanceSe-ViX8PqhMPhe1-BD8Jt1
       Handler: index.handler
       Role:
         Fn::GetAtt:
-        - AddUsersLambdaServiceRole7E8A10E6
+        - usersLambdaServiceRole5889B047
         - Arn
       Runtime: nodejs20.x
       Timeout: 5
+      VpcConfig:
+        SecurityGroupIds:
+        - Fn::GetAtt:
+          - usersLambdaSecurityGroup452ABE0B
+          - GroupId
+        SubnetIds:
+        - Ref: MyVpcprivateSubnet1Subnet3E5A1110
+        - Ref: MyVpcprivateSubnet2Subnet372894AA
     DependsOn:
-    - AddUsersLambdaServiceRoleDefaultPolicy7A65B33F
-    - AddUsersLambdaServiceRole7E8A10E6
+    - MyVpcprivateSubnet1RouteTableAssociation260F1146
+    - MyVpcprivateSubnet2RouteTableAssociationBC4A677C
+    - usersLambdaServiceRoleDefaultPolicyEC2A02AF
+    - usersLambdaServiceRole5889B047
     Metadata:
-      aws:cdk:path: BackendStack/AddUsersLambda/Resource
-      aws:asset:path: ../../cdk.out/asset.05a8b32f3068d16a98eec5efe002ae3ad9510e152e2c0aa3723e8da665d9a90e
+      aws:cdk:path: BackendStack/usersLambda/Resource
+      aws:asset:path: ../../cdk.out/asset.c0cdb05412a1595ba1ed8ba9d8e964763dd8579ce9c6f59eee70a902179f24e2
       aws:asset:is-bundled: true
       aws:asset:property: Code
   EndpointEEF1FD8F:
@@ -499,7 +585,7 @@ Resources:
       Name: lambda-api
     Metadata:
       aws:cdk:path: BackendStack/Endpoint/Resource
-  EndpointDeployment318525DA2a140a98e692631847feaf43a44c6802:
+  EndpointDeployment318525DA5ee73aa720f4e84e4bc21db42183a3a2:
     Type: AWS::ApiGateway::Deployment
     Properties:
       Description: Automatically created by the RestApi construct
@@ -516,7 +602,7 @@ Resources:
     Type: AWS::ApiGateway::Stage
     Properties:
       DeploymentId:
-        Ref: EndpointDeployment318525DA2a140a98e692631847feaf43a44c6802
+        Ref: EndpointDeployment318525DA5ee73aa720f4e84e4bc21db42183a3a2
       RestApiId:
         Ref: EndpointEEF1FD8F
       StageName: prod
@@ -540,7 +626,7 @@ Resources:
       Action: lambda:InvokeFunction
       FunctionName:
         Fn::GetAtt:
-        - GetQuizLambdaC3D9E2D1
+        - quizzesLambdaF4CBF2B1
         - Arn
       Principal: apigateway.amazonaws.com
       SourceArn:
@@ -565,7 +651,7 @@ Resources:
       Action: lambda:InvokeFunction
       FunctionName:
         Fn::GetAtt:
-        - GetQuizLambdaC3D9E2D1
+        - quizzesLambdaF4CBF2B1
         - Arn
       Principal: apigateway.amazonaws.com
       SourceArn:
@@ -599,7 +685,7 @@ Resources:
             - Ref: AWS::Region
             - :lambda:path/2015-03-31/functions/
             - Fn::GetAtt:
-              - GetQuizLambdaC3D9E2D1
+              - quizzesLambdaF4CBF2B1
               - Arn
             - /invocations
       ResourceId:
@@ -626,7 +712,7 @@ Resources:
       Action: lambda:InvokeFunction
       FunctionName:
         Fn::GetAtt:
-        - AddUsersLambdaD441E999
+        - usersLambdaB774E0F9
         - Arn
       Principal: apigateway.amazonaws.com
       SourceArn:
@@ -651,7 +737,7 @@ Resources:
       Action: lambda:InvokeFunction
       FunctionName:
         Fn::GetAtt:
-        - AddUsersLambdaD441E999
+        - usersLambdaB774E0F9
         - Arn
       Principal: apigateway.amazonaws.com
       SourceArn:
@@ -685,7 +771,7 @@ Resources:
             - Ref: AWS::Region
             - :lambda:path/2015-03-31/functions/
             - Fn::GetAtt:
-              - AddUsersLambdaD441E999
+              - usersLambdaB774E0F9
               - Arn
             - /invocations
       ResourceId:

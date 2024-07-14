@@ -33,7 +33,7 @@ export class BackendStack extends cdk.Stack {
     });
 
   
-    const securityGroup = new ec2.SecurityGroup(this, 'my-vpc-SG', {
+    const securityGroup = new ec2.SecurityGroup(this, 'BackendStackResourceInitializerFnSg', {
       securityGroupName: `${id}ResourceInitializerFnSg`,
       vpc,
       allowAllOutbound: true,
@@ -88,8 +88,13 @@ secretCompleteArn: 'arn:aws:secretsmanager:us-east-2:339713106432:secret:Backend
       entry: path.join(__dirname, `../api/${entry}/index.ts`),
       handler: 'handler', // Add the actual handler function name
       timeout: cdk.Duration.seconds(5),
+      environment: { 
+        DB_ENDPOINT: rdsInstance.dbInstanceEndpointAddress,
+        DB_Name: 'TestDB',
+        DB_SECRET_ARN: secret.secretArn,
+      },
       vpc: vpc,
-      securityGroups: [securityGroup],
+      vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_ISOLATED },
       bundling: { 
         nodeModules: ['@prisma/client', 'prisma'],
         commandHooks: {
@@ -117,8 +122,8 @@ secretCompleteArn: 'arn:aws:secretsmanager:us-east-2:339713106432:secret:Backend
       },
     });
 
+    rdsInstance.secret?.grantRead(lambdaFunction);
     secret.grantRead(lambdaFunction); 
-    // lambdaFunction.addEnvironment('dbsecert', secret.secretArn)
     return lambdaFunction;
   }
 

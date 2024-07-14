@@ -12,11 +12,22 @@ import {
 
 
 const getSecert = async () => {
-const secret_name = "BackendStackMyRdsInstanceSe-ViX8PqhMPhe1";
-const client = new SecretsManagerClient()
-const data = await client.send(new GetSecretValueCommand({SecretId: secret_name}))
-return data.SecretString
-}	
+	try {
+		const hostname = process.env.DB_HOSTNAME || "";
+		const DB_SECRET_ARN = process.env.DB_SECRET_ARN || "";
+		const client = new SecretsManagerClient({ region: "us-east-2" });
+		const data = await client.send(
+			new GetSecretValueCommand({ SecretId: DB_SECRET_ARN })
+		);
+	
+		return data.SecretString;
+	} 
+	catch (error) { 
+		console.error("Error fetching secret: ", error);
+		return error; 
+	}
+
+}
 
 
 enum UserRoutes {
@@ -30,7 +41,7 @@ enum UserRoutes {
 export const handler = async (event: APIGatewayEvent) => { 
 let response: Promise<APIGatewayProxyResult>;
 
-const secret = await getSecert()
+const getSecret = await getSecert()
 
 switch(`${event.httpMethod} ${event.resource}`) {
 	case UserRoutes.CREATE_USER:
