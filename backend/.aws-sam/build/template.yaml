@@ -443,7 +443,7 @@ Resources:
       Code:
         S3Bucket:
           Fn::Sub: cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}
-        S3Key: 552e004a6de6db190ec41d5aacdb39965b87acd79f41ffbfe236a8c00864c7e6.zip
+        S3Key: dd070863e77b3a918348c671217c8a4eb0f18ff06cb3168069230aa8d44fa4eb.zip
       Environment:
         Variables:
           DB_ENDPOINT:
@@ -474,7 +474,7 @@ Resources:
     - quizzesLambdaServiceRole0C22F465
     Metadata:
       aws:cdk:path: BackendStack/quizzesLambda/Resource
-      aws:asset:path: ../../cdk.out/asset.552e004a6de6db190ec41d5aacdb39965b87acd79f41ffbfe236a8c00864c7e6
+      aws:asset:path: ../../cdk.out/asset.dd070863e77b3a918348c671217c8a4eb0f18ff06cb3168069230aa8d44fa4eb
       aws:asset:is-bundled: true
       aws:asset:property: Code
   usersLambdaServiceRole5889B047:
@@ -545,7 +545,7 @@ Resources:
       Code:
         S3Bucket:
           Fn::Sub: cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}
-        S3Key: c0cdb05412a1595ba1ed8ba9d8e964763dd8579ce9c6f59eee70a902179f24e2.zip
+        S3Key: 444e0dbc7c9406db1fc63bafcf8ba3b9c93bbe6195cbd361958f13527466e565.zip
       Environment:
         Variables:
           DB_ENDPOINT:
@@ -576,7 +576,7 @@ Resources:
     - usersLambdaServiceRole5889B047
     Metadata:
       aws:cdk:path: BackendStack/usersLambda/Resource
-      aws:asset:path: ../../cdk.out/asset.c0cdb05412a1595ba1ed8ba9d8e964763dd8579ce9c6f59eee70a902179f24e2
+      aws:asset:path: ../../cdk.out/asset.444e0dbc7c9406db1fc63bafcf8ba3b9c93bbe6195cbd361958f13527466e565
       aws:asset:is-bundled: true
       aws:asset:property: Code
   EndpointEEF1FD8F:

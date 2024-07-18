@@ -11,7 +11,7 @@ import {
 } from "@aws-sdk/client-secrets-manager";
 
 
-const getSecert = async () => {
+const getSecret = async () => {
 	try {
 		const hostname = process.env.DB_HOSTNAME || "";
 		const DB_SECRET_ARN = process.env.DB_SECRET_ARN || "";
@@ -31,17 +31,17 @@ const getSecert = async () => {
 
 
 enum UserRoutes {
-  CREATE_USER = 'POST /users',
-  DELETE_USER = 'DELETE /users/{userid}',
-  GET_USER = 'GET /users/{userid}',
-  GET_USERS = 'GET /users',
-  UPDATE_USER = 'PUT /users/{userid}'
+  CREATE_USER = 'POST /api/users',
+  DELETE_USER = 'DELETE /api/users/{userid}',
+  GET_USER = 'GET /api/users/{userid}',
+  GET_USERS = 'GET /api/users',
+  UPDATE_USER = 'PUT /api/users/{userid}'
 }
 
 export const handler = async (event: APIGatewayEvent) => { 
 let response: Promise<APIGatewayProxyResult>;
 
-const getSecret = await getSecert()
+await getSecret()
 
 switch(`${event.httpMethod} ${event.resource}`) {
 	case UserRoutes.CREATE_USER:
@@ -112,7 +112,7 @@ const deleteUser = async (event: APIGatewayEvent): Promise<APIGatewayProxyResult
 
 const getUser = async (event: APIGatewayEvent): Promise<APIGatewayProxyResult> => { 
 const {userid, email} = event.pathParameters || {};
-const user = await prisma.user.delete({
+const user = await prisma.user.findUnique({
   where: {
 		id: (userid as string),
     email: email

@@ -26,10 +26,7 @@ const getSecert = async () => {
 
 exports.handler = async () => {
   try {
-
 const result = getSecert()
-console.log(result)
-  
     return {
       statusCode: 200,
       headers: {
