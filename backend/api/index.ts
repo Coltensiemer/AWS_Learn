@@ -1,5 +1,5 @@
 import {ProxyHandler} from 'aws-lambda';
-import prisma from '../../lib/prisma'; 
+import prisma from '../../prisma/prisma'; 
 
 
 

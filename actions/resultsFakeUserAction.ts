@@ -1,7 +1,7 @@
 'use server';
 
 import { object } from 'zod';
-import prisma from '../lib/prisma';
+import prisma from '../prisma/prisma';
 
 // Define the data type for the questions
 export interface TableQuestionType {

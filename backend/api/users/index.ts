@@ -1,5 +1,5 @@
 
-import prisma from "../../../lib/prisma"
+import prisma from "../../../prisma/prisma"
 import { Aws } from "aws-cdk-lib";
 import { 
   APIGatewayProxyResult,
