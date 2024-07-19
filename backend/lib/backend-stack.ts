@@ -7,9 +7,7 @@ import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import * as ln from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as path from 'path';
 import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
-// import { ApiGateway } from 'aws-cdk-lib/aws-events-targets';
-// import { DESTRUCTION } from 'dns';
-// import { after, before } from 'node:test';
+
 
 export class BackendStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {

@@ -38,7 +38,7 @@ This backend folder contains AWS CLoud Development kit (cdk) and includeds an AP
   - [event-post-user.json](#event-post-user-json)  # Sample event payload for user creation.
 - [lib](#lib)  # Contains the CDK stack definitions and related resources.
   - [Backend-Stack.ts](#backend-stack-ts)  # Main stack definition file for the backend infrastructure.
-- [Test] (#test) # Contains additional test.
+- [test] (#test) # Contains additional test.
 - [.gitignore](#gitignore)  # Specifies files and directories to be ignored by Git.
 - [package.json](#package-json)  # Node.js project manifest, includes dependencies and scripts.
 - [CDK.json](#cdk-json)  # CDK configuration file, defines the app entry point.
