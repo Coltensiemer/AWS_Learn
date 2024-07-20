@@ -85,7 +85,7 @@ secretCompleteArn: 'arn:aws:secretsmanager:us-east-2:339713106432:secret:Backend
       runtime: lambda.Runtime.NODEJS_20_X,
       entry: path.join(__dirname, `../api/${entry}/index.ts`),
       handler: 'handler', // Add the actual handler function name
-      timeout: cdk.Duration.seconds(5),
+      timeout: cdk.Duration.seconds(60),
       environment: { 
         DB_ENDPOINT: rdsInstance.dbInstanceEndpointAddress,
         DB_Name: 'TestDB',

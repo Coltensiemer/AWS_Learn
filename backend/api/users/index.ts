@@ -13,7 +13,6 @@ import {
 
 const getSecret = async () => {
 	try {
-		const hostname = process.env.DB_HOSTNAME || "";
 		const DB_SECRET_ARN = process.env.DB_SECRET_ARN || "";
 		const client = new SecretsManagerClient({ region: "us-east-2" });
 		const data = await client.send(
