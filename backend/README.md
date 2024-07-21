@@ -19,6 +19,7 @@ This backend folder contains AWS CLoud Development kit (cdk) and includeds an AP
 - [Node.js](https://nodejs.org/en/download/) (>= 20.x)
 - [AWS CLI](https://aws.amazon.com/cli/)
 - [AWS CDK](https://aws.amazon.com/cdk/)
+- [AWS CDK Secret Manager]
 
 
 
@@ -30,8 +31,6 @@ This backend folder contains AWS CLoud Development kit (cdk) and includeds an AP
     - [_Test_](#quizzes-test)  # Contains tests for quiz-related functionalities.
       - [quizzes.test.ts](#quizzes-test-ts)  # Test file for quizzes API.
   - [users](#users)  # Handles user-related API requests.
-    - [_Test_](#users-test)  # Contains tests for user-related functionalities.
-      - [users.test.ts](#users-test-ts)  # Test file for users API.
     - [index.ts](#users-index-ts)  # Main handler for user-related API endpoints.
 - [bin](#bin)  # Entry point for the CDK application, typically contains the script to initialize the CDK app.
 - [events](#events)  # Contains test event payloads for local testing.
@@ -39,6 +38,7 @@ This backend folder contains AWS CLoud Development kit (cdk) and includeds an AP
 - [lib](#lib)  # Contains the CDK stack definitions and related resources.
   - [Backend-Stack.ts](#backend-stack-ts)  # Main stack definition file for the backend infrastructure.
 - [test] (#test) # Contains additional test.
+    - [users.test.ts](#users-test-ts)  # Test file for users API.
 - [.gitignore](#gitignore)  # Specifies files and directories to be ignored by Git.
 - [package.json](#package-json)  # Node.js project manifest, includes dependencies and scripts.
 - [CDK.json](#cdk-json)  # CDK configuration file, defines the app entry point.
@@ -55,8 +55,6 @@ This backend folder contains AWS CLoud Development kit (cdk) and includeds an AP
 │ │ ├── Test
 │ │ │ ├── quizzes.test.ts
 │ ├── users
-│ │ ├── Test
-│ │ │ ├── users.test.ts
 │ │ ├── index.ts
 ├── bin
 ├── events
@@ -64,6 +62,7 @@ This backend folder contains AWS CLoud Development kit (cdk) and includeds an AP
 ├── lib
 │ ├── Backend-Stack.ts
 ├── test
+│ │ ├── users.test.ts
 ├── .gitignore
 ├── package.json
 ├── CDK.json
