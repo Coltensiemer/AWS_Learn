@@ -3,7 +3,8 @@ import prisma from "../../../prisma/prisma"
 import { Aws } from "aws-cdk-lib";
 import { 
   APIGatewayProxyResult,
-  APIGatewayEvent
+  APIGatewayEvent,
+	Context
 } from 'aws-lambda';
 import {
   SecretsManagerClient,
@@ -37,16 +38,16 @@ enum UserRoutes {
   UPDATE_USER = 'PUT /api/users/{userid}'
 }
 
-export const handler = async (event: APIGatewayEvent) => { 
-let response: Promise<APIGatewayProxyResult>;
-
-await getSecret()
-
+export const handler = async (event: APIGatewayEvent, context: Context) => { 
+	
+	await getSecret()
+	let response: Promise<APIGatewayProxyResult>;
+	
 switch(`${event.httpMethod} ${event.resource}`) {
 	case UserRoutes.CREATE_USER:
 		response = createUser(event);
 		break;
-	case UserRoutes.DELETE_USER:
+		case UserRoutes.DELETE_USER:
 		response = deleteUser(event);
 		break;
 	case UserRoutes.GET_USER:
@@ -67,7 +68,7 @@ switch(`${event.httpMethod} ${event.resource}`) {
 		break;
 
 }
-	
+	return response;
 }
 
 
@@ -98,7 +99,7 @@ const deleteUser = async (event: APIGatewayEvent): Promise<APIGatewayProxyResult
 	const { userid } = event.pathParameters || {};
 	const user = await prisma.user.delete({
 		where: {
-			id:(userid as string)
+			id: userid as string
 		}
 	});
 
@@ -113,8 +114,7 @@ const getUser = async (event: APIGatewayEvent): Promise<APIGatewayProxyResult> =
 const {userid, email} = event.pathParameters || {};
 const user = await prisma.user.findUnique({
   where: {
-		id: (userid as string),
-    email: email
+		id: userid as string,
   },
 	})
 	return { 

@@ -30,7 +30,7 @@
 
   "include": [
     "src/**/*.ts",
-    "**/*.ts",
+    "**/*.ts", "lib/setDatabaseURl.js",
   ],
   "exclude": [
     "node_modules",
