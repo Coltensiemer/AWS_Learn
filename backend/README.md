@@ -43,7 +43,7 @@ This backend folder contains AWS CLoud Development kit (cdk) and includeds an AP
 - [package.json](#package-json)  # Node.js project manifest, includes dependencies and scripts.
 - [CDK.json](#cdk-json)  # CDK configuration file, defines the app entry point.
 - [env.json](#env-json)  # Environment configuration file, stores environment-specific variables.
-- [singleton.ts](#singleton-ts)  # Singleton pattern implementation, typically used for creating a single instance of a resource.
+- [singleton.ts](#singleton-ts)  # Singleton pattern implementation for mock prisma. Creates one instance for mock testing.
 - [tsconfig.json](#tsconfig-json)  # TypeScript configuration file, includes compiler options.
 - [README.md](#readme-md)  # Documentation file for the project, contains instructions and information.
 

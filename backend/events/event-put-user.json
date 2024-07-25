@@ -1,0 +1,18 @@
+{
+  "resource": "/api/users/{userid}",
+  "path": "/index/123",
+  "httpMethod": "PUT",
+  "headers": null,
+  "multiValueHeaders": null,
+  "queryStringParameters": null,
+  "multiValueQueryStringParameters": null,
+  "pathParameters": {
+    "userid": "123"
+  },
+  "stageVariables": null,
+  "requestContext": {
+      "requestId": "be946131-30c4-4396-9c29-f25f8caa91dc"
+  },
+  "body": "{\"username\":\"John Doe\"}",
+  "isBase64Encoded": false
+}

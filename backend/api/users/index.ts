@@ -139,7 +139,7 @@ const updateUser = async (event: APIGatewayEvent): Promise<APIGatewayProxyResult
 	const body = JSON.parse(event.body || '{}' as string);
 	const user = await prisma.user.update({
 		where: {
-			id: (userid as string)
+			id: (userid as string),
 		},
 		data: {
 			...body
@@ -149,6 +149,6 @@ const updateUser = async (event: APIGatewayEvent): Promise<APIGatewayProxyResult
 	return {
 		statusCode: 200,
 		headers: {...defaultHeaders},
-		body: JSON.stringify({ message: 'PUT: Updated user', user }),
+		body: JSON.stringify({ message: 'PUT: Updated user', user}),
 	}
 }

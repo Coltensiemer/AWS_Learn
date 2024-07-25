@@ -9,7 +9,9 @@ import createUserEvent from '../events/event-post-user.json';
 import getAllUsersEvent from '../events/event-get-users.json';
 import deleteUserbyIDEvent from '../events/event-delete-users-by-id.json';
 import getUserbyIDEvent from '../events/event-get-user-by-id.json';
-////////////
+import putUserEvent from '../events/event-put-user.json';
+
+
 ///Prisma Unit Docs:https://www.prisma.io/docs/orm/prisma-client/testing/unit-testing
 // AWS CDK Unit Doc: https://docs.aws.amazon.com/cdk/v2/guide/testing.html
 ////////////
@@ -31,27 +33,6 @@ const orignalEnv = process.env;
 const context : Partial<Context> = {
 	awsRequestId: "DummyAWSRequstID",
 }
-
-
-
-//! create a test for secertsmanager 
-
-// it('mocks SecretsManagerClient', async () => {
-// 	const sm = new SecretsManagerClient({});
-
-// 	const smMock = mockClient(sm);
-// 	smMock.on(GetSecretValueCommand)
-// 			.resolves({
-// 					SecretString: JSON.stringify({my_secret_key: 'my_secret_value'}),
-// 			});
-
-// 	const response = await sm.send(new GetSecretValueCommand({
-// 			SecretId: 'qq',
-// 	}));
-
-// 	expect(response.SecretString).toBe('{"my_secret_key":"my_secret_value"}');
-// });
-
 
 
 it('should create new user', async () => {
@@ -120,57 +101,28 @@ it('should get user by id', async () => {
 	const body = JSON.parse(result.body);
 
 	//Assert
-expect(body).toEqual({ message: 'GET: user', user: {expectedResponse} });
+	expect(body).toEqual({ message: 'GET: user', user: {expectedResponse} });
 	expect(result.statusCode).toBe(200);
 	expect(prismaMock.user.findUnique).toHaveBeenCalledTimes(1);
 })
 
 
+it('should update user by id', async () => {
+
+	//Arrange
+	const input = ( putUserEvent as unknown) as APIGatewayEvent;
+	const expectedResponse = JSON.parse(input.body || '{}');
+	prismaMock.user.update.mockResolvedValue(expectedResponse);
+
+	//Act
+	const result = await handler(input, context as Context);
+	const body = JSON.parse(result.body);
+
+	//Assert
+	// expect(body).toEqual({ message: 'PUT: Updated user', user: expectedResponse });
+	expect(body['username']).toEqual(expectedResponse['John Doe']);
+	expect(result.statusCode).toBe(200);
+	expect(prismaMock.user.update).toHaveBeenCalledTimes(1);
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// jest.mock("@aws-sdk/client-secrets-manager", () => {
-//   const SecretsManagerClient = jest.fn();
-//   const send = jest.fn();
-//   return { SecretsManagerClient, GetSecretValueCommand, send };
-// });
-
-// const mockSecretManagerClient = new SecretsManagerClient();
-// const mockSend = mockSecretManagerClient.send as jest.Mock;
-
-// test('should create new user', async () => {
-//   const input = createUserEvent;
-//   const expectedResponse = JSON.parse(input.body || '{}');
-
-//   // Mock the Secrets Manager response
-//   mockSend.mockResolvedValue({
-//     SecretString: JSON.stringify({ username: "mockUser", password: "mockPassword" })
-//   });
-
-//   // Mock the Prisma client response
-//   prismaMock.user.create.mockResolvedValue(expectedResponse);
-
-//   const event: APIGatewayEvent = {
-//     ...input,
-//     body: JSON.stringify(expectedResponse)
-//   } as APIGatewayEvent;
-
-//   const result = await handler(event);
-
-//   expect(result.statusCode).toBe(201);
-//   expect(JSON.parse(result.body)).toEqual({ message: 'POST: Added user', username: expectedResponse.username });
-// });
+})
