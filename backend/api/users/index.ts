@@ -40,7 +40,7 @@ enum UserRoutes {
 
 export const handler = async (event: APIGatewayEvent, context: Context) => { 
 	
-	await getSecret()
+	// await getSecret()
 	let response: Promise<APIGatewayProxyResult>;
 	
 switch(`${event.httpMethod} ${event.resource}`) {
