@@ -1,4 +1,4 @@
-*.js
+.env
 !jest.config.js
 *.d.ts
 node_modules
