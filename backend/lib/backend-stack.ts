@@ -1,5 +1,5 @@
 
-import { Aws, Stack, Tags, CfnOutput, StackProps, Duration, RemovalPolicy } from 'aws-cdk-lib';
+import { Aws, Stack, Tags, CfnOutput, StackProps, Duration, RemovalPolicy, CfnParameter } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as rds from 'aws-cdk-lib/aws-rds';
@@ -62,6 +62,7 @@ export class BackendStack extends Stack {
     ///Secrets Manager
     //Documenitation: https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda-readme.html
     const secret = secretsmanager.Secret.fromSecretAttributes(this, `${id}-SecretDB`, {
+      //! update so this does not show the secret in the console
       secretCompleteArn: 'arn:aws:secretsmanager:us-east-2:339713106432:secret:BackendStackMyRdsInstanceSe-ViX8PqhMPhe1-BD8Jt1'
     })
 
@@ -85,6 +86,7 @@ export class BackendStack extends Stack {
 
 
 
+// ! Look up Lambda Seeert exteneison 
     // Lambda function with Prisma bundled
     const createLambdaFunction = (name: string, entry: string ) => {
       const secretValue = secret.secretValue.toJSON()
@@ -92,13 +94,14 @@ export class BackendStack extends Stack {
       runtime: lambda.Runtime.NODEJS_20_X,
       entry: path.join(__dirname, `../api/${entry}/index.ts`),
       handler: 'handler', 
-      timeout: Duration.seconds(60),
+      timeout: Duration.seconds(29),
       environment: { 
       DATABASE_URL: `postgresql://${secretValue.engine}:${secretValue.password}@${secretValue.host}:{secretValue.port}/${secretValue.dbname}`,
       },
       vpc: vpc,
       vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_ISOLATED },
       bundling: { 
+//! API layer for bunding API that only need Prisma
         nodeModules: ['@prisma/client', 'prisma'],
         commandHooks: {
           beforeBundling(_inputDir: string, _outputDir: string) {            
@@ -106,7 +109,6 @@ export class BackendStack extends Stack {
           },
           beforeInstall(_inputDir: string, _outputDir: string) {
             // Copy the prisma folder to the output directory
-            console.log(_inputDir, _outputDir)
             return [
               `cd ${_inputDir}`,
               'cd ..',
@@ -134,6 +136,7 @@ export class BackendStack extends Stack {
   
   // API Gateway
     const api = new apigateway.RestApi(this, 'users-api', {
+      //! Enable caching for APU Gateway
       deployOptions: {
         stageName: 'dev',
         tracingEnabled: true,
@@ -163,34 +166,69 @@ export class BackendStack extends Stack {
     quizzes.addMethod('GET', new apigateway.LambdaIntegration(createLambdaFunction('getquizzesLambda', 'quizzes')));
     
 
-    // USER POOL with AWS Coginito
 
+    // USER POOL with AWS Coginito
   const userPool = new Congito.UserPool(this, 'user-Pool', { 
     userPoolName: `${Aws.STACK_NAME}-user-pool`,
     selfSignUpEnabled: true,
     signInAliases: { email: true },
-    keepOriginal: { email: true },
     autoVerify: { email: true },
-    standardAttributes: { email: { required: true } },
+    standardAttributes: { email: { required: true, mutable: true }, fullname: { required: true, mutable: true } },
     removalPolicy: RemovalPolicy.DESTROY,
   })
-
-
     
   //API Docs: https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_cognito.UserPoolClient.html
   const userPoolClient = userPool.addClient('user-Pool-Client', { 
     userPoolClientName: `${Aws.STACK_NAME}-user-pool-client`,
-    authFlows: { userSrp: true },
+    authFlows: { userSrp: true, userPassword: true },
     supportedIdentityProviders: [Congito.UserPoolClientIdentityProvider.COGNITO],
     refreshTokenValidity: Duration.days(1),
+    oAuth: { 
+      flows: { authorizationCodeGrant: true },
+      scopes: [ 
+        Congito.OAuthScope.EMAIL,
+        Congito.OAuthScope.OPENID,
+      ],
+      callbackUrls: ['http://localhost'],
+    }
   }) 
   const userPoolCLientID = userPoolClient.userPoolClientId; 
 
+  // Admin users class
+  const apiAdminGroupName = new CfnParameter(this, 'api-admin-group-name', { 
+    type: 'String',
+    description: 'Admin Group Name',
+    default: `apiAdmins`,
+  })
+  
+  const adminGroup = new Congito.CfnUserPoolGroup(this, 'api-admin-group', {
+    groupName: apiAdminGroupName.valueAsString,
+    description: 'Admin Group',
+    userPoolId: userPool.userPoolId,
+  })
+
+  // General users
+  const apiGeneralGroupName = new CfnParameter(this, 'api-general-group-name', { 
+    type: 'String',
+    description: 'General Group Name',
+    default: `apiGeneral`,
+   })
+
+  const generalGroup = new Congito.CfnUserPoolGroup(this, 'api-general-group', {
+      groupName:  apiGeneralGroupName.valueAsString,
+      description: 'General Group',
+      userPoolId: userPool.userPoolId,
+    })
+
+
+/// Domain for user pool
   userPool.addDomain('user-pool-domain', {
     cognitoDomain: { 
      domainPrefix: `${userPoolCLientID}`
     }
   })
+
+
 
   new CfnOutput( this, 'user-pool', { 
     description: 'User Pool',
@@ -202,16 +240,28 @@ export class BackendStack extends Stack {
     value: userPoolCLientID,
   })
 
+  new CfnOutput(this, 'admin-group', { 
+description: 'Admin Group name',
+value: adminGroup.groupName || "",
+  }
+  ) 
 
+  new CfnOutput(this, 'general-group', { 
+    description: 'General Group name',
+    value: generalGroup.groupName || "",
+  } )
+
+  new CfnOutput(this, 'CongitoLoginURL', {
+    description: 'Congito Login URL',
+    value: `https://${userPoolCLientID}.auth.${Aws.REGION}.amazoncognito.com/login?client_id=${userPoolCLientID}&response_type=code&redirect_uri=http://localhost`
+  })
+
+
+  new CfnOutput(this, 'CongitoAuthCommand', {
+    description: 'AWS ClI command for Amazon Congnito User Pool Authentication',
+    value: `aws cognito-idp initiate-auth --auth-flow USER_PASSWORD_AUTH --client-id ${userPoolCLientID} --auth-parameters USERNAME=<username>,PASSWORD=<password>`,
+    })
   
-
-
-    
-    
-
-
-
-    
   }
   
 }
