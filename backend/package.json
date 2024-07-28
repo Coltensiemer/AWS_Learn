@@ -26,6 +26,7 @@
     "@aws-sdk/client-secrets-manager": "^3.614.0",
     "@prisma/client": "^5.12.1",
     "aws-cdk-lib": "2.148.0",
+    "aws-jwt-verify": "^4.0.1",
     "constructs": "^10.0.0",
     "source-map-support": "^0.5.21"
   }

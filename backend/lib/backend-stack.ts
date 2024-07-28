@@ -59,11 +59,13 @@ export class BackendStack extends Stack {
       removalPolicy: RemovalPolicy.DESTROY,
     });
     
-    ///Secrets Manager
-    //Documenitation: https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda-readme.html
+
+    /**
+     * Secrets Manager
+     * Documenitation: https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda-readme.html
+     */
     const secret = secretsmanager.Secret.fromSecretAttributes(this, `${id}-SecretDB`, {
-      //! update so this does not show the secret in the console
-      secretCompleteArn: 'arn:aws:secretsmanager:us-east-2:339713106432:secret:BackendStackMyRdsInstanceSe-ViX8PqhMPhe1-BD8Jt1'
+      secretCompleteArn: process.env.SECRET_ARN || '',
     })
 
     
@@ -86,19 +88,29 @@ export class BackendStack extends Stack {
 
 
 
+    /**
+     * Node js function props
+     * Contains the runtime, handler, timeout, and VPC
+     */
+    const nodejsFunctionProps = {
+      runtime: lambda.Runtime.NODEJS_20_X,
+      handler: 'handler',
+      timeout: Duration.seconds(29),
+      vpc: vpc,
+    };
+
+
+
 // ! Look up Lambda Seeert exteneison 
     // Lambda function with Prisma bundled
     const createLambdaFunction = (name: string, entry: string ) => {
       const secretValue = secret.secretValue.toJSON()
     const lambdaFunction = new ln.NodejsFunction(this, name, {
-      runtime: lambda.Runtime.NODEJS_20_X,
+      ...nodejsFunctionProps,
       entry: path.join(__dirname, `../api/${entry}/index.ts`),
-      handler: 'handler', 
-      timeout: Duration.seconds(29),
       environment: { 
       DATABASE_URL: `postgresql://${secretValue.engine}:${secretValue.password}@${secretValue.host}:{secretValue.port}/${secretValue.dbname}`,
       },
-      vpc: vpc,
       vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_ISOLATED },
       bundling: { 
 //! API layer for bunding API that only need Prisma
@@ -132,12 +144,30 @@ export class BackendStack extends Stack {
     return lambdaFunction;
   }
 
+
+  /** 
+   * Authorizer Lambda function
+  */
+  const authorizerLambda = new ln.NodejsFunction(this, 'authorizerLambda', {
+    ...nodejsFunctionProps,
+    entry: 'api/authorizer/index.ts',
+  }
+  )
+
+  /**
+   * Created the TokenAuthorizer that will be used to authorize the API Gateway for 'users-api
+   * Placed as default method options for the API Gateway
+   */
+  const authorizer = new apigateway.TokenAuthorizer(this, 'authorizer', { 
+    handler: authorizerLambda,
+  }) 
   
   
   // API Gateway
     const api = new apigateway.RestApi(this, 'users-api', {
       //! Enable caching for APU Gateway
-      deployOptions: {
+      defaultMethodOptions: { authorizer },
+        deployOptions: {
         stageName: 'dev',
         tracingEnabled: true,
         
@@ -145,13 +175,17 @@ export class BackendStack extends Stack {
       restApiName: 'lambda-api',
     });
     
-    // Output the API Gateway URL
+    /**
+     * Output the API Gateway URL
+     */
     new CfnOutput(this, 'ApiUrl', {
       value: api.url,
       description: 'The URL of the API Gateway',
     });
     
-    // Create the Lambda function with proxy integration
+    /**
+     *  Creates the Lambda function with proxy integration 
+    */
     const users = api.root.addResource('users');
     users.addMethod('POST', new apigateway.LambdaIntegration(createLambdaFunction('addusersLambda', 'users')));
     users.addMethod('GET', new apigateway.LambdaIntegration(createLambdaFunction('getusersLambda', 'users')));
@@ -192,59 +226,73 @@ export class BackendStack extends Stack {
       callbackUrls: ['http://localhost'],
     }
   }) 
+
+
   const userPoolCLientID = userPoolClient.userPoolClientId; 
 
+  
   // Admin users class
   const apiAdminGroupName = new CfnParameter(this, 'api-admin-group-name', { 
     type: 'String',
     description: 'Admin Group Name',
     default: `apiAdmins`,
   })
-  
   const adminGroup = new Congito.CfnUserPoolGroup(this, 'api-admin-group', {
     groupName: apiAdminGroupName.valueAsString,
     description: 'Admin Group',
     userPoolId: userPool.userPoolId,
   })
-
+  
   // General users
   const apiGeneralGroupName = new CfnParameter(this, 'api-general-group-name', { 
     type: 'String',
     description: 'General Group Name',
     default: `apiGeneral`,
-   })
-
+  })
+  
   const generalGroup = new Congito.CfnUserPoolGroup(this, 'api-general-group', {
-      groupName:  apiGeneralGroupName.valueAsString,
-      description: 'General Group',
-      userPoolId: userPool.userPoolId,
-    })
-
-
-/// Domain for user pool
+    groupName:  apiGeneralGroupName.valueAsString,
+    description: 'General Group',
+    userPoolId: userPool.userPoolId,
+  })
+  
+  
+  /** 
+   * Domain for user pool
+  */
   userPool.addDomain('user-pool-domain', {
     cognitoDomain: { 
-     domainPrefix: `${userPoolCLientID}`
+      domainPrefix: `${userPoolCLientID}`
     }
   })
+  
 
-
-
+  /**
+   * Add the user pool id and client id to the authorizer lambda
+   * Gives the lambda function's exectuion environment access to the user pool id and client id
+   * Keys for environment are listen in api/authorizer/index.ts
+   * 
+   */
+  authorizerLambda.addEnvironment('USER_POOL_ID', userPool.userPoolId);
+  authorizerLambda.addEnvironment('APPLICATION_CLIENT_ID', userPoolCLientID);
+  authorizerLambda.addEnvironment('ADMIN_GROUP_NAME', adminGroup.groupName || "");
+  
+  
   new CfnOutput( this, 'user-pool', { 
     description: 'User Pool',
     value: userPool.userPoolId,
   })
-
+  
   new CfnOutput(this, 'user-pool-client', {
     description: 'User Pool Client',
     value: userPoolCLientID,
   })
-
+  
   new CfnOutput(this, 'admin-group', { 
-description: 'Admin Group name',
-value: adminGroup.groupName || "",
+    description: 'Admin Group name',
+    value: adminGroup.groupName || "",
   }
-  ) 
+) 
 
   new CfnOutput(this, 'general-group', { 
     description: 'General Group name',

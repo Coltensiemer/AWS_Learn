@@ -27,11 +27,9 @@ This backend folder contains AWS CLoud Development kit (cdk) and includeds an AP
 
 
 - [api](#api)  # Contains the API handlers for different resources.
+  - [authorize] (#authorize) # Handle JWT token for cognito authorization lambda
   - [quizzes](#quizzes)  # Handles quiz-related API requests.
-    - [_Test_](#quizzes-test)  # Contains tests for quiz-related functionalities.
-      - [quizzes.test.ts](#quizzes-test-ts)  # Test file for quizzes API.
   - [users](#users)  # Handles user-related API requests.
-    - [index.ts](#users-index-ts)  # Main handler for user-related API endpoints.
 - [bin](#bin)  # Entry point for the CDK application, typically contains the script to initialize the CDK app.
 - [events](#events)  # Contains test event payloads for local testing.
   - [event-post-user.json](#event-post-user-json)  # Sample event payload for user creation.
@@ -51,11 +49,9 @@ This backend folder contains AWS CLoud Development kit (cdk) and includeds an AP
 
 ```
 ├── api
+│ ├── authorizer
 │ ├── quizzes
-│ │ ├── Test
-│ │ │ ├── quizzes.test.ts
 │ ├── users
-│ │ ├── index.ts
 ├── bin
 ├── events
 │ ├── event-post-user.json
