@@ -36,6 +36,7 @@
     "@radix-ui/react-tooltip": "^1.0.7",
     "@tanstack/react-table": "^8.16.0",
     "@types/aws-lambda": "^8.10.140",
+    "aws-jwt-verify": "^4.0.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "dotenv-cli": "^7.4.1",
