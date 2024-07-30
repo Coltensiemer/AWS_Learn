@@ -1,42 +1,42 @@
 {
-  "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "downlevelIteration": true,
-    "skipDefaultLibCheck": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "paths": {
-      "@prisma/*": [
-        "./prisma/*"
-      ]
-    }
-  },
-  "include": [
-    ".eslintrc.cjs",
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.cjs",
-    "**/*.mjs",
-    "./prisma/seed.ts",
-    ".next/types/**/*.ts", 
-    "aws/**/*.ts",
-    "aws/**/**/*.ts", 
-    "aws/**/**/**/**.ts", 
-    "aws/events/test-event.js" ],
-  "exclude": ["node_modules"]
+	"compilerOptions": {
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"allowJs": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"noEmit": true,
+		"esModuleInterop": true,
+		"module": "esnext",
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"jsx": "preserve",
+		"incremental": true,
+		"downlevelIteration": true,
+		"skipDefaultLibCheck": true,
+		"plugins": [
+			{
+				"name": "next"
+			}
+		],
+		"paths": {
+			"@prisma/*": ["./prisma/*"]
+		}
+	},
+	"include": [
+		".eslintrc.cjs",
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		"**/*.cjs",
+		"**/*.mjs",
+		"./prisma/seed.ts",
+		".next/types/**/*.ts",
+		"aws/**/*.ts",
+		"aws/**/**/*.ts",
+		"aws/**/**/**/**.ts",
+		"aws/events/test-event.js",
+		"src/components/home/loginorsignup"
+	],
+	"exclude": ["node_modules"]
 }
