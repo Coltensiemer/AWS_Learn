@@ -15,6 +15,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.620.1",
     "@hookform/resolvers": "^3.3.4",
     "@mui/material": "^5.15.19",
     "@prisma/client": "^5.12.1",
@@ -36,6 +37,8 @@
     "@radix-ui/react-tooltip": "^1.0.7",
     "@tanstack/react-table": "^8.16.0",
     "@types/aws-lambda": "^8.10.140",
+    "aws-cdk-lib": "^2.150.0",
+    "aws-jwt-verify": "^4.0.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "dotenv-cli": "^7.4.1",
