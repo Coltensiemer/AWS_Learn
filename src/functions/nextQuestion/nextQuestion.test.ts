@@ -4,10 +4,10 @@ import { QuestionType } from '../../../prisma/dataTypes';
 
 describe('nextQuestion function', () => {
   const questions: QuestionType[] = [
-    { id: 1, tag: 'tag1', question: 'question1', correct_answer: 'correct1', options: []},
-    { id: 2, tag: 'tag2', question: 'question2', correct_answer: 'correct2', options: []},
-    { id: 3, tag: 'tag3', question: 'question3', correct_answer: 'correct3', options: []},
-    { id: 4, tag: 'tag4', question: 'question4', correct_answer: 'correct4', options: []},
+    { id: 1, tag: 'tag1', sub_tag: "tag", question: 'question1', correct_answer: 'correct1', options: []},
+    { id: 2, tag: 'tag2', sub_tag: "tag", question: 'question2', correct_answer: 'correct2', options: []},
+    { id: 3, tag: 'tag3', sub_tag: "tag", question: 'question3', correct_answer: 'correct3', options: []},
+    { id: 4, tag: 'tag4', sub_tag: "tag", question: 'question4', correct_answer: 'correct4', options: []},
     
   ];
 

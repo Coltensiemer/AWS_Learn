@@ -209,11 +209,21 @@ const storage = [
   "Best Practices"
 ];
 
+const cloudAdoptionFramework = [
+"Business",
+"People",
+"Governance",
+"Platform",
+"Operations",
+"Security",
+ ]
+
 
 export const QuestionTags = [
   ["Analytics", ...analytics],
   ["Application Integration", ...applicationIntegration],
   ["Business Applications", ...businessApplications],
+  ["Cloud Adoption Framework", ...cloudAdoptionFramework],
   ["Cloud Financial Management", ...cloudFinancialManagement],
   ["Compute", ...compute],
   ["Containers", ...containers],

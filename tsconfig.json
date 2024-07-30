@@ -13,6 +13,7 @@
     "jsx": "preserve",
     "incremental": true,
     "downlevelIteration": true,
+    "skipDefaultLibCheck": true,
     "plugins": [
       {
         "name": "next"
@@ -32,6 +33,10 @@
     "**/*.cjs",
     "**/*.mjs",
     "./prisma/seed.ts",
-    ".next/types/**/*.ts", ],
+    ".next/types/**/*.ts", 
+    "aws/**/*.ts",
+    "aws/**/**/*.ts", 
+    "aws/**/**/**/**.ts", 
+    "aws/events/test-event.js" ],
   "exclude": ["node_modules"]
 }

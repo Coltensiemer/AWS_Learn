@@ -18,6 +18,7 @@ export interface QuizProgressContextType {
   Incorrect_Answered: any[];
   Tags: string[];
   QuizTime: number; 
+  QuizFinishTime: number | string | null;
   Direction: string;
   optionSelected: { [key: number]: string[]}
   quizLength: number;
@@ -28,6 +29,7 @@ export interface QuizProgressContextType {
   SET_QUIZ_LIST: (payload: any) => void;
   SET_TAGS: (payload: any) => void;
   SET_QUIZ_TIME: (payload: any) => void;
+  SET_QUIZ_FINISH_TIME: (payload: any) => void;
   SET_QUIZ_DIRECTION: (payload: any) => void;
   SET_OPTION_SELECTED: (payload: any, inputType: string) => void;
   SET_QUIZ_LENGTH: (payload: any) => void;
@@ -80,7 +82,10 @@ export const QuizProgressProvider = ({
     dispatch({ type: ActionType.SET_QUIZ_TIME, payload });
   };
 
-  
+  const SET_QUIZ_FINISH_TIME = (payload: any) => {
+    dispatch({ type: ActionType.SET_QUIZ_FINISH_TIME, payload });
+  }
+
   const SET_QUIZ_DIRECTION = (payload: string) => {
     dispatch({ type: ActionType.SET_QUIZ_DIRECTION, payload });
   }
@@ -107,6 +112,7 @@ dispatch({ type: ActionType.SET_SHOW_ANSWERS, payload });
       currentQuestion: state.currentQuestion,
       Tags: state.Tags,
       QuizTime: state.QuizTime,
+      QuizFinishTime: state.QuizFinishTime,
       Direction: state.Direction,
       optionSelected: state.optionSelected,
       quizLength: state.quizLength,
@@ -117,6 +123,7 @@ dispatch({ type: ActionType.SET_SHOW_ANSWERS, payload });
       SET_QUIZ_LIST,
       SET_TAGS,
       SET_QUIZ_TIME,
+      SET_QUIZ_FINISH_TIME,
       SET_QUIZ_DIRECTION,
       SET_OPTION_SELECTED,
       SET_QUIZ_LENGTH,

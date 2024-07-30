@@ -1,0 +1,16 @@
+{
+  "resource": "/api/users",
+  "path": "/index",
+  "httpMethod": "POST",
+  "headers": null,
+  "multiValueHeaders": null,
+  "queryStringParameters": null,
+  "multiValueQueryStringParameters": null,
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+      "requestId": "be946131-30c4-4396-9c29-f25f8caa91dc"
+  },
+  "body": "{\"username\":\"John Doe\",\"email\":\"test@hotmail.com\",\"password\":\"123\"}",
+  "isBase64Encoded": false
+}

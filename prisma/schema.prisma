@@ -5,14 +5,14 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
-  previewFeatures = ["relationJoins"]
+  provider      = "prisma-client-js"
+  binaryTargets = ["native","rhel-openssl-3.0.x"]
 }
 
 datasource db {
   provider = "postgresql"
-  // url      = env("DATABASE_URL_LOCAL")
-  url      = env("DATABASE_URL_PRODUCTION")
+  url      = env("DATABASE_URL")
+  // url      = env("DATABASE_URL_PRODUCTION")
 }
 
 model user {

@@ -1,9 +1,9 @@
-import prisma from '../../../lib/prisma';
+
+import prisma from '../../../../prisma/prisma';
 import { QuestionType } from '../../../../prisma/dataTypes';
 import { NextResponse, NextRequest } from 'next/server';
 
-
-// GETTING TYPESCRIPT ERROR... 
+// GETTING TYPESCRIPT ERROR...
 // export async function GET(
 //   request: Request,
 //   { params }: { params: { tags: string[] } }
@@ -31,10 +31,9 @@ import { NextResponse, NextRequest } from 'next/server';
 //   return NextResponse.json({ questions: data });
 // }
 
-
-export interface PostBody { 
-  sessionCookie_or_email: string; 
-  quizidused: number[] | string; 
+export interface PostBody {
+  sessionCookie_or_email: string;
+  quizidused: number[] | string;
   correctanswers: number[];
   incorrectanswers: number[];
   tags: string[];
@@ -42,7 +41,7 @@ export interface PostBody {
   starttimer: number;
   finishedat: number;
   quizselectedoptions: any;
-} 
+}
 
 export async function POST(request: Request) {
   const body = await request.json();
@@ -55,7 +54,7 @@ export async function POST(request: Request) {
     score,
     starttimer,
     finishedat,
-    quizselectedoptions
+    quizselectedoptions,
   } = body;
 
   try {
@@ -77,11 +76,14 @@ export async function POST(request: Request) {
           finishedat,
           quizselectedoptions,
           user: {
-            connect: { id: existingUser.id }
-          }
+            connect: { id: existingUser.id },
+          },
         },
       });
-      return new Response(JSON.stringify({ message: 'Completed quiz record updated' }), { status: 200 });
+      return new Response(
+        JSON.stringify({ message: 'Completed quiz record updated' }),
+        { status: 200 }
+      );
     } else {
       let fakeExistingUser = await prisma.fakeuser.findUnique({
         where: { cookieid: sessionCookie_or_email },
@@ -102,12 +104,18 @@ export async function POST(request: Request) {
                 score,
                 starttimer,
                 finishedat,
-                quizselectedoptions
+                quizselectedoptions,
               },
             },
           },
         });
-        return new Response(JSON.stringify({ message: 'Existing fake user updated with new completed quiz record' }), { status: 200 });
+        return new Response(
+          JSON.stringify({
+            message:
+              'Existing fake user updated with new completed quiz record',
+          }),
+          { status: 200 }
+        );
       } else {
         // Create a new user under fakeuser and the completed quiz record
         const newUser = await prisma.fakeuser.create({
@@ -122,13 +130,15 @@ export async function POST(request: Request) {
                 score,
                 starttimer,
                 finishedat,
-                quizselectedoptions
+                quizselectedoptions,
               },
             },
           },
         });
         return new Response(
-          JSON.stringify({ message: 'New user and completed quiz record created' }),
+          JSON.stringify({
+            message: 'New user and completed quiz record created',
+          }),
           { status: 200 }
         );
       }
@@ -140,4 +150,3 @@ export async function POST(request: Request) {
     });
   }
 }
-

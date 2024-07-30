@@ -1,8 +1,7 @@
 'use server';
 
 import { object } from 'zod';
-import prisma from '../src/lib/prisma';
-
+import prisma from '../prisma/prisma';
 
 // Define the data type for the questions
 export interface TableQuestionType {
@@ -12,8 +11,8 @@ export interface TableQuestionType {
   question: string;
   correct_answer: string[];
   options: OptionType[];
-  userCorrect: boolean; 
-  userSelected: string;  
+  userCorrect: boolean;
+  userSelected: string | null;
 }
 export interface OptionType {
   value: string;
@@ -33,8 +32,7 @@ export interface UserTableQuestionType {
 }
 
 export async function getFakeUserResults(sessionID: string) {
-  /// make more effiecient
-  /// take the most recent quiz
+
 
   const sessiondata = await prisma.fakeuser.findFirst({
     ///change so it only recieves the last quiz
@@ -48,7 +46,6 @@ export async function getFakeUserResults(sessionID: string) {
     },
     ///exclude some data from the query
   });
-
   return sessiondata;
 }
 
@@ -67,14 +64,13 @@ async function getQuizList(quizidused: number[] | undefined) {
     return data;
   } catch (error) {
     console.error(error);
-    }
+  }
 }
 
 export async function getFakeUserTableResultData(cookieid: string) {
   try {
     const userQuizData = await getFakeUserResults(cookieid);
 
-    
     if (!userQuizData) {
       return null;
     }
@@ -85,36 +81,36 @@ export async function getFakeUserTableResultData(cookieid: string) {
 
     if (!quizData) {
       return null;
-   }
-   //@ts-ignore
+    }
+    
+    //@ts-ignore
     const questiondata: TableQuestionType[] = quizData.map((quiz, index) => {
       const userCorrect = completedQuiz.correctanswers.some((answers, i) => {
         return answers === quiz.id;
       });
 
-      if (completedQuiz.quizselectedoptions === null) return null 
-      const optionValue = Object.values(completedQuiz.quizselectedoptions).find((value, key) => {
-        return quiz.id === key +1;
-      }) || null;
-      
-  
-      
+
+
+      // Transform the options to the format expected by the table for ColumnDef of react table
+      const transformedOptions = quiz.options.map((option) => ({
+        question: option.value,
+        correct_answer: option.iscorrect,
+      }));
+
       return {
         id: quiz.id,
         tag: quiz.tag,
         sub_tag: quiz.sub_tag,
         question: quiz.question,
         correct_answer: quiz.correct_answer,
-        options: quiz.options,
+        options: transformedOptions,
         userCorrect,
-        userSelected: optionValue
+        //@ts-ignore
+        userSelected: completedQuiz.quizselectedoptions[quiz.id] || 'No Answer Selected'
       };
-
     });
 
-    
     return questiondata;
-
   } catch (error) {
     console.error(error);
     return null;
