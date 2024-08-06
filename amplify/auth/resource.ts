@@ -1,4 +1,5 @@
 import { defineAuth } from '@aws-amplify/backend';
+import { postConfirmation } from './post-confirmation/resource';
 
 /**
  * Define and configure your auth resource
@@ -13,18 +14,18 @@ export const auth = defineAuth({
 		},
 	},
 
-	userAttributes: {
-		email: {
-			required: true,
-			mutable: true,
-		},
-		preferredUsername: {
-			required: true,
-			mutable: true,
-		},
-		profilePicture: {
-			required: false,
-			mutable: true,
-		},
+	
+/**
+ * Add post confirmation trigger
+ * Everyone gets added to the group defined in the environment variable
+ */
+	groups: ["EVERYONE"],
+	triggers: { 
+		postConfirmation: postConfirmation,
 	},
+	access: (allow) => [
+		allow.resource(postConfirmation).to(["addUserToGroup"]),
+	]
+
 });
+

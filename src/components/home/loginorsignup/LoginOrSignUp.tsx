@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { Component } from 'react';
 import {
 	Card,
 	CardContent,
@@ -11,23 +11,203 @@ import {
 import { Button } from '../../atomic/button/button';
 import { Input } from '../../atomic/input/input';
 import { Label } from '../../atomic/label';
-import { Authenticator } from '@aws-amplify/ui-react';
+import {
+	Authenticator,
+	useTheme,
+	View,
+	Image,
+	Text,
+	Heading,
+	useAuthenticator,
+	Placeholder,
+} from '@aws-amplify/ui-react';
 import { Amplify } from 'aws-amplify';
-import { signUp, SignUpInput } from 'aws-amplify/auth';
 import '@aws-amplify/ui-react/styles.css';
 import outputs from '../../../../amplify_outputs.json';
-import { Sign } from 'crypto';
+import { signIn, signUp, SignUpInput } from 'aws-amplify/auth';
+import { User } from 'lucide-react';
 
 Amplify.configure(outputs);
 
 const components = {
-	SignIn: {},
+	SignIn: {
+		Header() {
+			const { tokens } = useTheme();
+
+			return (
+				<Heading
+					padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
+					level={3}
+				>
+					Sign in to your account
+				</Heading>
+			);
+		},
+		Footer() {
+			const { toForgotPassword } = useAuthenticator();
+
+			return (
+				<View textAlign="center">
+					<Button onClick={toForgotPassword} size="sm" variant="link">
+						Reset Password
+					</Button>
+				</View>
+			);
+		},
+	},
+
+	SignUp: {
+		Header() {
+			const { tokens } = useTheme();
+
+			return (
+				<Heading
+					padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
+					level={3}
+				>
+					Create a new account
+				</Heading>
+			);
+		},
+		Footer() {
+			const { toSignIn } = useAuthenticator();
+
+			return (
+				<View textAlign="center">
+					<Button onClick={toSignIn} variant="link" size="sm">
+						Back to Sign In
+					</Button>
+				</View>
+			);
+		},
+	},
+	ConfirmSignUp: {
+		Header() {
+			return <Heading level={3}>Enter Information:</Heading>;
+		},
+		Footer() {
+			return <Text>Footer Information</Text>;
+		},
+	},
+	SetupTotp: {
+		Header() {
+			const { tokens } = useTheme();
+			return (
+				<Heading
+					padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
+					level={3}
+				>
+					Enter Information:
+				</Heading>
+			);
+		},
+		Footer() {
+			return <Text>Footer Information</Text>;
+		},
+	},
+	ConfirmSignIn: {
+		Header() {
+			const { tokens } = useTheme();
+			return (
+				<Heading
+					padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
+					level={3}
+				>
+					Enter Information:
+				</Heading>
+			);
+		},
+	},
+	ForgotPassword: {
+		Header() {
+			const { tokens } = useTheme();
+			return (
+				<Heading
+					padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
+					level={3}
+				>
+					Enter Information:
+				</Heading>
+			);
+		},
+	},
+	ConfirmResetPassword: {
+		Header() {
+			const { tokens } = useTheme();
+			return (
+				<Heading
+					padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
+					level={3}
+				>
+					Enter Information:
+				</Heading>
+			);
+		},
+		Footer() {
+			return <Text>Footer Information</Text>;
+		},
+	},
+};
+
+const formFields = {
+	signIn: {
+		username: {
+			placeholder: 'Enter your Email:',
+			order: 1,
+		},
+		password: {
+			order: 2,
+		},
+	},
+	signUp: {},
+	forceNewPassword: {
+		password: {
+			placeholder: 'Enter your Password:',
+		},
+	},
+	forgotPassword: {
+		username: {
+			placeholder: 'Enter your email:',
+		},
+	},
+	confirmResetPassword: {
+		confirmation_code: {
+			placeholder: 'Enter your Confirmation Code:',
+			label: 'New Label',
+			isRequired: false,
+		},
+		confirm_password: {
+			placeholder: 'Enter your Password Please:',
+		},
+	},
+	setupTotp: {
+		QR: {
+			totpIssuer: 'test issuer',
+			totpUsername: 'amplify_qr_test_user',
+		},
+		confirmation_code: {
+			label: 'New Label',
+			placeholder: 'Enter your Confirmation Code:',
+			isRequired: false,
+		},
+	},
+	confirmSignIn: {
+		confirmation_code: {
+			label: 'New Label',
+			placeholder: 'Enter your Confirmation Code:',
+			isRequired: false,
+		},
+	},
 };
 
 export default function LoginOrSignUp() {
 	return (
 		<div>
-			<Authenticator>
+			<Authenticator
+				components={components}
+				formFields={formFields}
+				initialState="signUp"
+			>
 				{({ signOut, user }) => (
 					<Card>
 						<h1>Hello,</h1>
@@ -35,39 +215,6 @@ export default function LoginOrSignUp() {
 					</Card>
 				)}
 			</Authenticator>
-
-			{/* <Card className="w-full max-w-md mx-auto bg-white">
-				<CardHeader className="space-y-1">
-					<CardTitle className="text-2xl font-bold">
-						Sign in
-					</CardTitle>
-					<CardDescription>
-						Enter your email and password to access your account.
-					</CardDescription>
-				</CardHeader>
-				<CardContent className="space-y-4">
-					<div className="space-y-2">
-						<Label htmlFor="email">Email</Label>
-						<Input
-							id="email"
-							type="email"
-							placeholder="m@example.com"
-						/>
-					</div>
-					<div className="space-y-2">
-						<Label htmlFor="password">Password</Label>
-						<Input id="password" type="password" />
-					</div>
-					<Button variant="default">Sign In</Button>
-					<Button variant="link">Sign Up</Button>
-				</CardContent>
-				<CardFooter className="flex flex-col">
-					<p className="text-sm text-gray-500">or</p>
-					<Button className="w-full" variant="default">
-						Github
-					</Button>
-				</CardFooter>
-			</Card> */}
 		</div>
 	);
 }

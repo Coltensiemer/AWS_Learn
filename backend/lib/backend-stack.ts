@@ -17,6 +17,7 @@ import * as ln from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as path from 'path';
 import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 import * as Congito from 'aws-cdk-lib/aws-cognito';
+import * as iam from 'aws-cdk-lib/aws-iam';
 
 export class BackendStack extends Stack {
 	constructor(scope: Construct, id: string, props?: StackProps) {
@@ -78,7 +79,7 @@ export class BackendStack extends Stack {
 			`${id}-SecretDB`,
 			{
 				secretCompleteArn:
-					'arn:aws:secretsmanager:us-east-2:339713106432:secret:BackendStackMyRdsInstanceSe-Rk0DtlJPrWXK-2ewzgI',
+					'arn:aws:secretsmanager:us-east-2:339713106432:secret:BackendStackMyRdsInstanceSe-mgpQNrLhwzNW-LAJ2cE',
 			}
 		);
 
@@ -122,7 +123,9 @@ export class BackendStack extends Stack {
 				environment: {
 					DATABASE_URL: `postgresql://${secretValue.engine}:${secretValue.password}@${secretValue.host}:{secretValue.port}/${secretValue.dbname}`,
 				},
-				vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_ISOLATED },
+				vpcSubnets: {
+					subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
+				},
 				bundling: {
 					//! API layer for bunding API that only need Prisma
 					nodeModules: ['@prisma/client', 'prisma'],
@@ -245,11 +248,12 @@ export class BackendStack extends Stack {
 			userPoolName: `${Aws.STACK_NAME}-user-pool`,
 			selfSignUpEnabled: true,
 			signInAliases: { email: true },
-			autoVerify: { email: true },
 			standardAttributes: {
 				email: { required: true, mutable: true },
-				fullname: { required: true, mutable: true },
+				preferredUsername: { required: true, mutable: true },
 			},
+			autoVerify: { email: true },
+
 			removalPolicy: RemovalPolicy.DESTROY,
 		});
 
@@ -305,11 +309,29 @@ export class BackendStack extends Stack {
 			this,
 			'api-general-group',
 			{
-				groupName: apiGeneralGroupName.valueAsString,
-				description: 'General Group',
+				groupName: 'EVERYONE',
+				description: 'Group for all users by default.',
 				userPoolId: userPool.userPoolId,
 			}
 		);
+
+		//! Create USER IM Policy for EVERYONE
+		// Define the IAM policy
+		// const everyonePolicy = new iam.Policy(this, 'EveryonePolicy', {
+		// 	policyName: 'EveryonePolicy',
+		// 	statements: [
+		// 		new iam.PolicyStatement({
+		// 			actions: [
+		// 				// List of actions this group should be allowed to perform
+		//
+		// 			],
+		// 			resources: [
+		// 				// Specify the resources the above actions apply to
+
+		// 			],
+		// 		}),
+		// 	],
+		// });
 
 		/**
 		 * Identity Pool
