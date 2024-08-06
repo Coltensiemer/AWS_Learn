@@ -1,19 +1,8 @@
 import { Button } from '../../atomic/button/button';
-import LoginOrSignUp from '../loginorsignup/LoginOrSignUp';
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from '../../atomic/card/card';
-import { Label } from '../../atomic/label';
-import { Input } from '../../atomic/input/input';
 import Link from 'next/link';
 import React from 'react';
 
-export default function Hero() {
+export default function Hero({ children }: { children: React.ReactNode }) {
 	return (
 		<div>
 			<div className="w-full min-h-[100dvh] grid lg:grid-cols-2 gap-10 items-center px-4 md:px-6 py-12 md:py-24 lg:py-32 bg-gradient-to-r from-[#4ca1af] to-[#c4e0e5]">
@@ -34,7 +23,6 @@ export default function Hero() {
 						</Button>
 					</div>
 				</div>
-				<LoginOrSignUp />
 			</div>
 		</div>
 	);

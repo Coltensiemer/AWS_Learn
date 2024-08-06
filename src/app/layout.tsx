@@ -19,7 +19,6 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		// <ThemeProvider>
 		<html lang="en" className="bg-background">
 			<body className={inter.className}>
 				<Header />
@@ -27,6 +26,5 @@ export default function RootLayout({
 				<Footer />
 			</body>
 		</html>
-		// </ThemeProvider>
 	);
 }

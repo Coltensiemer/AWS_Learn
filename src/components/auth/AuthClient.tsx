@@ -7,10 +7,10 @@ import {
 	CardFooter,
 	CardHeader,
 	CardTitle,
-} from '../../atomic/card/card';
-import { Button } from '../../atomic/button/button';
-import { Input } from '../../atomic/input/input';
-import { Label } from '../../atomic/label';
+} from '../atomic/card/card';
+import { Button } from '../atomic/button/button';
+import { Input } from '../atomic/input/input';
+import { Label } from '../atomic/label';
 import {
 	Authenticator,
 	useTheme,
@@ -23,9 +23,9 @@ import {
 } from '@aws-amplify/ui-react';
 import { Amplify } from 'aws-amplify';
 import '@aws-amplify/ui-react/styles.css';
-import outputs from '../../../../amplify_outputs.json';
+import outputs from '../../../amplify_outputs.json';
+import { useRouter } from 'next/navigation';
 import { signIn, signUp, SignUpInput } from 'aws-amplify/auth';
-import { User } from 'lucide-react';
 
 Amplify.configure(outputs);
 
@@ -200,21 +200,27 @@ const formFields = {
 	},
 };
 
-export default function LoginOrSignUp() {
+export default function AuthClient() {
+	const router = useRouter();
 	return (
-		<div>
-			<Authenticator
-				components={components}
-				formFields={formFields}
-				initialState="signUp"
-			>
-				{({ signOut, user }) => (
-					<Card>
-						<h1>Hello,</h1>
+		<Authenticator
+			components={components}
+			formFields={formFields}
+			initialState="signUp"
+		>
+			{({ signOut, user }) => {
+				if (user) {
+					// Redirect to the dashboard or any desired page after successful sign-up or sign-in
+					router.push('/dashboard');
+				}
+
+				return (
+					<div>
+						<h1>Hello, {user ? user.username : 'Guest'}</h1>
 						<button onClick={signOut}>Signout</button>
-					</Card>
-				)}
-			</Authenticator>
-		</div>
+					</div>
+				);
+			}}
+		</Authenticator>
 	);
 }

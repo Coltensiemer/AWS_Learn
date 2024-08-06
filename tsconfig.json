@@ -36,7 +36,7 @@
 		"aws/**/**/*.ts",
 		"aws/**/**/**/**.ts",
 		"aws/events/test-event.js",
-		"src/components/home/loginorsignup"
+		"src/components/home/auth"
 	],
 	"exclude": ["node_modules"]
 }
