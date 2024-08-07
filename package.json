@@ -16,6 +16,7 @@
 		"test": "jest"
 	},
 	"dependencies": {
+		"@aws-amplify/adapter-nextjs": "^1.2.11",
 		"@aws-amplify/ui-react": "^6.1.14",
 		"@aws-sdk/client-secrets-manager": "^3.620.1",
 		"@hookform/resolvers": "^3.3.4",
@@ -38,7 +39,7 @@
 		"@radix-ui/react-toggle": "^1.0.3",
 		"@radix-ui/react-tooltip": "^1.0.7",
 		"@tanstack/react-table": "^8.16.0",
-		"aws-amplify": "^6.4.3",
+		"aws-amplify": "^6.4.4",
 		"aws-jwt-verify": "^4.0.1",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.0",

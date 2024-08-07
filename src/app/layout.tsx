@@ -4,6 +4,7 @@ import './globals.css';
 import LayoutProvider from '../useContext/LayoutProvider';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { isAuthenticated } from '@amplify/utils/amplifyServerUtils';
 import { ThemeProvider } from '@aws-amplify/ui-react';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 	description: 'Tool to quiz yourself on AWS services',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode;
@@ -21,7 +22,7 @@ export default function RootLayout({
 	return (
 		<html lang="en" className="bg-background">
 			<body className={inter.className}>
-				<Header />
+				<Header isSignedIn={await isAuthenticated()} />
 				<LayoutProvider>{children}</LayoutProvider>
 				<Footer />
 			</body>

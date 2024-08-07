@@ -18,6 +18,9 @@ import * as path from 'path';
 import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 import * as Congito from 'aws-cdk-lib/aws-cognito';
 import * as iam from 'aws-cdk-lib/aws-iam';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export class BackendStack extends Stack {
 	constructor(scope: Construct, id: string, props?: StackProps) {
@@ -78,8 +81,7 @@ export class BackendStack extends Stack {
 			this,
 			`${id}-SecretDB`,
 			{
-				secretCompleteArn:
-					'arn:aws:secretsmanager:us-east-2:339713106432:secret:BackendStackMyRdsInstanceSe-mgpQNrLhwzNW-LAJ2cE',
+				secretCompleteArn: process.env.SECRET_ARN || '',
 			}
 		);
 

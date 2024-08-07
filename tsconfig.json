@@ -20,7 +20,9 @@
 			}
 		],
 		"paths": {
-			"@prisma/*": ["./prisma/*"]
+			"@root/*": ["./*"],
+			"@prisma/*": ["./prisma/*"],
+			"@amplify/*": ["./amplify/*"]
 		}
 	},
 	"include": [

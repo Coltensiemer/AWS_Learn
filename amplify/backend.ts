@@ -1,10 +1,13 @@
 import { defineBackend } from '@aws-amplify/backend';
 import { auth } from './auth/resource';
 import { UserPool, UserPoolClient } from 'aws-cdk-lib/aws-cognito';
+import dotenv from 'dotenv';
 
 /**
  * @see https://docs.amplify.aws/react/build-a-backend/ to add storage, functions, and more
  */
+
+dotenv.config();
 
 // const backend = defineBackend({ auth });
 
