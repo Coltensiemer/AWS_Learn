@@ -2,6 +2,10 @@ name: Run build
 
 on: push
 
+permissions:
+id-token: write
+contents: read
+
 jobs:
     lint:
         runs-on: ubuntu-latest
@@ -16,8 +20,17 @@ jobs:
             - name: Install dependencies
               run: npm install
 
+            - name: Congigure AWS credentials
+              uses: aws-actions/configure-aws-credentials@v4
+               with:
+                audience: sts.amazonaws.com.cn
+                aws-region: ${{ secrets.AWS_REGION }}
+                role-to-assume: arn:aws:iam::339713106432:role/GitHub-OpenConnet
+
+
             - name: run amplify outputs
               run: npx ampx generate outputs
+
 
             - name: Run build
               run: npx next build
