@@ -1,22 +1,23 @@
 name: Run build
 
 on: push
-  
-
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
+    lint:
+        runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
+            - name: Set up Node.js
+              uses: actions/setup-node@v2
 
-    - name: Install dependencies
-      run: npm install
+            - name: Install dependencies
+              run: npm install
 
-    - name: Run build
-      run: npx next build
+            - name: run amplify outputs
+              run: npx ampx generate outputs
+
+            - name: Run build
+              run: npx next build
