@@ -32,7 +32,7 @@ jobs:
               run: echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
 
             - name: Run amplify outputs
-              run: npx ampx generate outputs  --stack ${{ env.AMPLIFY_SANDBOX_ID }} --branch development
+              run: npx ampx generate outputs  --stack ${{ env.AMPLIFY_SANDBOX_ID }}
 
             - name: Run build
               run: npx next build
