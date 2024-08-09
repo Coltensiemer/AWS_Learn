@@ -28,7 +28,7 @@ jobs:
                   role-to-assume: arn:aws:iam::339713106432:role/GitHub-OpenConnet
 
             - name: Run amplify outputs
-              run: npx ampx generate outputs
+              run: npx ampx generate outputs --stack ${{ env.AMPLIFY_SANDBOX_ID }}
 
             - name: Run build
               run: npx next build
