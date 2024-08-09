@@ -1,9 +1,8 @@
-import { Button } from '../components/atomic/button/button';
+import { Button } from '../../atomic/button/button';
 import Link from 'next/link';
 import React from 'react';
-import AuthClient from '../components/auth/AuthClient';
 
-export default function Home() {
+export default function Hero({ children }: { children: React.ReactNode }) {
 	return (
 		<div>
 			<div className="w-full min-h-[100dvh] grid lg:grid-cols-2 gap-10 items-center px-4 md:px-6 py-12 md:py-24 lg:py-32 bg-gradient-to-r from-[#4ca1af] to-[#c4e0e5]">
@@ -24,7 +23,6 @@ export default function Home() {
 						</Button>
 					</div>
 				</div>
-				<AuthClient />
 			</div>
 		</div>
 	);

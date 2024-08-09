@@ -8,29 +8,34 @@ import { QuizProgressContext } from '../../useContext/QuizProgressContext';
 import { createCookie } from '../../../actions/cookieActions/cookieActions';
 
 export default function EasyQuestions() {
-  const QuizContext = useContext(QuizProgressContext);
-  if (!QuizContext) {
-    throw new Error(
-      'QuizProgressContext must be used within a QuizProgressProvider'
-    );
-  }
+	const QuizContext = useContext(QuizProgressContext);
+	if (!QuizContext) {
+		throw new Error(
+			'QuizProgressContext must be used within a QuizProgressProvider'
+		);
+	}
 
-const { Tags, quizLength } = QuizContext;
+	const { Tags, quizLength } = QuizContext;
 
-  useEffect(() => {
-    createCookie();
-  }, []);
+	useEffect(() => {
+		createCookie();
+	}, []);
 
-  return (
-    <>
-      <div className='flex flex-col lg:w-1/2'>
-        <Button>
-          <Link href={{ pathname: '/options/quiz', query: { tags: Tags, length: quizLength } }}>
-            Start Quiz
-          </Link>
-        </Button>
-        <QuizOption />
-      </div>
-    </>
-  );
+	return (
+		<>
+			<div className="flex flex-col lg:w-1/2">
+				<Button>
+					<Link
+						href={{
+							pathname: '/options/quiz',
+							query: { tags: Tags, length: quizLength },
+						}}
+					>
+						Start Quiz
+					</Link>
+				</Button>
+				<QuizOption />
+			</div>
+		</>
+	);
 }
