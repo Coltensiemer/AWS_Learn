@@ -27,12 +27,8 @@ jobs:
                   aws-region: ${{ secrets.AWS_REGION }}
                   role-to-assume: arn:aws:iam::339713106432:role/GitHub-OpenConnet
 
-            - name: Determine branch name
-              id: determine-branch
-              run: echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_ENV
-
             - name: Run amplify outputs
-              run: npx ampx generate outputs  --stack ${{ env.AMPLIFY_SANDBOX_ID }}
+              run: npx ampx generate outputs  --stack ${{ secrets.AMPLIFY_STACK_NAME }}
 
             - name: Run build
               run: npx next build
