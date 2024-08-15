@@ -1,51 +1,62 @@
-import {
-  SecretsManagerClient,
-  GetSecretValueCommand,
-} from "@aws-sdk/client-secrets-manager";
+import prisma from '../../../prisma/prisma';
+import { APIGatewayEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
+import { QuestionType } from '../../../prisma/dataTypes';
 
+const DefaultHeaders = {
+	'Access-Control-Allow-Origin': '*',
+	'Access-Control-Allow-Methods': 'GET',
+};
 
-
-const getSecert = async () => {
-	try {
-		const hostname = process.env.DB_HOSTNAME || "";
-		const DB_SECRET_ARN = process.env.DB_SECRET_ARN || "";
-		const client = new SecretsManagerClient({ region: "us-east-2" });
-		const data = await client.send(
-			new GetSecretValueCommand({ SecretId: DB_SECRET_ARN })
-		);
-	
-		return data.SecretString;
-	} 
-	catch (error) { 
-		console.error("Error fetching secret: ", error);
-		return error; 
-	}
-
+enum QuestionRoute {
+	GET_QUESTIONS = 'GET /api/quizzes',
 }
 
+//Test to get all quiz questions
 
-exports.handler = async () => {
-  try {
-const result = getSecert()
-    return {
-      statusCode: 200,
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-				message: "Successfully retrieved secret value from AWS Secrets Manager",
-				result
-			})			
-    };
-  } catch (error) {
-    console.error("Error processing request:", error);
+export const handler = async (event: APIGatewayEvent, context: Context) => {
+	let response: Promise<APIGatewayProxyResult>;
 
-    return {
-      statusCode: 500,
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ message: "Internal Server Error" })
-    };
-  }
+	switch (`${event.httpMethod} ${event.resource}`) {
+		case QuestionRoute.GET_QUESTIONS:
+			response = getQuestions(event);
+			break;
+		default:
+			response = Promise.resolve({
+				statusCode: 404,
+				headers: { ...DefaultHeaders },
+				body: JSON.stringify({ message: 'Route Not Found' }),
+			});
+			break;
+	}
+	return response;
+};
+
+const getQuestions = async (
+	event: APIGatewayEvent
+): Promise<APIGatewayProxyResult> => {
+	const { tags, length } = event.queryStringParameters || {
+		tags: null,
+		length: 65,
+	};
+
+	// When no tags are selected, return all questions
+	if (!tags) {
+		const data: QuestionType[] = await prisma.quiz.findMany({
+			include: {
+				options: true,
+			},
+			take: Number(length),
+		});
+		return {
+			statusCode: 200,
+			headers: DefaultHeaders,
+			body: JSON.stringify(data),
+		};
+	} else {
+		return {
+			statusCode: 400,
+			headers: DefaultHeaders,
+			body: JSON.stringify({ message: 'Route Not Found' }),
+		};
+	}
 };

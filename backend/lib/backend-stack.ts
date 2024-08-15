@@ -19,6 +19,7 @@ import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 import * as Congito from 'aws-cdk-lib/aws-cognito';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import dotenv from 'dotenv';
+import { before } from 'node:test';
 
 dotenv.config();
 
@@ -81,7 +82,9 @@ export class BackendStack extends Stack {
 			this,
 			`${id}-SecretDB`,
 			{
-				secretCompleteArn: process.env.SECRET_ARN || '',
+				secretCompleteArn:
+					'arn:aws:secretsmanager:us-east-2:339713106432:secret:BackendStackMyRdsInstanceSe-mgpQNrLhwzNW-LAJ2cE' ||
+					'',
 			}
 		);
 
@@ -114,6 +117,31 @@ export class BackendStack extends Stack {
 			timeout: Duration.seconds(29),
 			vpc: vpc,
 		};
+
+		/**
+		//  * Lambda layer with Prisma bundled
+		//  */
+		// // const prismaLayer = new lambda.LayerVersion(this, 'prisma-layer', {
+		// // 	code: lambda.Code.fromAsset(path.join(__dirname, '../../prisma'), {
+		// // 		bundling: {
+		// // 			image: lambda.Runtime.NODEJS_20_X.bundlingImage,
+		// // 			command: [
+		// // 				'bash',
+		// // 				'-c',
+		// // 				[
+		// // 					'npx prisma generate',
+		// // 					'rm -rf node_modules/@prisma/engines', // Remove the engines folder to decrease the size of the deployment package
+		// // 					'rm -rf node_modules/@prisma/client/node_modules node_modules/.bin node_modules/prisma',
+		// // 				].join(' && '),
+		// // 			],
+		// // 		},
+		// // 	}),
+
+		// 	compatibleRuntimes: [lambda.Runtime.NODEJS_20_X],
+		// 	layerVersionName: 'prisma-layer',
+		// 	description: 'Prisma Layer bundled with Prisma Client',
+		// 	removalPolicy: RemovalPolicy.DESTROY,
+		// });
 
 		// ! Look up Lambda Seeert exteneison
 		// Lambda function with Prisma bundled

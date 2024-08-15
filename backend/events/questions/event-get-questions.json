@@ -1,0 +1,16 @@
+{
+	"resource": "/api/quizzes",
+	"path": "/index",
+	"httpMethod": "GET",
+	"headers": null,
+	"multiValueHeaders": null,
+	"queryStringParameters": null,
+	"multiValueQueryStringParameters": null,
+	"pathParameters": {},
+	"stageVariables": null,
+	"requestContext": {
+		"requestId": "5c2db7f0-a714-4ca1-84ad-43dgasga26"
+	},
+	"body": null,
+	"isBase64Encoded": false
+}
