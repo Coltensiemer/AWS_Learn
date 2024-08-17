@@ -82,9 +82,7 @@ export class BackendStack extends Stack {
 			this,
 			`${id}-SecretDB`,
 			{
-				secretCompleteArn:
-					'arn:aws:secretsmanager:us-east-2:339713106432:secret:BackendStackMyRdsInstanceSe-mgpQNrLhwzNW-LAJ2cE' ||
-					'',
+				secretCompleteArn: process.env.SECRET_ARN || '',
 			}
 		);
 
