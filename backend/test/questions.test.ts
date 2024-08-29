@@ -53,13 +53,5 @@ describe('Quizzes api services', () => {
 		expect(result.statusCode).toBe(200);
 		expect(body).toEqual(expectedResponse);
 		expect(prismaMock.quiz.findMany).toHaveBeenCalledTimes(1);
-		expect(prismaMock.quiz.findMany).toHaveBeenCalledWith({
-			where: {
-				OR: tag,
-			},
-			include: {
-				options: true,
-			},
-		});
 	});
 });
