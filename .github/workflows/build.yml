@@ -24,7 +24,7 @@ jobs:
               uses: aws-actions/configure-aws-credentials@v4
               with:
                   audience: sts.amazonaws.com
-                  aws-region: ${{ secrets.AWS_REGION }}
+                  aws-region: ${{ secrets.REGION_AWS }}
                   role-to-assume: arn:aws:iam::339713106432:role/GitHub-OpenConnet
 
             - name: Run amplify outputs
