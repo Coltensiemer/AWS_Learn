@@ -271,6 +271,14 @@ export class BackendStack extends Stack {
 			)
 		);
 
+		const seedData = api.root.addResource('seedData');
+		quizzes.addMethod(
+			'POST',
+			new apigateway.LambdaIntegration(
+				createLambdaFunction('seedDataLambda', 'seed-data')
+			)
+		);
+
 		// USER POOL with AWS Coginito
 		const userPool = new Congito.UserPool(this, 'user-Pool', {
 			userPoolName: `${Aws.STACK_NAME}-user-pool`,
