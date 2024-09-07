@@ -17,6 +17,7 @@ import * as ln from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as path from 'path';
 import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 import * as Congito from 'aws-cdk-lib/aws-cognito';
+import * as SSM from 'aws-cdk-lib/aws-ssm';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import dotenv from 'dotenv';
 import { before } from 'node:test';
@@ -86,6 +87,9 @@ export class BackendStack extends Stack {
 			}
 		);
 
+
+
+
 		// RDS Instance
 		const rdsInstance = new rds.DatabaseInstance(this, 'MyRdsInstance', {
 			vpc,
@@ -144,12 +148,11 @@ export class BackendStack extends Stack {
 		// ! Look up Lambda Seeert exteneison
 		// Lambda function with Prisma bundled
 		const createLambdaFunction = (name: string, entry: string) => {
-			const secretValue = secret.secretValue.toJSON();
 			const lambdaFunction = new ln.NodejsFunction(this, name, {
 				...nodejsFunctionProps,
 				entry: path.join(__dirname, `../api/${entry}/index.ts`),
 				environment: {
-					DATABASE_URL: `postgresql://${secretValue.engine}:${secretValue.password}@${secretValue.host}:{secretValue.port}/${secretValue.dbname}`,
+					DATABASE_URL: `postgresql://postgres:nxefdmNV-KK-sz,LIOMej7BPacYRXg@backendstack-myrdsinstancefb602cdd-m5cukrhv6urm.ctgyyw4k68al.us-east-2.rds.amazonaws.com:5432/TestDB`,
 				},
 				vpcSubnets: {
 					subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
@@ -268,15 +271,10 @@ export class BackendStack extends Stack {
 			'GET',
 			new apigateway.LambdaIntegration(
 				createLambdaFunction('getquizzesLambda', 'quizzes')
-			)
-		);
-
-		const seedData = api.root.addResource('seedData');
-		quizzes.addMethod(
-			'POST',
-			new apigateway.LambdaIntegration(
-				createLambdaFunction('seedDataLambda', 'seed-data')
-			)
+			),
+			{
+				authorizationType: apigateway.AuthorizationType.NONE,
+			}
 		);
 
 		// USER POOL with AWS Coginito

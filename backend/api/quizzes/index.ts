@@ -34,45 +34,57 @@ export const handler = async (event: APIGatewayEvent, context: Context) => {
 const getQuestions = async (
 	event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> => {
-	const { tags, length } = event.multiValueQueryStringParameters || {
-		tags: null,
-		length: null,
-	};
+	const results = await prisma.quiz.findMany();
 
-	// When no tags are selected, return all questions
-	if (!tags) {
-		const data: QuestionType[] = await prisma.quiz.findMany({
-			include: {
-				options: true,
-			},
-			take: Number(length),
-		});
-		return {
-			statusCode: 200,
-			headers: DefaultHeaders,
-			body: JSON.stringify(data),
-		};
-	} else if (tags) {
-		let tagArray = Array.isArray(tags) ? tags : [tags];
-		// When multiple tags are selected, filter questions by those tags
-		const data: QuestionType[] = await prisma.quiz.findMany({
-			where: {
-				OR: tagArray.map((tag) => ({ tag })),
-			},
-			include: {
-				options: true,
-			},
-		});
-		return {
-			statusCode: 200,
-			headers: DefaultHeaders,
-			body: JSON.stringify(data),
-		};
-	} else {
-		return {
-			statusCode: 400,
-			headers: DefaultHeaders,
-			body: JSON.stringify({ message: 'Route Not Found' }),
-		};
-	}
+	return {
+		statusCode: 200,
+		headers: DefaultHeaders,
+		body: JSON.stringify(results),
+	};
 };
+
+// const getQuestions = async (
+// 	event: APIGatewayEvent
+// ): Promise<APIGatewayProxyResult> => {
+// 	const { tags, length } = event.multiValueQueryStringParameters || {
+// 		tags: null,
+// 		length: null,
+// 	};
+
+// 	// When no tags are selected, return all questions
+// 	if (!tags) {
+// 		const data: QuestionType[] = await prisma.quiz.findMany({
+// 			include: {
+// 				options: true,
+// 			},
+// 			take: Number(length),
+// 		});
+// 		return {
+// 			statusCode: 200,
+// 			headers: DefaultHeaders,
+// 			body: JSON.stringify(data),
+// 		};
+// 	} else if (tags) {
+// 		let tagArray = Array.isArray(tags) ? tags : [tags];
+// 		// When multiple tags are selected, filter questions by those tags
+// 		const data: QuestionType[] = await prisma.quiz.findMany({
+// 			where: {
+// 				OR: tagArray.map((tag) => ({ tag })),
+// 			},
+// 			include: {
+// 				options: true,
+// 			},
+// 		});
+// 		return {
+// 			statusCode: 200,
+// 			headers: DefaultHeaders,
+// 			body: JSON.stringify(data),
+// 		};
+// 	} else {
+// 		return {
+// 			statusCode: 400,
+// 			headers: DefaultHeaders,
+// 			body: JSON.stringify({ message: 'Route Not Found' }),
+// 		};
+// 	}
+// };
