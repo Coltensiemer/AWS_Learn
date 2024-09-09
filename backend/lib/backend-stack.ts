@@ -17,12 +17,18 @@ import * as ln from 'aws-cdk-lib/aws-lambda-nodejs';
 import * as path from 'path';
 import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 import * as Congito from 'aws-cdk-lib/aws-cognito';
-import * as SSM from 'aws-cdk-lib/aws-ssm';
-import * as iam from 'aws-cdk-lib/aws-iam';
 import dotenv from 'dotenv';
-import { before } from 'node:test';
 
 dotenv.config();
+
+/**
+ * BackendStack VPC
+ * Creates a VPC with 2 subnets, one public and one private
+ * The public subnet is used for the Lambda function
+ * The private subnet is used for the RDS instance
+ *
+ *
+ */
 
 export class BackendStack extends Stack {
 	constructor(scope: Construct, id: string, props?: StackProps) {
@@ -48,6 +54,7 @@ export class BackendStack extends Stack {
 		// Create a tag for the project
 		Tags.of(this).add('Project', 'Backend');
 
+		/*****************SUBNET GATEWAY SECTION **********************************/
 		const securityGroup = new ec2.SecurityGroup(
 			this,
 			'BackendStackResourceInitializerFnSg',
@@ -64,7 +71,7 @@ export class BackendStack extends Stack {
 			'Opening RDS to Lambda Function'
 		);
 
-		// Subnet Group for RDS
+		/***************** SUBNET SECTION **********************************/
 		const subNetGroup = new rds.SubnetGroup(this, 'rds-subnet-group', {
 			vpc,
 			subnetGroupName: 'rds-subnet-group',
@@ -75,8 +82,7 @@ export class BackendStack extends Stack {
 			removalPolicy: RemovalPolicy.DESTROY,
 		});
 
-		/**
-		 * Secrets Manager
+		/***************** SECRETS MANGER SECTION **********************************
 		 * Documenitation: https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda-readme.html
 		 */
 		const secret = secretsmanager.Secret.fromSecretAttributes(
@@ -87,10 +93,7 @@ export class BackendStack extends Stack {
 			}
 		);
 
-
-
-
-		// RDS Instance
+		/***************** RDS DATABASE SECTION **********************************/
 		const rdsInstance = new rds.DatabaseInstance(this, 'MyRdsInstance', {
 			vpc,
 			databaseName: 'TestDB',
@@ -109,6 +112,26 @@ export class BackendStack extends Stack {
 			publiclyAccessible: true,
 		});
 
+		/*****************LAMBDA LAYERS SECTION **********************************/
+
+		/**
+		 * Prisma ORM Layer for Lambda.
+		 * Bundles the Prisma ORM with the Lambda functions that will be using it
+		 */
+		const apiPrismaLayer = new lambda.LayerVersion(
+			this,
+			'APILayerWithPrisma',
+			{
+				code: lambda.Code.fromAsset(
+					path.join(__dirname, './layers/prisma.zip')
+				),
+				compatibleRuntimes: [lambda.Runtime.NODEJS_20_X],
+				description: 'Prisma ORM Layer',
+			}
+		);
+
+		/*****************NODEJS FUNCTION SECTION **********************************/
+
 		/**
 		 * Node js function props
 		 * Contains the runtime, handler, timeout, and VPC
@@ -121,68 +144,23 @@ export class BackendStack extends Stack {
 		};
 
 		/**
-		//  * Lambda layer with Prisma bundled
-		//  */
-		// // const prismaLayer = new lambda.LayerVersion(this, 'prisma-layer', {
-		// // 	code: lambda.Code.fromAsset(path.join(__dirname, '../../prisma'), {
-		// // 		bundling: {
-		// // 			image: lambda.Runtime.NODEJS_20_X.bundlingImage,
-		// // 			command: [
-		// // 				'bash',
-		// // 				'-c',
-		// // 				[
-		// // 					'npx prisma generate',
-		// // 					'rm -rf node_modules/@prisma/engines', // Remove the engines folder to decrease the size of the deployment package
-		// // 					'rm -rf node_modules/@prisma/client/node_modules node_modules/.bin node_modules/prisma',
-		// // 				].join(' && '),
-		// // 			],
-		// // 		},
-		// // 	}),
+		 * Creates a Lambda function with the given name and entry point
+		 * @param name - The name of the Lambda function
+		 * @param entry - The entry point for the Lambda function from API folder
+		 */
 
-		// 	compatibleRuntimes: [lambda.Runtime.NODEJS_20_X],
-		// 	layerVersionName: 'prisma-layer',
-		// 	description: 'Prisma Layer bundled with Prisma Client',
-		// 	removalPolicy: RemovalPolicy.DESTROY,
-		// });
-
-		// ! Look up Lambda Seeert exteneison
-		// Lambda function with Prisma bundled
 		const createLambdaFunction = (name: string, entry: string) => {
 			const lambdaFunction = new ln.NodejsFunction(this, name, {
 				...nodejsFunctionProps,
 				entry: path.join(__dirname, `../api/${entry}/index.ts`),
 				environment: {
-					DATABASE_URL: `postgresql://postgres:nxefdmNV-KK-sz,LIOMej7BPacYRXg@backendstack-myrdsinstancefb602cdd-m5cukrhv6urm.ctgyyw4k68al.us-east-2.rds.amazonaws.com:5432/TestDB`,
+					//! Add the database URL to the environment variables for Prisma?
+					DATABASE_URL: ``,
 				},
 				vpcSubnets: {
 					subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
 				},
-				bundling: {
-					//! API layer for bunding API that only need Prisma
-					nodeModules: ['@prisma/client', 'prisma'],
-					commandHooks: {
-						beforeBundling(_inputDir: string, _outputDir: string) {
-							return [];
-						},
-						beforeInstall(_inputDir: string, _outputDir: string) {
-							// Copy the prisma folder to the output directory
-							return [
-								`cd ${_inputDir}`,
-								'cd ..',
-								`cp -R ./prisma ${_outputDir}/`,
-							];
-						},
-						afterBundling(_inputDir: string, _outputDir: string) {
-							// Generate the Prisma client and remove the prisma folders to decrease the size of the deployment package
-							return [
-								`cd ${_outputDir}`,
-								'npx prisma generate',
-								'rm -rf node_modules/@prisma/engines', // Remove the engines folder to decrease the size of the deployment package
-								'rm -rf node_modules/@prisma/client/node_modules node_modules/.bin node_modules/prisma',
-							];
-						},
-					},
-				},
+				layers: [apiPrismaLayer],
 			});
 
 			rdsInstance.secret?.grantRead(lambdaFunction);
@@ -190,9 +168,7 @@ export class BackendStack extends Stack {
 			return lambdaFunction;
 		};
 
-		/**
-		 * Authorizer Lambda function
-		 */
+		/*****************LAMBDA AUTHORIZER SECTION **********************************/
 		const authorizerLambda = new ln.NodejsFunction(
 			this,
 			'authorizerLambda',
@@ -210,7 +186,11 @@ export class BackendStack extends Stack {
 			handler: authorizerLambda,
 		});
 
-		// API Gateway
+		/*****************API GATEWAY SECTION **********************************/
+		/**
+		 * Creates the API Gateway for Lambda functions to route to RDS in private Subnet
+		 *
+		 */
 		const api = new apigateway.RestApi(this, 'users-api', {
 			//! Enable caching for APU Gateway
 			defaultMethodOptions: { authorizer },
@@ -229,9 +209,8 @@ export class BackendStack extends Stack {
 			description: 'The URL of the API Gateway',
 		});
 
-		/**
-		 *  Creates the Lambda function with proxy integration
-		 */
+		/*****************PROXY LAMBDA SECTION **********************************/
+
 		const users = api.root.addResource('users');
 		users.addMethod(
 			'POST',
@@ -276,6 +255,8 @@ export class BackendStack extends Stack {
 				authorizationType: apigateway.AuthorizationType.NONE,
 			}
 		);
+
+		/***************** USER POOL SECTION **********************************/
 
 		// USER POOL with AWS Coginito
 		const userPool = new Congito.UserPool(this, 'user-Pool', {
@@ -348,24 +329,6 @@ export class BackendStack extends Stack {
 				userPoolId: userPool.userPoolId,
 			}
 		);
-
-		//! Create USER IM Policy for EVERYONE
-		// Define the IAM policy
-		// const everyonePolicy = new iam.Policy(this, 'EveryonePolicy', {
-		// 	policyName: 'EveryonePolicy',
-		// 	statements: [
-		// 		new iam.PolicyStatement({
-		// 			actions: [
-		// 				// List of actions this group should be allowed to perform
-		//
-		// 			],
-		// 			resources: [
-		// 				// Specify the resources the above actions apply to
-
-		// 			],
-		// 		}),
-		// 	],
-		// });
 
 		/**
 		 * Identity Pool

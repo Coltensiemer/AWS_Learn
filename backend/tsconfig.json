@@ -23,6 +23,12 @@
 		"typeRoots": ["./node_modules/@types"]
 	},
 
-	"include": ["src/**/*.ts", "**/*.ts", "lib/setDatabaseURl.js"],
+	"include": [
+		"src/**/*.ts",
+		"**/*.ts",
+		"lib/setDatabaseURl.js",
+		"lib/backend-stack.ts",
+		"lib/layers/prismalayer.ts
+	],
 	"exclude": ["node_modules", "cdk.out"]
 }
