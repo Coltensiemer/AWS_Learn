@@ -12,8 +12,8 @@ export function prismaLayer() {
 					// Copy the prisma folder to the output directory
 					return [
 						`cd ${_inputDir}`,
-						'cd ..',
-						`cp -R ./prisma ${_outputDir}/`,
+						'cd ../../',
+						`cp -R ${_inputDir}/prisma ${_outputDir}/`,
 					];
 				},
 				afterBundling(_inputDir: string, _outputDir: string) {

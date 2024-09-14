@@ -18,6 +18,7 @@ import * as path from 'path';
 import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 import * as Congito from 'aws-cdk-lib/aws-cognito';
 import dotenv from 'dotenv';
+import { Role } from 'aws-cdk-lib/aws-iam';
 
 dotenv.config();
 
@@ -68,7 +69,7 @@ export class BackendStack extends Stack {
 		securityGroup.addIngressRule(
 			ec2.Peer.anyIpv4(),
 			ec2.Port.tcp(5432),
-			'Opening RDS to Lambda Function'
+			'Allow inbound traffic from Lambda function to RDS instance'
 		);
 
 		/***************** SUBNET SECTION **********************************/
@@ -118,17 +119,17 @@ export class BackendStack extends Stack {
 		 * Prisma ORM Layer for Lambda.
 		 * Bundles the Prisma ORM with the Lambda functions that will be using it
 		 */
-		const apiPrismaLayer = new lambda.LayerVersion(
-			this,
-			'APILayerWithPrisma',
-			{
-				code: lambda.Code.fromAsset(
-					path.join(__dirname, './layers/prisma.zip')
-				),
-				compatibleRuntimes: [lambda.Runtime.NODEJS_20_X],
-				description: 'Prisma ORM Layer',
-			}
-		);
+		// const apiPrismaLayer = new lambda.LayerVersion(
+		// 	this,
+		// 	'APILayerWithPrisma',
+		// 	{
+		// 		code: lambda.Code.fromAsset(
+		// 			path.join(__dirname, './layers/prisma.zip')
+		// 		),
+		// 		compatibleRuntimes: [lambda.Runtime.NODEJS_20_X],
+		// 		description: 'Prisma ORM Layer',
+		// 	}
+		// );
 
 		/*****************NODEJS FUNCTION SECTION **********************************/
 
@@ -155,15 +156,39 @@ export class BackendStack extends Stack {
 				entry: path.join(__dirname, `../api/${entry}/index.ts`),
 				environment: {
 					//! Add the database URL to the environment variables for Prisma?
-					DATABASE_URL: ``,
+					DATABASE_URL: '',
 				},
 				vpcSubnets: {
 					subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
 				},
-				layers: [apiPrismaLayer],
+				bundling: {
+					nodeModules: ['@prisma/client', 'prisma'],
+					commandHooks: {
+						beforeBundling(_inputDir: string, _outputDir: string) {
+							return [];
+						},
+						beforeInstall(_inputDir: string, _outputDir: string) {
+							// Copy the prisma folder to the output directory
+							return [
+								`cd ${_inputDir}`,
+								'cd ..',
+								`cp -R prisma ${_outputDir}/`,
+							];
+						},
+						afterBundling(_inputDir: string, _outputDir: string) {
+							// Generate the Prisma client and remove the prisma folders to decrease the size of the deployment package
+							return [
+								`cd ${_outputDir}`,
+								'npx prisma generate',
+								'rm -rf node_modules/@prisma/client/node_modules node_modules/.bin node_modules/prisma',
+							];
+						},
+					},
+				},
 			});
 
 			rdsInstance.secret?.grantRead(lambdaFunction);
+			rdsInstance.grantConnect(lambdaFunction);
 			secret.grantRead(lambdaFunction);
 			return lambdaFunction;
 		};

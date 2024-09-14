@@ -27,8 +27,9 @@
 		"src/**/*.ts",
 		"**/*.ts",
 		"lib/setDatabaseURl.js",
-		"lib/backend-stack.ts",
-		"lib/layers/prismalayer.ts
+		"lib/backend-stack.js",
+		"lib/layers/prismalayer.zip",
+		"lib/layers/prismalayer.ts"
 	],
 	"exclude": ["node_modules", "cdk.out"]
 }

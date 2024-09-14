@@ -15,6 +15,9 @@ enum QuestionRoute {
 
 export const handler = async (event: APIGatewayEvent, context: Context) => {
 	let response: Promise<APIGatewayProxyResult>;
+	console.log('hhtpMethod', event.httpMethod);
+	console.log('Resource', event.resource);
+	console.log('path', event.path);
 
 	switch (`${event.httpMethod} ${event.resource}`) {
 		case QuestionRoute.GET_QUESTIONS:
@@ -35,6 +38,14 @@ const getQuestions = async (
 	event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> => {
 	const results = await prisma.quiz.findMany();
+
+	if (results.length === 0) {
+		return {
+			statusCode: 404,
+			headers: DefaultHeaders,
+			body: JSON.stringify({ message: 'No questions found' }),
+		}
+	}
 
 	return {
 		statusCode: 200,
