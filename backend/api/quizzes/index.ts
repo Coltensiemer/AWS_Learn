@@ -44,7 +44,7 @@ const getQuestions = async (
 			statusCode: 404,
 			headers: DefaultHeaders,
 			body: JSON.stringify({ message: 'No questions found' }),
-		}
+		};
 	}
 
 	return {

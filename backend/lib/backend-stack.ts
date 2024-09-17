@@ -119,17 +119,17 @@ export class BackendStack extends Stack {
 		 * Prisma ORM Layer for Lambda.
 		 * Bundles the Prisma ORM with the Lambda functions that will be using it
 		 */
-		// const apiPrismaLayer = new lambda.LayerVersion(
-		// 	this,
-		// 	'APILayerWithPrisma',
-		// 	{
-		// 		code: lambda.Code.fromAsset(
-		// 			path.join(__dirname, './layers/prisma.zip')
-		// 		),
-		// 		compatibleRuntimes: [lambda.Runtime.NODEJS_20_X],
-		// 		description: 'Prisma ORM Layer',
-		// 	}
-		// );
+		const apiPrismaLayer = new lambda.LayerVersion(
+			this,
+			'APILayerWithPrisma',
+			{
+				code: lambda.Code.fromAsset(
+					path.join(__dirname, './layers/prisma_layer/prisma.zip')
+				),
+				compatibleRuntimes: [lambda.Runtime.NODEJS_20_X],
+				description: 'Prisma ORM Layer',
+			}
+		);
 
 		/*****************NODEJS FUNCTION SECTION **********************************/
 
@@ -156,35 +156,13 @@ export class BackendStack extends Stack {
 				entry: path.join(__dirname, `../api/${entry}/index.ts`),
 				environment: {
 					//! Add the database URL to the environment variables for Prisma?
-					DATABASE_URL: '',
+					DATABASE_URL:
+						'postgresql://postgres:YDp0QFD7twYWJ^Y3CGVo0mmkEdAn1V@backendstack-myrdsinstancefb602cdd-6azt3dvdevx4.ctgyyw4k68al.us-east-2.rds.amazonaws.com:5432/TestDB',
 				},
 				vpcSubnets: {
 					subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
 				},
-				bundling: {
-					nodeModules: ['@prisma/client', 'prisma'],
-					commandHooks: {
-						beforeBundling(_inputDir: string, _outputDir: string) {
-							return [];
-						},
-						beforeInstall(_inputDir: string, _outputDir: string) {
-							// Copy the prisma folder to the output directory
-							return [
-								`cd ${_inputDir}`,
-								'cd ..',
-								`cp -R prisma ${_outputDir}/`,
-							];
-						},
-						afterBundling(_inputDir: string, _outputDir: string) {
-							// Generate the Prisma client and remove the prisma folders to decrease the size of the deployment package
-							return [
-								`cd ${_outputDir}`,
-								'npx prisma generate',
-								'rm -rf node_modules/@prisma/client/node_modules node_modules/.bin node_modules/prisma',
-							];
-						},
-					},
-				},
+				layers: [apiPrismaLayer],
 			});
 
 			rdsInstance.secret?.grantRead(lambdaFunction);
