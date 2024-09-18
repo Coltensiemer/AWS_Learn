@@ -17,6 +17,7 @@ export function prismaLayer() {
 						`cd ${_inputDir}`,
 						'cd ../../',
 						`cp -R ${_inputDir}/prisma ${_outputDir}/`,
+						`cp ${_inputDir}/node_modules/.prisma/client/libquery_engine-rhel-openssl-3.0.x.so.node ${_outputDir}/node_modules/.prisma/client`,
 					];
 				},
 				afterBundling(_inputDir: string, _outputDir: string) {

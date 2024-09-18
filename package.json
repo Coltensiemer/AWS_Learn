@@ -63,6 +63,7 @@
 		"@babel/preset-env": "^7.24.3",
 		"@babel/preset-typescript": "^7.24.1",
 		"@chromatic-com/storybook": "^1.5.0",
+		"@prisma/nextjs-monorepo-workaround-plugin": "^5.19.1",
 		"@storybook/addon-essentials": "^8.1.5",
 		"@storybook/addon-interactions": "^8.1.5",
 		"@storybook/addon-links": "^8.1.5",

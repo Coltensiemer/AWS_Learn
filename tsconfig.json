@@ -40,5 +40,5 @@
 		"aws/events/test-event.js",
 		"src/components/home/auth"
 	],
-	"exclude": ["node_modules"]
+	"exclude": ["node_modules", "cdk.out"]
 }
