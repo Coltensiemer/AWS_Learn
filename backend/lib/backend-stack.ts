@@ -18,7 +18,6 @@ import * as path from 'path';
 import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 import * as Congito from 'aws-cdk-lib/aws-cognito';
 import dotenv from 'dotenv';
-import { Role } from 'aws-cdk-lib/aws-iam';
 
 dotenv.config();
 
@@ -124,7 +123,7 @@ export class BackendStack extends Stack {
 			'APILayerWithPrisma',
 			{
 				code: lambda.Code.fromAsset(
-					path.join(__dirname, './layers/prisma_layer/prisma.zip')
+					path.join(__dirname, './layers/prisma.zip')
 				),
 				compatibleRuntimes: [lambda.Runtime.NODEJS_20_X],
 				description: 'Prisma ORM Layer',

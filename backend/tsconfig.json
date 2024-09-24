@@ -28,8 +28,8 @@
 		"**/*.ts",
 		"lib/setDatabaseURl.js",
 		"lib/backend-stack.js",
-		"lib/layers/prismalayer.zip",
-		"lib/layers/prismalayer.ts"
+		"lib/prisma/prismalayer.zip",
+		"lib/prisma/prismalayer.ts"
 	],
 	"exclude": ["node_modules", "cdk.out"]
 }
