@@ -1,6 +1,15 @@
-//creating a layer for prisma bunding is to create a new lambda function?
-
 import { Runtime } from 'aws-cdk-lib/aws-lambda';
+
+/**
+ * AWS Documentation:
+ * https://docs.aws.amazon.com/lambda/latest/dg/nodejs-package.html#nodejs-package-dependencies
+ *
+ */
+
+/**
+ * Prisma Documentation:
+ * https://www.prisma.io/docs/orm/prisma-client/deployment/caveats-when-deploying-to-aws-platforms
+ */
 
 export function handler() {
 	return {
@@ -15,7 +24,8 @@ export function handler() {
 					// Copy the prisma folder to the output directory
 					return [
 						`cd ${_inputDir}`,
-						`cp -R prisma ${_outputDir}`,
+						`cp -R prisma/schema.prisma ${_outputDir},
+						`,
 					];
 				},
 				afterBundling(_inputDir: string, _outputDir: string) {

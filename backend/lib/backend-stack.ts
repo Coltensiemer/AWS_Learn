@@ -155,7 +155,8 @@ export class BackendStack extends Stack {
 				entry: path.join(__dirname, `../api/${entry}/index.ts`),
 				environment: {
 					//! Add the database URL to the environment variables for Prisma?
-					DATABASE_URL: '',
+					DATABASE_URL:
+						'postgresql://postgres:YDp0QFD7twYWJ^Y3CGVo0mmkEdAn1V@backendstack-myrdsinstancefb602cdd-6azt3dvdevx4.ctgyyw4k68al.us-east-2.rds.amazonaws.com:5432/TestDB',
 				},
 				vpcSubnets: {
 					subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
