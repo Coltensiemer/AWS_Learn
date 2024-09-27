@@ -317,7 +317,7 @@ export class BackendStack extends Stack {
 			'api-general-group-name',
 			{
 				type: 'String',
-				description: 'General Group Name',
+				description: 'Authenicated General Group Name',
 				default: `apiGeneral`,
 			}
 		);
@@ -326,8 +326,8 @@ export class BackendStack extends Stack {
 			this,
 			'api-general-group',
 			{
-				groupName: 'EVERYONE',
-				description: 'Group for all users by default.',
+				groupName: apiGeneralGroupName.valueAsString,
+				description: 'Authenticated Group for all users by default.',
 				userPoolId: userPool.userPoolId,
 			}
 		);
