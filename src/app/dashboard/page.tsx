@@ -1,5 +1,8 @@
 import React from 'react';
+import { checkAuth } from '@root/actions/cookieActions/cookieActions';
 
 export default async function Dashboard() {
-	return <p>Dashbaord</p>;
+	checkAuth();
+
+	return <p>Dashboard</p>;
 }
