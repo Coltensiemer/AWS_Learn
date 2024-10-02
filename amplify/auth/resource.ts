@@ -14,18 +14,15 @@ export const auth = defineAuth({
 		},
 	},
 
-	
-/**
- * Add post confirmation trigger
- * Everyone gets added to the group defined in the environment variable
- */
-	groups: ["EVERYONE"],
-	triggers: { 
+	/**
+	 * Add post confirmation trigger
+	 * Everyone gets added to the group defined in the environment variable
+	 */
+	groups: ['apiGeneral'],
+	triggers: {
 		postConfirmation: postConfirmation,
 	},
 	access: (allow) => [
-		allow.resource(postConfirmation).to(["addUserToGroup"]),
-	]
-
+		allow.resource(postConfirmation).to(['addUserToGroup']),
+	],
 });
-
