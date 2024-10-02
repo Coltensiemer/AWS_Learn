@@ -8,14 +8,7 @@ import { fetchAuthSession } from 'aws-amplify/auth';
 import { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
-export async function checkAuth(req: NextRequest) {
-	const session = await fetchAuthSession();
-	if (session === null || session === undefined) {
-		return NextResponse.redirect(new URL('/'));
-	} else {
-		return;
-	}
-}
+
 
 export async function getSession() {
 	// Retrieve the OneTimeSessionID cookie value
