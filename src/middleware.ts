@@ -1,18 +1,16 @@
 import { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-import { fetchAuthSession } from 'aws-amplify/auth';
-import { getCurrentUser } from 'aws-amplify/auth';
+import { isAuthenticated } from '@root/amplify/utils/amplifyServerUtils';
 
 export async function middleware(request: NextRequest) {
-	const session = await fetchAuthSession();
-	const user = await getCurrentUser();
-	if (session.tokens === null || session.tokens === undefined) {
-		console.log('users', user);
-		console.log('tokens', session.tokens, session.credentials);
+	const session = await isAuthenticated();
+
+	if (session === false || session === undefined) {
+		console.log(' No tokens', session);
 		console.log('No session found');
 		return NextResponse.redirect(new URL('/', request.nextUrl));
 	} else {
-		console.log('tokens', session.tokens, session.credentials);
+		console.log('tokens', session);
 		console.log('Session found');
 	}
 }
