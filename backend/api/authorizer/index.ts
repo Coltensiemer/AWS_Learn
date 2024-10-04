@@ -1,16 +1,59 @@
+// import {
+// 	APIGatewayAuthorizerEvent,
+// 	APIGatewayAuthorizerResult,
+// 	Context,
+// } from 'aws-lambda';
 
-// Documentation: https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-using-tokens-verifying-a-jwt.html
+// // Generate an IAM policy document
+// const generateAuthResponse = (
+// 	principalId: string,
+// 	effect: string,
+// 	resource: string
+// ): APIGatewayAuthorizerResult => {
+// 	const policyDocument = {
+// 		Version: '2012-10-17',
+// 		Statement: [
+// 			{
+// 				Action: 'execute-api:Invoke',
+// 				Effect: effect,
+// 				Resource: resource,
+// 			},
+// 		],
+// 	};
 
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
-import { 
+// 	return {
+// 		principalId,
+// 		policyDocument,
+// 	};
+// };
+
+// export const handler = async (
+// 	event: APIGatewayAuthorizerEvent,
+// 	context: Context
+// ): Promise<APIGatewayAuthorizerResult> => {
+// 	// Extract the header you want to evaluate
+// 	const headerValue = event.headers['x-custom-header']; // Replace 'x-custom-header' with your header name
+
+// 	const methodArn = event.methodArn;
+
+// 	if (headerValue === 'approve') {
+// 		// Generate an allow policy if the header matches 'approve'
+// 		return generateAuthResponse('user', 'Allow', methodArn);
+// 	} else {
+// 		// Generate a deny policy if the header does not match 'approve'
+// 		return generateAuthResponse('user', 'Deny', methodArn);
+// 	}
+// };
+// // // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// // SPDX-License-Identifier: MIT-0
+import {
   APIGatewayTokenAuthorizerEvent,
   Context,
   APIGatewayAuthorizerResult,
 } from 'aws-lambda';
 
 import {
-  CognitoJwtVerifier,  
+  CognitoJwtVerifier,
 } from 'aws-jwt-verify';
 
 /*
@@ -39,21 +82,21 @@ interface Statement {
 }
 
 /**
- * @property {string} awsAccountId - The AWS account id the policy will be 
+ * @property {string} awsAccountId - The AWS account id the policy will be
  * generated for. This is used to create the method ARNs.
- * @property {string} principalId - The principal used for the policy, this 
+ * @property {string} principalId - The principal used for the policy, this
  * should be a unique identifier for the end user.
  * @property {string} version - CloudFormation version.
  * @property {string} pathRegex - The regex used to validate resource paths for the policy.
  * @property {list} allowMethods - The methods to allow for the policy.
  * @property {list} denyMethods - The methods to deny for the policy.
  * @property {string} restApiId - The API Gateway id to be used in the policy.
- * Beware of using '*' since it will not simply mean any API Gateway API id, 
- * because stars will greedily expand over '/' or other separators. See 
- * https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_resource.html 
+ * Beware of using '*' since it will not simply mean any API Gateway API id,
+ * because stars will greedily expand over '/' or other separators. See
+ * https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_resource.html
  * for more details.
- * @property {string} region - The region to be used in the policy. Beware of 
- * using '*' since it will not simply mean any region, because stars will 
+ * @property {string} region - The region to be used in the policy. Beware of
+ * using '*' since it will not simply mean any region, because stars will
  * greedily expand over '/' or other separators.
  * @property {string} stage - The stage to be used in the policy. Beware of
  * using '*' since it will not simply mean any stage, because stars will
@@ -97,10 +140,10 @@ class AuthPolicy {
   }
 
   /**
-   * Adds an API Gateway method (Http verb + Resource path) to the list of 
+   * Adds an API Gateway method (Http verb + Resource path) to the list of
    * allowed methods for the policy.
-   * 
-   * @param {String} verb - HTTP verb for the method, this should ideally come 
+   *
+   * @param {String} verb - HTTP verb for the method, this should ideally come
    * from * the * AuthPolicy.HttpVerb object to avoid spelling mistakes.
    * @param {string} resource - Resource path, ror example '/users'.
    */
@@ -109,10 +152,10 @@ class AuthPolicy {
   }
 
   /**
-   * Adds an API Gateway method (Http verb + Resource path) to the list of 
+   * Adds an API Gateway method (Http verb + Resource path) to the list of
    * denied methods for the policy.
-   * 
-   * @param {String} verb - HTTP verb for the method, this should ideally come 
+   *
+   * @param {String} verb - HTTP verb for the method, this should ideally come
    * from * the * AuthPolicy.HttpVerb object to avoid spelling mistakes.
    * @param {string} resource - Resource path, for example '/users'.
    */
@@ -121,12 +164,12 @@ class AuthPolicy {
   }
 
   /**
-   * Adds an API Gateway method (Http verb + Resource path) to the list of 
-   * allowed methods and includes a condition for the policy statement. More on 
-   * AWS policy conditions here: 
+   * Adds an API Gateway method (Http verb + Resource path) to the list of
+   * allowed methods and includes a condition for the policy statement. More on
+   * AWS policy conditions here:
    * http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html#Condition
-   * 
-   * @param {String} verb - HTTP verb for the method, this should ideally come 
+   *
+   * @param {String} verb - HTTP verb for the method, this should ideally come
    * from * the * AuthPolicy.HttpVerb object to avoid spelling mistakes.
    * @param {string} resource - Resource path, ror example '/users'.
    * @param {Object} conditions - Object in the format specified by the AWS docs.
@@ -136,12 +179,12 @@ class AuthPolicy {
   }
 
   /**
-   * Adds an API Gateway method (Http verb + Resource path) to the list of 
-   * denied methods and includes a condition for the policy statement. More on 
-   * AWS policy conditions here: 
+   * Adds an API Gateway method (Http verb + Resource path) to the list of
+   * denied methods and includes a condition for the policy statement. More on
+   * AWS policy conditions here:
    * http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements.html#Condition
-   * 
-   * @param {String} verb - HTTP verb for the method, this should ideally come 
+   *
+   * @param {String} verb - HTTP verb for the method, this should ideally come
    * from * the * AuthPolicy.HttpVerb object to avoid spelling mistakes.
    * @param {string} resource - Resource path, ror example '/users'.
    * @param {Object} conditions - Object in the format specified by the AWS docs.
@@ -161,12 +204,12 @@ class AuthPolicy {
     if (this.allowMethods.length === 0 && this.denyMethods.length === 0) {
       throw new Error("No statements defined for the policy");
     }
-    
+
     var statement: any = [];
     statement = statement.concat(this.getStatementsForEffect("Allow", this.allowMethods));
     statement = statement.concat(this.getStatementsForEffect("Deny", this.denyMethods));
 
-    return { 
+    return {
       principalId: this.principalId,
       policyDocument: {
         Version: this.version,
@@ -236,7 +279,7 @@ class AuthPolicy {
 }
 
 export const handler = (event: APIGatewayTokenAuthorizerEvent, context: Context): Promise<APIGatewayAuthorizerResult> => {
-  /* 
+  /*
    * Section 2: Base setup & token validation
    */
   const apiOptions: any = {};
@@ -248,7 +291,7 @@ export const handler = (event: APIGatewayTokenAuthorizerEvent, context: Context)
   apiOptions.stage = apiGatewayArnTmp[1];
 
   const jwtToken: string = event['authorizationToken'];
-  const verifier = CognitoJwtVerifier.create({ 
+  const verifier = CognitoJwtVerifier.create({
     userPoolId,
     tokenUse: 'id',
     clientId: appClientId
@@ -262,7 +305,7 @@ export const handler = (event: APIGatewayTokenAuthorizerEvent, context: Context)
      */
     const principalId = result.sub;
     const policy = new AuthPolicy(principalId, awsAccountId, apiOptions);
-      
+
     // Allow all public resources/methods explicitly
     policy.allowMethod(HttpVerb.GET, `/users/${principalId}`)
     policy.allowMethod(HttpVerb.GET, `/users/${principalId}/*`)
@@ -283,7 +326,7 @@ export const handler = (event: APIGatewayTokenAuthorizerEvent, context: Context)
       policy.allowMethod(HttpVerb.PUT, "users/*")
       policy.allowMethod(HttpVerb.DELETE, "users")
       policy.allowMethod(HttpVerb.DELETE, "users/*")
-    }   
+    }
 
     return policy.build();
   }).catch(error => {

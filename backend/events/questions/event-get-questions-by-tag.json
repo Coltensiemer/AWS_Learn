@@ -1,0 +1,19 @@
+{
+	"resource": "/api/quizzes",
+	"path": "/index",
+	"httpMethod": "GET",
+	"headers": null,
+	"multiValueHeaders": null,
+	"queryStringParameters": null,
+	"multiValueQueryStringParameters": {
+		"tag": "EC2",
+		"length": null
+	},
+	"pathParameters": {},
+	"stageVariables": null,
+	"requestContext": {
+		"requestId": "5c2asdfasd7f0-a714-4ca1-84ad-43dgashiugbiy6"
+	},
+	"body": null,
+	"isBase64Encoded": false
+}

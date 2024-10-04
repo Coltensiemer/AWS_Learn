@@ -38,7 +38,8 @@
 		"aws/**/**/*.ts",
 		"aws/**/**/**/**.ts",
 		"aws/events/test-event.js",
-		"src/components/home/auth"
+		"src/components/home/auth",
+		"amplify/Amplify.configure"
 	],
-	"exclude": ["node_modules"]
+	"exclude": ["node_modules", "cdk.out"]
 }
