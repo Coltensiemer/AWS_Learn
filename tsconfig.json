@@ -22,7 +22,8 @@
 		"paths": {
 			"@root/*": ["./*"],
 			"@prisma/*": ["./prisma/*"],
-			"@amplify/*": ["./amplify/*"]
+			"@amplify/*": ["./amplify/*"],
+			"@atomic/*": ["./src/components/atomic/*"]
 		}
 	},
 	"include": [

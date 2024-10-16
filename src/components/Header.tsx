@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { Hub } from 'aws-amplify/utils';
 import { Button } from './atomic/button/button';
 import { signOut } from 'aws-amplify/auth';
+import { Sheet, SheetTrigger } from './atomic/sheet/sheet';
+import { UserSettings } from './userSettings/userSettings';
 
 export default function Header({ isSignedIn }: { isSignedIn: boolean }) {
 	const [authCheck, setAuthCheck] = useState(isSignedIn);
@@ -79,6 +81,14 @@ export default function Header({ isSignedIn }: { isSignedIn: boolean }) {
 						<Button variant="link" onClick={SignInorSignOut}>
 							{authCheck ? 'Sign Out' : 'Sign In'}
 						</Button>
+					</li>
+					{/* {authCheck && (
+						<li>
+							<UserSettings />
+						</li>
+					)} */}
+					<li className="flex justify-center hover:fill-white">
+						<UserSettings />
 					</li>
 				</ul>
 			</nav>
