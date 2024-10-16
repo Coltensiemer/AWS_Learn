@@ -8,12 +8,24 @@ import {
 } from '@atomic/sheet/sheet';
 import { Button } from '@atomic/button/button';
 import Image from 'next/image';
-
+import { Separator } from '@atomic/separator';
 /// Profile pic
 // Name
 // Security
 //Theme
 //Logout
+
+const setting_options = [
+	{
+		name: 'Profile',
+	},
+	{
+		name: 'Security',
+	},
+	{
+		name: 'Logout',
+	},
+];
 
 export const UserSettings = () => {
 	return (
@@ -32,13 +44,19 @@ export const UserSettings = () => {
 			</SheetTrigger>
 			<SheetContent>
 				<SheetHeader>
-					<SheetTitle>Are you absolutely sure?</SheetTitle>
-					<SheetDescription>
-						This action cannot be undone. This will permanently
-						delete your account and remove your data from our
-						servers.
-					</SheetDescription>
+					<SheetTitle>Settings</SheetTitle>
 				</SheetHeader>
+				<SheetDescription>
+					Manage your account settings
+				</SheetDescription>
+				<div className="flex flex-col space-y-5">
+					{setting_options.map((option) => (
+						<div key={option.name}>
+							<Button variant="secondary">{option.name}</Button>
+							<Separator className="w-full my-2" />
+						</div>
+					))}
+				</div>
 			</SheetContent>
 		</Sheet>
 	);
