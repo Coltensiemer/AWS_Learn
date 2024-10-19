@@ -54,11 +54,6 @@ export default function Header({ isSignedIn }: { isSignedIn: boolean }) {
 			label: 'Dashboard',
 			loggedIn: true,
 		},
-		{
-			href: '/settings',
-			label: 'Settings',
-			loggedIn: true,
-		},
 	];
 
 	const routes = defaultRoutes.filter(
@@ -66,23 +61,23 @@ export default function Header({ isSignedIn }: { isSignedIn: boolean }) {
 	);
 
 	return (
-		<header className="fixed container flex px-10 m-2">
-			<h1 className="font-bold text-xl mr-auto">AWS Quiz</h1>
+		<header className="fixed w-full container flex px-10 m-2">
+			<h1 className="font-bold flex self-center text-sm md:text-xl mr-auto">
+				AWS Quiz
+			</h1>
 			<nav className="flex items-center justify-between">
-				<ul className="flex space-x-4">
+				<ul className="flex flex-auto md:space-x-4 justify-center">
 					{routes.map((route) => (
 						<li key={route.href}>
-							<Button variant="link">
+							<Button variant="link" className="text-sm">
 								<Link href={route.href}>{route.label}</Link>
 							</Button>
 						</li>
 					))}
-					<li>
+					<li className="flex">
 						{authCheck ? (
-							<div className="flex justify-center hover:fill-white">
-								<UserSettings
-									signoutHandler={SignInorSignOut}
-								/>
+							<div className="flex justify-center">
+								<UserSettings />
 							</div>
 						) : (
 							<Button variant="link" onClick={SignInorSignOut}>

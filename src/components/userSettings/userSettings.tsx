@@ -41,7 +41,7 @@ export const UserSettings = () => {
 				<Image
 					src="/settings-Icon.svg"
 					alt="Settings"
-					width={25}
+					width={24}
 					height={24}
 					style={{
 						cursor: 'pointer',
@@ -58,7 +58,7 @@ export const UserSettings = () => {
 				</SheetDescription>
 				<div className="flex flex-col space-y-5">
 					{setting_options.map((option) => (
-						<div key={option.name} className="hover:bg-slate-300">
+						<div key={option.name}>
 							<Button variant="link" onClick={option.handler}>
 								{option.name}
 							</Button>
