@@ -78,17 +78,17 @@ export default function Header({ isSignedIn }: { isSignedIn: boolean }) {
 						</li>
 					))}
 					<li>
-						<Button variant="link" onClick={SignInorSignOut}>
-							{authCheck ? 'Sign Out' : 'Sign In'}
-						</Button>
-					</li>
-					{/* {authCheck && (
-						<li>
-							<UserSettings />
-						</li>
-					)} */}
-					<li className="flex justify-center hover:fill-white">
-						<UserSettings />
+						{authCheck ? (
+							<div className="flex justify-center hover:fill-white">
+								<UserSettings
+									signoutHandler={SignInorSignOut}
+								/>
+							</div>
+						) : (
+							<Button variant="link" onClick={SignInorSignOut}>
+								Sign In
+							</Button>
+						)}
 					</li>
 				</ul>
 			</nav>

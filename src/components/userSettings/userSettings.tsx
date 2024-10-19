@@ -1,3 +1,5 @@
+'use client';
+
 import {
 	Sheet,
 	SheetContent,
@@ -9,25 +11,30 @@ import {
 import { Button } from '@atomic/button/button';
 import Image from 'next/image';
 import { Separator } from '@atomic/separator';
+import { signOut } from 'aws-amplify/auth';
+import { useRouter } from 'next/navigation';
 /// Profile pic
 // Name
 // Security
 //Theme
 //Logout
 
-const setting_options = [
-	{
-		name: 'Profile',
-	},
-	{
-		name: 'Security',
-	},
-	{
-		name: 'Logout',
-	},
-];
-
 export const UserSettings = () => {
+	const router = useRouter();
+
+	const setting_options = [
+		{
+			name: 'Profile',
+		},
+		{
+			name: 'Security',
+		},
+		{
+			name: 'Logout',
+			handler: () => signOut().then(() => router.push('/')),
+		},
+	];
+
 	return (
 		<Sheet>
 			<SheetTrigger>
@@ -51,8 +58,10 @@ export const UserSettings = () => {
 				</SheetDescription>
 				<div className="flex flex-col space-y-5">
 					{setting_options.map((option) => (
-						<div key={option.name}>
-							<Button variant="secondary">{option.name}</Button>
+						<div key={option.name} className="hover:bg-slate-300">
+							<Button variant="link" onClick={option.handler}>
+								{option.name}
+							</Button>
 							<Separator className="w-full my-2" />
 						</div>
 					))}
