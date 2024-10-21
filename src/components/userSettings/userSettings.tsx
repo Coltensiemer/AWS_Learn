@@ -13,22 +13,97 @@ import Image from 'next/image';
 import { Separator } from '@atomic/separator';
 import { signOut } from 'aws-amplify/auth';
 import { useRouter } from 'next/navigation';
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from '@atomic/accordion';
+
 /// Profile pic
 // Name
 // Security
 //Theme
 //Logout
 
+const ProfileAccordion = () => {
+	return (
+		<Accordion type="single" collapsible>
+			<AccordionItem value="item-1">
+				<AccordionTrigger>
+					<div className="flex gap-2">
+						<Image
+							src="/profile-icon.svg"
+							alt="profile"
+							width={14}
+							height={14}
+							style={{
+								cursor: 'pointer',
+							}}
+							priority={false}
+						/>
+						Profile Settings
+					</div>
+				</AccordionTrigger>
+				<AccordionContent>
+					<div>
+						<Button variant="link">Profile Picture</Button>
+						<Separator className="w-full my-2" />
+					</div>
+					<div>
+						<Button variant="link">Name</Button>
+						<Separator className="w-full my-2" />
+					</div>
+				</AccordionContent>
+			</AccordionItem>
+		</Accordion>
+	);
+};
+
+const SecurityAccordion = () => {
+	const secuirty_settings = [
+		{
+			name: 'Change Password',
+		},
+		{
+			name: 'Delete Account',
+		},
+	];
+	return (
+		<Accordion type="single" collapsible>
+			<AccordionItem value="item-1">
+				<AccordionTrigger>
+					<div className="flex gap-2">
+						<Image
+							src="/settings-Icon.svg"
+							alt="Settings"
+							width={14}
+							height={14}
+							style={{
+								cursor: 'pointer',
+							}}
+							priority={false}
+						/>
+						Security Settings
+					</div>
+				</AccordionTrigger>
+				<AccordionContent>
+					{secuirty_settings.map((setting) => (
+						<div key={setting.name}>
+							<Button variant="link">{setting.name}</Button>
+							<Separator className="w-full my-2" />
+						</div>
+					))}
+				</AccordionContent>
+			</AccordionItem>
+		</Accordion>
+	);
+};
+
 export const UserSettings = () => {
 	const router = useRouter();
 
 	const setting_options = [
-		{
-			name: 'Profile',
-		},
-		{
-			name: 'Security',
-		},
 		{
 			name: 'Logout',
 			handler: () => signOut().then(() => router.push('/')),
@@ -39,10 +114,10 @@ export const UserSettings = () => {
 		<Sheet>
 			<SheetTrigger>
 				<Image
-					src="/settings-Icon.svg"
-					alt="Settings"
-					width={24}
-					height={24}
+					src="/menu-meatballs.svg"
+					alt="Menu"
+					width={14}
+					height={14}
 					style={{
 						cursor: 'pointer',
 					}}
@@ -57,12 +132,26 @@ export const UserSettings = () => {
 					Manage your account settings
 				</SheetDescription>
 				<div className="flex flex-col space-y-5">
+					<ProfileAccordion />
+					<SecurityAccordion />
 					{setting_options.map((option) => (
 						<div key={option.name}>
-							<Button variant="link" onClick={option.handler}>
-								{option.name}
-							</Button>
 							<Separator className="w-full my-2" />
+							<div className="flex">
+								<Image
+									src="/log-out-icon.svg"
+									alt="Logout"
+									width={14}
+									height={14}
+									style={{
+										cursor: 'pointer',
+									}}
+									priority={false}
+								/>
+								<Button variant="link" onClick={option.handler}>
+									{option.name}
+								</Button>
+							</div>
 						</div>
 					))}
 				</div>
