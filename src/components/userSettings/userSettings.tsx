@@ -11,7 +11,11 @@ import {
 import { Button } from '@atomic/button/button';
 import Image from 'next/image';
 import { Separator } from '@atomic/separator';
-import { signOut } from 'aws-amplify/auth';
+import {
+	signOut,
+	type FetchUserAttributesOutput,
+	fetchUserAttributes,
+} from 'aws-amplify/auth';
 import { useRouter } from 'next/navigation';
 import {
 	Accordion,
@@ -19,6 +23,8 @@ import {
 	AccordionItem,
 	AccordionTrigger,
 } from '@atomic/accordion';
+import { useState, useEffect } from 'react';
+import { User } from 'lucide-react';
 
 /// Profile pic
 // Name
@@ -102,6 +108,20 @@ const SecurityAccordion = () => {
 
 export const UserSettings = () => {
 	const router = useRouter();
+	const [user, setUser] = useState<FetchUserAttributesOutput | null>(null);
+
+	const getUser = async () => {
+		try {
+			const currentUser = await fetchUserAttributes();
+			setUser(currentUser);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	useEffect(() => {
+		getUser();
+	}, []);
 
 	const setting_options = [
 		{
@@ -126,7 +146,7 @@ export const UserSettings = () => {
 			</SheetTrigger>
 			<SheetContent>
 				<SheetHeader>
-					<SheetTitle>Settings</SheetTitle>
+					<SheetTitle>{user?.name}</SheetTitle>
 				</SheetHeader>
 				<SheetDescription>
 					Manage your account settings

@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { Hub } from 'aws-amplify/utils';
 import { Button } from './atomic/button/button';
 import { signOut } from 'aws-amplify/auth';
-import { Sheet, SheetTrigger } from './atomic/sheet/sheet';
 import { UserSettings } from './userSettings/userSettings';
 
 export default function Header({ isSignedIn }: { isSignedIn: boolean }) {
@@ -48,6 +47,11 @@ export default function Header({ isSignedIn }: { isSignedIn: boolean }) {
 		{
 			href: '/',
 			label: 'Home',
+			loggedIn: false,
+		},
+		{
+			href: '/options',
+			label: 'Quiz Menu',
 		},
 		{
 			href: '/dashboard',
