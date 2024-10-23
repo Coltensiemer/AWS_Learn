@@ -110,12 +110,15 @@ export const UserSettings = () => {
 	const router = useRouter();
 	const [user, setUser] = useState<FetchUserAttributesOutput | null>(null);
 
+	///Unable to fetch user attributes due to IAM Identity Pool rules
 	const getUser = async () => {
 		try {
 			const currentUser = await fetchUserAttributes();
 			setUser(currentUser);
+			console.log(currentUser, 'user');
 		} catch (error) {
 			console.error(error);
+			console.log('error with getUser');
 		}
 	};
 
@@ -146,7 +149,9 @@ export const UserSettings = () => {
 			</SheetTrigger>
 			<SheetContent>
 				<SheetHeader>
-					<SheetTitle>{user?.name}</SheetTitle>
+					<SheetTitle>
+						{user?.preferred_username?.toLocaleUpperCase()}
+					</SheetTitle>
 				</SheetHeader>
 				<SheetDescription>
 					Manage your account settings
