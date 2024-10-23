@@ -1,11 +1,11 @@
 export default function QuizLayout({
-	children, 
-  }: {
-	children: React.ReactNode
-  }) {
+	children,
+}: {
+	children: React.ReactNode;
+}) {
 	return (
-	  <section className="flex justify-center items-center min-h-screen">
-		{children}
-	  </section>
-	)
-  }
+		<section className="flex justify-center items-center min-h-screen">
+			{children}
+		</section>
+	);
+}
