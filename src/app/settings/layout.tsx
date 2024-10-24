@@ -10,16 +10,12 @@ export default function SettignsLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<SidebarProvider>
-			<UserSettingsSidebar />
-			<section>
-				<aside>
-					<SidebarTrigger />
-				</aside>
-				<div className="flex justify-center m-4 min-h-screen">
-					{children}
-				</div>
-			</section>
-		</SidebarProvider>
+		<div className="flex justify-center border">
+			<aside className=" w-1/3"></aside>
+			<SidebarProvider>
+				<UserSettingsSidebar />
+			</SidebarProvider>
+			<section className="flex w-full  min-h-screen">{children}</section>
+		</div>
 	);
 }

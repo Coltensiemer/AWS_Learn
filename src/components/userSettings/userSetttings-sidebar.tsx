@@ -26,9 +26,9 @@ const settings = [
 
 export function UserSettingsSidebar() {
 	return (
-		<Sidebar>
+		<Sidebar collapsible="none">
 			<SidebarHeader>
-				<h1>User Settings</h1>
+				<h1>Settings</h1>
 			</SidebarHeader>
 			<SidebarContent>
 				<SidebarGroup>
@@ -45,3 +45,25 @@ export function UserSettingsSidebar() {
 		</Sidebar>
 	);
 }
+
+// export function UserSettingsSidebar() {
+// 	return (
+// 		<Sidebar collapsible="none">
+// 			<SidebarHeader>
+// 				<h1>User Settings</h1>
+// 			</SidebarHeader>
+// 			<SidebarContent>
+// 				<SidebarGroup>
+// 					{settings.map((setting, index) => (
+// 						<div key={index}>
+// 							<h2>{setting.title}</h2>
+// 							<Separator className="w-full" />
+// 						</div>
+// 					))}
+// 				</SidebarGroup>
+// 				<SidebarGroup />
+// 			</SidebarContent>
+// 			<SidebarFooter />
+// 		</Sidebar>
+// 	);
+// }

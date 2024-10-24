@@ -65,7 +65,7 @@ export default function Header({ isSignedIn }: { isSignedIn: boolean }) {
 	);
 
 	return (
-		<header className="fixed w-full container flex px-10 m-2">
+		<header className=" z-50 w-full flex px-10 m-2 bg-white">
 			<h1 className="font-bold flex self-center text-sm md:text-xl mr-auto">
 				AWS Quiz
 			</h1>

@@ -17,7 +17,7 @@ const profileSettings = [
 export default function UserSettings() {
 	return (
 		<div className="border border-red-400">
-			<h1>Public Profile</h1>
+			<h1 className="font-bold">Public Profile</h1>
 			<Separator className="w-full" />
 			{profileSettings.map((item) => (
 				<div>
