@@ -11,11 +11,11 @@ export default function SettignsLayout({
 }) {
 	return (
 		<div className="flex justify-center border">
-			<aside className=" w-1/3"></aside>
+			<aside className="md:w-1/4"></aside>
 			<SidebarProvider>
 				<UserSettingsSidebar />
 			</SidebarProvider>
-			<section className="flex w-full  min-h-screen">{children}</section>
+			<section className="ml-2 w-2/3 min-h-screen">{children}</section>
 		</div>
 	);
 }
