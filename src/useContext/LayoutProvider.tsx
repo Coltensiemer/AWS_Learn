@@ -2,6 +2,7 @@
 
 import { QuizProgressProvider } from './QuizProgressContext';
 import { AuthProvider } from '../components/auth/AuthProvider';
+import { UserProvider } from './UserAuthProvider';
 
 export default function LayoutProvider({
 	children,
@@ -10,7 +11,9 @@ export default function LayoutProvider({
 }) {
 	return (
 		<AuthProvider>
-			<QuizProgressProvider>{children}</QuizProgressProvider>;
+			<UserProvider>
+				<QuizProgressProvider>{children}</QuizProgressProvider>;
+			</UserProvider>
 		</AuthProvider>
 	);
 }

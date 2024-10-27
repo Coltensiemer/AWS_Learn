@@ -24,6 +24,7 @@ import {
 	AccordionTrigger,
 } from '@atomic/accordion';
 import { useState, useEffect } from 'react';
+import { User } from 'lucide-react';
 
 /// Profile pic
 // Name
@@ -114,6 +115,7 @@ export const UserSettings = () => {
 		try {
 			const currentUser = await fetchUserAttributes();
 			setUser(currentUser);
+			console.log(currentUser, 'user');
 		} catch (error) {
 			console.error(error);
 			console.log('error with getUser');
