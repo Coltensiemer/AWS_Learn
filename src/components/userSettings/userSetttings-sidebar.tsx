@@ -22,11 +22,11 @@ import { Separator } from '@atomic/separator';
 const settings = [
 	{
 		title: 'Profile Settings',
-		link: 'settings/profile',
+		link: '/settings/profile',
 	},
 	{
 		title: 'Security Settings',
-		link: '/security',
+		link: '/settings/security',
 	},
 ];
 

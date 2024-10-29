@@ -10,7 +10,6 @@ import {
 } from '@atomic/sheet/sheet';
 import { Button } from '@atomic/button/button';
 import Image from 'next/image';
-import { Separator } from '@atomic/separator';
 import {
 	signOut,
 	type FetchUserAttributesOutput,
@@ -24,8 +23,6 @@ import {
 	AccordionTrigger,
 } from '@atomic/accordion';
 import { useState, useEffect } from 'react';
-import { User } from 'lucide-react';
-import { handler } from '@root/backend/lib/layers/prisma_layer';
 
 /// Profile pic
 // Name
@@ -34,11 +31,20 @@ import { handler } from '@root/backend/lib/layers/prisma_layer';
 //Logout
 
 const ProfileAccordion = () => {
+	const router = useRouter();
+
+	const profile_settings = [
+		{
+			name: 'View Profile',
+			handler: () => router.push('/settings/profile'),
+		},
+	];
+
 	return (
 		<Accordion type="single" collapsible>
 			<AccordionItem value="item-1">
 				<AccordionTrigger>
-					<div className="flex gap-2">
+					<h2 className="flex gap-2">
 						<Image
 							src="/profile-icon.svg"
 							alt="profile"
@@ -50,17 +56,20 @@ const ProfileAccordion = () => {
 							priority={false}
 						/>
 						Profile Settings
-					</div>
+					</h2>
 				</AccordionTrigger>
 				<AccordionContent>
-					<div>
-						<Button variant="link">Profile Picture</Button>
-						<Separator className="w-full my-2" />
-					</div>
-					<div>
-						<Button variant="link">Name</Button>
-						<Separator className="w-full my-2" />
-					</div>
+					{profile_settings.map((setting) => (
+						<div key={setting.name}>
+							<Button
+								size="sm"
+								variant="link"
+								onClick={setting.handler}
+							>
+								{setting.name}
+							</Button>
+						</div>
+					))}
 				</AccordionContent>
 			</AccordionItem>
 		</Accordion>
@@ -74,16 +83,12 @@ const SecurityAccordion = () => {
 			name: 'Change Password',
 			handler: () => router.push('/settings'),
 		},
-		{
-			name: 'Delete Account',
-			handler: () => router.push('/settings'),
-		},
 	];
 	return (
 		<Accordion type="single" collapsible>
 			<AccordionItem value="item-1">
 				<AccordionTrigger>
-					<div className="flex gap-2">
+					<h2 className="flex gap-2">
 						<Image
 							src="/settings-Icon.svg"
 							alt="Settings"
@@ -95,15 +100,18 @@ const SecurityAccordion = () => {
 							priority={false}
 						/>
 						Security Settings
-					</div>
+					</h2>
 				</AccordionTrigger>
 				<AccordionContent>
 					{secuirty_settings.map((setting) => (
 						<div key={setting.name}>
-							<Button variant="link" onClick={setting.handler}>
+							<Button
+								variant="link"
+								size="sm"
+								onClick={setting.handler}
+							>
 								{setting.name}
 							</Button>
-							<Separator className="w-full my-2" />
 						</div>
 					))}
 				</AccordionContent>
@@ -167,7 +175,6 @@ export const UserSettings = () => {
 					<SecurityAccordion />
 					{setting_options.map((option) => (
 						<div key={option.name}>
-							<Separator className="w-full my-2" />
 							<div className="flex">
 								<Image
 									src="/log-out-icon.svg"
