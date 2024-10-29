@@ -25,6 +25,7 @@ import {
 } from '@atomic/accordion';
 import { useState, useEffect } from 'react';
 import { User } from 'lucide-react';
+import { handler } from '@root/backend/lib/layers/prisma_layer';
 
 /// Profile pic
 // Name
@@ -67,12 +68,15 @@ const ProfileAccordion = () => {
 };
 
 const SecurityAccordion = () => {
+	const router = useRouter();
 	const secuirty_settings = [
 		{
 			name: 'Change Password',
+			handler: () => router.push('/settings'),
 		},
 		{
 			name: 'Delete Account',
+			handler: () => router.push('/settings'),
 		},
 	];
 	return (
@@ -96,7 +100,9 @@ const SecurityAccordion = () => {
 				<AccordionContent>
 					{secuirty_settings.map((setting) => (
 						<div key={setting.name}>
-							<Button variant="link">{setting.name}</Button>
+							<Button variant="link" onClick={setting.handler}>
+								{setting.name}
+							</Button>
 							<Separator className="w-full my-2" />
 						</div>
 					))}

@@ -5,6 +5,7 @@ import {
 	SidebarGroup,
 	SidebarHeader,
 } from '@atomic/sidebar/sidebar';
+import Link from 'next/link';
 
 import { Separator } from '@atomic/separator';
 
@@ -21,6 +22,11 @@ import { Separator } from '@atomic/separator';
 const settings = [
 	{
 		title: 'Profile Settings',
+		link: 'settings/profile',
+	},
+	{
+		title: 'Security Settings',
+		link: '/security',
 	},
 ];
 
@@ -36,7 +42,9 @@ export function UserSettingsSidebar() {
 				<SidebarGroup>
 					{settings.map((setting, index) => (
 						<div key={index}>
-							<h2>{setting.title}</h2>
+							<Link href={setting.link}>
+								<h2>{setting.title}</h2>
+							</Link>
 							<Separator className="w-full" />
 						</div>
 					))}
