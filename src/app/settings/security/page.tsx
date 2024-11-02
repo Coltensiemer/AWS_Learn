@@ -1,78 +1,74 @@
 'use client';
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { UserContext } from '@root/src/useContext/UserAuthProvider';
-import { useContext, useEffect } from 'react';
 import { Separator } from '@root/src/components/atomic/separator';
 import {
-	signOut,
-	resetPassword,
-	type ResetPasswordInput,
-} from 'aws-amplify/auth';
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from '@atomic/accordion';
+import { signOut } from 'aws-amplify/auth';
 import { Button } from '@root/src/components/atomic/button/button';
-import ResetPasswordForm from '@root/src/components/userSettings/security/resetPassword';
+import ResetPasswordForm from '@root/src/components/userSettings/security/ResetPasswordForm';
+import { AccordionHeader } from '@radix-ui/react-accordion';
 
-const handleResetPassword = (username: string | undefined) => {
-	if (typeof username !== 'string')
-		throw new Error('Username is not defined');
-	resetPassword({ username: username })
-		.then((output) => {
-			const { nextStep } = output;
-			switch (nextStep.resetPasswordStep) {
-				case 'CONFIRM_RESET_PASSWORD_WITH_CODE':
-					const codeDeliveryDetails = nextStep.codeDeliveryDetails;
-					console.log(
-						`Confirmation code was sent to ${codeDeliveryDetails.deliveryMedium}`
-					);
-					// Collect and confirm code here if necessary
-					break;
-				case 'DONE':
-					console.log('Successfully reset password.');
-					break;
-				default:
-					console.log('Unexpected step');
-			}
-		})
-		.catch((error) => {
-			console.error('Error resetting password:', error);
-		});
-};
-//Confirmation code was sent to EMAIL
-// 014107
+interface AccordionProps {
+	name: string;
+	header: string | null;
+	component: any;
+}
+
+export function AccordionDropDown({ name, header, component }: AccordionProps) {
+	return (
+		<Accordion type="single" collapsible className="w-3/4">
+			<AccordionItem value="item-1">
+				<AccordionTrigger className="text-lg">{name}</AccordionTrigger>
+				<AccordionContent>{component}</AccordionContent>
+				<AccordionHeader>{header}</AccordionHeader>
+			</AccordionItem>
+		</Accordion>
+	);
+}
 
 export default function Security() {
-	const user = useContext(UserContext);
 	const router = useRouter();
 
-	const email = user?.user?.email;
-	// if (email === undefined) {
-	// 	throw new Error('Email is not defined');
-	// }
-	console.log(user?.user?.email, 'email in security');
 	const Security_Settings = [
 		{
-			name: 'Change Password',
-			handler: () => handleResetPassword(email),
+			name: 'Password',
+			description: 'Change your password',
+			accordion: true,
+			accordionComponent: <ResetPasswordForm />,
 		},
 		{
 			name: 'Logout',
 			handler: () => signOut().then(() => router.push('/')),
+			description: null,
+			accordion: false,
 		},
 	];
 
 	return (
 		<div>
 			<h1>Security</h1>
+			<Separator />
 			<ul>
 				{Security_Settings.map((setting) => (
 					<div key={setting.name} className="pb-10 space-y-2">
-						<h2 key={setting.name} onClick={setting.handler}>
-							{setting.name}
-						</h2>
-						<Separator />
+						{setting.accordion ? (
+							<AccordionDropDown
+								name={setting.name}
+								component={setting.accordionComponent}
+								header={setting.description}
+							/>
+						) : (
+							<Button onClick={setting.handler}>
+								{setting.name}
+							</Button>
+						)}
 					</div>
 				))}
-				<ResetPasswordForm />
 			</ul>
 		</div>
 	);
