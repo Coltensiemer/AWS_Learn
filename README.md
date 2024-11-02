@@ -66,6 +66,8 @@ SRC
 │   │   │   │   ├── layout
 │   │   │   │   ├── loading
 │   │   │   │   └── page
+|   ├── dashboard
+|   ├── settings
 │   ├── global.css
 │   ├── layout.tsx  # Top-level layout component
 │   └── page.tsx    # Top-level page component
@@ -86,10 +88,13 @@ SRC
 │   ├── page.tsx    # Top-level page component
 └── components
      ├── atomic   # Atomic design components
+     ├── auth   # Auth components client/provider
      ├── home     # Home-related components
+     ├── hooks   # Shadcn hooks for mobile media
      ├── options  # Components related to options
      ├── quiz     # Quiz-related component
      ├── results  # Results-related components
+     ├── settings   # settings page components
      ├── footer   # Footer components
      ├── header   # Header components
      └── toast    # Toast components
@@ -101,7 +106,7 @@ SRC
 1. Install Node.js and npm if not already installed.
 2. Clone the repository:
    `
-   git clone <repository_url>`
+git clone <repository_url>`
 3. Install dependencies:
    `
    npm install

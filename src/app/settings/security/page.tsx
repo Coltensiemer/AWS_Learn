@@ -10,7 +10,7 @@ import {
 } from '@atomic/accordion';
 import { signOut } from 'aws-amplify/auth';
 import { Button } from '@root/src/components/atomic/button/button';
-import ResetPasswordForm from '@root/src/components/userSettings/security/ResetPasswordForm';
+import ResetPasswordForm from '@root/src/components/settings/security/ResetPasswordForm';
 import { AccordionHeader } from '@radix-ui/react-accordion';
 
 interface AccordionProps {

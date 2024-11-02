@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Hub } from 'aws-amplify/utils';
 import { Button } from './atomic/button/button';
 import { signOut } from 'aws-amplify/auth';
-import { UserSettings } from './userSettings/userSettings';
+import { UserSettings } from './settings/userSettings';
 
 export default function Header({ isSignedIn }: { isSignedIn: boolean }) {
 	const [authCheck, setAuthCheck] = useState(isSignedIn);

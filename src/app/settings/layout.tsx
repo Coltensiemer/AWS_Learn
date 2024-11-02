@@ -2,7 +2,7 @@ import {
 	SidebarProvider,
 	SidebarTrigger,
 } from '@root/src/components/atomic/sidebar/sidebar';
-import { UserSettingsSidebar } from '@root/src/components/userSettings/userSetttings-sidebar';
+import { UserSettingsSidebar } from '@root/src/components/settings/userSetttings-sidebar';
 
 export default function SettignsLayout({
 	children,
