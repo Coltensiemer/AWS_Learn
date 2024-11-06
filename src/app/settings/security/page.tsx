@@ -12,6 +12,7 @@ import { signOut } from 'aws-amplify/auth';
 import { Button } from '@root/src/components/atomic/button/button';
 import ResetPasswordForm from '@root/src/components/settings/security/ResetPasswordForm';
 import { AccordionHeader } from '@radix-ui/react-accordion';
+import DeleteUserUI from '@root/src/components/settings/security/deleteUserUI';
 
 interface AccordionProps {
 	name: string;
@@ -40,6 +41,12 @@ export default function Security() {
 			description: 'Change your password',
 			accordion: true,
 			accordionComponent: <ResetPasswordForm />,
+		},
+		{
+			name: 'Delete Account',
+			description: 'Deleting your account is permanent',
+			accordion: true,
+			accordionComponent: <DeleteUserUI />,
 		},
 		{
 			name: 'Logout',
