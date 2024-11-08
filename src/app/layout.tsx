@@ -5,7 +5,6 @@ import LayoutProvider from '../useContext/LayoutProvider';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { isAuthenticated } from '@amplify/utils/amplifyServerUtils';
-import { Separator } from '@atomic/separator';
 
 const inter = Inter({ subsets: ['latin'] });
 
