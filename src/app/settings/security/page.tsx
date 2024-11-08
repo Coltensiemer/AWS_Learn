@@ -12,7 +12,7 @@ import { signOut } from 'aws-amplify/auth';
 import { Button } from '@root/src/components/atomic/button/button';
 import ResetPasswordForm from '@root/src/components/settings/security/ResetPasswordForm';
 import { AccordionHeader } from '@radix-ui/react-accordion';
-import DeleteUserUI from '@root/src/components/settings/security/deleteUserUI';
+import DeleteUserUI from '@root/src/components/settings/security/DeleteUserUI';
 
 interface AccordionProps {
 	name: string;

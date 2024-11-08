@@ -21,16 +21,18 @@ import { Separator } from '@atomic/separator';
 
 const settings = [
 	{
-		title: 'Profile Settings',
+		title: 'Profile',
 		link: '/settings/profile',
 	},
 	{
-		title: 'Security Settings',
+		title: 'Appearance',
+		link: '/settings/appearance',
+	},
+	{
+		title: 'Security',
 		link: '/settings/security',
 	},
 ];
-
-//
 
 export function UserSettingsSidebar() {
 	return (

@@ -1,8 +1,12 @@
+// LayoutProvider.tsx
+
 'use client';
 
+import React from 'react';
 import { QuizProgressProvider } from './QuizProgressContext';
 import { AuthProvider } from '../components/auth/AuthProvider';
 import { UserProvider } from './UserAuthProvider';
+import { ThemeProvider } from './ThemeProvider';
 
 export default function LayoutProvider({
 	children,
@@ -10,10 +14,12 @@ export default function LayoutProvider({
 	children: React.ReactNode;
 }) {
 	return (
-		<AuthProvider>
-			<UserProvider>
-				<QuizProgressProvider>{children}</QuizProgressProvider>;
-			</UserProvider>
-		</AuthProvider>
+		<ThemeProvider>
+			<AuthProvider>
+				<UserProvider>
+					<QuizProgressProvider>{children}</QuizProgressProvider>
+				</UserProvider>
+			</AuthProvider>
+		</ThemeProvider>
 	);
 }

@@ -11,8 +11,8 @@ export default function UserSettings() {
 	const profileSettings = [
 		{
 			title: 'Name',
-			description: 'Preferred User Name.',
-			input: true,
+			description: 'Your viewable name. This name can not be changed',
+			input: false,
 			value_input: user?.user?.preferred_username,
 		},
 		{
@@ -26,7 +26,7 @@ export default function UserSettings() {
 	return (
 		<div className="">
 			<h1 className="font-bold">Public Profile</h1>
-			<Separator className="w-full" />
+			<Separator className="w-1/2" />
 			{profileSettings.map((item) => (
 				<div key={item.title} className="pb-10 space-y-2">
 					<h2 className="bold">{item.title}</h2>
@@ -38,7 +38,7 @@ export default function UserSettings() {
 					/>
 
 					<h3>{item.description}</h3>
-					<Separator className="w-full" />
+					<Separator className="w-1/2" />
 				</div>
 			))}
 			<Button variant="outline">Save</Button>
