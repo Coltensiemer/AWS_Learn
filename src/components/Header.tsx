@@ -7,6 +7,7 @@ import { Hub } from 'aws-amplify/utils';
 import { Button } from './atomic/button/button';
 import { signOut } from 'aws-amplify/auth';
 import { UserSettings } from './settings/userSettings';
+import ThemeSwitch from './ThemeSwitch';
 
 export default function Header({ isSignedIn }: { isSignedIn: boolean }) {
 	const [authCheck, setAuthCheck] = useState(isSignedIn);
@@ -65,7 +66,7 @@ export default function Header({ isSignedIn }: { isSignedIn: boolean }) {
 	);
 
 	return (
-		<header className=" z-50 w-full flex px-10 m-2 bg-white">
+		<header className=" z-50 w-full flex px-10 m-2 p-2">
 			<h1 className="font-bold flex self-center text-sm md:text-xl mr-auto">
 				AWS Quiz
 			</h1>
@@ -88,6 +89,9 @@ export default function Header({ isSignedIn }: { isSignedIn: boolean }) {
 								Sign In
 							</Button>
 						)}
+					</li>
+					<li className="flex">
+						<ThemeSwitch />
 					</li>
 				</ul>
 			</nav>

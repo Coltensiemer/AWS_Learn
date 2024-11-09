@@ -20,7 +20,7 @@ interface AccordionProps {
 	component: any;
 }
 
-export function AccordionDropDown({ name, header, component }: AccordionProps) {
+function AccordionDropDown({ name, header, component }: AccordionProps) {
 	return (
 		<Accordion type="single" collapsible className="w-3/4">
 			<AccordionItem value="item-1">
