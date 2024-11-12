@@ -105,8 +105,8 @@ SRC
 
 1. Install Node.js and npm if not already installed.
 2. Clone the repository:
-   `
-git clone <repository_url>`
+`
+   git clone <repository_url>`
 3. Install dependencies:
    `
    npm install
