@@ -18,6 +18,7 @@ import * as path from 'path';
 import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 import * as Congito from 'aws-cdk-lib/aws-cognito';
 import dotenv from 'dotenv';
+import { NodePath } from '@babel/core';
 
 dotenv.config();
 
@@ -118,15 +119,15 @@ export class BackendStack extends Stack {
 		 * Prisma ORM Layer for Lambda.
 		 * Bundles the Prisma ORM with the Lambda functions that will be using it
 		 */
-		const apiPrismaLayer = new lambda.LayerVersion(
+		const PostgresLayer = new lambda.LayerVersion(
 			this,
-			'APILayerWithPrisma',
+			'APILayerforPostgres',
 			{
 				code: lambda.Code.fromAsset(
-					path.join(__dirname, './layers/prisma.zip')
+					path.join(__dirname, './layers/postgreslayer.zip')
 				),
 				compatibleRuntimes: [lambda.Runtime.NODEJS_20_X],
-				description: 'Prisma ORM Layer',
+				description: 'Postgres Layer',
 			}
 		);
 
@@ -153,14 +154,10 @@ export class BackendStack extends Stack {
 			const lambdaFunction = new ln.NodejsFunction(this, name, {
 				...nodejsFunctionProps,
 				entry: path.join(__dirname, `../api/${entry}/index.ts`),
-				environment: {
-					//! Add the database URL to the environment variables for Prisma?
-					DATABASE_URL: '',
-				},
+				layers: [PostgresLayer],
 				vpcSubnets: {
 					subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
 				},
-				layers: [apiPrismaLayer],
 			});
 
 			rdsInstance.secret?.grantRead(lambdaFunction);
