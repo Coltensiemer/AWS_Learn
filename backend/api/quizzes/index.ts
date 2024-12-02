@@ -11,11 +11,11 @@ enum QuestionRoute {
 
 const { Pool, Client } = require('pg');
 const pool = new Pool({
-	user: 'postgres',
-	host: 'backendstack-myrdsinstancefb602cdd-m5cukrhv6urm.ctgyyw4k68al.us-east-2.rds.amazonaws.com',
-	database: 'TestDB',
-	password: 'nxefdmNV-KK-sz,LIOMej7BPacYRXg',
-	port: 5432,
+	user: process.env.user,
+	host: process.env.host,
+	database: process.env.database,
+	password: process.env.password,
+	port: process.env.port,
 });
 
 export const handler = async (
