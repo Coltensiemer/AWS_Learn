@@ -2,13 +2,10 @@
 
 import { cookies } from 'next/headers';
 import { generateCookieID } from '../../src/functions/generateSessionID/generateCookieID';
-import prisma from '../../prisma/prisma';
 import { redirect } from 'next/navigation';
 import { fetchAuthSession } from 'aws-amplify/auth';
 import { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-
-
 
 export async function getSession() {
 	// Retrieve the OneTimeSessionID cookie value
@@ -29,16 +26,15 @@ export async function createCookie() {
 }
 
 export async function UserTestResults(sessionID: string) {
-	const sessiondata = await prisma.fakeuser.findFirst({
-		///change so it only recieves the last quiz
-		where: {
-			cookieid: sessionID,
-		},
-		include: { completedquiz: true },
-		orderBy: {
-			createdAt: 'desc',
-		},
-	});
-
-	return sessiondata;
+	// const sessiondata = await prisma.fakeuser.findFirst({
+	// 	///change so it only recieves the last quiz
+	// 	where: {
+	// 		cookieid: sessionID,
+	// 	},
+	// 	include: { completedquiz: true },
+	// 	orderBy: {
+	// 		createdAt: 'desc',
+	// 	},
+	// });
+	// return sessiondata;
 }

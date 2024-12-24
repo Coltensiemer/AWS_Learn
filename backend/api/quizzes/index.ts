@@ -1,6 +1,4 @@
-import prisma from '../../../prisma/prisma';
 import { APIGatewayEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
-import { QuestionType } from '../../../prisma/dataTypes';
 
 const DefaultHeaders = {
 	'Access-Control-Allow-Origin': '*',
@@ -11,47 +9,62 @@ enum QuestionRoute {
 	GET_QUESTIONS = 'GET /api/quizzes',
 }
 
-//Test to get all quiz questions
+const { Pool, Client } = require('pg');
+const pool = new Pool({
+	user: process.env.user,
+	host: process.env.host,
+	database: process.env.database,
+	password: process.env.password,
+	port: process.env.port,
+});
 
-export const handler = async (event: APIGatewayEvent, context: Context) => {
-	let response: Promise<APIGatewayProxyResult>;
-	console.log('hhtpMethod', event.httpMethod);
-	console.log('Resource', event.resource);
-	console.log('path', event.path);
-
-	switch (`${event.httpMethod} ${event.resource}`) {
-		case QuestionRoute.GET_QUESTIONS:
-			response = getQuestions(event);
-			break;
-		default:
-			response = Promise.resolve({
-				statusCode: 404,
-				headers: { ...DefaultHeaders },
-				body: JSON.stringify({ message: 'Route Not Found' }),
-			});
-			break;
-	}
-	return response;
-};
-
-const getQuestions = async (
-	event: APIGatewayEvent
+export const handler = async (
+	event: APIGatewayEvent,
+	context: Context
 ): Promise<APIGatewayProxyResult> => {
-	const results = await prisma.quiz.findMany();
+	console.log('httpMethod:', event.httpMethod);
+	console.log('Resource:', event.resource);
+	console.log('Path:', event.path);
 
-	if (results.length === 0) {
+	try {
+		await pool.connect(); // Make sure you connect to the DB before processing
+
+		switch (`${event.httpMethod} ${event.resource}`) {
+			case 'GET /api/quizzes':
+				try {
+					const res = await pool.query('SELECT * FROM quiz');
+					console.log(res);
+
+					return {
+						statusCode: 200,
+						body: JSON.stringify(res.rows), // Assuming you want to return rows from the query
+					};
+				} catch (err) {
+					console.error('Error querying the database:', err);
+					return {
+						statusCode: 500,
+						body: JSON.stringify({
+							message: 'Internal Server Error',
+						}),
+					};
+				}
+				break;
+
+			default:
+				return {
+					statusCode: 404,
+					body: JSON.stringify({ message: 'Route Not Found' }),
+				};
+		}
+	} catch (err) {
+		console.error('Database connection error:', err);
 		return {
-			statusCode: 404,
-			headers: DefaultHeaders,
-			body: JSON.stringify({ message: 'No questions found' }),
+			statusCode: 500,
+			body: JSON.stringify({ message: 'Internal Server Error' }),
 		};
+	} finally {
+		await pool.end(); // Ensure the DB connection is properly closed after handling the request
 	}
-
-	return {
-		statusCode: 200,
-		headers: DefaultHeaders,
-		body: JSON.stringify(results),
-	};
 };
 
 // const getQuestions = async (
