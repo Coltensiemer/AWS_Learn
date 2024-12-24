@@ -26,7 +26,6 @@ Users have the applility to select options on how they want their quiz and be ab
 -   [amplify] (#amplify) # The amplify directory that contains auth APIS.
 -   [backend] (#backend) # The backend directory contains cdk for the VPC and the APIs for lambda functions.
 -   [lib] (#lib) # The lib directory contains resuable code that is used for functionalities.
--   [prisma] (#prisma) # The prisma directory typically contains configuration and schema files for Prisma, a modern database toolkit.
 -   [public] (#public) # The public directory contains static assets that are served directly by the web server, such as images, fonts, and other files.
 -   [src] (#src) # The src directory is the main source directory of the project. It contains all the source code for the application.
     -   [app] (#app) # The app directory may contain higher-level application-specific modules or configurations.
@@ -105,7 +104,7 @@ SRC
 
 1. Install Node.js and npm if not already installed.
 2. Clone the repository:
-`
+   `
    git clone <repository_url>`
 3. Install dependencies:
    `
@@ -133,19 +132,14 @@ SRC
 
 4. Create a .env
    `DATABASE_URL="postgresql://{username}:{password}@localhost:{port}/{dbName}?schema=SCHEMA"`
-5. How to seed developement DB run:
 
-```bash
-   npx prisma db seed
-```
-
-6. How to run StoryBook
+5. How to run StoryBook
 
 ```bash
    npm run storybook
 ```
 
-7. Additional scripts:
+6. Additional scripts:
     - `lint`: Run ESLint for linting.
     - `storybook`: Start Storybook development server.
     - `build-storybook`: Build Storybook static files.
