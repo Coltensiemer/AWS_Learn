@@ -1,49 +1,4 @@
-// import {
-// 	APIGatewayAuthorizerEvent,
-// 	APIGatewayAuthorizerResult,
-// 	Context,
-// } from 'aws-lambda';
 
-// // Generate an IAM policy document
-// const generateAuthResponse = (
-// 	principalId: string,
-// 	effect: string,
-// 	resource: string
-// ): APIGatewayAuthorizerResult => {
-// 	const policyDocument = {
-// 		Version: '2012-10-17',
-// 		Statement: [
-// 			{
-// 				Action: 'execute-api:Invoke',
-// 				Effect: effect,
-// 				Resource: resource,
-// 			},
-// 		],
-// 	};
-
-// 	return {
-// 		principalId,
-// 		policyDocument,
-// 	};
-// };
-
-// export const handler = async (
-// 	event: APIGatewayAuthorizerEvent,
-// 	context: Context
-// ): Promise<APIGatewayAuthorizerResult> => {
-// 	// Extract the header you want to evaluate
-// 	const headerValue = event.headers['x-custom-header']; // Replace 'x-custom-header' with your header name
-
-// 	const methodArn = event.methodArn;
-
-// 	if (headerValue === 'approve') {
-// 		// Generate an allow policy if the header matches 'approve'
-// 		return generateAuthResponse('user', 'Allow', methodArn);
-// 	} else {
-// 		// Generate a deny policy if the header does not match 'approve'
-// 		return generateAuthResponse('user', 'Deny', methodArn);
-// 	}
-// };
 // // // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // // SPDX-License-Identifier: MIT-0
 import {

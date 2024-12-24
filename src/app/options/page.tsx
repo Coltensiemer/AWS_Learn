@@ -5,7 +5,6 @@ import { Button } from '../../components/atomic/button/button';
 import QuizOption from '../../components/options/QuizOption';
 import { useContext, useEffect } from 'react';
 import { QuizProgressContext } from '../../useContext/QuizProgressContext';
-import { createCookie } from '../../../actions/cookieActions/cookieActions';
 
 export default function EasyQuestions() {
 	const QuizContext = useContext(QuizProgressContext);
@@ -16,10 +15,6 @@ export default function EasyQuestions() {
 	}
 
 	const { Tags, quizLength } = QuizContext;
-
-	useEffect(() => {
-		createCookie();
-	}, []);
 
 	return (
 		<>

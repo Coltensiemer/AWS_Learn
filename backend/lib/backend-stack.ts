@@ -18,7 +18,7 @@ import * as path from 'path';
 import * as secretsmanager from 'aws-cdk-lib/aws-secretsmanager';
 import * as Congito from 'aws-cdk-lib/aws-cognito';
 import dotenv from 'dotenv';
-import { NodePath } from '@babel/core';
+import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 
 dotenv.config();
 
@@ -95,22 +95,28 @@ export class BackendStack extends Stack {
 		);
 
 		/***************** RDS DATABASE SECTION **********************************/
-		const rdsInstance = new rds.DatabaseInstance(this, 'MyRdsInstance', {
-			vpc,
-			databaseName: 'TestDB',
-			subnetGroup: subNetGroup,
-			engine: rds.DatabaseInstanceEngine.postgres({
-				version: rds.PostgresEngineVersion.VER_16_3,
-			}),
-			instanceType: ec2.InstanceType.of(
-				ec2.InstanceClass.T3,
-				ec2.InstanceSize.MICRO
-			), // Change to free tier eligible instance
-			allocatedStorage: 20,
-			securityGroups: [securityGroup], // This is the security group created above to allow traffic from the Lambda function
-			credentials: rds.Credentials.fromGeneratedSecret('postgres'), // Automatically generates a password for the 'postgres' user
-			removalPolicy: RemovalPolicy.DESTROY,
-			publiclyAccessible: true,
+		// const rdsInstance = new rds.DatabaseInstance(this, 'MyRdsInstance', {
+		// 	vpc,
+		// 	databaseName: 'TestDB',
+		// 	subnetGroup: subNetGroup,
+		// 	engine: rds.DatabaseInstanceEngine.postgres({
+		// 		version: rds.PostgresEngineVersion.VER_16_3,
+		// 	}),
+		// 	instanceType: ec2.InstanceType.of(
+		// 		ec2.InstanceClass.T3,
+		// 		ec2.InstanceSize.MICRO
+		// 	), // Change to free tier eligible instance
+		// 	allocatedStorage: 20,
+		// 	securityGroups: [securityGroup], // This is the security group created above to allow traffic from the Lambda function
+		// 	credentials: rds.Credentials.fromGeneratedSecret('postgres'), // Automatically generates a password for the 'postgres' user
+		// 	removalPolicy: RemovalPolicy.DESTROY,
+		// 	publiclyAccessible: true,
+		// });
+
+		/*****************Dyamno DB ********************************* */
+
+		const dynamoTable = new dynamodb.Table(this, 'UsersTable', {
+			partitionKey: { name: 'id', type: dynamodb.AttributeType.STRING },
 		});
 
 		/*****************LAMBDA LAYERS SECTION **********************************/
@@ -119,17 +125,17 @@ export class BackendStack extends Stack {
 		 * Prisma ORM Layer for Lambda.
 		 * Bundles the Prisma ORM with the Lambda functions that will be using it
 		 */
-		const PostgresLayer = new lambda.LayerVersion(
-			this,
-			'APILayerforPostgres',
-			{
-				code: lambda.Code.fromAsset(
-					path.join(__dirname, './layers/postgreslayer.zip')
-				),
-				compatibleRuntimes: [lambda.Runtime.NODEJS_20_X],
-				description: 'Postgres Layer',
-			}
-		);
+		// const PostgresLayer = new lambda.LayerVersion(
+		// 	this,
+		// 	'APILayerforPostgres',
+		// 	{
+		// 		code: lambda.Code.fromAsset(
+		// 			path.join(__dirname, './layers/postgreslayer.zip')
+		// 		),
+		// 		compatibleRuntimes: [lambda.Runtime.NODEJS_20_X],
+		// 		description: 'Postgres Layer',
+		// 	}
+		// );
 
 		/*****************NODEJS FUNCTION SECTION **********************************/
 
@@ -154,15 +160,15 @@ export class BackendStack extends Stack {
 			const lambdaFunction = new ln.NodejsFunction(this, name, {
 				...nodejsFunctionProps,
 				entry: path.join(__dirname, `../api/${entry}/index.ts`),
-				layers: [PostgresLayer],
+				// layers: [PostgresLayer],
 				vpcSubnets: {
 					subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
 				},
 			});
 
-			rdsInstance.secret?.grantRead(lambdaFunction);
-			rdsInstance.grantConnect(lambdaFunction);
 			secret.grantRead(lambdaFunction);
+
+			dynamoTable.grantFullAccess(lambdaFunction);
 			return lambdaFunction;
 		};
 
